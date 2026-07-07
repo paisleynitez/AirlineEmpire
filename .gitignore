@@ -23,3 +23,6 @@ game/exports/*
 
 # Logs
 *.log
+
+# Local developer scratch space
+dev/
