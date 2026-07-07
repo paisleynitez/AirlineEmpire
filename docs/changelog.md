@@ -15,3 +15,11 @@
 - `docs/DEVELOPER_SETUP.md`
 - `docs/DECISIONS.md`
 - Organized `assets/`, `archive/`, `game/`, `tools/`, `tests/`, and `scripts/`.
+
+Milestone
+
+Completed CSS modularization.
+
+- All CSS extracted from index.html.
+- game/css/main.css is now the primary stylesheet.
+- Repository structure finalized.
