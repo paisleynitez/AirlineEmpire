@@ -38,8 +38,14 @@
       if(typeof _selectedLivery!=='undefined') window._selectedLivery='#8b6fe0';
       if(typeof _selectedLivery2!=='undefined') window._selectedLivery2='#e05c9e';
       if(typeof _selectedLiveryA!=='undefined') window._selectedLiveryA='#ffcf5a';
-      const name=document.getElementById('nh-name-input'); if(name && (!name.value || name.value==='SKYLINE')){ name.value='PaisleyAire'; name.dispatchEvent(new Event('input',{bubbles:true})); }
-    }catch(e){}
+const name=document.getElementById('nh-name-input');
+if(name && (!name.value || name.value==='SKYLINE')){
+  name.value='PaisleyAire';
+  if (typeof window.aeNameCheck === 'function') {
+    name.dispatchEvent(new Event('input',{bubbles:true}));
+  }
+}    
+}catch(e){}
   }
   const oldStart=window.startNewGame;
   if(typeof oldStart==='function') window.startNewGame=function(){ const r=oldStart.apply(this,arguments); setTimeout(setDefaults,80); setTimeout(()=>{try{ if(typeof wzRenderPage3==='function') wzRenderPage3(); if(typeof aeRenderPreview==='function') aeRenderPreview(); }catch(e){}},180); return r; };

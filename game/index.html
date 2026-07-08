@@ -616,38 +616,9 @@
   <div id="endgame-stats"></div>
 </div>
 
-<script>const SCENARIOS = [
-  { id:1, year:2024, name:'Startup Runway',
-    desc:'You\'ve secured seed funding and a single hub. Prove the model before the money runs out.',
-    cash:800, loan:600,
-    flavor:'A venture-backed startup with big dreams and a tight runway. Every route decision counts.',
-    startRoutes: 0, challenge:'reach profitability before cash hits zero' },
-  { id:2, year:2024, name:'Post-Merger Chaos',
-    desc:'Two mid-tier airlines just merged — you\'ve inherited a mess of overlapping routes and angry rivals.',
-    cash:1200, loan:900,
-    flavor:'Rationalize the combined network, cut losers, double down on winners. Integration is hard.',
-    startRoutes: 0, challenge:'build company value from the wreckage' },
-  { id:3, year:2024, name:'Ultra Long-Haul',
-    desc:'You\'re betting everything on direct ultra-long-haul. No short hops. Only the world\'s longest city pairs.',
-    cash:1500, loan:1100,
-    flavor:'The A350-1000 and 787-9 make routes like NYC→Singapore viable. Can you build an empire on them?',
-    startRoutes: 0, challenge:'dominate intercontinental travel' },
-  { id:4, year:2024, name:'Low-Cost Challenger',
-    desc:'You\'re the scrappy LCC disrupting legacy carriers. High frequency, thin margins, no frills.',
-    cash:1000, loan:750,
-    flavor:'Pack the A320neo and 737 MAX hard. Volume is your weapon. Premium cabins are the enemy.',
-    startRoutes: 0, challenge:'carry more passengers than any rival' },
-  { id:5, year:2024, name:'Carbon Neutral',
-    desc:'ESG mandate: you must grow while keeping your carbon footprint in check. Efficient aircraft only.',
-    cash:1100, loan:850,
-    flavor:'Investors demand sustainability. Fuel efficiency and load factors are your twin KPIs. No gas guzzlers.',
-    startRoutes: 0, challenge:'grow profitably using only fuel-efficient aircraft' },
-  { id:6, year:2024, name:'Regional Champion',
-    desc:'Dominate a single region first, then use that fortress to expand globally.',
-    cash:900, loan:700,
-    flavor:'Build an unassailable hub in one region before rivals can react. Local dominance first.',
-    startRoutes: 0, challenge:'lead your home region before expanding anywhere else' },
-];
+
+<script src="./js/data/scenarios.js"></script>
+<script>
 const LEVELS = [
   { id:1, name:'Easy',   blurb:'Generous capital, timid rivals',  regions:3, cashMult:1.4,  rivalAgg:0.6, rivals:2 },
   { id:2, name:'Normal', blurb:'Balanced economy & competition',  regions:4, cashMult:1.0,  rivalAgg:1.0, rivals:3 },
@@ -16972,7 +16943,7 @@ Scope: preserve uploaded v6_23_4_55 AIRCRAFT_IDENTITY game; patch only marked/op
 QA: continue window, home screen polish, setup identity defaults, side-menu/readability, safe settings entry.
 -->
 
-<script src="./js/patches/real_game_recovery_v05.js"></script>
+<script defer src="./js/patches/real_game_recovery_v05.js"></script>
 
 
 <!-- BASELINE_PATCH_v06 CHANGELOG
@@ -17006,13 +16977,13 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 - Preserved v07 command rail, ops feed, map, fleet, route, save/load, and market systems.
 -->
 
-<script src="./js/patches/main_redesign_v08.js"></script>
+<script defer src="./js/patches/main_redesign_v08.js"></script>
 
 
 
 <!-- FOUNDATION_POLISH_v01: restraint pass; preserves working FLEETART_ECON baseline -->
 
-<script src="./js/patches/foundation_polish_v01.js"></script>
+<script defer src="./js/patches/foundation_polish_v01.js"></script>
 
 <!-- ═══════════════════════════════════════════════════════════════════════
   FOUNDATION_POLISH_v02: continues the v01 restraint pass. Additive only;
@@ -17035,7 +17006,7 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
     8. New motion respects prefers-reduced-motion.
 ═══════════════════════════════════════════════════════════════════════ -->
 
-<script src="./js/patches/foundation_polish_v02.js"></script>
+<script defer src="./js/patches/foundation_polish_v02.js"></script>
 
 </body>
 <!-- FLEETART_ECON_v02 CHANGELOG (base: LOGO_EXPANSION_v09)
