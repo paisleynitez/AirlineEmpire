@@ -28,3 +28,11 @@ Before committing game changes:
 ## Current Known QA Notes
 
 - Missing favicon request should be fixed, not ignored.
+
+### JavaScript Extraction
+
+- [x] Game loads under Vite.
+- [x] Browser console clean.
+- [x] All JavaScript extracted from `index.html`.
+- [x] All JavaScript passes `node --check`.
+- [x] Gameplay functions verified.
