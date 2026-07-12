@@ -1,0 +1,35 @@
+{
+  "name": "airlineempire",
+  "version": "1.0.0",
+  "description": "Airline Empire is an airline management and tycoon game by PaisleyNitez.",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paisleynitez/AirlineEmpire.git"
+  },
+  "keywords": [
+    "airline",
+    "management",
+    "tycoon",
+    "game"
+  ],
+  "author": "PaisleyNitez",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/paisleynitez/AirlineEmpire/issues"
+  },
+  "homepage": "https://github.com/paisleynitez/AirlineEmpire#readme",
+  "devDependencies": {
+    "vite": "^8.1.4"
+  }
+}
