@@ -1459,7 +1459,7 @@ let STATE = {};
 function defaultState() {
   return {
     scenario: SCENARIOS[0], level: LEVELS[1],
-    coName: 'SKYLINE', homeBase: 'Chicago', logo: '✈', livery: '#3fd6c0',
+    coName: 'SKYLINE', homeBase: 'Chicago', logo: '✈', logoId: (window.DEFAULT_AIRLINE_LOGO_ID || 'nova_airlines'), livery: '#3fd6c0',
     month: 3, year: 1970, startYear: 1970,
     cash: 850, loan: 600, maxLoan: 3000,
     shares: { owned: 125000, total: 1000000, price: 1, dividend: 0 },
@@ -1676,18 +1676,16 @@ function wzRenderPage3() {
   const P = LIVERY_COLORS.slice(0,5), S = LIVERY_COLORS.slice(5,10), A = LIVERY_COLORS.slice(10,12);
   const row = document.getElementById('logo-pick-row');
   if (row) {
-    row.innerHTML = LOGOS.map(e => {
-      const lore = LOGO_LORE[e] || { name: e, desc: '', category:'Airline Identity', tone:'#3fd6c0' };
-      const royal = e === '⚥' ? ' logo-royal-glyph' : '';
-      const title = String(lore.name || e).replace(/"/g,'&quot;');
-      const body = String(lore.desc || '').replace(/"/g,'&quot;');
-      const cat = String(lore.category || 'AIRLINE').toUpperCase();
-      const tone = lore.tone || '#3fd6c0';
-      return `<button class="logo-pick logo-card${royal} ${e===_selectedLogo?'selected':''}" onclick="pickLogo('${e}')" style="--logoTone:${tone}"
-        data-peek-icon="${e}" data-peek-title="${title}" data-peek-body="${body}" title="${title}">
-          <span class="logo-card-icon">${e}</span>
-          <span class="logo-card-name">${lore.name}</span>
-          <span class="logo-card-cat">${cat}</span>
+    const logos = Array.isArray(window.AIRLINE_LOGOS) ? window.AIRLINE_LOGOS : [];
+    row.innerHTML = logos.map(logo => {
+      const selected = logo.id === _selectedLogo;
+      const groupName = (window.AIRLINE_LOGO_GROUPS && window.AIRLINE_LOGO_GROUPS[logo.group]) || logo.group || 'Airline Identity';
+      const title = String(logo.name || logo.id).replace(/"/g,'&quot;');
+      return `<button class="logo-pick logo-card image-logo-card ${selected?'selected':''}" onclick="pickLogo('${logo.id}')"
+        data-logo-id="${logo.id}" data-peek-icon="✈" data-peek-title="${title}" data-peek-body="${groupName}" title="${title}">
+          <span class="logo-card-image-wrap">${window.airlineLogoImg ? window.airlineLogoImg(logo.id, 'logo-card-image', logo.name) : '✈'}</span>
+          <span class="logo-card-name">${logo.name}</span>
+          <span class="logo-card-cat">${String(groupName).toUpperCase()}</span>
         </button>`;
     }).join('');
   }
@@ -1759,7 +1757,7 @@ function wzRenderPage3() {
     ].map(([ic,t,d]) => `<div class="ae4-legend-item"><span class="ic">${ic}</span><span><span class="tt">${t}</span><br><span class="dd">${d}</span></span></div>`).join('');
   }
   const ld = document.getElementById('nh-logo-display');
-  if (ld) { ld.textContent = _selectedLogo; ld.style.color = _selectedLivery; ld.style.textShadow = `0 0 14px ${_selectedLivery}66`; }
+  if (ld) { ld.innerHTML = window.airlineLogoImg ? window.airlineLogoImg(_selectedLogo, 'nh-selected-logo', 'Selected airline logo') : '✈'; ld.style.color = _selectedLivery; ld.style.textShadow = 'none'; }
   aeRenderPreview();
   aeNameCheck();
 }
@@ -1825,7 +1823,7 @@ function aePlaneSVG(w, h) {
     <path d="M14 44 Q16 40 30 44 L168 46 Q180 44 186 40 Q178 50 150 52 L34 52 Q18 51 14 44 Z" fill="${p}"/>
     <path d="M150 30 Q176 31 186 40 Q180 44 168 44 L152 42 Z" fill="#cfd8e2"/>
     <path d="M30 34 L46 12 Q48 9 52 10 L56 12 L46 34 Z" fill="${s}"/>
-    <text x="47" y="24" font-size="11" text-anchor="middle" transform="rotate(-8 47 24)">${_selectedLogo}</text>
+    <text x="47" y="24" font-size="11" text-anchor="middle" transform="rotate(-8 47 24)">✈</text>
     <path d="M84 46 L64 62 L74 62 L96 48 Z" fill="${s}" opacity=".9"/>
     <rect x="88" y="52" width="20" height="9" rx="4.5" fill="${a}"/>
     <rect x="88" y="52" width="6" height="9" rx="3" fill="#2a3644"/>
@@ -1848,7 +1846,7 @@ function aeRenderPreview() {
   pv.innerHTML = `
     <div class="ae4-pv-title">YOUR AIRLINE PREVIEW</div>
     <div class="ae4-pv-id">
-      <div class="ae4-pv-badge" style="color:${_selectedLivery}">${_selectedLogo}</div>
+      <div class="ae4-pv-badge image-logo-preview" style="color:${_selectedLivery}">${window.airlineLogoImg ? window.airlineLogoImg(_selectedLogo, 'preview-airline-logo', nm + ' logo') : '✈'}</div>
       <div style="min-width:0;flex:1">
         <div class="ae4-pv-name">${nm}</div>
         <div class="ae4-pv-hub">${apt}${hc.abbr?` (${hc.abbr})`:''}</div>
@@ -3156,7 +3154,7 @@ function railOpenRight(tabId){
   if (btn){ btn.textContent = '›'; btn.title = 'Collapse panel'; }
   if (typeof switchTab === 'function') switchTab(tabId);
 }
-let _selectedLogo = '🌊';
+let _selectedLogo = window.DEFAULT_AIRLINE_LOGO_ID || 'nova_airlines';
 let _selectedLivery = '#3fd6c0';
 let _selectedLivery2 = '#e8843a';
 let _selectedLiveryA = '#c0c8d4';
@@ -3214,7 +3212,8 @@ function pickLogo(e) {
 function launchFromNameHub() {
   const nameEl = document.getElementById('nh-name-input');
   setupChoice._name = (nameEl ? nameEl.value : 'SKYLINE') || 'SKYLINE';
-  setupChoice._logo = _selectedLogo;
+  setupChoice._logoId = _selectedLogo;
+  setupChoice._logo = '✈';
   setupChoice._color = _selectedLivery;
   setupChoice._color2 = _selectedLivery2;
   setupChoice._colorA = _selectedLiveryA;
@@ -3236,7 +3235,8 @@ function startGame(from) {
   STATE.twist = cfg.twist;
   STATE.seed = cfg.seed;
   STATE.coName = ((setupChoice._name) || (document.getElementById('nh-name-input') && document.getElementById('nh-name-input').value) || 'SKYLINE').toUpperCase().slice(0,14);
-  STATE.logo   = setupChoice._logo || '✈';
+  STATE.logoId = setupChoice._logoId || window.DEFAULT_AIRLINE_LOGO_ID || 'nova_airlines';
+  STATE.logo   = '✈';
   STATE.livery = setupChoice._color || '#3fd6c0';
   STATE.livery2 = setupChoice._color2 || '#e8843a';
   STATE.liveryAccent = setupChoice._colorA || '#c0c8d4';
@@ -3307,7 +3307,7 @@ function startGame(from) {
   const typeLabel = (GAME_TYPES.find(g=>g.id===STATE.gameType)||{}).name || 'Scenario';
   const fromId = (from==='intro' || document.getElementById('setup').classList.contains('hidden')) ? 'intro' : 'setup';
   enterGame(fromId, ()=>{
-    const lb = document.getElementById('logo-badge'); if (lb) { lb.textContent = STATE.logo; lb.style.color = STATE.livery || ''; lb.style.textShadow = STATE.livery ? `0 0 12px ${STATE.livery}88` : ''; }
+    const lb = document.getElementById('logo-badge'); if (lb) { lb.innerHTML = window.airlineLogoImg ? window.airlineLogoImg(STATE.logoId, 'header-airline-logo', STATE.coName + ' logo') : (STATE.logo || '✈'); lb.style.color = STATE.livery || ''; lb.style.textShadow = 'none'; }
     const bc = document.getElementById('brand-co'); if (bc) bc.textContent = `${STATE.coName} · ${STATE.homeBase.toUpperCase()} · ${typeLabel.toUpperCase()}`;
     initGame();
   });
@@ -3372,7 +3372,7 @@ function applyTwist(tw){
 }
 function initGame() {
   renderRegionTabs();
-  const _lb = document.getElementById('logo-badge'); if (_lb && STATE.livery) { _lb.textContent = STATE.logo || '✈'; _lb.style.color = STATE.livery; _lb.style.textShadow = `0 0 12px ${STATE.livery}88`; }
+  const _lb = document.getElementById('logo-badge'); if (_lb && STATE.livery) { _lb.innerHTML = window.airlineLogoImg ? window.airlineLogoImg(STATE.logoId, 'header-airline-logo', STATE.coName + ' logo') : (STATE.logo || '✈'); _lb.style.color = STATE.livery; _lb.style.textShadow = 'none'; }
   // Set a reasonable default zoom before rendering so the map is visible on launch
   if (!STATE.mapZoom || STATE.mapZoom < 0.5) STATE.mapZoom = 1.75;
   STATE.viewRegion = STATE.viewRegion || 'NA';
@@ -9879,7 +9879,7 @@ function navGo(el, key){
 function updateCeoCard(){
   const nm=document.getElementById('ceo-name'); if(!nm) return;
   nm.textContent = STATE.coName || 'Your Airline';
-  const logo=document.getElementById('ceo-logo'); if(logo) logo.textContent = STATE.logo || '✈';
+  const logo=document.getElementById('ceo-logo'); if(logo) logo.innerHTML = window.airlineLogoImg ? window.airlineLogoImg(STATE.logoId, 'ceo-airline-logo', STATE.coName + ' logo') : (STATE.logo || '✈');
   const all=[{name:'You',pax:STATE.totalPaxYear||STATE.paxThisYear||0},
     ...(STATE.competitors||[]).map(c=>({name:c.name,pax:c.paxYear||0}))].sort((a,b)=>b.pax-a.pax);
   const rank=all.findIndex(x=>x.name==='You')+1;
@@ -14769,7 +14769,7 @@ function applySave(str){
   const doRender=()=>{
     document.getElementById('intro').classList.add('hidden');
     document.getElementById('setup').classList.add('hidden');
-    const _lb = document.getElementById('logo-badge'); if (_lb) _lb.textContent = STATE.logo||'✈';
+    const _lb = document.getElementById('logo-badge'); if (_lb) _lb.innerHTML = window.airlineLogoImg ? window.airlineLogoImg(STATE.logoId, 'header-airline-logo', STATE.coName + ' logo') : (STATE.logo||'✈');
     const _tl = (GAME_TYPES.find(g=>g.id===STATE.gameType)||{}).name || 'Scenario';
     const _bc = document.getElementById('brand-co'); if (_bc) _bc.textContent = `${STATE.coName} · ${STATE.homeBase.toUpperCase()} · ${_tl.toUpperCase()}`;
     renderRegionTabs(); renderMap(); applyPan(); updateUI();
