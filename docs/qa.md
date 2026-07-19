@@ -36,3 +36,26 @@ Before committing game changes:
 - [x] All JavaScript extracted from `index.html`.
 - [x] All JavaScript passes `node --check`.
 - [x] Gameplay functions verified.
+
+
+## Cinematic Lavender Theme QA — 1.0.1
+
+Launch by double-clicking `game/index.html`.
+
+- [ ] The cinematic intro appears before the flat home menu.
+- [ ] The large animated `AIRLINE EMPIRE` title is lavender/violet, not teal.
+- [ ] Route arcs continue drawing and moving normally.
+- [ ] Hub bursts and route nodes glow lavender.
+- [ ] Aircraft markers continue moving along routes.
+- [ ] Gold remains a limited secondary route accent.
+- [ ] Region names and telemetry remain readable.
+- [ ] `PRESS TO BEGIN` remains animated and clickable.
+- [ ] Clicking the cinematic or SKIP transitions to the existing home menu.
+- [ ] New Game, Continue, Daily Challenge, and Records remain unchanged.
+- [ ] Refreshing the page replays the cinematic without console errors.
+
+## v1.0.2 Home Balance and Lavender Routes
+See `qa_home_balance_lavender_routes.md` for the landing-screen and route-animation checklist.
+
+## v1.0.3 Home Layout Correction
+See `qa_home_layout_correction.md` for the focused regression checklist.

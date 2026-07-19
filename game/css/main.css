@@ -3218,37 +3218,37 @@
 /* ===== sp-cine-style ===== */
 /* ===== Showpiece title-sequence (scoped under #cinematic) ===== */
 #cinematic{ background:
-    radial-gradient(120% 90% at 50% 8%, rgba(63,214,192,0.10), transparent 55%),
-    radial-gradient(100% 80% at 50% 120%, rgba(157,142,224,0.07), transparent 50%),
-    linear-gradient(180deg, #0a1a1a, #06120f 60%, #030b09) !important; overflow:hidden; }
+    radial-gradient(120% 90% at 50% 8%, rgba(185,130,255,0.15), transparent 55%),
+    radial-gradient(100% 80% at 50% 120%, rgba(143,91,215,0.12), transparent 50%),
+    linear-gradient(180deg, #100d22, #090817 60%, #05040d) !important; overflow:hidden; }
 #sp-net{ position:absolute; inset:0; width:100%; height:100%; z-index:1; }
 #cinematic .sp-vignette{ position:absolute; inset:0; pointer-events:none; z-index:6;
   background:radial-gradient(120% 100% at 50% 45%, transparent 55%, rgba(0,0,0,0.55) 100%); }
 #cinematic .sp-scan{ position:absolute; inset:0; pointer-events:none; z-index:7; opacity:.05; mix-blend-mode:overlay;
   background:repeating-linear-gradient(0deg, #fff 0, #fff 1px, transparent 1px, transparent 3px); }
 #cinematic .sp-coord{ position:absolute; top:5%; left:4%; z-index:8; font-family:'DM Mono',monospace; font-size:12px;
-  letter-spacing:.18em; color:#7fa39c; opacity:0; }
-#cinematic .sp-coord .v{ color:#3fd6c0; }
+  letter-spacing:.18em; color:#9b8caf; opacity:0; }
+#cinematic .sp-coord .v{ color:#c9a7ff; }
 #cinematic .sp-regions{ position:absolute; top:50%; right:4%; transform:translateY(-50%); text-align:right; z-index:8; }
 #cinematic .sp-reg{ font-family:'DM Mono',monospace; font-size:13px; letter-spacing:.16em; margin:9px 0; opacity:0;
   transform:translateX(14px); transition:opacity .5s, transform .5s; white-space:nowrap; }
-#cinematic .sp-reg .nm{ color:#7fa39c; }
-#cinematic .sp-reg .st{ color:#3fd6c0; font-weight:500; }
+#cinematic .sp-reg .nm{ color:#9b8caf; }
+#cinematic .sp-reg .st{ color:#c9a7ff; font-weight:500; }
 #cinematic .sp-reg.lit{ opacity:1; transform:none; }
 #cinematic .sp-reg.lit .nm{ color:#f9fbfb; }
-#cinematic .sp-reg .dot{ display:inline-block; width:7px; height:7px; border-radius:50%; background:#3fd6c0;
-  margin-left:9px; box-shadow:0 0 10px #3fd6c0; vertical-align:middle; }
+#cinematic .sp-reg .dot{ display:inline-block; width:7px; height:7px; border-radius:50%; background:#b982ff;
+  margin-left:9px; box-shadow:0 0 10px rgba(185,130,255,.72); vertical-align:middle; }
 #cinematic .sp-stats{ position:absolute; bottom:7%; left:4%; display:flex; gap:36px; z-index:8; opacity:0; }
-#cinematic .sp-stat .k{ font-family:'DM Mono',monospace; font-size:10.5px; letter-spacing:.22em; color:#7fa39c; text-transform:uppercase; }
+#cinematic .sp-stat .k{ font-family:'DM Mono',monospace; font-size:10.5px; letter-spacing:.22em; color:#a99ab9; text-transform:uppercase; }
 #cinematic .sp-stat .v{ font-family:'Bebas Neue',sans-serif; font-size:44px; line-height:.92; letter-spacing:.5px; color:#f9fbfb; margin-top:4px; }
-#cinematic .sp-stat .v .u{ font-size:21px; color:#3fd6c0; margin-left:2px; }
+#cinematic .sp-stat .v .u{ font-size:21px; color:#c9a7ff; margin-left:2px; }
 #cinematic .sp-title{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:9; pointer-events:none; }
-#cinematic .sp-h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(64px,12vw,168px); line-height:.86; letter-spacing:.02em; margin:8px 0 0; opacity:0; position:relative; color:#eafffb; text-shadow:0 0 34px rgba(63,214,192,0.5), 0 0 7px rgba(63,214,192,0.7); }
-#cinematic .sp-h1 .grad{ position:absolute; inset:0; pointer-events:none; background:linear-gradient(180deg,#fff 0%, #d6f3ec 44%, #3fd6c0 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
-#cinematic .sp-tag{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:clamp(12px,1.5vw,18px); letter-spacing:.28em; color:#7fa39c; text-transform:uppercase; margin-top:18px; opacity:0; }
+#cinematic .sp-h1{ font-family:'Bebas Neue',sans-serif; font-size:clamp(64px,12vw,168px); line-height:.86; letter-spacing:.02em; margin:8px 0 0; opacity:0; position:relative; color:#eadcff; text-shadow:0 0 38px rgba(185,130,255,0.58), 0 0 9px rgba(201,167,255,0.82); }
+#cinematic .sp-h1 .grad{ position:absolute; inset:0; pointer-events:none; background:linear-gradient(180deg,#fff 0%, #eadcff 38%, #c9a7ff 67%, #9a63e8 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
+#cinematic .sp-tag{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:clamp(12px,1.5vw,18px); letter-spacing:.28em; color:#a99ab9; text-transform:uppercase; margin-top:18px; opacity:0; }
 #cinematic .sp-shine{ position:absolute; top:0; left:-40%; width:40%; height:100%; z-index:2; pointer-events:none; background:linear-gradient(105deg, transparent, rgba(255,255,255,0.55), transparent); mix-blend-mode:overlay; opacity:0; }
-#cinematic .sp-cta{ position:absolute; bottom:9%; left:50%; transform:translateX(-50%); z-index:9; opacity:0; font-family:'DM Mono',monospace; font-size:13px; letter-spacing:.32em; color:#3fd6c0; text-transform:uppercase; display:flex; align-items:center; gap:12px; }
-#cinematic .sp-cta .pip{ width:9px; height:9px; border-radius:50%; background:#3fd6c0; box-shadow:0 0 12px #3fd6c0; animation:sp-pulse 1.8s ease-in-out infinite; }
+#cinematic .sp-cta{ position:absolute; bottom:9%; left:50%; transform:translateX(-50%); z-index:9; opacity:0; font-family:'DM Mono',monospace; font-size:13px; letter-spacing:.32em; color:#c9a7ff; text-transform:uppercase; display:flex; align-items:center; gap:12px; }
+#cinematic .sp-cta .pip{ width:9px; height:9px; border-radius:50%; background:#b982ff; box-shadow:0 0 14px #b982ff; animation:sp-pulse 1.8s ease-in-out infinite; }
 @keyframes sp-pulse{ 0%,100%{ opacity:.4; transform:scale(.85);} 50%{ opacity:1; transform:scale(1.15);} }
 @media (prefers-reduced-motion:reduce){ #cinematic .sp-cta .pip{ animation:none; } }
 
@@ -3306,8 +3306,7 @@
 
 /* ===== logo-expansion-v09-css ===== */
 .ae4-logo-panel{position:relative;overflow:hidden;}
-  .ae4-logo-panel .ae4-ptitle::after{content:'34 airline identities';margin-left:auto;font-size:9px;color:var(--muted);letter-spacing:.12em;font-family:'Plus Jakarta Sans',sans-serif;}
-  .ae4-logogrid{
+.ae4-logogrid{
     display:grid!important;
     grid-template-columns:repeat(3,minmax(0,1fr))!important;
     gap:10px!important;
@@ -4719,3 +4718,911 @@
 @media(max-width:1280px){.ae4-logogrid{grid-template-columns:repeat(4,minmax(120px,1fr))!important;}}
 @media(max-width:1000px){.ae4-logogrid{grid-template-columns:repeat(3,minmax(110px,1fr))!important;max-height:500px}.ae4-logogrid .logo-pick.logo-card.image-logo-card{height:148px!important;}}
 @media(max-width:720px){.ae4-logogrid{grid-template-columns:repeat(2,minmax(105px,1fr))!important;}}
+
+
+/* CINEMATIC_LAVENDER_v01 — animated intro palette only */
+#cinematic .sp-reg .dot { background:#b982ff; box-shadow:0 0 10px rgba(185,130,255,.72); }
+#cinematic .sp-tag { color:#aa9ab9; }
+#cinematic .sp-cta { color:#c9a7ff; }
+#cinematic .sp-cta .pip { background:#b982ff; box-shadow:0 0 14px #b982ff; }
+
+
+/* =====================================================================
+   HOME_BALANCE_LAVENDER_ROUTES_v01 — v1.0.2
+   Landing-screen cleanup and animated lavender network enrichment.
+   ===================================================================== */
+html, body {
+  zoom: 1 !important;
+  transform: none !important;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+/* Remove the top-right welcome/status chip and settings star/gear. */
+#intro .home-top { display:none !important; }
+
+/* Balance the title stage and game-choice row at native 100% layout scale. */
+#intro .home-wrap {
+  padding: 22px clamp(28px,4vw,68px) 24px !important;
+  gap: 0 !important;
+}
+#intro .home-hero {
+  width: min(1180px,92vw) !important;
+  margin: 12px auto 0 !important;
+  padding: 24px 32px 22px !important;
+  flex: 0 0 auto !important;
+}
+#intro .home-logo-row { gap:16px !important; }
+#intro .home-logo-mark {
+  width:54px !important;
+  height:54px !important;
+  color:#bd8cff !important;
+  filter:drop-shadow(0 0 15px rgba(189,140,255,.62)) !important;
+}
+#intro .home-logo-txt {
+  font-size:clamp(46px,4.8vw,68px) !important;
+  gap:14px !important;
+  letter-spacing:8px !important;
+}
+#intro .home-logo-txt .w1,
+#intro .home-logo-txt .w2 {
+  color:#d8b8ff !important;
+  -webkit-text-fill-color:#d8b8ff !important;
+  text-shadow:0 0 24px rgba(185,130,255,.52) !important;
+}
+#intro .home-tag {
+  margin-top:8px !important;
+  color:#c8b1e8 !important;
+  letter-spacing:2.2px !important;
+  font-size:clamp(10px,1.05vw,13px) !important;
+}
+#intro .home-rule { color:#b982ff !important; max-width:520px !important; }
+#intro .home-rule .ln {
+  background:linear-gradient(90deg,transparent,rgba(185,130,255,.72),transparent) !important;
+}
+
+#intro .home-cards {
+  flex:1 1 auto !important;
+  align-items:flex-start !important;
+  padding-top:clamp(34px,7vh,74px) !important;
+}
+#intro .home-cards-grid {
+  width:min(1180px,92vw) !important;
+  gap:18px !important;
+  align-items:stretch !important;
+}
+#intro .hcard {
+  min-height:108px !important;
+  padding:20px 22px !important;
+  background:linear-gradient(145deg,rgba(20,25,55,.86),rgba(8,12,29,.78)) !important;
+  border-color:rgba(185,130,255,.28) !important;
+  box-shadow:0 20px 54px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.035) !important;
+}
+#intro .hcard:hover { border-color:rgba(201,167,255,.72) !important; }
+#intro .hcard.c-new,
+#intro .hcard.c-cont,
+#intro .hcard.c-daily,
+#intro .hcard.c-rec {
+  --cc:#b982ff;
+  --cch:rgba(185,130,255,.78);
+}
+#intro .hcard .hc-title { color:#f4efff !important; }
+#intro .hcard .hc-line { color:#d5c9e8 !important; }
+#intro .hcard .hc-sub { color:#ad9cbe !important; }
+
+/* Denser lavender route field, with animated flow and hub glows. */
+#intro-bg {
+  opacity:.82 !important;
+  filter:saturate(1.12) contrast(1.04) !important;
+}
+#intro-bg .home-route-soft {
+  stroke:#6f43b7;
+  stroke-opacity:.24;
+  stroke-width:1.7;
+}
+#intro-bg .home-route-main {
+  stroke:#b982ff;
+  stroke-opacity:.58;
+  stroke-width:.9;
+  stroke-dasharray:10 16;
+  animation:homeRouteFlow 16s linear infinite;
+}
+#intro-bg .home-route-gold {
+  stroke:#e2bd68;
+  stroke-opacity:.66;
+  stroke-width:1.05;
+  stroke-dasharray:14 22;
+  animation:homeRouteFlowGold 20s linear infinite;
+}
+#intro-bg .home-city-dot { fill:#5f4385; opacity:.64; }
+#intro-bg .home-city-major { fill:#b982ff; opacity:.86; }
+#intro-bg .home-hub-core { fill:#f4eaff; }
+@keyframes homeRouteFlow { to { stroke-dashoffset:-260; } }
+@keyframes homeRouteFlowGold { to { stroke-dashoffset:-320; } }
+@media (prefers-reduced-motion:reduce) {
+  #intro-bg .home-route-main,
+  #intro-bg .home-route-gold { animation:none !important; }
+}
+
+@media (min-width:1180px) {
+  #intro .home-cards-grid { grid-template-columns:repeat(4,minmax(0,1fr)) !important; }
+}
+@media (max-width:1179px) and (min-width:700px) {
+  #intro .home-cards-grid { grid-template-columns:repeat(3,minmax(0,1fr)) !important; }
+  #intro .hcard.c-rec { grid-column:2 !important; }
+}
+@media (max-width:699px) {
+  #intro .home-cards-grid { grid-template-columns:1fr !important; }
+  #intro .hcard.c-rec { grid-column:auto !important; }
+}
+
+/* =====================================================================
+   HOME_LAYOUT_CORRECTION_v01 — v1.0.3
+   Corrects v1.0.2 viewport clipping, card overlap and oversized glow.
+   ===================================================================== */
+#intro {
+  overflow:hidden !important;
+}
+#intro-bg {
+  z-index:0 !important;
+  opacity:.58 !important;
+  filter:none !important;
+  pointer-events:none !important;
+}
+#intro .home-wrap {
+  position:relative !important;
+  z-index:2 !important;
+  width:100% !important;
+  max-width:none !important;
+  height:100vh !important;
+  min-height:100vh !important;
+  box-sizing:border-box !important;
+  padding:18px clamp(24px,4vw,58px) 20px !important;
+  display:grid !important;
+  grid-template-rows:auto 1fr !important;
+  align-content:start !important;
+  overflow:hidden !important;
+}
+#intro .home-hero {
+  width:min(1120px,92vw) !important;
+  box-sizing:border-box !important;
+  margin:0 auto !important;
+  padding:16px 28px 15px !important;
+  border-radius:20px !important;
+  flex:none !important;
+  overflow:hidden !important;
+}
+#intro .home-logo-row {
+  gap:13px !important;
+  justify-content:center !important;
+}
+#intro .home-logo-mark {
+  width:44px !important;
+  height:44px !important;
+}
+#intro .home-logo-txt {
+  font-size:clamp(36px,4vw,56px) !important;
+  line-height:1 !important;
+  letter-spacing:6px !important;
+  gap:10px !important;
+  white-space:nowrap !important;
+}
+#intro .home-rule {
+  margin:9px auto 0 !important;
+}
+#intro .home-tag {
+  margin-top:6px !important;
+  font-size:clamp(9px,.9vw,12px) !important;
+  letter-spacing:1.65px !important;
+  white-space:nowrap !important;
+}
+#intro .home-cards {
+  min-height:0 !important;
+  padding:0 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+#intro .home-cards-grid {
+  width:min(1120px,92vw) !important;
+  max-width:1120px !important;
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  gap:14px !important;
+  margin:0 auto !important;
+  align-items:stretch !important;
+}
+#intro .hcard {
+  min-width:0 !important;
+  min-height:112px !important;
+  height:auto !important;
+  padding:18px 16px !important;
+  gap:13px !important;
+  border-radius:15px !important;
+  background:linear-gradient(145deg,rgba(16,19,43,.97),rgba(7,10,24,.96)) !important;
+  border-color:rgba(185,130,255,.34) !important;
+  box-shadow:0 14px 36px rgba(0,0,0,.46),inset 0 1px 0 rgba(255,255,255,.035) !important;
+  backdrop-filter:none !important;
+  overflow:hidden !important;
+}
+#intro .hcard .hc-ring {
+  width:62px !important;
+  height:62px !important;
+}
+#intro .hcard .hc-ic svg {
+  width:25px !important;
+  height:25px !important;
+}
+#intro .hcard .hc-title {
+  font-size:clamp(15px,1.45vw,19px) !important;
+  line-height:1.18 !important;
+  letter-spacing:.9px !important;
+  white-space:normal !important;
+}
+#intro .hcard .hc-line {
+  font-size:clamp(10px,.95vw,12px) !important;
+  line-height:1.35 !important;
+}
+#intro .hcard .hc-sub {
+  font-size:clamp(9px,.8vw,11px) !important;
+  line-height:1.35 !important;
+  white-space:normal !important;
+}
+#intro-bg .home-route-soft {
+  stroke:#69409d !important;
+  stroke-opacity:.18 !important;
+  stroke-width:1.15 !important;
+}
+#intro-bg .home-route-main {
+  stroke:#ad78ef !important;
+  stroke-opacity:.46 !important;
+  stroke-width:.72 !important;
+}
+#intro-bg .home-route-gold {
+  stroke:#caa75c !important;
+  stroke-opacity:.46 !important;
+  stroke-width:.8 !important;
+}
+#intro-bg .home-city-dot { opacity:.32 !important; }
+#intro-bg .home-city-major { opacity:.55 !important; }
+#intro-bg .home-hub-core { opacity:.82 !important; }
+
+@media (max-width:1050px) {
+  #intro .home-wrap { overflow:auto !important; height:auto !important; min-height:100vh !important; }
+  #intro .home-cards { padding:24px 0 !important; align-items:flex-start !important; }
+  #intro .home-cards-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+  #intro .hcard.c-rec { grid-column:auto !important; }
+}
+@media (max-width:620px) {
+  #intro .home-logo-txt { font-size:clamp(28px,9vw,40px) !important; letter-spacing:3px !important; }
+  #intro .home-logo-mark { width:34px !important; height:34px !important; }
+  #intro .home-tag { white-space:normal !important; }
+  #intro .home-cards-grid { grid-template-columns:1fr !important; }
+}
+@media (max-height:700px) and (min-width:1051px) {
+  #intro .home-wrap { padding-top:10px !important; padding-bottom:10px !important; }
+  #intro .home-hero { padding-top:11px !important; padding-bottom:10px !important; }
+  #intro .home-logo-txt { font-size:clamp(32px,3.5vw,48px) !important; }
+  #intro .home-cards-grid { transform:scale(.93); transform-origin:center; }
+}
+
+/* =====================================================================
+   HOME_AND_MAP_CORRECTION_v01 — v1.0.4
+   Re-centers the opening title/menu, simplifies Continue, and improves
+   map controls/readability without changing simulation behavior.
+   ===================================================================== */
+#intro .home-top{display:none!important;}
+#intro .home-wrap{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:0!important;
+  padding:clamp(24px,5vh,52px) clamp(22px,4vw,54px) 28px!important;
+  min-height:100vh!important;
+  height:100vh!important;
+}
+#intro .home-hero,
+#intro .home-cards-grid{
+  width:min(1080px,90vw)!important;
+  max-width:1080px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+#intro .home-hero{
+  padding:20px 30px 18px!important;
+}
+#intro .home-cards{
+  width:100%!important;
+  min-height:0!important;
+  flex:0 0 auto!important;
+  margin-top:clamp(72px,11vh,132px)!important;
+  padding:0!important;
+}
+#intro .home-cards-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:22px!important;
+}
+#intro .hcard{
+  min-height:138px!important;
+  padding:24px 24px!important;
+}
+#intro .hcard .hc-title{font-size:clamp(18px,1.5vw,23px)!important;}
+#intro .hcard .hc-line{font-size:clamp(11px,.95vw,13px)!important;}
+#intro .hcard.c-rec{display:none!important;}
+#intro #resume-info{display:none!important;}
+#intro #home-cont-line{color:#cfc0e8!important;}
+@media(max-width:900px){
+  #intro .home-wrap{height:auto!important;overflow:auto!important;}
+  #intro .home-cards{margin-top:42px!important;padding-bottom:30px!important;}
+  #intro .home-cards-grid{grid-template-columns:1fr!important;max-width:620px!important;}
+}
+
+/* Continue Flight: one autosave + five manual slots, compact and adjacent. */
+#cont-ovl .pn-cont-panel{width:min(980px,calc(100vw - 32px))!important;max-height:min(86vh,760px)!important;}
+#cont-ovl .pn-cont-body{padding:16px 18px 18px!important;}
+#cont-ovl .pn-save-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+#cont-ovl .pn-save-card{
+  min-width:0;min-height:160px;display:flex;flex-direction:column;
+  padding:14px 14px 13px;border-radius:14px;
+  background:rgba(2,6,23,.48);border:1px solid rgba(185,130,255,.22);
+}
+#cont-ovl .pn-save-card:hover{border-color:rgba(185,130,255,.58);background:rgba(18,18,44,.72);}
+#cont-ovl .pn-save-card.empty{opacity:.78;}
+#cont-ovl .pn-slot-k{font-size:9px;font-weight:900;letter-spacing:1.5px;color:#b982ff;margin-bottom:10px;}
+#cont-ovl .pn-save-name{font-size:14px!important;line-height:1.25;}
+#cont-ovl .pn-save-meta{font-size:10px!important;line-height:1.5;}
+#cont-ovl .pn-save-time{font-size:9px;color:#8c83a4;margin-top:6px;}
+#cont-ovl .pn-empty-title{font-size:13px;font-weight:800;color:#d7cbea;margin-top:8px;}
+#cont-ovl .pn-empty-copy{font-size:10px;line-height:1.5;color:#8f86a2;margin-top:6px;}
+#cont-ovl .pn-save-card .pn-load{margin-top:auto;width:100%;padding:8px 10px;}
+@media(max-width:760px){#cont-ovl .pn-save-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:500px){#cont-ovl .pn-save-grid{grid-template-columns:1fr;}}
+
+/* Map controls: remove retired controls/chip and keep Demand as a reminder. */
+#conquest-toggle,#night-toggle,#pn-foundation-chip{display:none!important;}
+#demand-toggle{
+  left:14px!important;right:auto!important;bottom:14px!important;top:auto!important;
+  padding:7px 12px!important;background:rgba(6,12,24,.88)!important;
+  border-color:rgba(185,130,255,.36)!important;color:#d8c5f5!important;
+}
+#demand-toggle::after{content:' · PLACEHOLDER';font-size:8px;letter-spacing:1px;color:#8c78aa;}
+#zoom-ctrl{
+  left:14px!important;right:auto!important;top:58px!important;bottom:auto!important;
+  transform:none!important;display:flex!important;flex-direction:column!important;
+  gap:5px!important;overflow:visible!important;opacity:1!important;z-index:12!important;
+}
+#zoom-ctrl button,#zoom-pct{display:flex!important;align-items:center!important;justify-content:center!important;width:36px!important;min-width:36px!important;}
+#zoom-ctrl button{height:34px!important;font-size:20px!important;font-weight:800!important;}
+#zoom-pct{height:24px!important;padding:0!important;font-size:9px!important;}
+
+/* Ocean/sea color correction over the satellite raster, masked away from land. */
+.ocean-color{fill:#1d5f91;opacity:.28;mix-blend-mode:color;}
+.night-tint{fill:#071b31!important;opacity:.24!important;}
+.sat-img{filter:brightness(.90) saturate(1.02) contrast(1.04)!important;}
+
+/* Region selector readability. */
+.region-tab{color:rgba(245,241,255,.82)!important;background:rgba(10,11,24,.82)!important;border-color:rgba(211,195,240,.28)!important;}
+.region-tab:hover{color:#fff!important;background:rgba(54,38,83,.92)!important;border-color:rgba(201,167,255,.72)!important;}
+.region-tab.active,.region-tab.sub.active{
+  color:#170d29!important;background:#d9c2ff!important;border-color:#f0e8ff!important;
+  box-shadow:0 0 18px rgba(185,130,255,.42),0 2px 8px rgba(0,0,0,.42)!important;
+  text-shadow:none!important;font-weight:900!important;
+}
+
+/* Dev Tuner readability pass. */
+#dev-tuner{width:360px!important;max-height:78vh!important;font-size:13px!important;background:rgba(5,12,24,.98)!important;}
+#dt-header{padding:10px 12px!important;}
+#dt-title{font-size:11px!important;letter-spacing:1.8px!important;}
+#dt-tabs{min-height:38px!important;}
+.dt-tab{padding:10px 4px!important;font-size:10.5px!important;color:#a6a0b4!important;}
+.dt-tab.active{color:#caa7ff!important;border-bottom-color:#b982ff!important;}
+#dt-body{padding:12px 14px!important;}
+.dt-sec-head{padding:8px 2px!important;font-size:10.5px!important;color:#ffd56a!important;}
+.dt-sec-rows{padding:8px 0 10px 10px!important;}
+.dt-row{grid-template-columns:minmax(0,1fr) 82px!important;gap:10px!important;margin-bottom:10px!important;}
+.dt-label{font-size:12px!important;line-height:1.45!important;color:#eef0f7!important;}
+.dt-note,.dt-unit{font-size:11px!important;line-height:1.55!important;color:#aeb4c2!important;}
+.dt-num{font-size:13px!important;padding:7px 8px!important;min-height:36px!important;background:#0b2027!important;border-color:#3b5965!important;}
+#dt-footer{padding:9px 10px!important;gap:7px!important;flex-wrap:wrap!important;}
+.dt-btn{font-size:10px!important;padding:8px 7px!important;min-width:72px!important;}
+
+/* v1.0.5 Continue Flight correction: compact horizontal rows, centered modal. */
+#cont-ovl{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:20px!important;
+}
+#cont-ovl .pn-cont-panel{
+  width:min(700px,calc(100vw - 40px))!important;
+  max-height:min(78vh,620px)!important;
+  margin:0 auto!important;
+  border-radius:18px!important;
+}
+#cont-ovl .pn-cont-head{padding:15px 18px!important;}
+#cont-ovl .pn-cont-title{font-size:25px!important;}
+#cont-ovl .pn-cont-sub{font-size:9px!important;margin-top:3px!important;}
+#cont-ovl .pn-cont-close{width:34px!important;height:34px!important;border-radius:10px!important;}
+#cont-ovl .pn-cont-body{padding:10px 12px!important;overflow:auto!important;}
+#cont-ovl .pn-save-list{display:flex!important;flex-direction:column!important;gap:7px!important;}
+#cont-ovl .pn-save-grid{display:none!important;}
+#cont-ovl .pn-save-row{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:center!important;
+  gap:14px!important;
+  min-height:58px!important;
+  margin:0!important;
+  padding:9px 11px!important;
+  border-radius:11px!important;
+  background:rgba(3,7,20,.58)!important;
+  border:1px solid rgba(185,130,255,.22)!important;
+}
+#cont-ovl .pn-save-row:hover{
+  border-color:rgba(185,130,255,.58)!important;
+  background:rgba(20,17,42,.76)!important;
+}
+#cont-ovl .pn-save-row.empty{opacity:.76!important;}
+#cont-ovl .pn-row-main{min-width:0!important;}
+#cont-ovl .pn-slot-k{
+  margin:0 0 3px!important;
+  font-size:8px!important;
+  letter-spacing:1.25px!important;
+}
+#cont-ovl .pn-save-name{font-size:12px!important;line-height:1.25!important;}
+#cont-ovl .pn-save-meta{font-size:9px!important;line-height:1.35!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;}
+#cont-ovl .pn-save-time{display:none!important;}
+#cont-ovl .pn-empty-title{font-size:11px!important;margin:0!important;}
+#cont-ovl .pn-empty-copy{font-size:9px!important;margin:0!important;color:#8f86a2!important;white-space:nowrap!important;}
+#cont-ovl .pn-load{
+  margin:0!important;
+  width:auto!important;
+  min-width:76px!important;
+  padding:8px 13px!important;
+  border-radius:9px!important;
+  font-size:9px!important;
+}
+#cont-ovl .pn-cont-foot{padding:10px 12px!important;}
+#cont-ovl .pn-import{padding:8px 11px!important;font-size:10px!important;}
+#cont-ovl .pn-foot-note{font-size:8px!important;}
+@media(max-width:560px){
+  #cont-ovl{padding:10px!important;}
+  #cont-ovl .pn-cont-panel{width:calc(100vw - 20px)!important;}
+  #cont-ovl .pn-save-row{grid-template-columns:minmax(0,1fr) auto!important;gap:8px!important;}
+  #cont-ovl .pn-save-meta{white-space:normal!important;}
+}
+
+/* =============================================================
+   v1.0.6 SATELLITE OCEAN + MOVABLE TUNE LAUNCHER
+   ============================================================= */
+/* Preserve the satellite raster and bathymetry. Remove the heavy flat-blue
+   wash from v1.0.4 and use only a restrained deep-water color correction. */
+.ocean-color{
+  fill:#063865!important;
+  opacity:.075!important;
+  mix-blend-mode:multiply!important;
+}
+.night-tint{
+  fill:#061426!important;
+  opacity:.055!important;
+  mix-blend-mode:multiply!important;
+}
+.sat-img{
+  filter:brightness(1.025) saturate(1.18) contrast(1.09)!important;
+}
+/* Keep labels and route overlays crisp over the richer satellite imagery. */
+#world-map .city-label{filter:drop-shadow(0 1px 2px rgba(0,0,0,.9));}
+
+/* The Tune launcher can be dragged anywhere inside the viewport. */
+#dt-launch{
+  touch-action:none!important;
+  cursor:grab!important;
+  position:fixed!important;
+  max-width:calc(100vw - 16px)!important;
+  z-index:9995!important;
+}
+#dt-launch.dt-dragging{
+  cursor:grabbing!important;
+  transition:none!important;
+  user-select:none!important;
+}
+
+
+/* ==========================================================================\n   SCENARIO FLOW REFINEMENT v1.0.7\n   ========================================================================== */
+/* The setup wordmark is intentionally removed so the scenario content owns the screen. */
+#setup .wz-header { display: none !important; }
+
+/* Slightly tighter scenario composition while preserving six readable choices. */
+#wz-p2 .wz-panel {
+  padding: 15px 17px 17px;
+  max-width: 1150px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#wz-p2 .wz-panel-title { margin-bottom: 11px; }
+#wz-p2 .sc2-layout {
+  grid-template-columns: minmax(0, 1fr) 226px;
+  gap: 14px;
+}
+#wz-p2 .sc-grid { gap: 11px; }
+#wz-p2 .sc-card {
+  min-height: 180px;
+  padding: 13px 14px 12px;
+  gap: 6px;
+  border-radius: 13px;
+}
+#wz-p2 .sc-card-icon {
+  width: 39px;
+  height: 39px;
+  border-radius: 10px;
+}
+#wz-p2 .sc-card-name { font-size: 15px; }
+#wz-p2 .sc-card-tag { font-size: 11px; }
+#wz-p2 .sc-card-desc { font-size: 11px; line-height: 1.45; }
+#wz-p2 .sc-details-head { margin-top: auto; padding-top: 8px; }
+#wz-p2 .sc2-rail { gap: 10px; }
+#wz-p2 .sc2-rail-panel { padding: 12px; }
+#wz-p2 .sc2-how { margin-top: 9px; }
+#wz-p2 .sc2-tips { margin-top: 0; }
+
+/* Airliner departure transition into Found Airline. */
+.wz-flight-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  pointer-events: none;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 58%, rgba(143, 101, 255, .12), transparent 34%);
+  opacity: 1;
+  transition: opacity .28s ease;
+}
+.wz-flight-plane {
+  position: absolute;
+  left: 50%;
+  top: 72%;
+  width: 58px;
+  height: 58px;
+  transform: translate(-50%, -50%) rotate(0deg) scale(.7);
+  fill: #b889ff;
+  filter: drop-shadow(0 0 12px rgba(184, 137, 255, .9)) drop-shadow(0 0 28px rgba(123, 76, 236, .62));
+  transition: transform .72s cubic-bezier(.22,.78,.2,1), filter .72s ease;
+}
+.wz-flight-trail {
+  position: absolute;
+  left: 50%;
+  top: 73%;
+  width: 2px;
+  height: 0;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, rgba(210,185,255,.75), rgba(143,101,255,0));
+  box-shadow: 0 0 14px rgba(184,137,255,.7);
+  transition: height .58s ease, opacity .3s ease;
+}
+.wz-flight-transition.depart .wz-flight-plane {
+  transform: translate(-50%, -340%) rotate(0deg) scale(4.4);
+  filter: drop-shadow(0 0 20px rgba(225,208,255,.95)) drop-shadow(0 0 54px rgba(143,91,255,.8));
+}
+.wz-flight-transition.depart .wz-flight-trail { height: 42vh; }
+.wz-flight-transition.finish { opacity: 0; }
+.wz-flight-transition.finish .wz-flight-trail { opacity: 0; }
+
+@media (max-width: 900px) {
+  #wz-p2 .sc2-layout { grid-template-columns: 1fr; }
+  #wz-p2 .sc2-rail { display: grid; grid-template-columns: 1fr 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wz-flight-plane, .wz-flight-trail, .wz-flight-transition { transition-duration: .01ms !important; }
+}
+
+/* =====================================================================
+   SETUP_ANIMATED_LAVENDER_BACKGROUND_v01 — v1.0.8
+   Reuses the existing generated route network behind setup pages 1–3.
+   ===================================================================== */
+#setup {
+  position:relative !important;
+  overflow:hidden !important;
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 50% 12%, rgba(100,62,150,.16), transparent 31%),
+    linear-gradient(180deg,#0a1324 0%,#07111f 54%,#050c17 100%) !important;
+}
+#setup-bg.wizard-bg {
+  position:fixed !important;
+  inset:0 !important;
+  width:100vw !important;
+  height:100vh !important;
+  z-index:0 !important;
+  opacity:.58 !important;
+  pointer-events:none !important;
+  filter:none !important;
+}
+#setup > *:not(.wizard-bg) {
+  position:relative !important;
+  z-index:1 !important;
+}
+#setup-bg .home-route-soft {
+  stroke:#69409d !important;
+  stroke-opacity:.18 !important;
+  stroke-width:1.15 !important;
+}
+#setup-bg .home-route-main {
+  stroke:#ad78ef !important;
+  stroke-opacity:.46 !important;
+  stroke-width:.72 !important;
+  stroke-dasharray:10 16 !important;
+  animation:homeRouteFlow 16s linear infinite !important;
+}
+#setup-bg .home-route-gold {
+  stroke:#caa75c !important;
+  stroke-opacity:.46 !important;
+  stroke-width:.8 !important;
+  stroke-dasharray:14 22 !important;
+  animation:homeRouteFlowGold 20s linear infinite !important;
+}
+#setup-bg .home-city-dot {
+  fill:#5f4385 !important;
+  opacity:.32 !important;
+}
+#setup-bg .home-city-major {
+  fill:#b982ff !important;
+  opacity:.55 !important;
+}
+#setup-bg .home-hub-core {
+  fill:#f4eaff !important;
+  opacity:.82 !important;
+}
+@media (prefers-reduced-motion:reduce) {
+  #setup-bg .home-route-main,
+  #setup-bg .home-route-gold {
+    animation:none !important;
+  }
+}
+
+/* v1.0.9 — Procedural Brand Lab */
+
+/* AE v1.1.5 TP — nine-logo shuffle picker */
+.ae4-logo-panel .ae4-ptitle::after{content:none!important;display:none!important}
+.ae4-logo-title{display:flex!important;align-items:center!important;gap:10px!important;flex-wrap:wrap}
+.ae-logo-toolbar{margin-left:auto;display:flex;align-items:center}
+.ae-logo-toolbar button{border:1px solid rgba(183,169,255,.52);border-radius:9px;background:rgba(111,92,255,.19);color:#eeeaff;font:700 9px/1 'DM Mono',monospace;letter-spacing:.055em;padding:8px 14px;cursor:pointer;white-space:nowrap}
+.ae-logo-toolbar button:hover{background:rgba(111,92,255,.34);transform:translateY(-1px)}
+.ae4-namerow{position:relative!important;display:block!important}
+.ae4-namerow .ae4-input{width:100%!important;padding-right:86px!important}
+.ae4-namerow .ae4-dice{position:absolute!important;right:43px!important;top:50%!important;transform:translateY(-50%)!important;width:30px!important;height:30px!important;margin:0!important;border-radius:8px!important;z-index:3}
+.ae4-namerow .ae4-namecheck{position:absolute!important;right:10px!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important;z-index:3}
+.ae4-logogrid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important;max-height:none!important;height:auto!important;overflow:visible!important;padding:2px!important}
+.ae4-logogrid .logo-pick.logo-card.image-logo-card{height:142px!important;min-height:142px!important;padding:8px!important;border-radius:13px!important;gap:6px!important}
+.ae4-logogrid .logo-card-image-wrap{height:94px!important;min-height:94px!important}
+.ae4-logogrid .logo-card-image,.ae4-logogrid .logo-card-image-wrap img{max-height:94px!important;height:94px!important;width:100%!important;object-fit:contain!important}
+.ae4-logogrid .logo-card-name{font-size:11px!important;line-height:1.05!important;min-height:23px!important;margin:0!important;display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important}
+.ae4-logogrid .logo-card-cat{display:none!important}
+@media(max-width:650px){.ae-logo-toolbar{width:100%;margin-left:0}.ae-logo-toolbar button{width:100%}.ae4-logogrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important}.ae4-logogrid .logo-pick.logo-card.image-logo-card{height:118px!important;min-height:118px!important;padding:6px!important}.ae4-logogrid .logo-card-image-wrap,.ae4-logogrid .logo-card-image,.ae4-logogrid .logo-card-image-wrap img{height:74px!important;min-height:74px!important;max-height:74px!important}.ae4-logogrid .logo-card-name{font-size:9px!important}}
+/* ======================================================================
+   AE v1.1.4 — Readable Typography Pass
+   Uses the fonts already embedded in this stylesheet so direct local-file
+   launch remains fully offline. Plus Jakarta Sans is the primary interface
+   face; DM Mono is reserved for financial and operational values; Bebas Neue
+   remains limited to large display branding.
+   ====================================================================== */
+:root{
+  --ae-font-ui:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  --ae-font-data:'DM Mono','Cascadia Mono',Consolas,monospace;
+  --ae-font-display:'Bebas Neue','Arial Narrow',sans-serif;
+}
+
+html,body,button,input,select,textarea{
+  font-family:var(--ae-font-ui);
+  font-kerning:normal;
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Keep the branded title distinctive without using the condensed face for UI. */
+.sp-h1,.home-logo-txt,#header .ae-title,#header #brand-sky-title{
+  font-family:var(--ae-font-display) !important;
+}
+
+/* Section labels: technical, but easier to scan than the former wide spacing. */
+.ae3-section-title,.ae4-section-title,.ae4-label,.ae4-head-title,
+.ae4-panel-title,.ae4-namelabel,.ae-step-title,.wizard-section-title,
+.oc-title,.tab-btn,.rail-label,.dt-tab,#dt-title{
+  font-family:var(--ae-font-ui) !important;
+  font-weight:700 !important;
+  letter-spacing:.115em !important;
+  line-height:1.25 !important;
+}
+
+/* Card and airport titles need strong shape recognition at a glance. */
+.ae3-type-card h3,.ae3-difficulty-card h3,.ae4-hub-name,.ae4-logo-name,
+.sc-card-title,.diff-name,.nh-hub-btn .nhb-city,
+.hc-title,.modal h2,.modal h3{
+  font-family:var(--ae-font-ui) !important;
+  font-weight:700 !important;
+  letter-spacing:-.015em !important;
+  line-height:1.18 !important;
+}
+
+/* Body and supporting copy: slightly larger line-height and calmer weight. */
+.ae3-type-card p,.ae3-difficulty-card p,.ae4-hub-full,.ae4-logo-sub,
+.sc-card-desc,.diff-desc,.nh-hub-btn .nhb-name,
+.hc-line,.hc-sub,.modal p,.modal li,.oc-sub{
+  font-family:var(--ae-font-ui) !important;
+  font-weight:400 !important;
+  letter-spacing:0 !important;
+  line-height:1.48 !important;
+}
+
+/* Operational values stay monospaced for alignment and rapid comparison. */
+.mono,.value,.bs-val,.rank-num,.diff-stats,.level-btn .lv-stats,
+.ae4-hub-iata,.ae4-stat b,.ae4-pv-stats .v,.hdr-stat .value,
+#zoom-pct,.sc-stat-v,.ae-logo-group-label,
+.oc-tile-value,.ticker-value{
+  font-family:var(--ae-font-data) !important;
+  font-variant-numeric:tabular-nums;
+  font-feature-settings:'tnum' 1,'zero' 1;
+  letter-spacing:.01em;
+}
+
+/* Setup wizard readability floor. */
+#setup{
+  font-family:var(--ae-font-ui);
+}
+#setup button,#setup input,#setup select{
+  font-family:var(--ae-font-ui) !important;
+}
+#setup .ae4-input,#nh-name-input{
+  font-weight:700 !important;
+  letter-spacing:.035em !important;
+  line-height:1.2 !important;
+}
+#setup .ae3-type-card p,#setup .ae3-difficulty-card p,
+#setup .ae4-hub-full,#setup .ae4-logo-sub{
+  color:rgba(225,234,246,.82) !important;
+}
+
+/* Prevent tiny all-caps metadata from becoming cramped. */
+.ae4-logo-group,.ae4-identity-count,
+.ae4-section-count,.sc-card-kicker,.diff-stats{
+  letter-spacing:.075em !important;
+}
+
+/* Buttons: readable sentence spacing instead of excessive tracking. */
+.ae3-next,.ae4-next,
+.ae4-shuffle,.wizard-next,.wizard-back{
+  font-family:var(--ae-font-ui) !important;
+  font-weight:700 !important;
+  letter-spacing:.055em !important;
+}
+
+/* Long-session comfort: preserve hierarchy without making every word bold. */
+body{font-weight:400;}
+small,.muted,.subtext{font-weight:400;}
+strong,b{font-weight:700;}
+
+@media (max-width:700px){
+  .ae3-section-title,.ae4-section-title,.ae4-label,.ae4-head-title,
+  .ae4-panel-title,.ae4-namelabel{letter-spacing:.09em !important;}
+}
+
+
+/* AE v1.1.5 TP — nine visible logos, 3 columns x 3 rows, no scrolling */
+#setup .ae4-logogrid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  grid-template-rows:repeat(3,142px)!important;
+  gap:10px!important;
+  max-height:none!important;
+  height:auto!important;
+  overflow:hidden!important;
+  padding:2px!important;
+}
+#setup .ae4-logogrid .logo-pick.logo-card.image-logo-card{
+  height:142px!important;
+  min-height:142px!important;
+  padding:8px!important;
+  border-radius:13px!important;
+  gap:6px!important;
+}
+@media(max-width:720px){
+  #setup .ae4-logogrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;grid-template-rows:repeat(3,128px)!important;gap:7px!important;}
+  #setup .ae4-logogrid .logo-pick.logo-card.image-logo-card{height:128px!important;min-height:128px!important;padding:6px!important;}
+}
+
+/* AE v1.1.6 — THCityscape themed hub selection */
+#setup .ae4-right .ae4-panel{
+  background:linear-gradient(180deg,rgba(9,17,30,.97),rgba(4,10,18,.97));
+  border-color:rgba(119,105,198,.25);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025),0 18px 45px rgba(0,0,0,.28);
+}
+#setup .ae4-rtabs{gap:6px;margin-bottom:11px}
+#setup .ae4-rtab{padding:7px 13px;background:rgba(10,16,29,.88);border-color:rgba(145,126,224,.18);color:#c6ccda}
+#setup .ae4-rtab:hover{border-color:rgba(167,139,250,.45);color:#f2edff}
+#setup .ae4-rtab.active{background:linear-gradient(135deg,rgba(63,214,192,.15),rgba(111,92,255,.12));border-color:#53d9ca;color:#72eadc;box-shadow:0 0 0 1px rgba(83,217,202,.14)}
+#setup .ae4-hubgrid{gap:10px;max-height:470px;scrollbar-color:rgba(83,217,202,.4) rgba(7,13,22,.55)}
+#setup .ae4-hub{background:linear-gradient(180deg,rgba(10,18,31,.96),rgba(5,11,19,.98));border-color:rgba(139,125,211,.18);border-radius:12px}
+#setup .ae4-hub:hover{border-color:rgba(83,217,202,.48);transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,0,0,.34)}
+#setup .ae4-hub.selected{border-color:#53d9ca;box-shadow:0 0 0 1px rgba(83,217,202,.45),0 0 18px rgba(83,217,202,.12)}
+#setup .ae4-hub.compact .ae4-thumb{height:78px;opacity:1}
+#setup .thc-thumb{background:#07111d;display:block}
+#setup .ae4-hub-topline{padding:9px 10px 9px 11px}
+#setup .ae4-hub-city{font-size:14px;letter-spacing:0}
+#setup .ae4-hub-airport-mini{font-size:9px;color:#aab4c7}
+#setup .ae4-hub-iata{color:#56dfcf}
+#setup .ae4-hub-chev{border-color:rgba(139,125,211,.22);color:#68ddcf;background:rgba(7,13,22,.78)}
+#setup .ae4-legend{opacity:.78;gap:15px;padding-top:10px;margin-top:11px}
+#setup .ae4-legend-item .tt{font-weight:650}
+
+
+/* ============================================================
+   v1.1.7 — Global readable typography + readable logo artwork
+   ============================================================ */
+:root{
+  --ae-ui-font:'Plus Jakarta Sans',Arial,sans-serif;
+  --ae-data-font:'DM Mono','Consolas',monospace;
+}
+html,body,button,input,select,textarea,
+.wizard,.wz-panel,.ae4-frame,.ae4-name-panel,.ae4-logo-panel,.ae4-hub-panel,
+.modal,.panel,.card,.screen,.sidebar,.toolbar,.topbar{
+  font-family:var(--ae-ui-font)!important;
+}
+button,input,select,textarea{font:inherit}
+/* Keep only true numeric / code values monospaced. */
+[data-mono],.mono,.airport-code,.route-code,.money,.currency,.stat-value,.metric-value,
+.diff-stats,.wz-panel-title .wz-num,.ae4-step-num{
+  font-family:var(--ae-data-font)!important;
+}
+/* Major brand display remains intentional; routine headings use the UI face. */
+.wz-panel-title,.ae4-title,.ae4-section-title,.logo-card-name,.hub-card-title,
+.gt-name,.diff-name,.sc-card-name,.btn,.button{
+  font-family:var(--ae-ui-font)!important;
+}
+.logo-card-image-wrap{
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate;
+  background:#030812!important;
+}
+.logo-card-image-wrap::after{
+  content:'';
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:34%;
+  z-index:2;
+  background:linear-gradient(to bottom,rgba(3,8,18,0),rgba(3,8,18,.94) 38%,#030812 100%);
+  pointer-events:none;
+}
+.logo-card-image-label{
+  position:absolute;
+  left:4px;right:4px;bottom:5px;
+  z-index:3;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  min-height:20px;
+  color:#f5f8ff;
+  font-family:var(--ae-ui-font)!important;
+  font-size:9px;
+  font-weight:800;
+  line-height:1.05;
+  letter-spacing:.025em;
+  text-align:center;
+  text-transform:uppercase;
+  text-shadow:0 1px 3px #000,0 0 8px rgba(0,0,0,.95);
+  pointer-events:none;
+}
+.logo-card-image-wrap img.logo-card-image,
+.logo-card-image-wrap img{
+  object-fit:cover!important;
+  object-position:center top!important;
+  transform:scale(1.05);
+  transform-origin:center top;
+}
+/* The name below the art remains the authoritative readable label. */
+.ae4-logogrid .logo-card-name{
+  font-family:var(--ae-ui-font)!important;
+  font-weight:800!important;
+  letter-spacing:.025em!important;
+  text-transform:uppercase!important;
+}

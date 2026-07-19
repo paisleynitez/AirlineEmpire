@@ -19,12 +19,18 @@
   }
   window.openContinueMenu=function(){
     const old=document.getElementById('cont-ovl'); if(old) old.remove();
-    const seen=new Set(), entries=[];
-    ['q',0,1,2,3,4,5].forEach(n=>{const e=readSave(n); if(!e)return; const k=JSON.stringify([e.n,e.ts]); if(seen.has(k))return; seen.add(k); entries.push(e);});
-    entries.sort((a,b)=>(b.ts||0)-(a.ts||0));
-    const rows=entries.map(e=>{const m=metaFor(e);return `<div class="pn-save-row"><div><div class="pn-save-name">${esc(m.label)} <span style="color:#94a3b8;font-weight:500">— ${esc(m.co)}</span></div><div class="pn-save-meta">${esc(m.month)} ${esc(m.year)} · $${esc(m.cash)}M · ${esc(m.routes)} routes · ${esc(m.tsText)}</div></div><button class="pn-load" onclick="contLoad('${esc(e.n)}')">LOAD</button></div>`;}).join('');
+    const slots=[0,1,2,3,4,5];
+    const rows=slots.map(n=>{
+      const e=readSave(n);
+      const label=n===0?'AUTOSAVE':'MANUAL SAVE '+n;
+      if(!e){
+        return `<div class="pn-save-row empty"><div class="pn-row-main"><div class="pn-slot-k">${label}</div><div class="pn-empty-title">EMPTY SLOT</div></div><div class="pn-empty-copy">No saved flight</div></div>`;
+      }
+      const m=metaFor(e);
+      return `<div class="pn-save-row"><div class="pn-row-main"><div class="pn-slot-k">${label}</div><div class="pn-save-name">${esc(m.co)}</div><div class="pn-save-meta">${esc(m.month)} ${esc(m.year)} · $${esc(m.cash)}M · ${esc(m.routes)} routes · ${esc(m.tsText)}</div></div><button class="pn-load" onclick="contLoad('${esc(e.n)}')">LOAD</button></div>`;
+    }).join('');
     const ovl=document.createElement('div'); ovl.id='cont-ovl'; ovl.setAttribute('role','dialog'); ovl.setAttribute('aria-modal','true');
-    ovl.innerHTML=`<div class="pn-cont-panel" onclick="event.stopPropagation()"><div class="pn-cont-head"><div><div class="pn-cont-title">CONTINUE FLIGHT</div><div class="pn-cont-sub">Quicksave · autosave · save slots</div></div><button class="pn-cont-close" title="Close" onclick="document.getElementById('cont-ovl').remove()">×</button></div><div class="pn-cont-body">${rows||'<div class="pn-empty"><b>No saved games found.</b><br><span style="font-size:11px;color:#94a3b8">Start a new airline or import a save file.</span></div>'}</div><div class="pn-cont-foot"><button class="pn-import" onclick="const f=document.getElementById('intro-import-file'); if(f) f.click();">IMPORT SAVE FILE</button><div class="pn-foot-note">PaisleyNitez · ${BUILD}</div></div></div>`;
+    ovl.innerHTML=`<div class="pn-cont-panel" onclick="event.stopPropagation()"><div class="pn-cont-head"><div><div class="pn-cont-title">CONTINUE FLIGHT</div><div class="pn-cont-sub">Choose an autosave or manual save</div></div><button class="pn-cont-close" title="Close" onclick="document.getElementById('cont-ovl').remove()">×</button></div><div class="pn-cont-body"><div class="pn-save-list">${rows}</div></div><div class="pn-cont-foot"><button class="pn-import" onclick="const f=document.getElementById('intro-import-file'); if(f) f.click();">IMPORT SAVE FILE</button><div class="pn-foot-note">PaisleyNitez · ${BUILD}</div></div></div>`;
     ovl.onclick=()=>ovl.remove(); document.body.appendChild(ovl);
   };
   window.contLoad=function(n){

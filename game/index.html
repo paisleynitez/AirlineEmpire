@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AIRLINE EMPIRE — Foundation Polish v02</title>
+<title>AIRLINE EMPIRE — v1.0.2 Home Balance</title>
 <!-- WORKING-AIRCRAFT-IDENTITY-001 BUILD MARKER -->
+<!-- HOME_BALANCE_LAVENDER_ROUTES_v01 · VERSION 1.0.2 -->
 
 
 
@@ -24,7 +25,7 @@
       <defs>
         <filter id="sp-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         <filter id="sp-softglow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <radialGradient id="sp-hubg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#6ff0dd"/><stop offset="60%" stop-color="#3fd6c0"/><stop offset="100%" stop-color="#3fd6c0" stop-opacity="0"/></radialGradient>
+        <radialGradient id="sp-hubg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f2e8ff"/><stop offset="55%" stop-color="#b982ff"/><stop offset="100%" stop-color="#8f5bd7" stop-opacity="0"/></radialGradient>
       </defs>
       <g id="sp-dots"></g><g id="sp-arcs"></g><g id="sp-planes"></g><g id="sp-hubs"></g>
     </svg>
@@ -78,7 +79,7 @@
 
         <div class="hcard c-cont disabled" id="resume-bar" onclick="openContinueMenu()">
           <div class="hc-ring"><span class="hc-ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13l9-2.6V5a1 1 0 012 0v5l7 2v1.6l-7-1.6v3l2 1.3v1.2L12 18l-2 .9v-1.2L12 16.4v-3z"/></svg></span></div>
-          <div class="hc-body"><div class="hc-title">CONTINUE</div><div class="hc-line" id="home-cont-line">No saved game</div><div class="hc-sub" id="resume-info"></div></div>
+          <div class="hc-body"><div class="hc-title">CONTINUE FLIGHT</div><div class="hc-line" id="home-cont-line">Choose a saved airline</div><div class="hc-sub" id="resume-info"></div></div>
         </div>
 
         <div class="hcard c-daily" onclick="launchDaily()">
@@ -86,10 +87,6 @@
           <div class="hc-body"><div class="hc-title">DAILY CHALLENGE</div><div class="hc-line" id="daily-sub">Today’s seeded run</div><div class="hc-sub good" id="daily-reward">Reward: $10M + 100 RP</div></div>
         </div>
 
-        <div class="hcard c-rec" onclick="openRecords()">
-          <div class="hc-ring"><span class="hc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 4h8v4a4 4 0 01-8 0zM6 4H4v2a3 3 0 003 3M18 4h2v2a3 3 0 01-3 3M9 14h6M8 20h8M10 14v6M14 14v6"/></svg></span></div>
-          <div class="hc-body"><div class="hc-title">RECORDS</div><div class="hc-line" id="records-sub">0 achievements</div><div class="hc-sub">View your legacy</div></div>
-        </div>
       </div>
     </div>
 
@@ -117,13 +114,7 @@
 <div id="setup" class="hidden">
   <svg id="setup-bg" class="wizard-bg" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
 
-  <!-- Header -->
-  <div class="wz-header">
-    <div class="wz-title">
-      <div id="wz-flap-title" class="flap-board" onclick="reflipTitle()" title="click to re-flip" style="font-size:36px;gap:4px;justify-content:center;letter-spacing:0;cursor:pointer"></div>
-    </div>
-
-  </div>
+  <!-- Setup title removed in v1.0.7 for a cleaner scenario flow. -->
 
   <!-- (step indicator removed — Next/Back buttons carry the flow) -->
 
@@ -173,10 +164,6 @@
             <div class="sc2-how"><span class="ic">📈</span><span><b>Strategic variety</b><br>Choose the playstyle that matches your vision.</span></div>
             <div class="sc2-how"><span class="ic">🌐</span><span><b>Grow your empire</b><br>Complete scenarios to unlock more content.</span></div>
           </div>
-          <div class="sc2-rail-panel">
-            <div class="sc2-rail-title">SCENARIO PREVIEW</div>
-            <div id="sc2-preview"></div>
-          </div>
           <div class="sc2-rail-panel sc2-tips">
             <div class="sc2-rail-title" style="color:var(--accent2)">💡 TIPS</div>
             <div style="font-size:10px;color:var(--muted);line-height:1.55">Click <b style="color:var(--text)">DETAILS</b> on any scenario to reveal start cash, hubs, rivals and difficulty.</div>
@@ -186,7 +173,7 @@
     </div>
     <div class="wz-nav sc2-nav">
       <button class="wz-back" onclick="wzStep(1)">‹ Back</button>
-      <button class="wz-next sc2-next" onclick="wzStep(3)">✈&nbsp; Next — Found Airline ›</button>
+      <button class="wz-next sc2-next" onclick="wzFlyToFoundAirline(event)">✈&nbsp; Next — Found Airline ›</button>
     </div>
   </div>
 
@@ -198,15 +185,13 @@
           <div class="ae4-ptitle"><span class="ae4-num">1</span>AIRLINE NAME</div>
           <div class="ae4-namerow">
             <input class="ae4-input" id="nh-name-input" maxlength="14" value="SKYLINE" placeholder="YOUR AIRLINE" oninput="aeNameCheck()">
+            <button class="ae4-dice" onclick="aeRandomName()" title="Random airline name" aria-label="Generate a random airline name">🎲</button>
             <span class="ae4-namecheck ok" id="ae4-namecheck">✓</span>
           </div>
-          <div class="ae4-namefeed">
-            <span id="ae4-namemsg">Your airline name looks good!</span>
-            <button class="ae4-dice" onclick="aeRandomName()" title="Random name">🎲</button>
-          </div>
+          <span id="ae4-namemsg" hidden></span>
         </div>
         <div class="ae4-panel ae4-logo-panel">
-          <div class="ae4-ptitle"><span class="ae4-num">2</span>CHOOSE YOUR LOGO</div>
+          <div class="ae4-ptitle ae4-logo-title"><span class="ae4-num">2</span>AIRLINE LOGO<div class="ae-logo-toolbar" aria-label="Airline logo controls"><button type="button" onclick="AirlineIdentityGenerator.shuffleContactLogos(9)">⟳ SHUFFLE</button></div></div>
           <div class="ae4-logogrid" id="logo-pick-row"></div>
         </div>
       </div>
@@ -478,13 +463,11 @@
       <div id="region-tabs"></div>
       <div id="event-flash"></div>
       <div id="zoom-ctrl">
-        <button onclick="zoomBy(1.35)" title="Zoom in">+</button>
+        <button onclick="zoomBy(1.35)" title="Zoom in" aria-label="Zoom in">+</button>
         <div id="zoom-pct" title="Zoom level">100%</div>
-        <button onclick="zoomBy(1/1.35)" title="Zoom out">−</button>
+        <button onclick="zoomBy(1/1.35)" title="Zoom out" aria-label="Zoom out">−</button>
       </div>
-      <div id="demand-toggle" onclick="toggleDemandOverlay()" title="Show unmet demand heatmap">🌡 Demand</div>
-      <div id="conquest-toggle" onclick="toggleConquest()" title="Show region conquest overlay (Chief Strategist)">👑 Conquest</div>
-      <div id="night-toggle" onclick="toggleNightMap()" title="Toggle night map">🌙 Night</div>
+      <div id="demand-toggle" onclick="toggleDemandOverlay()" title="Demand overlay placeholder">🌡 Demand</div>
 
       <div id="tour-overlay" class="hidden"></div>
       <div id="action-pips" class="hidden-cap" title="Moves left this month"></div>
@@ -595,7 +578,12 @@
 
 <script src="./js/data/scenarios.js"></script>
 <script src="./js/data/airline-logos.js"></script>
+<script src="./js/data/curatedAirlineIdentities.js"></script>
+<script src="./js/generator/airlineIdentityGenerator.js"></script>
+<script src="./js/cities/cityProfileManager.js"></script>
+<script src="./js/cities/cityRenderer.js"></script>
 <script src="./js/core/game.js"></script>
+<script src="./js/core/aiAirlineLifecycle.js"></script>
 
 <!-- ═══════════════════════════════════════════════════════════
      DEV TUNER  —  compact live tuning panel

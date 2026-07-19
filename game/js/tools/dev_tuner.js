@@ -463,3 +463,68 @@
   if(typeof _oldUpdate==='function') window.updateUI=function(){ const res=_oldUpdate.apply(this,arguments); try{ miEnsure(); }catch(e){} return res; };
   try{ miEnsure(); }catch(e){}
 })();
+
+/* v1.0.6 — movable Dev Tuner launcher. Standalone and Git/npm independent. */
+(function enableMovableTuneLauncher(){
+  function clamp(v,min,max){ return Math.max(min,Math.min(max,v)); }
+  function init(){
+    const btn=document.getElementById('dt-launch');
+    if(!btn || btn.dataset.dragReady==='1') return;
+    btn.dataset.dragReady='1';
+
+    try{
+      const saved=JSON.parse(localStorage.getItem('ae_dt_launcher_pos')||'null');
+      if(saved && Number.isFinite(saved.x) && Number.isFinite(saved.y)){
+        btn.style.left=saved.x+'px'; btn.style.top=saved.y+'px';
+        btn.style.right='auto'; btn.style.bottom='auto';
+      }
+    }catch(e){}
+
+    let active=false,moved=false,startX=0,startY=0,baseX=0,baseY=0,pid=null;
+    btn.addEventListener('pointerdown',function(e){
+      if(e.button!==undefined && e.button!==0) return;
+      const r=btn.getBoundingClientRect();
+      active=true; moved=false; pid=e.pointerId;
+      startX=e.clientX; startY=e.clientY; baseX=r.left; baseY=r.top;
+      btn.classList.add('dt-dragging');
+      try{btn.setPointerCapture(pid);}catch(err){}
+      e.preventDefault();
+    });
+    btn.addEventListener('pointermove',function(e){
+      if(!active || e.pointerId!==pid) return;
+      const dx=e.clientX-startX, dy=e.clientY-startY;
+      if(Math.abs(dx)+Math.abs(dy)>4) moved=true;
+      const x=clamp(baseX+dx,8,window.innerWidth-btn.offsetWidth-8);
+      const y=clamp(baseY+dy,8,window.innerHeight-btn.offsetHeight-8);
+      btn.style.left=x+'px'; btn.style.top=y+'px';
+      btn.style.right='auto'; btn.style.bottom='auto';
+    });
+    function finish(e){
+      if(!active || (e.pointerId!==undefined && e.pointerId!==pid)) return;
+      active=false; btn.classList.remove('dt-dragging');
+      const r=btn.getBoundingClientRect();
+      try{localStorage.setItem('ae_dt_launcher_pos',JSON.stringify({x:Math.round(r.left),y:Math.round(r.top)}));}catch(err){}
+      if(moved){
+        btn.dataset.suppressClick='1';
+        setTimeout(()=>{delete btn.dataset.suppressClick;},80);
+      }
+      try{btn.releasePointerCapture(pid);}catch(err){}
+      pid=null;
+    }
+    btn.addEventListener('pointerup',finish);
+    btn.addEventListener('pointercancel',finish);
+    btn.addEventListener('click',function(e){
+      if(btn.dataset.suppressClick==='1'){
+        e.preventDefault(); e.stopImmediatePropagation();
+      }
+    },true);
+    window.addEventListener('resize',function(){
+      const r=btn.getBoundingClientRect();
+      const x=clamp(r.left,8,window.innerWidth-btn.offsetWidth-8);
+      const y=clamp(r.top,8,window.innerHeight-btn.offsetHeight-8);
+      btn.style.left=x+'px'; btn.style.top=y+'px';
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+})();

@@ -1550,6 +1550,35 @@ function wzStep(page) {
   const wzFlap = document.getElementById('wz-flap-title');
   if (wzFlap) setTimeout(() => splitFlap(wzFlap, 'AIRLINE EMPIRE'), 80);
 }
+let _wzFlightTransitionActive = false;
+function wzFlyToFoundAirline(ev) {
+  if (_wzFlightTransitionActive) return;
+  if (setupChoice.type === 'scenario' && !setupChoice.scenario) {
+    showFlash('Pick a scenario first');
+    return;
+  }
+  _wzFlightTransitionActive = true;
+  const source = ev && ev.currentTarget ? ev.currentTarget : null;
+  if (source) source.disabled = true;
+
+  const flight = document.createElement('div');
+  flight.className = 'wz-flight-transition';
+  flight.setAttribute('aria-hidden','true');
+  flight.innerHTML = `<div class="wz-flight-trail"></div><svg class="wz-flight-plane" viewBox="0 0 120 120" role="presentation"><path d="M12 66l41-12V18c0-6 4-10 7-10s7 4 7 10v36l41 12v10L67 67v18l14 9v8l-21-7-21 7v-8l14-9V67l-41 9z"/></svg>`;
+  document.body.appendChild(flight);
+  requestAnimationFrame(() => flight.classList.add('depart'));
+
+  window.setTimeout(() => {
+    wzStep(3);
+    flight.classList.add('finish');
+  }, 620);
+  window.setTimeout(() => {
+    flight.remove();
+    if (source) source.disabled = false;
+    _wzFlightTransitionActive = false;
+  }, 980);
+}
+
 function wzRenderPage1() {
   const t = setupChoice.type;
   const tg = document.getElementById('wz-type-grid');
@@ -1683,9 +1712,8 @@ function wzRenderPage3() {
       const title = String(logo.name || logo.id).replace(/"/g,'&quot;');
       return `<button class="logo-pick logo-card image-logo-card ${selected?'selected':''}" onclick="pickLogo('${logo.id}')"
         data-logo-id="${logo.id}" data-peek-icon="✈" data-peek-title="${title}" data-peek-body="${groupName}" title="${title}">
-          <span class="logo-card-image-wrap">${window.airlineLogoImg ? window.airlineLogoImg(logo.id, 'logo-card-image', logo.name) : '✈'}</span>
+          <span class="logo-card-image-wrap">${window.airlineLogoImg ? window.airlineLogoImg(logo.id, 'logo-card-image', logo.name) : '✈'}<span class="logo-card-image-label">${logo.name}</span></span>
           <span class="logo-card-name">${logo.name}</span>
-          <span class="logo-card-cat">${String(groupName).toUpperCase()}</span>
         </button>`;
     }).join('');
   }
@@ -1784,37 +1812,13 @@ function aeCompDots(name, c) {
   return Math.max(1, Math.min(5, Math.round((c.level||3) * 0.72 + r * 1.6)));
 }
 function aeCityThumbSVG(name, region) {
-  const tint = REGION_TINT[region] || ['#1b3a52','#0e1f30'];
-  const rnd = seededRng('sky:' + name);
-  const gid = 'ae4g' + name.replace(/[^a-z0-9]/gi,'');
-  const W = 160, H = 88, ground = H - 6;
-  let bld = '', win = '';
-  let x = -4;
-  while (x < W) {
-    const bw = 10 + Math.floor(rnd() * 16);
-    const bh = 18 + Math.floor(rnd() * 46);
-    const shade = 0.5 + rnd() * 0.35;
-    bld += `<rect x="${x}" y="${ground - bh}" width="${bw}" height="${bh}" fill="#050d16" opacity="${shade.toFixed(2)}"/>`;
-    const cols = Math.max(1, Math.floor(bw / 5));
-    for (let wy = ground - bh + 4; wy < ground - 5; wy += 7) {
-      for (let wc = 0; wc < cols; wc++) {
-        if (rnd() < 0.28) win += `<rect x="${x + 2 + wc * 5}" y="${wy}" width="2.2" height="3" fill="#ffd77a" opacity="${(0.35 + rnd()*0.5).toFixed(2)}"/>`;
-      }
-    }
-    x += bw + 2 + Math.floor(rnd() * 4);
+  if (window.AECityRenderer && typeof window.AECityRenderer.render === 'function') {
+    return window.AECityRenderer.render(name, region);
   }
-  const sunX = 20 + rnd() * (W - 40), sunY = 14 + rnd() * 22, sunR = 4 + rnd() * 5;
-  return `<svg class="ae4-thumb" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="${tint[0]}"/><stop offset="1" stop-color="${tint[1]}"/>
-    </linearGradient></defs>
-    <rect width="${W}" height="${H}" fill="url(#${gid})"/>
-    <circle cx="${sunX.toFixed(0)}" cy="${sunY.toFixed(0)}" r="${sunR.toFixed(1)}" fill="#ffd9a0" opacity=".8"/>
-    <circle cx="${sunX.toFixed(0)}" cy="${sunY.toFixed(0)}" r="${(sunR*2.4).toFixed(1)}" fill="#ffd9a0" opacity=".12"/>
-    ${bld}${win}
-    <rect y="${ground}" width="${W}" height="${H-ground}" fill="#04090f"/>
-  </svg>`;
+  const tint = REGION_TINT[region] || ['#1b3a52','#0e1f30'];
+  return `<svg class="ae4-thumb" viewBox="0 0 180 88" aria-hidden="true"><defs><linearGradient id="fallbackCity" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${tint[0]}"/><stop offset="1" stop-color="${tint[1]}"/></linearGradient></defs><rect width="180" height="88" fill="url(#fallbackCity)"/><rect y="70" width="180" height="18" fill="#050b12"/></svg>`;
 }
+
 function aePlaneSVG(w, h) {
   const p = _selectedLivery, s = _selectedLivery2, a = _selectedLiveryA;
   return `<svg width="${w}" height="${h}" viewBox="0 0 200 78">
@@ -4681,7 +4685,7 @@ function worldInner(){
     citiesHtml+=g;
   });
   return {
-    html: `<image class="sat-img" href="${SAT_MAP_URI}" x="${MAP_IMG_X}" y="${MAP_IMG_Y}" width="${MAP_W}" height="${MAP_IMG_H}" preserveAspectRatio="none" class="sat-map"/><rect class="night-tint" x="0" y="0" width="${MAP_W}" height="${MAP_H}" fill="#081a36" opacity="0.42" pointer-events="none"/><use href="#adminpath-us" class="admin"/><use href="#adminpath-ca" class="admin"/><use href="#borderpath" class="border"/><g class="polar-snow" pointer-events="none"><rect x="0" y="0" width="${MAP_W}" height="${projY(46).toFixed(1)}" fill="url(#snowNorth)"/><rect x="0" y="${projY(-50).toFixed(1)}" width="${MAP_W}" height="${(MAP_H-projY(-50)).toFixed(1)}" fill="url(#snowSouth)"/></g><g class="demand-overlay">${buildDemandOverlay()}</g><g class="routes">${routesHtml}</g><g class="route-click-overlays">${clickOverlays}</g><g class="planes">${planesHtml}</g><g class="cities">${citiesHtml}</g><g class="conquest" pointer-events="none">${buildConquestOverlay()}</g>`,
+    html: `<image class="sat-img" href="${SAT_MAP_URI}" x="${MAP_IMG_X}" y="${MAP_IMG_Y}" width="${MAP_W}" height="${MAP_IMG_H}" preserveAspectRatio="none" class="sat-map"/><rect class="ocean-color" x="0" y="0" width="${MAP_W}" height="${MAP_H}" mask="url(#oceanMask)" pointer-events="none"/><rect class="night-tint" x="0" y="0" width="${MAP_W}" height="${MAP_H}" fill="#081a36" opacity="0.42" pointer-events="none"/><use href="#adminpath-us" class="admin"/><use href="#adminpath-ca" class="admin"/><use href="#borderpath" class="border"/><g class="polar-snow" pointer-events="none"><rect x="0" y="0" width="${MAP_W}" height="${projY(46).toFixed(1)}" fill="url(#snowNorth)"/><rect x="0" y="${projY(-50).toFixed(1)}" width="${MAP_W}" height="${(MAP_H-projY(-50)).toFixed(1)}" fill="url(#snowSouth)"/></g><g class="demand-overlay">${buildDemandOverlay()}</g><g class="routes">${routesHtml}</g><g class="route-click-overlays">${clickOverlays}</g><g class="planes">${planesHtml}</g><g class="cities">${citiesHtml}</g><g class="conquest" pointer-events="none">${buildConquestOverlay()}</g>`,
     defs: planeDefs
   };
 }
@@ -4742,6 +4746,7 @@ function renderMap() {
       <path id="borderpath" d="${BORDER_PATH}"/>
       <path id="adminpath-us" d="${US_STATE_PATH}"/>
       <path id="adminpath-ca" d="${CA_PROVINCE_PATH}"/>
+      <mask id="oceanMask" maskUnits="userSpaceOnUse" x="0" y="0" width="${MAP_W}" height="${MAP_H}"><rect x="0" y="0" width="${MAP_W}" height="${MAP_H}" fill="white"/><use href="#landpath" fill="black"/></mask>
       <radialGradient id="oceanGrad" cx="50%" cy="35%" r="70%">
         <stop offset="0%" stop-color="#0d1d35"/>
         <stop offset="100%" stop-color="#060e1e"/>
@@ -14889,50 +14894,62 @@ function importSave(input){
                  catch(e){ showFlash('⚠ Invalid save file'); } };
   r.readAsText(f);
 }
+// HOME_BALANCE_LAVENDER_ROUTES_v01: keep application layout at native 100% CSS scale.
+(function enforceNativeAppScale(){
+  try{
+    document.documentElement.style.zoom='100%';
+    document.body.style.zoom='100%';
+    document.documentElement.style.transform='none';
+    document.body.style.transform='none';
+  }catch(e){}
+})();
 function buildIntroBg(){
   const svg=document.getElementById('intro-bg');
   const svg2=document.getElementById('setup-bg');
   if(!svg && !svg2) return;
   const W=1000, H=600;
-  // Build from the LIVE city set, scaled into the 1000x600 backdrop space.
   let ents=[];
   try{ ents=Object.entries(CITIES); }catch(e){}
   if(!ents.length){ if(svg)svg.innerHTML=''; if(svg2)svg2.innerHTML=''; return; }
   let minx=1e9,maxx=-1e9,miny=1e9,maxy=-1e9;
   ents.forEach(([,c])=>{ if(c.x<minx)minx=c.x; if(c.x>maxx)maxx=c.x; if(c.y<miny)miny=c.y; if(c.y>maxy)maxy=c.y; });
-  const sx=x=>40+(x-minx)/(maxx-minx)*(W-80), sy=y=>60+(y-miny)/(maxy-miny)*(H-120);
-  const list=ents.map(([n,c])=>({n, a:c.abbr||'', x:sx(c.x), y:sy(c.y), m:!!c.major, p:c.pop||0}));
+  const sx=x=>30+(x-minx)/(maxx-minx)*(W-60), sy=y=>42+(y-miny)/(maxy-miny)*(H-84);
+  const list=ents.map(([n,c])=>({n,a:c.abbr||'',x:sx(c.x),y:sy(c.y),m:!!c.major,p:c.pop||0}));
   const byAbbr={}; list.forEach(c=>{ if(c.a) byAbbr[c.a]=c; });
-
-  // route arcs from recognizable seed hubs to nearest neighbours (ambient, static)
   const seedAbbr=['NYC','LON','TYO','LAX','PAR','SAO','SHA','MEX','IST','SIN','DXB','HKG','SYD','JNB'];
   let seeds=seedAbbr.map(a=>byAbbr[a]).filter(Boolean);
-  if(seeds.length<4) seeds=list.filter(c=>c.m).sort((a,b)=>b.p-a.p).slice(0,10);
+  if(seeds.length<6) seeds=list.filter(c=>c.m).sort((a,b)=>b.p-a.p).slice(0,12);
   const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
   let arcs=[];
-  seeds.forEach(s=>{ const near=list.filter(c=>c!==s).sort((a,b)=>dist(s,a)-dist(s,b)).slice(0,5); near.forEach(t=>arcs.push([s,t])); });
-  const seen=new Set(); arcs=arcs.filter(p=>{ const k=[p[0].a||p[0].n,p[1].a||p[1].n].sort().join('>'); if(seen.has(k))return false; seen.add(k); return true; });
+  seeds.forEach((s,si)=>{
+    const near=list.filter(c=>c!==s).sort((a,b)=>dist(s,a)-dist(s,b)).slice(0,4);
+    near.forEach((t,ti)=>arcs.push([s,t,si,ti]));
+  });
+  const seen=new Set();
+  arcs=arcs.filter(p=>{ const k=[p[0].a||p[0].n,p[1].a||p[1].n].sort().join('>'); if(seen.has(k))return false; seen.add(k); return true; });
 
-  let html='<defs><filter id="bgGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
-    +'<radialGradient id="bgHub" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#6ff0dd"/><stop offset="60%" stop-color="#3fd6c0"/><stop offset="100%" stop-color="#3fd6c0" stop-opacity="0"/></radialGradient></defs>';
-  // faint world dot-field
+  let html='<defs>'
+    +'<filter id="bgHubGlow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
+    +'<radialGradient id="bgHub" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f7efff"/><stop offset="45%" stop-color="#c9a7ff" stop-opacity=".75"/><stop offset="100%" stop-color="#8f5bd7" stop-opacity="0"/></radialGradient></defs>';
   html+='<g>';
-  list.forEach(c=>{ html+=`<circle cx="${c.x.toFixed(1)}" cy="${c.y.toFixed(1)}" r="${c.m?1.8:1.1}" fill="${c.m?'#2f6f66':'#1d4a44'}"/>`; });
-  html+='</g><g filter="url(#bgGlow)">';
-  // glowing arcs
-  arcs.forEach((p,i)=>{ const [a,b]=p;
-    const mx=(a.x+b.x)/2, my=Math.min(a.y,b.y)-Math.hypot(a.x-b.x,a.y-b.y)*0.26;
+  list.forEach(c=>{ html+=`<circle class="${c.m?'home-city-major':'home-city-dot'}" cx="${c.x.toFixed(1)}" cy="${c.y.toFixed(1)}" r="${c.m?1.45:.82}"/>`; });
+  html+='</g><g>';
+  arcs.forEach((p,i)=>{
+    const [a,b,si,ti]=p;
+    const span=Math.hypot(a.x-b.x,a.y-b.y);
+    const mx=(a.x+b.x)/2;
+    const lift=(0.13+((i%4)*0.022))*span;
+    const my=Math.min(a.y,b.y)-lift;
     const d=`M${a.x.toFixed(1)},${a.y.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${b.x.toFixed(1)},${b.y.toFixed(1)}`;
-    const amber=(i%7===0);
-    html+=`<path d="${d}" fill="none" stroke="${amber?'#ffcf5a':'#3fd6c0'}" stroke-width="${amber?1.1:0.9}" stroke-opacity="${amber?0.7:0.5}" vector-effect="non-scaling-stroke"/>`;
+    const gold=(i%13===0 || (si+ti)%19===0);
+    html+=`<path class="home-route-soft" d="${d}" fill="none" vector-effect="non-scaling-stroke"/>`;
+    html+=`<path class="${gold?'home-route-gold':'home-route-main'}" d="${d}" fill="none" vector-effect="non-scaling-stroke" style="animation-delay:-${(i%11)*.8}s"/>`;
   });
   html+='</g><g>';
-  // hub glows
-  seeds.forEach(s=>{ html+=`<circle cx="${s.x.toFixed(1)}" cy="${s.y.toFixed(1)}" r="11" fill="url(#bgHub)"/><circle cx="${s.x.toFixed(1)}" cy="${s.y.toFixed(1)}" r="2.2" fill="#eafffb" filter="url(#bgGlow)"/>`; });
+  seeds.forEach((s,i)=>{ html+=`<circle cx="${s.x.toFixed(1)}" cy="${s.y.toFixed(1)}" r="${i%3===0?7:5.5}" fill="url(#bgHub)"/><circle class="home-hub-core" cx="${s.x.toFixed(1)}" cy="${s.y.toFixed(1)}" r="1.55" filter="url(#bgHubGlow)"/>`; });
   html+='</g>';
-
-  if(svg)  svg.innerHTML=html;
-  if(svg2) svg2.innerHTML=html;   // same network carries from the menu through setup
+  if(svg) svg.innerHTML=html;
+  if(svg2) svg2.innerHTML=html;
 }
 function splitFlap(container, text){
   if(!container) return;
@@ -15215,7 +15232,7 @@ function playIntroCinematic(){
   // faint world dot-field
   list.forEach(c=>{ const d=document.createElementNS(SVGNS,'circle');
     d.setAttribute('cx',c.x); d.setAttribute('cy',c.y); d.setAttribute('r', c.m?2.2:1.3);
-    d.setAttribute('fill', c.m?'#2f6f66':'#1d4a44'); d.setAttribute('class','sp-citydot'); d.dataset.region=c.r;
+    d.setAttribute('fill', c.m?'#6f55a3':'#352a56'); d.setAttribute('class','sp-citydot'); d.dataset.region=c.r;
     dotsG.appendChild(d); });
 
   // routes from recognizable seed hubs to nearest + a few long hauls
@@ -15236,7 +15253,7 @@ function playIntroCinematic(){
   const arcEls=[];
   routes.forEach((r,i)=>{ const p=document.createElementNS(SVGNS,'path');
     p.setAttribute('d',arcPath(r[0],r[1])); p.setAttribute('fill','none');
-    p.setAttribute('stroke', i%7===0?'#ffcf5a':'#3fd6c0'); p.setAttribute('stroke-width', i%7===0?1.5:1.1);
+    p.setAttribute('stroke', i%7===0?'#e4b85f':'#a970f2'); p.setAttribute('stroke-width', i%7===0?1.5:1.1);
     p.setAttribute('stroke-opacity','0'); p.setAttribute('filter','url(#sp-glow)');
     arcsG.appendChild(p); arcEls.push({el:p, route:r, len:0}); });
   arcEls.forEach(a=>{ a.len=a.el.getTotalLength(); a.el.style.strokeDasharray=a.len; a.el.style.strokeDashoffset=a.len; });
@@ -15253,7 +15270,7 @@ function playIntroCinematic(){
   function fadeEl(el,to,dur){ if(!el)return; const fr=parseFloat(getComputedStyle(el).opacity)||0; anim(dur,t=>el.style.opacity=(fr+(to-fr)*t).toFixed(3)); }
   function flyPlane(arc,dur,color){ const path=arc.el, L=arc.len;
     const dot=document.createElementNS(SVGNS,'circle'); dot.setAttribute('r','2.6'); dot.setAttribute('fill',color||'#eafffb'); dot.setAttribute('filter','url(#sp-softglow)'); planesG.appendChild(dot);
-    const tail=document.createElementNS(SVGNS,'circle'); tail.setAttribute('r','1.6'); tail.setAttribute('fill',color||'#3fd6c0'); tail.setAttribute('opacity','.6'); planesG.appendChild(tail);
+    const tail=document.createElementNS(SVGNS,'circle'); tail.setAttribute('r','1.6'); tail.setAttribute('fill',color||'#c9a7ff'); tail.setAttribute('opacity','.6'); planesG.appendChild(tail);
     anim(dur,t=>{ const p=path.getPointAtLength(L*easeIO(t)); const q=path.getPointAtLength(L*Math.max(0,easeIO(t)-0.04)); dot.setAttribute('cx',p.x); dot.setAttribute('cy',p.y); tail.setAttribute('cx',q.x); tail.setAttribute('cy',q.y); }, ()=>{ dot.remove(); tail.remove(); }); }
   function roll(el,to,dur,fmt){ if(!el)return; anim(dur,t=>{ const v=Math.round(to*ease(t)); el.textContent=fmt?fmt(v):v.toLocaleString(); }); }
   function pulseHub(h){ const r0=16; anim(reduce?200:900, t=>{ h.halo.setAttribute('r',(r0*(1+1.6*ease(t))).toFixed(1)); h.halo.setAttribute('opacity',(1-ease(t)).toFixed(2)); }, ()=>{ h.halo.setAttribute('r',r0); h.halo.setAttribute('opacity','1'); }); }
@@ -15263,7 +15280,7 @@ function playIntroCinematic(){
   const regC=$('sp-regions'); regC.innerHTML=''; const regEls={};
   REGIONS.forEach(r=>{ const d=document.createElement('div'); d.className='sp-reg'; d.innerHTML='<span class="nm">'+(RL[r]||r.toUpperCase())+'</span> <span class="st"></span>'; regC.appendChild(d); regEls[r]=d; });
   function igniteRegion(reg){ const e=regEls[reg]; if(!e)return; e.classList.add('lit'); e.querySelector('.st').innerHTML='LED <span class="dot"></span>';
-    document.querySelectorAll('.sp-citydot[data-region="'+reg+'"]').forEach(d=>{ d.setAttribute('fill', parseFloat(d.getAttribute('r'))>=2?'#4fd8c8':'#2f8278'); }); }
+    document.querySelectorAll('.sp-citydot[data-region="'+reg+'"]').forEach(d=>{ d.setAttribute('fill', parseFloat(d.getAttribute('r'))>=2?'#c9a7ff':'#8059bd'); }); }
 
   // reset overlays
   ['sp-coord','sp-stats','sp-h1','sp-tag','sp-cta'].forEach(id=>{ const e=$(id); if(e)e.style.opacity='0'; });
@@ -15276,7 +15293,7 @@ function playIntroCinematic(){
   T(650, ()=>{ const h=hubNodes['NYC']||hubNodes[seeds[0].a||seeds[0].n]; if(h){ fadeEl(h.g,1,600); pulseHub(h);} });
   // 1 draw network
   const base=reduce?0:1000, step=reduce?0:40; const lit=new Set();
-  arcEls.forEach((a,i)=>{ T(base+i*step, ()=>{ a.el.setAttribute('stroke-opacity', a.el.getAttribute('stroke')==='#ffcf5a'?'0.9':'0.6');
+  arcEls.forEach((a,i)=>{ T(base+i*step, ()=>{ a.el.setAttribute('stroke-opacity', a.el.getAttribute('stroke')==='#e4b85f'?'0.9':'0.64');
     anim(reduce?200:900, t=>{ a.el.style.strokeDashoffset=(a.len*(1-ease(t))).toFixed(1); });
     flyPlane(a, reduce?300:1100, a.el.getAttribute('stroke'));
     const hn=hubNodes[a.route[1].a||a.route[1].n]; if(hn){ fadeEl(hn.g,1,500); pulseHub(hn); }
