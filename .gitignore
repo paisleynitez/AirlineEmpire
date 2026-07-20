@@ -1,0 +1,28 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Build output
+dist/
+build/
+
+# Game
+game/saves/*
+!game/saves/.gitkeep
+
+game/exports/*
+!game/exports/.gitkeep
+
+# Logs
+*.log
+
+# Local developer scratch space
+/dev/

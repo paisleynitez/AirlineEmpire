@@ -1,0 +1,10 @@
+f78f8d9 (HEAD -> dab_20260712, origin/dab_20260712) Added batch files for Doug to run
+cf5817b (origin/main, origin/HEAD, main) merge: complete JavaScript extraction and add Vite
+7181ca5 (origin/refactor/modular-core, origin/refactor/extract-js) refactor: complete JavaScript extraction and add Vite
+d627f5c build: add Vite development environment
+d41cd0d build: narrow .gitignore dev rule
+f4830d5 refactor: extract Dev Tuner into module
+e36a0b3 created README.md
+80ea5cb refactor: extract patch scripts and scenarios data
+452d7cf refactor: extract patch scripts
+7781294 (dab_20260711) docs: normalize filenames and add documentation standards
