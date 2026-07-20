@@ -41,7 +41,7 @@
     if(hidden()){if(typeof window.dismissBanner==='function')window.dismissBanner();return false;}
     const overlay=document.getElementById('modal-overlay'),content=document.getElementById('modal-content');
     if(!overlay||!content){if(typeof window.dismissBanner==='function')window.dismissBanner();return false;}
-    if(window.STATE&&window.STATE.timerInterval)clearInterval(window.STATE.timerInterval);
+    if(typeof STATE!=='undefined'&&STATE.timerInterval)clearInterval(STATE.timerInterval);
     content.innerHTML=build(data||{});
     content.classList.add('modal-wide','ops-report-modal');
     overlay.classList.add('open');
@@ -55,6 +55,7 @@
     if(overlay)overlay.classList.remove('open');
     if(content){content.classList.remove('modal-wide','ops-report-modal');content.innerHTML='';}
     open=false;
+    if(typeof STATE!=='undefined')STATE.paused=false;
     if(typeof window.dismissBanner==='function')window.dismissBanner();
   }
   window.AEReports={openOperationsReport,close,isOpen:()=>open,resetPreference:()=>setHidden(false)};
