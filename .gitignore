@@ -21,6 +21,9 @@ game/saves/*
 game/exports/*
 !game/exports/.gitkeep
 
+game/screenshots/*
+!game/screenshots/.gitkeep
+
 # Logs
 *.log
 
