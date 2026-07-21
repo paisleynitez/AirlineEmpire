@@ -1173,6 +1173,13 @@
     "image": "/assets/logos/airlines/luxury-ultra-premium/velvet_air.png"
   }
 ];
+  // v1.1.11: support both direct game/index.html launch and web-server launch.
+  // Root-relative /assets paths break under file:// by resolving to file://host/assets.
+  AIRLINE_LOGOS.forEach(logo => {
+    if (logo && typeof logo.image === 'string' && logo.image.startsWith('/assets/')) {
+      logo.image = '..' + logo.image;
+    }
+  });
   const byId = new Map(AIRLINE_LOGOS.map(x => [x.id, x]));
   const DEFAULT_LOGO_ID = AIRLINE_LOGOS.some(x => x.id === 'nova_airlines') ? 'nova_airlines' : AIRLINE_LOGOS[0].id;
   function getAirlineLogo(id){ return byId.get(id) || byId.get(DEFAULT_LOGO_ID) || AIRLINE_LOGOS[0] || null; }

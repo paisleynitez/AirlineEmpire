@@ -319,15 +319,22 @@
       <div class="hdr-dt-main" id="h-date">APR 1970</div>
       <div class="hdr-dt-sub"><span id="h-date-sub">Month 0</span> <span style="color:var(--warn)">☀</span></div>
     </div>
-    <div class="hdr-transport">
-      <div class="hdr-tbtn primary" id="hdr-play" onclick="hdrPlayToggle()" title="Play / pause the month timer"><span id="hdr-play-ic"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7 5.5v13l11-6.5z"/></svg></span></div>
-      <div class="hdr-tbtn" onclick="setSpeed('turbo')" title="Fast-forward (turbo speed)"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 5.5v13l9-6.5zM12 5.5v13l9-6.5z"/></svg></div>
-      <div class="hdr-tbtn" onclick="openModal('settings')" title="Settings & menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M19.4 4.6l-2.1 2.1M6.7 17.3l-2.1 2.1"/></svg></div>
+    <div class="hdr-transport" aria-label="Simulation speed controls">
+      <button class="hdr-tbtn primary" id="hdr-play" onclick="hdrPlayToggle()" title="Play or pause the month timer" aria-label="Play or pause"><span id="hdr-play-ic"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7 5.5v13l11-6.5z"/></svg></span></button>
+      <div class="speed-ctrl hdr-speed-ctrl" id="speed-ctrl">
+        <button class="speed-btn" id="spd-off" onclick="setSpeed('off')" title="Manual turns; timer off">MAN</button>
+        <button class="speed-btn" id="spd-relaxed" onclick="setSpeed('relaxed')" title="Relaxed speed — 210 seconds">1×</button>
+        <button class="speed-btn" id="spd-normal" onclick="setSpeed('normal')" title="Normal speed — 120 seconds">2×</button>
+        <button class="speed-btn" id="spd-fast" onclick="setSpeed('fast')" title="Fast speed — 60 seconds">4×</button>
+        <button class="speed-btn" id="spd-turbo" onclick="setSpeed('turbo')" title="Turbo speed — 25 seconds">8×</button>
+      </div>
+      <div class="hdr-speed-status" id="hdr-speed-status" aria-live="polite">MANUAL</div>
+      <button class="hdr-tbtn" onclick="openModal('settings')" title="Settings & menu" aria-label="Settings and menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M19.4 4.6l-2.1 2.1M6.7 17.3l-2.1 2.1"/></svg></button>
     </div>
     <div style="display:none" aria-hidden="true">
       <span id="h-loan"></span><span id="h-value"></span><span id="h-profit"></span><span id="h-pax"></span><span id="h-routes"></span><span id="h-rank"></span>
       <button id="hdr-advisor-btn"></button><span id="hdr-adv-badge"></span><span id="hdr-adv-icon"></span><span id="hdr-adv-label"></span>
-      <div class="speed-ctrl" id="speed-ctrl"><button id="spd-pause"></button><button id="spd-off"></button><button id="spd-relaxed"></button><button id="spd-normal"></button><button id="spd-fast"></button><button id="spd-turbo"></button></div>
+      <button id="spd-pause"></button>
     </div>
   </div>
 

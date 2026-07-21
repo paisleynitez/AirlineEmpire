@@ -1,3 +1,10 @@
+## 1.1.11 — Direct-launch assets and Dev Tuner startup
+
+- Fixed airline logo paths for direct `file://` launch from `game/index.html`.
+- Fixed Market Intelligence startup crash caused by checking `window.STATE`.
+- Added null-safe Market Intelligence generation and startup handling.
+- Added implementation and QA documentation.
+
 
 ## 1.0.9 — Procedural Airline Identity
 

@@ -281,7 +281,9 @@
   function miMoney(n){ return '$'+Number(n||0).toFixed(0)+'M'; }
   function miMonthKey(){ return (STATE?.year||0)+'-'+(STATE?.month||0); }
   function miEnsure(){
-    if(!window.STATE) return null;
+    // STATE is declared with top-level let in core/game.js, so it is not a window property.
+    // Test the lexical binding directly and tolerate startup before core state exists.
+    if(typeof STATE === 'undefined' || !STATE) return null;
     STATE.marketIntel = STATE.marketIntel || {};
     const mi = STATE.marketIntel;
     mi.version = MI_VERSION;
@@ -390,7 +392,7 @@
     return offer;
   }
   function miGenerateRoutes(){
-    const mi=miEnsure(); const offers=[]; const seen=new Set();
+    const mi=miEnsure(); if(!mi) return []; const offers=[]; const seen=new Set();
     for(let i=0;i<60 && offers.length<6;i++){ const o=miGenerateRouteOffer(); if(!o) continue; const k=[o.from,o.to].sort().join('|'); if(seen.has(k)) continue; seen.add(k); offers.push(o); }
     mi.routeOffers=offers; miLog(`Generated ${offers.length} route forecasts.`,'good'); return offers;
   }
@@ -415,8 +417,9 @@
     mi.monthlyReports.unshift(report); if(mi.monthlyReports.length>12) mi.monthlyReports.pop();
   }
   function miGenerateAll(reason){
-    miEnsure(); miGenerateRoutes(); miGenerateAircraftDeals(); miGenerateContracts(); miGenerateHeat(); miMonthlyReport(reason||'Manual refresh');
+    const mi=miEnsure(); if(!mi) return false; miGenerateRoutes(); miGenerateAircraftDeals(); miGenerateContracts(); miGenerateHeat(); miMonthlyReport(reason||'Manual refresh');
     try{ if(typeof addEvent==='function') addEvent('neutral','🛰 Market Intelligence refreshed: forecasts, deals, contracts and heat map updated.'); }catch(e){}
+    return true;
   }
   function miRivalResponse(offer){
     const rival=miPick(STATE.competitors||[{name:'Grafitti'},{name:'AeroNova'},{name:'PanWorld'}]); let action='Ignore';
@@ -452,13 +455,13 @@
   function miRenderReports(){ const mi=miEnsure(); if(!mi.monthlyReports.length) miMonthlyReport('First report'); return `<div class="aemi-list">${mi.monthlyReports.map(r=>`<div class="aemi-list-row"><b>${r.time}</b> · ${r.reason}<div class="aemi-note">${r.summary}</div><div class="aemi-tags">${(r.actions||[]).map(a=>`<span class="aemi-tag">${a}</span>`).join('')}</div></div>`).join('')}</div>`; }
   function miRenderLog(){ const mi=miEnsure(); return `<div class="aemi-list aemi-log">${(mi.decisionLog||[]).map(l=>`<div class="aemi-list-row"><b>${l.time}</b><div class="aemi-note">${l.text}</div></div>`).join('')||'<div class="aemi-card">No decisions logged yet.</div>'}</div>`; }
   function miBody(tab){ return ({routes:miRenderRoutes,aircraft:miRenderAircraft,contracts:miRenderContracts,trials:miRenderTrials,heat:miRenderHeat,rivals:miRenderRivals,reports:miRenderReports,log:miRenderLog}[tab]||miRenderRoutes)(); }
-  window.openMarketIntel=function(tab){ const mi=miEnsure(); if(tab) mi.activeTab=tab; const active=mi.activeTab||'routes'; const tabs=[['routes','Route Opportunities'],['aircraft','Used Aircraft'],['contracts','Contracts'],['trials','Trial Routes'],['heat','Heat Map'],['rivals','Rival Watch'],['reports','Monthly Report'],['log','Decision Log']]; const html=`<div class="aemi-wrap"><div class="aemi-hero"><div><div class="aemi-kicker">${MI_VERSION}</div><div class="aemi-title">🛰 Market Intelligence</div><div class="aemi-sub">Forecast → act → rivals respond → trial report → convert, extend, or cut. Built onto the working v6_23_4_55 base without replacing the opening flow.</div></div><div class="aemi-actions"><button class="aemi-btn" onclick="miGenerateAll('Manual refresh');openMarketIntel('${active}')">↻ Refresh Intel</button><button class="aemi-btn warn" onclick="miProcessTrials();miMonthlyReport('Manual simulation');openMarketIntel('trials')">Advance Intel Month</button></div></div><div class="aemi-tabs">${tabs.map(t=>`<button class="aemi-tab ${active===t[0]?'active':''}" onclick="openMarketIntel('${t[0]}')">${t[1]}</button>`).join('')}</div>${miBody(active)}</div>`; if(typeof openModal==='function'){ openModal('settings'); const c=document.getElementById('modal-content'); c.innerHTML=modalHead('🛰 Market Intelligence')+`<div class="modal-body">${html}</div>`; c.classList.add('modal-wide'); } };
+  window.openMarketIntel=function(tab){ const mi=miEnsure(); if(!mi){ console.warn(MI_VERSION,'STATE is not ready'); return; } if(tab) mi.activeTab=tab; const active=mi.activeTab||'routes'; const tabs=[['routes','Route Opportunities'],['aircraft','Used Aircraft'],['contracts','Contracts'],['trials','Trial Routes'],['heat','Heat Map'],['rivals','Rival Watch'],['reports','Monthly Report'],['log','Decision Log']]; const html=`<div class="aemi-wrap"><div class="aemi-hero"><div><div class="aemi-kicker">${MI_VERSION}</div><div class="aemi-title">🛰 Market Intelligence</div><div class="aemi-sub">Forecast → act → rivals respond → trial report → convert, extend, or cut. Built onto the working v6_23_4_55 base without replacing the opening flow.</div></div><div class="aemi-actions"><button class="aemi-btn" onclick="miGenerateAll('Manual refresh');openMarketIntel('${active}')">↻ Refresh Intel</button><button class="aemi-btn warn" onclick="miProcessTrials();miMonthlyReport('Manual simulation');openMarketIntel('trials')">Advance Intel Month</button></div></div><div class="aemi-tabs">${tabs.map(t=>`<button class="aemi-tab ${active===t[0]?'active':''}" onclick="openMarketIntel('${t[0]}')">${t[1]}</button>`).join('')}</div>${miBody(active)}</div>`; if(typeof openModal==='function'){ openModal('settings'); const c=document.getElementById('modal-content'); c.innerHTML=modalHead('🛰 Market Intelligence')+`<div class="modal-body">${html}</div>`; c.classList.add('modal-wide'); } };
   const _oldRenderOps = window.renderOpsCenter;
   if(typeof _oldRenderOps==='function') window.renderOpsCenter=function(){ _oldRenderOps.apply(this,arguments); const box=document.getElementById('oc-tiles'); if(box && !document.getElementById('aemi-ops-tile')) box.insertAdjacentHTML('beforeend',`<div id="aemi-ops-tile" class="oc-tile oc-teal aemi-tile" onclick="openMarketIntel('routes')"><div class="oc-ic">🛰</div><div class="oc-meta"><div class="oc-label">Market Intelligence</div><div class="oc-note">Forecasts · rivals · trials</div></div><div class="oc-big">MI</div></div>`); };
   const _oldEnd = window.endTurn;
   if(typeof _oldEnd==='function') window.endTurn=function(){ const res=_oldEnd.apply(this,arguments); try{ miProcessTrials(); if(Math.random()<.75){ miGenerateAll('Monthly auto-refresh'); } }catch(e){ console.warn(MI_VERSION,e); } return res; };
   const _oldStart = window.startGame;
-  if(typeof _oldStart==='function') window.startGame=function(){ const res=_oldStart.apply(this,arguments); try{ setTimeout(()=>{ miEnsure(); miGenerateAll('New game seed'); try{ updateUI(); }catch(e){} },250); }catch(e){} return res; };
+  if(typeof _oldStart==='function') window.startGame=function(){ const res=_oldStart.apply(this,arguments); try{ setTimeout(()=>{ if(miGenerateAll('New game seed')){ try{ updateUI(); }catch(e){} } },250); }catch(e){ console.warn(MI_VERSION,'startup seed failed',e); } return res; };
   const _oldUpdate = window.updateUI;
   if(typeof _oldUpdate==='function') window.updateUI=function(){ const res=_oldUpdate.apply(this,arguments); try{ miEnsure(); }catch(e){} return res; };
   try{ miEnsure(); }catch(e){}

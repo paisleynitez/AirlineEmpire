@@ -2725,27 +2725,51 @@ function closeGuideChev(btn) {
 }
 function setSpeed(mode) {
   if (mode === 'pause') {
-    if (STATE.timerMode === 'off') { showFlash('Switch to a timed mode first'); return; }
+    if (STATE.timerMode === 'off') { showFlash('Select 1×, 2×, 4×, or 8× to start the timer'); return; }
     STATE.paused = !STATE.paused;
     if (STATE.paused) clearInterval(STATE.timerInterval);
     else startTimer();
-    updatePauseUI(); updateSpeedUI(); return;
+    updatePauseUI(); updateSpeedUI();
+    showFlash(STATE.paused ? '⏸ Simulation paused' : `▶ Simulation resumed at ${speedModeLabel(STATE.timerMode)}`);
+    return;
   }
   STATE.paused = false;
   STATE.timerMode = mode;
   if (TIMER_MODES[mode]) STATE.timerMax = TIMER_MODES[mode];
   startTimer(); updateSpeedUI();
+  showFlash(mode === 'off' ? '■ Manual turns — timer off' : `▶ Simulation speed: ${speedModeLabel(mode)}`);
   renderMap();   // re-bake plane animation durations for the new speed
+}
+function speedModeLabel(mode) {
+  return ({ off:'MANUAL', relaxed:'1×', normal:'2×', fast:'4×', turbo:'8×' })[mode] || 'MANUAL';
 }
 function updateSpeedUI() {
   const map = { 'spd-off':'off', 'spd-relaxed':'relaxed', 'spd-normal':'normal', 'spd-fast':'fast', 'spd-turbo':'turbo' };
   Object.entries(map).forEach(([id, m]) => {
     const el = document.getElementById(id); if (!el) return;
     el.classList.toggle('active', STATE.timerMode === m && !STATE.paused);
-    el.classList.remove('paused');
+    el.classList.toggle('paused', STATE.timerMode === m && !!STATE.paused);
+    el.setAttribute('aria-pressed', String(STATE.timerMode === m));
   });
   const pb = document.getElementById('spd-pause');
   if (pb) { pb.classList.toggle('paused', !!STATE.paused); pb.classList.remove('active'); }
+  const status = document.getElementById('hdr-speed-status');
+  if (status) {
+    status.textContent = STATE.paused ? `PAUSED · ${speedModeLabel(STATE.timerMode)}` : speedModeLabel(STATE.timerMode);
+    status.classList.toggle('paused', !!STATE.paused);
+    status.classList.toggle('manual', STATE.timerMode === 'off');
+  }
+  updateHdrPlayIcon();
+}
+function pulseDateAdvance(previousLabel) {
+  const date = document.getElementById('h-date');
+  const dateBox = date && date.closest('.hdr-datetime');
+  if (!date || !dateBox) return;
+  dateBox.classList.remove('date-advanced');
+  void dateBox.offsetWidth;
+  dateBox.classList.add('date-advanced');
+  dateBox.setAttribute('title', `${previousLabel} completed — now ${date.textContent}`);
+  setTimeout(() => dateBox.classList.remove('date-advanced'), 1500);
 }
 // ⬢ NIGHT MAP + DASHBOARD OVERVIEW STRIP (mockup, v46).
 function nightMapOn() { try { return localStorage.getItem('aeMapNight') !== '0'; } catch(e) { return true; } }
@@ -8107,6 +8131,18 @@ function buildHangarModal() {
 // END MAINTENANCE SYSTEM
 // ═══════════════════════════════════════════════════════════════════════════
 
+// End Turn must always reach the calendar advance. Optional subsystems are
+// isolated so one employee/maintenance/alliance error cannot abort the month.
+function runEndTurnStep(label, fn) {
+  try {
+    return fn();
+  } catch (err) {
+    console.error(`[End Turn] ${label} failed`, err);
+    try { addEvent('warn', `⚠ ${label} encountered an error; the month continued.`); } catch (_) {}
+    return null;
+  }
+}
+
 function endTurn() {
   if (STATE.gameOver) return;
   if (STATE.paused) { STATE.paused = false; updatePauseUI(); }   // ending a month resumes the clock
@@ -8181,18 +8217,18 @@ function endTurn() {
   STATE.cash += cargoIncome;
   STATE.profitThisYear += cargoIncome;
   const monthProfit = income - expenses;
-  tickGateBids();
-  tickAlliances();
-  tickTimedEffects();
-  tickInvestimates();
-  tickCrew();
-  mhcTick();
-  maintTick();   // ← maintenance incidents, wear, grounding
+  runEndTurnStep('Gate bids', () => tickGateBids());
+  runEndTurnStep('Alliances', () => tickAlliances());
+  runEndTurnStep('Timed effects', () => tickTimedEffects());
+  runEndTurnStep('Investments', () => tickInvestimates());
+  runEndTurnStep('Employee status processing', () => tickCrew());
+  runEndTurnStep('Maintenance control', () => mhcTick());
+  runEndTurnStep('Aircraft maintenance', () => maintTick());
   // Deduct monthly insurance premium
-  const _insCost = maintInsuranceCostPerMonth() * _mpt;
+  const _insCost = runEndTurnStep('Insurance calculation', () => maintInsuranceCostPerMonth() * _mpt) || 0;
   if (_insCost > 0) { STATE.cash -= _insCost; expenses += _insCost; }
   // Aircraft lease payments (monthly)
-  const _leaseCost = (typeof leaseMonthlyCost==='function' ? leaseMonthlyCost() : 0) * _mpt;
+  const _leaseCost = runEndTurnStep('Aircraft lease calculation', () => (typeof leaseMonthlyCost==='function' ? leaseMonthlyCost() : 0) * _mpt) || 0;
   if (_leaseCost > 0) { STATE.cash -= _leaseCost; expenses += _leaseCost; }
   { // ── capture realised cash flow for the Budget panel ──
     const _mCost = (STATE._maintTotalCost||0) - _maintStart;
@@ -8208,7 +8244,7 @@ function endTurn() {
     (STATE._finHist = STATE._finHist || []).push({ label:`${MONTHS[STATE.month].slice(0,3)} '${String(STATE.year).slice(2)}`, income:_iT, costs:_eT, net:_realNet });
     if (STATE._finHist.length > 24) STATE._finHist.shift();
   }
-  if (Math.random() < (window._dtGetEventProb ? window._dtGetEventProb() : 0.30)) triggerWorldEvent();
+  if (Math.random() < (window._dtGetEventProb ? window._dtGetEventProb() : 0.30)) runEndTurnStep('World event', () => triggerWorldEvent());
   else if (!STATE._fuelLock && STATE.fuelMod > 1) { STATE.fuelMod = Math.max(1, STATE.fuelMod-0.1); }
   const endedMonthLabel = `${MONTHS[STATE.month]} ${STATE.year}`;
   STATE.month += _mpt;
@@ -8267,6 +8303,8 @@ function endTurn() {
   try { labTick(); } catch(e){}
   try { resetActions(); } catch(e){}
   updateUI(); renderMap(); renderRankings(); renderRoutesList(); renderFleet(); renderRivals(); renderGoalProgress();
+  pulseDateAdvance(endedMonthLabel);
+  showFlash(`✓ ${endedMonthLabel} complete — now ${MONTHS[STATE.month]} ${STATE.year}`);
   if (!STATE.gameOver && !STATE.paused) startTimer();
 
 }
