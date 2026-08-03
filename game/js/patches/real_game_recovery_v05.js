@@ -57,6 +57,18 @@ if(name && (!name.value || name.value==='SKYLINE')){
   if(typeof oldStart==='function') window.startNewGame=function(){ const r=oldStart.apply(this,arguments); setTimeout(setDefaults,80); setTimeout(()=>{try{ if(typeof wzRenderPage3==='function') wzRenderPage3(); if(typeof aeRenderPreview==='function') aeRenderPreview(); }catch(e){}},180); return r; };
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ const ovl=document.getElementById('cont-ovl'); if(ovl) ovl.remove(); }});
   document.addEventListener('click',e=>{ const gear=e.target.closest && e.target.closest('.home-gear'); if(!gear)return; if(document.getElementById('intro') && !document.getElementById('intro').classList.contains('hidden')){ try{e.preventDefault();e.stopPropagation();}catch(_){} if(typeof openRecords==='function') openRecords(); }}, true);
-  document.addEventListener('DOMContentLoaded',()=>{ setDefaults(); if(!document.getElementById('pn-qa-mark')){const m=document.createElement('div');m.id='pn-qa-mark';m.textContent='PaisleyNitez · '+BUILD;document.body.appendChild(m);} });
+  function setVersionMark(){
+    var m=document.getElementById('pn-qa-mark');
+    if(!m){ m=document.createElement('div'); m.id='pn-qa-mark'; document.body.appendChild(m); }
+    var FALLBACK='1.1.11'; // keep in sync with /version.dat when bumping (file:// launches can't fetch it)
+    m.textContent=FALLBACK;
+    try{
+      fetch('../version.dat').then(function(r){ if(!r.ok) throw 0; return r.text(); })
+        .then(function(t){ var v=String(t||'').trim(); if(v){ window.AE_VERSION=v; m.textContent=v; } })
+        .catch(function(){});
+    }catch(e){}
+  }
+  window.AE_SET_VERSION_MARK=setVersionMark;
+  document.addEventListener('DOMContentLoaded',()=>{ setDefaults(); setVersionMark(); });
   setTimeout(setDefaults,250);
 })();

@@ -4,7 +4,7 @@
   function applyV08(){
     try{
       document.documentElement.setAttribute('data-ae-build',tag);
-      const mark=document.getElementById('pn-qa-mark'); if(mark) mark.textContent='PaisleyNitez · '+tag;
+      if(window.AE_SET_VERSION_MARK) window.AE_SET_VERSION_MARK();
       const oc=document.querySelector('#ops-center .oc-sub'); if(oc) oc.textContent='Ops feed · alerts, rivals, fleet, routes';
       const ticker=document.getElementById('stock-ticker'); if(ticker) ticker.classList.remove('visible');
     }catch(e){}

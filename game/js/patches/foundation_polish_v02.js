@@ -2,8 +2,6 @@
   function applyFoundationPolishV02(){
     try{
       document.documentElement.setAttribute('data-pn-foundation','v02');
-      var badge=document.getElementById('build-badge');
-      if(badge) badge.textContent='BUILD v6_23_4_56 · FOUNDATION_POLISH_v02';
     }catch(e){ console.warn('Foundation polish v02 skipped', e); }
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',applyFoundationPolishV02); else applyFoundationPolishV02();

@@ -2,8 +2,6 @@
   function applyFoundationPolish(){
     try{
       document.documentElement.setAttribute('data-pn-foundation','v01');
-      var badge=document.getElementById('build-badge');
-      if(badge) badge.textContent='BUILD v6_23_4_56 · FOUNDATION_POLISH_v01';
       var oldChip=document.getElementById('pn-foundation-chip');
       if(oldChip) oldChip.remove();
       var ticker=document.getElementById('stock-ticker');
