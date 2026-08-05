@@ -1812,11 +1812,19 @@ function aeCompDots(name, c) {
   return Math.max(1, Math.min(5, Math.round((c.level||3) * 0.72 + r * 1.6)));
 }
 function aeCityThumbSVG(name, region) {
+  const skyline = window.AECitySkylineManifest && window.AECitySkylineManifest.get(name);
+  if (skyline && skyline.src) {
+    return `<img class="ae4-thumb ae4-thumb-photo" src="${skyline.src}" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">${aeCityThumbFallbackSVG(name, region, true)}`;
+  }
+  return aeCityThumbFallbackSVG(name, region, false);
+}
+function aeCityThumbFallbackSVG(name, region, hidden) {
+  const hiddenStyle = hidden ? ' style="display:none"' : '';
   if (window.AECityRenderer && typeof window.AECityRenderer.render === 'function') {
-    return window.AECityRenderer.render(name, region);
+    return window.AECityRenderer.render(name, region).replace('<svg ', `<svg${hiddenStyle} `);
   }
   const tint = REGION_TINT[region] || ['#1b3a52','#0e1f30'];
-  return `<svg class="ae4-thumb" viewBox="0 0 180 88" aria-hidden="true"><defs><linearGradient id="fallbackCity" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${tint[0]}"/><stop offset="1" stop-color="${tint[1]}"/></linearGradient></defs><rect width="180" height="88" fill="url(#fallbackCity)"/><rect y="70" width="180" height="18" fill="#050b12"/></svg>`;
+  return `<svg${hiddenStyle} class="ae4-thumb" viewBox="0 0 180 88" aria-hidden="true"><defs><linearGradient id="fallbackCity" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${tint[0]}"/><stop offset="1" stop-color="${tint[1]}"/></linearGradient></defs><rect width="180" height="88" fill="url(#fallbackCity)"/><rect y="70" width="180" height="18" fill="#050b12"/></svg>`;
 }
 
 function aePlaneSVG(w, h) {
