@@ -63,6 +63,7 @@ if(name && (!name.value || name.value==='SKYLINE')){
     var FALLBACK='1.1.11'; // keep in sync with /version.dat when bumping (file:// launches can't fetch it)
     m.textContent=FALLBACK;
     try{
+      if(location.protocol!=='http:'&&location.protocol!=='https:') return;
       fetch('../version.dat').then(function(r){ if(!r.ok) throw 0; return r.text(); })
         .then(function(t){ var v=String(t||'').trim(); if(v){ window.AE_VERSION=v; m.textContent=v; } })
         .catch(function(){});

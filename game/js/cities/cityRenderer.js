@@ -51,7 +51,7 @@
       <circle cx="145" cy="18" r="11" fill="#f4d49c" opacity=".72"/><circle cx="145" cy="18" r="20" fill="#f4d49c" opacity=".08"/>
       ${terrain(p,W,H)}${water(p,W,H)}${buildings(name,p)}${landmark(p)}
       <rect y="72" width="${W}" height="16" fill="#040b12" opacity=".92"/>
-      <path d="M0 77H180" stroke="#3fd6c0" stroke-opacity=".18"/>
+      <path d="M0 77H180" stroke="#a789ff" stroke-opacity=".18"/>
     </svg>`;
   }
   window.AECityRenderer={render};

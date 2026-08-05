@@ -1101,10 +1101,10 @@ function recAchCards(cat){
   return ACHIEVEMENTS.filter(a => a.cat === cat).map(a => {
     const got = !!PROFILE.ach[a.id];
     return `<div style="border:1px solid ${got?'rgba(255,207,90,0.45)':'var(--border)'};border-radius:8px;padding:10px 11px;background:${got?'rgba(255,207,90,0.07)':'rgba(0,0,0,0.25)'};opacity:${got?1:0.55};display:flex;gap:10px;align-items:flex-start">
-      <div style="font-size:20px;filter:${got?'none':'grayscale(1)'};flex-shrink:0">${a.icon}</div>
+      <div style="font-size:22.6px;filter:${got?'none':'grayscale(1)'};flex-shrink:0">${a.icon}</div>
       <div style="min-width:0">
-        <div style="font-size:11px;font-weight:700;color:${got?'var(--accent2)':'var(--muted)'}">${a.name} ${got?'<span style="font-size:9px;color:var(--profit)">✓</span>':''}</div>
-        <div style="font-size:10px;color:var(--muted2);line-height:1.5;margin-top:2px">${a.desc}</div>
+        <div style="font-size:12.4px;font-weight:700;color:${got?'var(--accent2)':'var(--muted)'}">${a.name} ${got?'<span style="font-size:10.2px;color:var(--profit)">✓</span>':''}</div>
+        <div style="font-size:11.3px;color:var(--muted2);line-height:1.5;margin-top:2px">${a.desc}</div>
       </div>
     </div>`;
   }).join('');
@@ -1115,16 +1115,16 @@ function recBody(){
   const bestDaily = Object.values(dl.best || {}).reduce((m,v)=>Math.max(m,v),0);
   if (_recTab === 'overview') {
     const stat = (l,v,c)=>`<div style="background:rgba(0,0,0,0.35);border:1px solid var(--border);border-radius:8px;padding:11px 8px;text-align:center">
-      <div style="font-size:10px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">${l}</div>
-      <div style="font-size:16px;font-weight:700;color:${c||'var(--text)'}">${v}</div></div>`;
+      <div style="font-size:11.3px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">${l}</div>
+      <div style="font-size:18.1px;font-weight:700;color:${c||'var(--text)'}">${v}</div></div>`;
     const catBar = (cat,label) => {
       const all = ACHIEVEMENTS.filter(a=>a.cat===cat);
       const got = all.filter(a=>PROFILE.ach[a.id]).length;
       return `<div onclick="recSwitch('${cat}')" style="display:flex;align-items:center;gap:10px;padding:9px 11px;background:rgba(0,0,0,0.25);border:1px solid var(--border);border-radius:8px;margin-bottom:6px">
-        <span style="font-size:10.5px;font-weight:700;color:var(--text);flex:0 0 110px">${label}</span>
+        <span style="font-size:11.9px;font-weight:700;color:var(--text);flex:0 0 110px">${label}</span>
         <div style="flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden"><div style="height:100%;width:${Math.round(got/all.length*100)}%;background:var(--accent2)"></div></div>
-        <span style="font-size:10px;font-family:'DM Mono';color:${got===all.length?'var(--profit)':'var(--muted2)'};flex-shrink:0">${got}/${all.length}</span>
-        <span style="color:var(--muted);font-size:11px">›</span>
+        <span style="font-size:11.3px;font-family:'DM Mono';color:${got===all.length?'var(--profit)':'var(--muted2)'};flex-shrink:0">${got}/${all.length}</span>
+        <span style="color:var(--muted);font-size:12.4px">›</span>
       </div>`;
     };
     return `
@@ -1135,8 +1135,8 @@ function recBody(){
         ${stat('Best value', '$'+(lt.bestValue||0).toLocaleString()+'M', 'var(--purple)')}
         ${stat('Daily streak', '🔥 '+(dl.streak||0), 'var(--accent2)')}
       </div>
-      ${bestDaily ? `<div style="font-size:10px;color:var(--muted2);margin-bottom:12px">Best daily challenge score: <b style="color:var(--accent2)">$${bestDaily.toLocaleString()}M</b></div>` : ''}
-      <div style="font-size:10px;color:var(--muted2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">Achievements by category</div>
+      ${bestDaily ? `<div style="font-size:11.3px;color:var(--muted2);margin-bottom:12px">Best daily challenge score: <b style="color:var(--accent2)">$${bestDaily.toLocaleString()}M</b></div>` : ''}
+      <div style="font-size:11.3px;color:var(--muted2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">Achievements by category</div>
       ${catBar('network','🗺 Network')}
       ${catBar('fleet','✈ Fleet')}
       ${catBar('business','💰 Business')}
@@ -1145,7 +1145,7 @@ function recBody(){
   const all = ACHIEVEMENTS.filter(a=>a.cat===_recTab);
   const got = all.filter(a=>PROFILE.ach[a.id]).length;
   return `
-    <div style="font-size:10px;color:var(--muted2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">${got}/${all.length} unlocked</div>
+    <div style="font-size:11.3px;color:var(--muted2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">${got}/${all.length} unlocked</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">${recAchCards(_recTab)}</div>`;
 }
 function recSwitch(tab){
@@ -1164,7 +1164,7 @@ function openRecords() {
   ovl.style.cssText = 'position:fixed;inset:0;z-index:9995;background:rgba(0,0,0,0.78);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:24px';
   ovl.innerHTML = `<div style="background:var(--surface);border:1px solid var(--border2);border-radius:12px;max-width:680px;width:100%;max-height:84vh;display:flex;flex-direction:column;padding:22px 24px;box-shadow:var(--shadow)" onclick="event.stopPropagation()">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-shrink:0">
-      <div style="font-family:'Bebas Neue';font-size:24px;letter-spacing:3px;color:var(--accent2)">🏆 PILOT RECORDS <span style="font-size:13px;color:var(--muted2);letter-spacing:1px">${unlocked}/${ACHIEVEMENTS.length}</span></div>
+      <div style="font-family:'Bebas Neue';font-size:27.1px;letter-spacing:3px;color:var(--accent2)">🏆 PILOT RECORDS <span style="font-size:14.7px;color:var(--muted2);letter-spacing:1px">${unlocked}/${ACHIEVEMENTS.length}</span></div>
       <button class="action-btn" style="padding:5px 14px" onclick="document.getElementById('records-ovl').remove()">✕ Close</button>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;flex-shrink:0">
@@ -1459,7 +1459,7 @@ let STATE = {};
 function defaultState() {
   return {
     scenario: SCENARIOS[0], level: LEVELS[1],
-    coName: 'SKYLINE', homeBase: 'Chicago', logo: '✈', logoId: (window.DEFAULT_AIRLINE_LOGO_ID || 'nova_airlines'), livery: '#3fd6c0',
+    coName: 'SKYLINE', homeBase: 'Chicago', logo: '✈', logoId: (window.DEFAULT_AIRLINE_LOGO_ID || 'nova_airlines'), livery: '#a789ff',
     month: 3, year: 1970, startYear: 1970,
     cash: 850, loan: 600, maxLoan: 3000,
     shares: { owned: 125000, total: 1000000, price: 1, dividend: 0 },
@@ -1632,8 +1632,8 @@ function scPreviewSVG() {
   let arc = '';
   if (a && b) {
     const mx = (a.x + b.x) / 2, my = Math.min(a.y, b.y) - Math.abs(a.x - b.x) * 0.22 - 40;
-    arc = `<path d="M${a.x} ${a.y} Q${mx} ${my} ${b.x} ${b.y}" fill="none" stroke="#3fd6c0" stroke-width="9" stroke-dasharray="18 15" opacity=".95"/>
-      <circle cx="${a.x}" cy="${a.y}" r="16" fill="#3fd6c0"/><circle cx="${b.x}" cy="${b.y}" r="16" fill="#3fd6c0"/>
+    arc = `<path d="M${a.x} ${a.y} Q${mx} ${my} ${b.x} ${b.y}" fill="none" stroke="#a789ff" stroke-width="9" stroke-dasharray="18 15" opacity=".95"/>
+      <circle cx="${a.x}" cy="${a.y}" r="16" fill="#a789ff"/><circle cx="${b.x}" cy="${b.y}" r="16" fill="#a789ff"/>
       <text x="${mx}" y="${my + 30}" font-size="52" text-anchor="middle" fill="#e8edf3">✈</text>`;
   }
   return `<svg viewBox="60 ${H*0.06} ${W-120} ${H*0.62}" preserveAspectRatio="xMidYMid meet">
@@ -1911,7 +1911,7 @@ const GUIDE_CONTENT = {
   'first-flight': `
     <div class="guide-section">
       <div class="guide-section-title">First Flight — Your First Four Moves</div>
-      <div style="font-size:10.5px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Tap any step to open it. Tap the header again or hit <b>‹ Back</b> to close.</div>
+      <div style="font-size:11.9px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Tap any step to open it. Tap the header again or hit <b>‹ Back</b> to close.</div>
 
       <div class="gchev">
         <div class="gchev-head" onclick="toggleGuideChev(this)">
@@ -1970,7 +1970,7 @@ const GUIDE_CONTENT = {
   'hub': `
     <div class="guide-section">
       <div class="guide-section-title">Your Hub — The Heart of the Network</div>
-      <div style="font-size:10.5px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Tap any topic to open it. Tap the header again or hit <b>‹ Back</b> to close.</div>
+      <div style="font-size:11.9px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Tap any topic to open it. Tap the header again or hit <b>‹ Back</b> to close.</div>
 
       <div class="gchev">
         <div class="gchev-head" onclick="toggleGuideChev(this)">
@@ -2021,15 +2021,15 @@ const GUIDE_CONTENT = {
           <span class="gchev-emoji">📋</span><span class="gchev-title">Visible Example — Hub Card</span><span class="gchev-arrow">›</span>
         </div>
         <div class="gchev-body"><div class="gchev-inner">
-          <div style="background:rgba(0,0,0,0.35);border:1px dashed rgba(63,214,192,0.35);border-radius:10px;padding:12px 14px">
-            <div style="font-size:9.5px;color:var(--accent);letter-spacing:1.5px;margin-bottom:8px">WHAT YOU'LL SEE IN THE HUBS LIST</div>
-            <div style="max-width:300px;font-size:10px">
-              <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="color:var(--accent)">★ Chicago</span><span style="color:var(--warn);font-size:9.5px">3 of 22 free</span></div>
+          <div style="background:rgba(0,0,0,0.35);border:1px dashed rgba(167,137,255,0.35);border-radius:10px;padding:12px 14px">
+            <div style="font-size:10.7px;color:#fff;letter-spacing:1.5px;margin-bottom:8px">WHAT YOU'LL SEE IN THE HUBS LIST</div>
+            <div style="max-width:300px;font-size:11.3px">
+              <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="color:#fff">★ Chicago</span><span style="color:var(--warn);font-size:10.7px">3 of 22 free</span></div>
               <div style="height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:3px"><div style="height:100%;width:86%;background:var(--warn)"></div></div>
-              <div style="font-size:9px;color:var(--warn);margin-top:2px">⚠ +14% surcharge</div>
-              <div style="font-size:9px;color:var(--accent);margin-top:1px">🔁 11 spokes · +20% network demand</div>
+              <div style="font-size:10.2px;color:var(--warn);margin-top:2px">⚠ +14% surcharge</div>
+              <div style="font-size:10.2px;color:#fff;margin-top:1px">🔁 11 spokes · +20% network demand</div>
             </div>
-            <div style="font-size:9.5px;color:var(--muted2);margin-top:10px;line-height:1.6">Read it as: 19 of 22 gates used (amber bar = congestion zone, costs +14% on every Chicago route), but 11 connected routes are boosting each other's demand by 20%. Bid for gates or trim low-value flights.</div>
+            <div style="font-size:10.7px;color:var(--muted2);margin-top:10px;line-height:1.6">Read it as: 19 of 22 gates used (amber bar = congestion zone, costs +14% on every Chicago route), but 11 connected routes are boosting each other's demand by 20%. Bid for gates or trim low-value flights.</div>
           </div>
           <button class="gchev-back" onclick="closeGuideChev(this)">‹ Back</button>
         </div></div>
@@ -2037,7 +2037,7 @@ const GUIDE_CONTENT = {
     </div>
   `,
   'routes': `
-    <div class="guide-section">      <div class="guide-section-title">Launching Routes That Make Money</div>      <div style="font-size:10.5px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Tap any topic to open it. Tap the header again or hit <b>‹ Back</b> to close.</div>      <div class="gchev">
+    <div class="guide-section">      <div class="guide-section-title">Launching Routes That Make Money</div>      <div style="font-size:11.9px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Tap any topic to open it. Tap the header again or hit <b>‹ Back</b> to close.</div>      <div class="gchev">
         <div class="gchev-head" onclick="toggleGuideChev(this)">
           <span class="gchev-emoji">🛫</span><span class="gchev-title">Pick a Destination With Demand</span><span class="gchev-arrow">›</span>
         </div>
@@ -2082,18 +2082,18 @@ const GUIDE_CONTENT = {
           <span class="gchev-emoji">📋</span><span class="gchev-title">Visible Example — Route Card</span><span class="gchev-arrow">›</span>
         </div>
         <div class="gchev-body"><div class="gchev-inner">
-          <div style="background:rgba(0,0,0,0.35);border:1px dashed rgba(63,214,192,0.35);border-radius:10px;padding:12px 14px">
-        <div style="font-size:9.5px;color:var(--accent);letter-spacing:1.5px;margin-bottom:8px">WHAT YOU'LL SEE IN THE ROUTES TAB</div>
-        <div style="max-width:340px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:10px">
+          <div style="background:rgba(0,0,0,0.35);border:1px dashed rgba(167,137,255,0.35);border-radius:10px;padding:12px 14px">
+        <div style="font-size:10.7px;color:#fff;letter-spacing:1.5px;margin-bottom:8px">WHAT YOU'LL SEE IN THE ROUTES TAB</div>
+        <div style="max-width:340px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:11.3px">
           <div style="display:flex;justify-content:space-between"><b style="color:var(--text)">Chicago → New York</b><b style="color:var(--profit)">+$2.41M/mo</b></div>
-          <div style="color:var(--muted2);font-size:9.5px;margin:3px 0">6 fl/wk · A320 · fare $128 <span style="color:var(--muted)">(ref $142)</span> · 🔁 310 transfer pass</div>
+          <div style="color:var(--muted2);font-size:10.7px;margin:3px 0">6 fl/wk · A320 · fare $128 <span style="color:var(--muted)">(ref $142)</span> · 🔁 310 transfer pass</div>
           <div style="position:relative;height:6px;background:var(--border);border-radius:3px;margin-top:4px">
             <div style="height:100%;width:72%;background:var(--profit);border-radius:3px"></div>
             <div style="position:absolute;top:-2px;left:55%;width:2px;height:10px;background:var(--warn)"></div>
           </div>
-          <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--muted2);margin-top:3px"><span>72% load</span><span style="color:var(--warn)">▮ breakeven 55%</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:10.2px;color:var(--muted2);margin-top:3px"><span>72% load</span><span style="color:var(--warn)">▮ breakeven 55%</span></div>
         </div>
-        <div style="font-size:9.5px;color:var(--muted2);margin-top:10px;line-height:1.6">Healthy route: load (72%) is well above the amber breakeven mark (55%), fare sits just under reference, and hub connections are feeding it transfer passengers. Room to nudge the fare up.</div>
+        <div style="font-size:10.7px;color:var(--muted2);margin-top:10px;line-height:1.6">Healthy route: load (72%) is well above the amber breakeven mark (55%), fare sits just under reference, and hub connections are feeding it transfer passengers. Room to nudge the fare up.</div>
       </div>
           <button class="gchev-back" onclick="closeGuideChev(this)">‹ Back</button>
         </div></div>
@@ -2111,7 +2111,7 @@ const GUIDE_CONTENT = {
     </div>
   `,
   'fleet': `
-    <div class="guide-section">      <div class="guide-section-title">Building the Right Fleet</div>      <div style="font-size:10.5px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Tap any topic to open it. Tap the header again or hit <b>‹ Back</b> to close.</div>      <div class="gchev">
+    <div class="guide-section">      <div class="guide-section-title">Building the Right Fleet</div>      <div style="font-size:11.9px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Tap any topic to open it. Tap the header again or hit <b>‹ Back</b> to close.</div>      <div class="gchev">
         <div class="gchev-head" onclick="toggleGuideChev(this)">
           <span class="gchev-emoji">✈</span><span class="gchev-title">Match the Plane to the Route</span><span class="gchev-arrow">›</span>
         </div>
@@ -2146,22 +2146,22 @@ const GUIDE_CONTENT = {
           <span class="gchev-emoji">📋</span><span class="gchev-title">Visible Example — Comparing Two Aircraft</span><span class="gchev-arrow">›</span>
         </div>
         <div class="gchev-body"><div class="gchev-inner">
-          <div style="background:rgba(0,0,0,0.35);border:1px dashed rgba(63,214,192,0.35);border-radius:10px;padding:12px 14px">
-        <div style="font-size:9.5px;color:var(--accent);letter-spacing:1.5px;margin-bottom:8px">WHAT YOU'LL SEE IN BUY AIRCRAFT</div>
+          <div style="background:rgba(0,0,0,0.35);border:1px dashed rgba(167,137,255,0.35);border-radius:10px;padding:12px 14px">
+        <div style="font-size:10.7px;color:#fff;letter-spacing:1.5px;margin-bottom:8px">WHAT YOU'LL SEE IN BUY AIRCRAFT</div>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <div style="flex:1;min-width:170px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:9px 11px;font-size:10px">
-            <b style="color:var(--text);font-size:10.5px">A320neo</b> <span style="color:var(--muted2)">· $52M</span>
+          <div style="flex:1;min-width:170px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:9px 11px;font-size:11.3px">
+            <b style="color:var(--text);font-size:11.9px">A320neo</b> <span style="color:var(--muted2)">· $52M</span>
             <div style="margin-top:6px;color:var(--muted2)">Seats 194</div><div style="height:3px;background:var(--border);border-radius:2px"><div style="height:100%;width:35%;background:var(--accent)"></div></div>
             <div style="margin-top:4px;color:var(--muted2)">Range 4,000mi</div><div style="height:3px;background:var(--border);border-radius:2px"><div style="height:100%;width:46%;background:var(--accent)"></div></div>
             <div style="margin-top:4px;color:var(--muted2)">Fuel efficiency</div><div style="height:3px;background:var(--border);border-radius:2px"><div style="height:100%;width:68%;background:var(--profit)"></div></div>
-            <div style="margin-top:6px;color:var(--profit);font-size:9px">✓ Short/medium workhorse</div>
+            <div style="margin-top:6px;color:var(--profit);font-size:10.2px">✓ Short/medium workhorse</div>
           </div>
-          <div style="flex:1;min-width:170px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:9px 11px;font-size:10px">
-            <b style="color:var(--text);font-size:10.5px">B787-9</b> <span style="color:var(--muted2)">· $110M</span>
+          <div style="flex:1;min-width:170px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:9px 11px;font-size:11.3px">
+            <b style="color:var(--text);font-size:11.9px">B787-9</b> <span style="color:var(--muted2)">· $110M</span>
             <div style="margin-top:6px;color:var(--muted2)">Seats 296</div><div style="height:3px;background:var(--border);border-radius:2px"><div style="height:100%;width:53%;background:var(--accent)"></div></div>
             <div style="margin-top:4px;color:var(--muted2)">Range 7,530mi</div><div style="height:3px;background:var(--border);border-radius:2px"><div style="height:100%;width:87%;background:var(--accent)"></div></div>
             <div style="margin-top:4px;color:var(--muted2)">Fuel efficiency</div><div style="height:3px;background:var(--border);border-radius:2px"><div style="height:100%;width:50%;background:var(--profit)"></div></div>
-            <div style="margin-top:6px;color:var(--warn);font-size:9px">⚠ Needs long-haul + feeders to fill</div>
+            <div style="margin-top:6px;color:var(--warn);font-size:10.2px">⚠ Needs long-haul + feeders to fill</div>
           </div>
         </div>
       </div>
@@ -2202,7 +2202,7 @@ const GUIDE_CONTENT = {
     </div>
   `,
   'staff': `
-    <div class="guide-section">      <div class="guide-section-title">Staff &amp; Operations</div>      <div style="font-size:10.5px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Tap any topic to open it. Tap the header again or hit <b>‹ Back</b> to close.</div>      <div class="gchev">
+    <div class="guide-section">      <div class="guide-section-title">Staff &amp; Operations</div>      <div style="font-size:11.9px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Tap any topic to open it. Tap the header again or hit <b>‹ Back</b> to close.</div>      <div class="gchev">
         <div class="gchev-head" onclick="toggleGuideChev(this)">
           <span class="gchev-emoji">👨‍✈️</span><span class="gchev-title">Hire Crew &amp; Guard Morale</span><span class="gchev-arrow">›</span>
         </div>
@@ -2257,14 +2257,14 @@ const GUIDE_CONTENT = {
           <span class="gchev-emoji">📋</span><span class="gchev-title">Visible Example — Crew Morale</span><span class="gchev-arrow">›</span>
         </div>
         <div class="gchev-body"><div class="gchev-inner">
-          <div style="background:rgba(0,0,0,0.35);border:1px dashed rgba(63,214,192,0.35);border-radius:10px;padding:12px 14px">
-        <div style="font-size:9.5px;color:var(--accent);letter-spacing:1.5px;margin-bottom:8px">WHAT YOU'LL SEE IN CREW MANAGEMENT</div>
-        <div style="max-width:300px;font-size:10px">
+          <div style="background:rgba(0,0,0,0.35);border:1px dashed rgba(167,137,255,0.35);border-radius:10px;padding:12px 14px">
+        <div style="font-size:10.7px;color:#fff;letter-spacing:1.5px;margin-bottom:8px">WHAT YOU'LL SEE IN CREW MANAGEMENT</div>
+        <div style="max-width:300px;font-size:11.3px">
           <div style="display:flex;justify-content:space-between"><span style="color:var(--text)">Crew morale</span><b style="color:var(--warn)">61%</b></div>
           <div style="height:5px;background:var(--border);border-radius:3px;margin-top:4px;overflow:hidden"><div style="height:100%;width:61%;background:linear-gradient(90deg,var(--loss),var(--warn))"></div></div>
-          <div style="font-size:9.5px;color:var(--warn);margin-top:4px">⚠ Demand −4% · strike risk rising — run training or raise pay</div>
+          <div style="font-size:10.7px;color:var(--warn);margin-top:4px">⚠ Demand −4% · strike risk rising — run training or raise pay</div>
         </div>
-        <div style="font-size:9.5px;color:var(--muted2);margin-top:10px;line-height:1.6">Above ~75% morale boosts demand; below ~50% expect walkout threats. A strike grounds demand to zero on affected routes until you settle.</div>
+        <div style="font-size:10.7px;color:var(--muted2);margin-top:10px;line-height:1.6">Above ~75% morale boosts demand; below ~50% expect walkout threats. A strike grounds demand to zero on affected routes until you settle.</div>
       </div>
           <button class="gchev-back" onclick="closeGuideChev(this)">‹ Back</button>
         </div></div>
@@ -2272,7 +2272,7 @@ const GUIDE_CONTENT = {
     </div>
   `,
   'alliances': `
-    <div class="guide-section">      <div class="guide-section-title">Rivals, Alliances &amp; Competition</div>      <div style="font-size:10.5px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Tap any topic to open it. Tap the header again or hit <b>‹ Back</b> to close.</div>      <div class="gchev">
+    <div class="guide-section">      <div class="guide-section-title">Rivals, Alliances &amp; Competition</div>      <div style="font-size:11.9px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Tap any topic to open it. Tap the header again or hit <b>‹ Back</b> to close.</div>      <div class="gchev">
         <div class="gchev-head" onclick="toggleGuideChev(this)">
           <span class="gchev-emoji">🛩</span><span class="gchev-title">Rivals Split Your Demand</span><span class="gchev-arrow">›</span>
         </div>
@@ -2307,17 +2307,17 @@ const GUIDE_CONTENT = {
           <span class="gchev-emoji">📋</span><span class="gchev-title">Visible Example — Allied Rival</span><span class="gchev-arrow">›</span>
         </div>
         <div class="gchev-body"><div class="gchev-inner">
-          <div style="background:rgba(0,0,0,0.35);border:1px dashed rgba(63,214,192,0.35);border-radius:10px;padding:12px 14px">
-        <div style="font-size:9.5px;color:var(--accent);letter-spacing:1.5px;margin-bottom:8px">WHAT YOU'LL SEE IN THE RIVALS TAB</div>
-        <div style="max-width:320px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:10px">
+          <div style="background:rgba(0,0,0,0.35);border:1px dashed rgba(167,137,255,0.35);border-radius:10px;padding:12px 14px">
+        <div style="font-size:10.7px;color:#fff;letter-spacing:1.5px;margin-bottom:8px">WHAT YOU'LL SEE IN THE RIVALS TAB</div>
+        <div style="max-width:320px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:11.3px">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <b style="color:#e87040">Pacific Crown Air</b>
-            <span style="font-size:9px;background:rgba(78,234,170,0.12);color:var(--profit);border:1px solid rgba(78,234,170,0.3);border-radius:4px;padding:2px 6px">🤝 ALLIED · 9 mo left</span>
+            <span style="font-size:10.2px;background:rgba(78,234,170,0.12);color:var(--profit);border:1px solid rgba(78,234,170,0.3);border-radius:4px;padding:2px 6px">🤝 ALLIED · 9 mo left</span>
           </div>
-          <div style="color:var(--muted2);font-size:9.5px;margin-top:3px">$842M · 14 routes · hub: Tokyo · SE Asia + Oceania</div>
-          <div style="color:var(--profit);font-size:9.5px;margin-top:3px">+15% demand on 4 codeshare corridors</div>
+          <div style="color:var(--muted2);font-size:10.7px;margin-top:3px">$842M · 14 routes · hub: Tokyo · SE Asia + Oceania</div>
+          <div style="color:var(--profit);font-size:10.7px;margin-top:3px">+15% demand on 4 codeshare corridors</div>
         </div>
-        <div style="font-size:9.5px;color:var(--muted2);margin-top:10px;line-height:1.6">While allied they stop splitting your SE Asia demand. Watch the countdown — when it hits zero the codeshare boost vanishes and competition resumes.</div>
+        <div style="font-size:10.7px;color:var(--muted2);margin-top:10px;line-height:1.6">While allied they stop splitting your SE Asia demand. Watch the countdown — when it hits zero the codeshare boost vanishes and competition resumes.</div>
       </div>
           <button class="gchev-back" onclick="closeGuideChev(this)">‹ Back</button>
         </div></div>
@@ -2325,7 +2325,7 @@ const GUIDE_CONTENT = {
     </div>
   `,
   'winning': `
-    <div class="guide-section">      <div class="guide-section-title">Winning the Game</div>      <div style="font-size:10.5px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Tap any topic to open it. Tap the header again or hit <b>‹ Back</b> to close.</div>      <div class="gchev">
+    <div class="guide-section">      <div class="guide-section-title">Winning the Game</div>      <div style="font-size:11.9px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Tap any topic to open it. Tap the header again or hit <b>‹ Back</b> to close.</div>      <div class="gchev">
         <div class="gchev-head" onclick="toggleGuideChev(this)">
           <span class="gchev-emoji">🎯</span><span class="gchev-title">Know Your Objective</span><span class="gchev-arrow">›</span>
         </div>
@@ -2360,16 +2360,16 @@ const GUIDE_CONTENT = {
           <span class="gchev-emoji">📋</span><span class="gchev-title">Visible Example — Grade Ladder</span><span class="gchev-arrow">›</span>
         </div>
         <div class="gchev-body"><div class="gchev-inner">
-          <div style="background:rgba(0,0,0,0.35);border:1px dashed rgba(63,214,192,0.35);border-radius:10px;padding:12px 14px">
-        <div style="font-size:9.5px;color:var(--accent);letter-spacing:1.5px;margin-bottom:8px">HOW YOUR VICTORY IS GRADED</div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;font-size:10px;text-align:center">
-          <div style="flex:1;min-width:84px;border:1px solid rgba(255,215,0,0.4);border-radius:8px;padding:8px 4px;background:rgba(255,215,0,0.06)"><div style="font-size:20px;font-weight:900;color:#ffd700">S</div><div style="color:var(--muted2)">&gt; $2,000M</div></div>
-          <div style="flex:1;min-width:84px;border:1px solid var(--border);border-radius:8px;padding:8px 4px"><div style="font-size:20px;font-weight:900;color:var(--profit)">A</div><div style="color:var(--muted2)">&gt; $1,000M</div></div>
-          <div style="flex:1;min-width:84px;border:1px solid var(--border);border-radius:8px;padding:8px 4px"><div style="font-size:20px;font-weight:900;color:var(--accent)">B</div><div style="color:var(--muted2)">&gt; $500M</div></div>
-          <div style="flex:1;min-width:84px;border:1px solid var(--border);border-radius:8px;padding:8px 4px"><div style="font-size:20px;font-weight:900;color:var(--warn)">C</div><div style="color:var(--muted2)">&gt; $200M</div></div>
-          <div style="flex:1;min-width:84px;border:1px solid var(--border);border-radius:8px;padding:8px 4px"><div style="font-size:20px;font-weight:900;color:var(--muted)">D</div><div style="color:var(--muted2)">won, &lt; $200M</div></div>
+          <div style="background:rgba(0,0,0,0.35);border:1px dashed rgba(167,137,255,0.35);border-radius:10px;padding:12px 14px">
+        <div style="font-size:10.7px;color:#fff;letter-spacing:1.5px;margin-bottom:8px">HOW YOUR VICTORY IS GRADED</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;font-size:11.3px;text-align:center">
+          <div style="flex:1;min-width:84px;border:1px solid rgba(255,215,0,0.4);border-radius:8px;padding:8px 4px;background:rgba(255,215,0,0.06)"><div style="font-size:22.6px;font-weight:900;color:#ffd700">S</div><div style="color:var(--muted2)">&gt; $2,000M</div></div>
+          <div style="flex:1;min-width:84px;border:1px solid var(--border);border-radius:8px;padding:8px 4px"><div style="font-size:22.6px;font-weight:900;color:var(--profit)">A</div><div style="color:var(--muted2)">&gt; $1,000M</div></div>
+          <div style="flex:1;min-width:84px;border:1px solid var(--border);border-radius:8px;padding:8px 4px"><div style="font-size:22.6px;font-weight:900;color:#fff">B</div><div style="color:var(--muted2)">&gt; $500M</div></div>
+          <div style="flex:1;min-width:84px;border:1px solid var(--border);border-radius:8px;padding:8px 4px"><div style="font-size:22.6px;font-weight:900;color:var(--warn)">C</div><div style="color:var(--muted2)">&gt; $200M</div></div>
+          <div style="flex:1;min-width:84px;border:1px solid var(--border);border-radius:8px;padding:8px 4px"><div style="font-size:22.6px;font-weight:900;color:var(--muted)">D</div><div style="color:var(--muted2)">won, &lt; $200M</div></div>
         </div>
-        <div style="font-size:9.5px;color:var(--muted2);margin-top:10px;line-height:1.6">Company value at the moment of victory sets the grade. Scored modes (Daily, Eras) use the same ladder with a C floor for finishing.</div>
+        <div style="font-size:10.7px;color:var(--muted2);margin-top:10px;line-height:1.6">Company value at the moment of victory sets the grade. Scored modes (Daily, Eras) use the same ladder with a C floor for finishing.</div>
       </div>
           <button class="gchev-back" onclick="closeGuideChev(this)">‹ Back</button>
         </div></div>
@@ -2377,15 +2377,15 @@ const GUIDE_CONTENT = {
     </div>
   `,
   'strategy': `
-    <div class="guide-section">      <div class="guide-section-title">Strategy</div>      <div style="font-size:10.5px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Tap any topic to open it. Tap the header again or hit <b>‹ Back</b> to close.</div>      <div class="gchev">
+    <div class="guide-section">      <div class="guide-section-title">Strategy</div>      <div style="font-size:11.9px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Tap any topic to open it. Tap the header again or hit <b>‹ Back</b> to close.</div>      <div class="gchev">
         <div class="gchev-head" onclick="toggleGuideChev(this)">
           <span class="gchev-emoji">📊</span><span class="gchev-title">Route Economics</span><span class="gchev-arrow">›</span>
         </div>
         <div class="gchev-body"><div class="gchev-inner">
-          <div style="background:rgba(244,63,94,0.06);border:1px solid rgba(244,63,94,0.2);border-radius:8px;padding:11px 14px;margin-bottom:10px;font-size:11.5px;color:var(--muted);line-height:1.75;font-family:'DM Mono'">
+          <div style="background:rgba(244,63,94,0.06);border:1px solid rgba(244,63,94,0.2);border-radius:8px;padding:11px 14px;margin-bottom:10px;font-size:13px;color:var(--muted);line-height:1.75;font-family:'DM Mono'">
         Profit = Revenue − (Fuel + Crew + Handling + Lease + Age ± Congestion)
       </div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.75">
+      <div style="font-size:13.6px;color:var(--muted);line-height:1.75">
         Every route has a <b style="color:var(--text)">breakeven load factor</b> — the minimum seat fill % to cover fixed costs. It appears as the amber marker on the load bar. Stay above it and the route is profitable. Click any route card → P&L panel to see the full cost breakdown.
       </div>
           <button class="gchev-back" onclick="closeGuideChev(this)">‹ Back</button>
@@ -2398,20 +2398,20 @@ const GUIDE_CONTENT = {
         <div class="gchev-body"><div class="gchev-inner">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:4px">
         <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:10px 12px">
-          <div style="font-size:10px;font-weight:700;color:var(--accent);margin-bottom:5px;letter-spacing:.5px">🏙 POPULATION & ECONOMY</div>
-          <div style="font-size:11.5px;color:var(--muted);line-height:1.65">Large wealthy cities generate more passengers. NYC–Tokyo > Tunis–Nairobi.</div>
+          <div style="font-size:11.3px;font-weight:700;color:#fff;margin-bottom:5px;letter-spacing:.5px">🏙 POPULATION & ECONOMY</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.65">Large wealthy cities generate more passengers. NYC–Tokyo > Tunis–Nairobi.</div>
         </div>
         <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:10px 12px">
-          <div style="font-size:10px;font-weight:700;color:var(--accent);margin-bottom:5px;letter-spacing:.5px">🌴 TOURISM SCORE</div>
-          <div style="font-size:11.5px;color:var(--muted);line-height:1.65">Bangkok, Dubai, Phuket punch above their weight. Great for holiday routes.</div>
+          <div style="font-size:11.3px;font-weight:700;color:#fff;margin-bottom:5px;letter-spacing:.5px">🌴 TOURISM SCORE</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.65">Bangkok, Dubai, Phuket punch above their weight. Great for holiday routes.</div>
         </div>
         <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:10px 12px">
-          <div style="font-size:10px;font-weight:700;color:var(--accent);margin-bottom:5px;letter-spacing:.5px">💰 FARE PRICING</div>
-          <div style="font-size:11.5px;color:var(--muted);line-height:1.65">Drop 20% below reference → loads surge. Raise 40% above → passengers defect.</div>
+          <div style="font-size:11.3px;font-weight:700;color:#fff;margin-bottom:5px;letter-spacing:.5px">💰 FARE PRICING</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.65">Drop 20% below reference → loads surge. Raise 40% above → passengers defect.</div>
         </div>
         <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:10px 12px">
-          <div style="font-size:10px;font-weight:700;color:var(--accent);margin-bottom:5px;letter-spacing:.5px">⏳ ROUTE MATURITY</div>
-          <div style="font-size:11.5px;color:var(--muted);line-height:1.65">New routes start at 78% demand and ramp to 100% over 6 months. Be patient.</div>
+          <div style="font-size:11.3px;font-weight:700;color:#fff;margin-bottom:5px;letter-spacing:.5px">⏳ ROUTE MATURITY</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.65">New routes start at 78% demand and ramp to 100% over 6 months. Be patient.</div>
         </div>
       </div>
           <button class="gchev-back" onclick="closeGuideChev(this)">‹ Back</button>
@@ -2423,20 +2423,20 @@ const GUIDE_CONTENT = {
         </div>
         <div class="gchev-body"><div class="gchev-inner">
           <div style="display:flex;gap:7px;margin-bottom:10px">
-        <div style="flex:1;background:rgba(63,214,192,0.06);border:1px solid rgba(63,214,192,0.2);border-radius:8px;padding:10px 12px;text-align:center">
-          <div style="font-size:18px;font-weight:800;color:var(--accent);font-family:'DM Mono'">26</div>
-          <div style="font-size:9.5px;color:var(--muted);margin-top:2px">gates, Level 5 hub</div>
+        <div style="flex:1;background:rgba(167,137,255,0.06);border:1px solid rgba(167,137,255,0.2);border-radius:8px;padding:10px 12px;text-align:center">
+          <div style="font-size:20.3px;font-weight:800;color:#fff;font-family:'DM Mono'">26</div>
+          <div style="font-size:10.7px;color:var(--muted);margin-top:2px">gates, Level 5 hub</div>
         </div>
         <div style="flex:1;background:rgba(255,207,90,0.06);border:1px solid rgba(255,207,90,0.2);border-radius:8px;padding:10px 12px;text-align:center">
-          <div style="font-size:18px;font-weight:800;color:var(--warn);font-family:'DM Mono'">70%</div>
-          <div style="font-size:9.5px;color:var(--muted);margin-top:2px">gates used → surcharge starts</div>
+          <div style="font-size:20.3px;font-weight:800;color:var(--warn);font-family:'DM Mono'">70%</div>
+          <div style="font-size:10.7px;color:var(--muted);margin-top:2px">gates used → surcharge starts</div>
         </div>
         <div style="flex:1;background:rgba(244,63,94,0.06);border:1px solid rgba(244,63,94,0.2);border-radius:8px;padding:10px 12px;text-align:center">
-          <div style="font-size:18px;font-weight:800;color:var(--loss);font-family:'DM Mono'">95%</div>
-          <div style="font-size:9.5px;color:var(--muted);margin-top:2px">gates used → pulsing red ring</div>
+          <div style="font-size:20.3px;font-weight:800;color:var(--loss);font-family:'DM Mono'">95%</div>
+          <div style="font-size:10.7px;color:var(--muted);margin-top:2px">gates used → pulsing red ring</div>
         </div>
       </div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.75">Formula: <b style="color:var(--text)">16 + (city level × 2) gates</b>. Near the limit? Build a second hub or close underperforming routes. Inter-regional routes tap larger markets with less competition.</div>
+      <div style="font-size:13.6px;color:var(--muted);line-height:1.75">Formula: <b style="color:var(--text)">16 + (city level × 2) gates</b>. Near the limit? Build a second hub or close underperforming routes. Inter-regional routes tap larger markets with less competition.</div>
           <button class="gchev-back" onclick="closeGuideChev(this)">‹ Back</button>
         </div></div>
       </div>
@@ -2445,19 +2445,19 @@ const GUIDE_CONTENT = {
           <span class="gchev-emoji">⚔</span><span class="gchev-title">Managing Rivals</span><span class="gchev-arrow">›</span>
         </div>
         <div class="gchev-body"><div class="gchev-inner">
-          <div style="font-size:12px;color:var(--muted);line-height:1.75;margin-bottom:10px">Each rival in your destination region splits demand by ~42%. Two rivals = you fight for a third of the market. Rival routes appear as <b style="color:var(--text)">dashed colored lines</b> on the map — click any to see their stats.</div>
+          <div style="font-size:13.6px;color:var(--muted);line-height:1.75;margin-bottom:10px">Each rival in your destination region splits demand by ~42%. Two rivals = you fight for a third of the market. Rival routes appear as <b style="color:var(--text)">dashed colored lines</b> on the map — click any to see their stats.</div>
       <div style="display:flex;flex-direction:column;gap:6px">
         <div style="display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:7px;padding:9px 12px">
-          <div style="font-size:16px;flex-shrink:0">⚔</div>
-          <div><div style="font-size:11.5px;font-weight:700;color:var(--text);margin-bottom:2px">Gate Wars</div><div style="font-size:11.5px;color:var(--muted)">Lock rivals off a route for 3–6 months · $15–30M</div></div>
+          <div style="font-size:18.1px;flex-shrink:0">⚔</div>
+          <div><div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px">Gate Wars</div><div style="font-size:13px;color:var(--muted)">Lock rivals off a route for 3–6 months · $15–30M</div></div>
         </div>
         <div style="display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:7px;padding:9px 12px">
-          <div style="font-size:16px;flex-shrink:0">🤝</div>
-          <div><div style="font-size:11.5px;font-weight:700;color:var(--text);margin-bottom:2px">Alliances</div><div style="font-size:11.5px;color:var(--muted)">Codeshare — rival stops competing, you gain +15% demand · 12 months</div></div>
+          <div style="font-size:18.1px;flex-shrink:0">🤝</div>
+          <div><div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px">Alliances</div><div style="font-size:13px;color:var(--muted)">Codeshare — rival stops competing, you gain +15% demand · 12 months</div></div>
         </div>
         <div style="display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:7px;padding:9px 12px">
-          <div style="font-size:16px;flex-shrink:0">📣</div>
-          <div><div style="font-size:11.5px;font-weight:700;color:var(--text);margin-bottom:2px">Ad Campaigns</div><div style="font-size:11.5px;color:var(--muted)">Boost regional tourism demand · $10–100M · 12 months</div></div>
+          <div style="font-size:18.1px;flex-shrink:0">📣</div>
+          <div><div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px">Ad Campaigns</div><div style="font-size:13px;color:var(--muted)">Boost regional tourism demand · $10–100M · 12 months</div></div>
         </div>
       </div>
           <button class="gchev-back" onclick="closeGuideChev(this)">‹ Back</button>
@@ -2470,15 +2470,15 @@ const GUIDE_CONTENT = {
         <div class="gchev-body"><div class="gchev-inner">
           <div style="display:flex;gap:7px;margin-bottom:10px">
         <div style="flex:1;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:8px;padding:10px 12px">
-          <div style="font-size:10px;font-weight:700;color:var(--warn);margin-bottom:5px">⚙ FLEET WEAR</div>
-          <div style="font-size:11.5px;color:var(--muted);line-height:1.6">+2%/yr on costs after 8 years <b>in your fleet</b> (cap +30%); designs 30+ years old add up to +10% heritage. Buying new resets the clock.</div>
+          <div style="font-size:11.3px;font-weight:700;color:var(--warn);margin-bottom:5px">⚙ FLEET WEAR</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.6">+2%/yr on costs after 8 years <b>in your fleet</b> (cap +30%); designs 30+ years old add up to +10% heritage. Buying new resets the clock.</div>
         </div>
         <div style="flex:1;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:8px;padding:10px 12px">
-          <div style="font-size:10px;font-weight:700;color:var(--accent3);margin-bottom:5px">📦 CARGO ROUTES</div>
-          <div style="font-size:11.5px;color:var(--muted);line-height:1.6">Monetise spare aircraft. Follows economic corridors, less affected by tourism swings.</div>
+          <div style="font-size:11.3px;font-weight:700;color:#fff;margin-bottom:5px">📦 CARGO ROUTES</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.6">Monetise spare aircraft. Follows economic corridors, less affected by tourism swings.</div>
         </div>
       </div>
-      <div style="font-size:11.5px;color:var(--muted2);background:rgba(0,0,0,0.2);border-radius:6px;padding:8px 12px">Sell ageing aircraft via <b style="color:var(--text)">Buy Aircraft › Sell 1</b> — you get 55¢ on the dollar back.</div>
+      <div style="font-size:13px;color:var(--muted2);background:rgba(0,0,0,0.2);border-radius:6px;padding:8px 12px">Sell ageing aircraft via <b style="color:var(--text)">Buy Aircraft › Sell 1</b> — you get 55¢ on the dollar back.</div>
           <button class="gchev-back" onclick="closeGuideChev(this)">‹ Back</button>
         </div></div>
       </div>
@@ -2497,7 +2497,7 @@ const GUIDE_CONTENT = {
       ].map(([q,a],i) => `
         <div class="faq-item">
           <div class="faq-q" onclick="toggleFaq(this)" id="faq-q-m${i}">
-            <span>${q}</span><span style="font-size:13px;color:var(--muted2)">›</span>
+            <span>${q}</span><span style="font-size:14.7px;color:var(--muted2)">›</span>
           </div>
           <div class="faq-a" id="faq-a-m${i}">${a}</div>
         </div>`).join('')}
@@ -2514,7 +2514,7 @@ const GUIDE_CONTENT = {
       ].map(([q,a],i) => `
         <div class="faq-item">
           <div class="faq-q" onclick="toggleFaq(this)" id="faq-q-h${i}">
-            <span>${q}</span><span style="font-size:13px;color:var(--muted2)">›</span>
+            <span>${q}</span><span style="font-size:14.7px;color:var(--muted2)">›</span>
           </div>
           <div class="faq-a" id="faq-a-h${i}">${a}</div>
         </div>`).join('')}
@@ -2533,7 +2533,7 @@ const GUIDE_CONTENT = {
       ].map(([q,a],i) => `
         <div class="faq-item">
           <div class="faq-q" onclick="toggleFaq(this)" id="faq-q-r${i}">
-            <span>${q}</span><span style="font-size:13px;color:var(--muted2)">›</span>
+            <span>${q}</span><span style="font-size:14.7px;color:var(--muted2)">›</span>
           </div>
           <div class="faq-a" id="faq-a-r${i}">${a}</div>
         </div>`).join('')}
@@ -2552,7 +2552,7 @@ const GUIDE_CONTENT = {
       ].map(([q,a],i) => `
         <div class="faq-item">
           <div class="faq-q" onclick="toggleFaq(this)" id="faq-q-c${i}">
-            <span>${q}</span><span style="font-size:13px;color:var(--muted2)">›</span>
+            <span>${q}</span><span style="font-size:14.7px;color:var(--muted2)">›</span>
           </div>
           <div class="faq-a" id="faq-a-c${i}">${a}</div>
         </div>`).join('')}
@@ -2561,7 +2561,7 @@ const GUIDE_CONTENT = {
   'glossary': `
     <div class="guide-section">
       <div class="guide-section-title">Glossary — Key Terms</div>
-      <div style="font-size:10.5px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Every term you'll meet in the game, grouped by area.</div>
+      <div style="font-size:11.9px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Every term you'll meet in the game, grouped by area.</div>
       ${(() => {
         const TERMS = [
           ['📊','Load Factor',     'economics', 'Seats with passengers ÷ total seats × 100. 100% = full, 0% = empty. Aim for 75–85% on profitable routes.'],
@@ -2596,15 +2596,15 @@ const GUIDE_CONTENT = {
           const cards = TERMS.filter(t => t[2] === cat).map(([icon,term,,def]) => `
             <div style="background:rgba(255,255,255,0.025);border:1px solid var(--border);border-radius:8px;padding:10px 12px">
               <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px">
-                <span style="font-size:14px">${icon}</span>
-                <span style="font-size:12px;font-weight:700;color:var(--text)">${term}</span>
+                <span style="font-size:15.8px">${icon}</span>
+                <span style="font-size:13.6px;font-weight:700;color:var(--text)">${term}</span>
               </div>
-              <div style="font-size:11px;color:var(--muted);line-height:1.65">${def}</div>
+              <div style="font-size:12.4px;color:var(--muted);line-height:1.65">${def}</div>
             </div>`).join('');
           return `<div style="margin-bottom:14px">
             <div style="display:flex;align-items:center;gap:8px;margin:0 0 8px">
               <span style="width:8px;height:8px;border-radius:2px;background:${col};box-shadow:0 0 8px ${col}"></span>
-              <span style="font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:${col}">${CAT_LABEL[cat]}</span>
+              <span style="font-size:11.3px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:${col}">${CAT_LABEL[cat]}</span>
               <span style="flex:1;height:1px;background:linear-gradient(90deg,${col}44,transparent)"></span>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">${cards}</div>
@@ -2622,10 +2622,10 @@ function buildGuideModal(tab) {
     ['faq','FAQ'],['glossary','Glossary']
   ];
   const tabHtml = tabs.map(([id,label]) =>
-    `<div class="guide-tab${id===tab?' active':''}" data-tab="${id}" onclick="switchGuideTab('${id}')" style="padding:8px 14px 8px 20px;font-size:10px">${label}</div>`
+    `<div class="guide-tab${id===tab?' active':''}" data-tab="${id}" onclick="switchGuideTab('${id}')" style="padding:8px 14px 8px 20px;font-size:11.3px">${label}</div>`
   ).join('');
   return modalHead('GUIDE & FAQ') +
-    `<div style="flex-shrink:0;border-bottom:1px solid rgba(63,214,192,0.12);padding:0 22px">
+    `<div style="flex-shrink:0;border-bottom:1px solid rgba(167,137,255,0.12);padding:0 22px">
        <div class="guide-tabs" id="guide-tabs" style="margin-top:0">${tabHtml}</div>
      </div>
      <div class="guide-body" id="guide-body" style="padding:18px 22px;overflow-y:auto;max-height:65vh">${GUIDE_CONTENT[tab]||''}</div>`;
@@ -2811,7 +2811,7 @@ function renderDashStrip() {
       if (hits) {
         const rr = Math.min(16, 7 + hits * 2.2);
         dots += `<circle cx="${c.x}" cy="${c.y}" r="${rr}" fill="#00d8f0" opacity=".16"/>`;
-        dots += `<circle cx="${c.x}" cy="${c.y}" r="${Math.min(7, 3.5 + hits)}" fill="#3fd6c0"/>`;
+        dots += `<circle cx="${c.x}" cy="${c.y}" r="${Math.min(7, 3.5 + hits)}" fill="#a789ff"/>`;
       } else {
         dots += `<circle cx="${c.x}" cy="${c.y}" r="2.1" fill="#274a63" opacity=".8"/>`;
       }
@@ -2847,7 +2847,7 @@ function renderDashStrip() {
         ${labels}
         <circle cx="${X(h.length-1).toFixed(1)}" cy="${Y(h[h.length-1].net).toFixed(1)}" r="2.6" fill="#35d47f"/>
       </svg>
-      <div style="position:absolute;top:0;right:2px;display:flex;gap:9px;font-size:8.5px;color:var(--muted)">
+      <div style="position:absolute;top:0;right:2px;display:flex;gap:9px;font-size:9.6px;color:var(--muted)">
         <span><span style="color:#35d47f">●</span> Profit</span><span><span style="color:#e0415c">●</span> Costs</span>
       </div>`;
     }
@@ -2997,7 +2997,7 @@ function renderSidebarFleet() {
         <div class="ae-topac-head"><span class="nm">${r.n}</span><span class="ut">${r.t}× · <b>${r.util}%</b></span></div>
         <div class="ae-topac-bar"><i style="width:${r.util}%"></i></div>
       </div>`).join('')
-      : '<div style="font-size:10px;color:var(--muted)">No aircraft yet — visit Buy Aircraft.</div>';
+      : '<div style="font-size:11.3px;color:var(--muted)">No aircraft yet — visit Buy Aircraft.</div>';
   }
 }
 // ⬢ OPERATIONS CENTER — six status tiles, all real monthly-sim data.
@@ -3145,7 +3145,58 @@ function toggleLeftPanel() {
   const collapsed = main.classList.contains('left-collapsed');
   btn.textContent = collapsed ? '›' : '‹';
   btn.title = collapsed ? 'Expand panel' : 'Collapse panel';
+  try{ localStorage.setItem('aePanelLeftCollapsed', collapsed?'1':''); }catch(e){}
 }
+function _aePanelSetup(){
+  // restore collapse state
+  try{
+    if(localStorage.getItem('aePanelLeftCollapsed')==='1' && !document.getElementById('main').classList.contains('left-collapsed')) toggleLeftPanel();
+    if(localStorage.getItem('aePanelRightCollapsed')==='1' && !document.getElementById('main').classList.contains('right-collapsed')) toggleRightPanel();
+  }catch(e){}
+  // restore widths
+  try{
+    const w=JSON.parse(localStorage.getItem('aePanelWidths')||'{}');
+    if(w.left)  document.documentElement.style.setProperty('--ae-rail-w', w.left+'px');
+    if(w.right) document.documentElement.style.setProperty('--ae-feed-w', w.right+'px');
+  }catch(e){}
+  // drag-resize
+  function wire(id, varName, min, max, dir){
+    const el=document.getElementById(id); if(!el) return;
+    el.addEventListener('mousedown', e=>{
+      e.preventDefault(); el.classList.add('dragging');
+      const startX=e.clientX;
+      const startW=parseFloat(getComputedStyle(document.documentElement).getPropertyValue(varName))||0;
+      function mv(ev){
+        const w=Math.max(min, Math.min(max, startW + dir*(ev.clientX-startX)));
+        document.documentElement.style.setProperty(varName, w+'px');
+      }
+      function up(){
+        el.classList.remove('dragging');
+        document.removeEventListener('mousemove',mv); document.removeEventListener('mouseup',up);
+        try{
+          const w=JSON.parse(localStorage.getItem('aePanelWidths')||'{}');
+          const cur=parseFloat(getComputedStyle(document.documentElement).getPropertyValue(varName))||0;
+          if(varName==='--ae-rail-w') w.left=Math.round(cur); else w.right=Math.round(cur);
+          localStorage.setItem('aePanelWidths', JSON.stringify(w));
+        }catch(e){}
+        try{ window.dispatchEvent(new Event('resize')); }catch(e){}
+      }
+      document.addEventListener('mousemove',mv); document.addEventListener('mouseup',up);
+    });
+    el.addEventListener('dblclick', ()=>{ // reset to default
+      document.documentElement.style.setProperty(varName, (varName==='--ae-rail-w'?92:336)+'px');
+      try{
+        const w=JSON.parse(localStorage.getItem('aePanelWidths')||'{}');
+        if(varName==='--ae-rail-w') delete w.left; else delete w.right;
+        localStorage.setItem('aePanelWidths', JSON.stringify(w));
+      }catch(e){}
+      try{ window.dispatchEvent(new Event('resize')); }catch(e){}
+    });
+  }
+  wire('left-resizer','--ae-rail-w',70,260,+1);
+  wire('right-resizer','--ae-feed-w',240,560,-1);
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',_aePanelSetup); else _aePanelSetup();
 function toggleRightPanel() {
   const main = document.getElementById('main');
   const btn  = document.getElementById('right-collapse-btn');
@@ -3153,6 +3204,7 @@ function toggleRightPanel() {
   const collapsed = main.classList.contains('right-collapsed');
   btn.textContent = collapsed ? '‹' : '›';
   btn.title = collapsed ? 'Expand panel' : 'Collapse panel';
+  try{ localStorage.setItem('aePanelRightCollapsed', collapsed?'1':''); }catch(e){}
 }
 // Click a collapsed rail label -> expand that panel and reveal only that section
 function railOpenLeft(label){
@@ -3183,10 +3235,10 @@ function railOpenRight(tabId){
   if (typeof switchTab === 'function') switchTab(tabId);
 }
 let _selectedLogo = window.DEFAULT_AIRLINE_LOGO_ID || 'nova_airlines';
-let _selectedLivery = '#3fd6c0';
+let _selectedLivery = '#a789ff';
 let _selectedLivery2 = '#e8843a';
 let _selectedLiveryA = '#c0c8d4';
-const LIVERY_COLORS = ['#3fd6c0','#00d8f0','#3b8fd4','#8b6fe0','#e0415c','#e8843a','#ffcf5a','#3fbf7f','#e05c9e','#5ad1c8','#c0c8d4','#f25f8a'];
+const LIVERY_COLORS = ['#a789ff','#00d8f0','#3b8fd4','#8b6fe0','#e0415c','#e8843a','#ffcf5a','#3fbf7f','#e05c9e','#5ad1c8','#c0c8d4','#f25f8a'];
 function pickLivery(c) { _selectedLivery = c; wzRenderPage3(); }
 function pickLivery2(c) { _selectedLivery2 = c; wzRenderPage3(); }
 function pickLiveryA(c) { _selectedLiveryA = c; wzRenderPage3(); }
@@ -3265,7 +3317,7 @@ function startGame(from) {
   STATE.coName = ((setupChoice._name) || (document.getElementById('nh-name-input') && document.getElementById('nh-name-input').value) || 'SKYLINE').toUpperCase().slice(0,14);
   STATE.logoId = setupChoice._logoId || window.DEFAULT_AIRLINE_LOGO_ID || 'nova_airlines';
   STATE.logo   = '✈';
-  STATE.livery = setupChoice._color || '#3fd6c0';
+  STATE.livery = setupChoice._color || '#a789ff';
   STATE.livery2 = setupChoice._color2 || '#e8843a';
   STATE.liveryAccent = setupChoice._colorA || '#c0c8d4';
   STATE.year = STATE.scenario.year;
@@ -3600,21 +3652,21 @@ function buildHoverCard(name){
         ${profLine}
         <div class="uk-info-cell"><div class="uk-k">Distance</div><div class="uk-v">${dist.toLocaleString()} mi</div></div>
       </div>
-      <div style="font-size:9.5px;color:var(--muted2);margin-top:9px;text-align:center">Click to open route ${CITIES[from]?.abbr||from}→${c.abbr}</div>`:''}`;
+      <div style="font-size:10.7px;color:var(--muted2);margin-top:9px;text-align:center">Click to open route ${CITIES[from]?.abbr||from}→${c.abbr}</div>`:''}`;
   }
   // standalone city card
   const myR = STATE.routes.filter(r=>r.from===name||r.to===name).length;
   const isHub = (STATE.hubs||[]).includes(name);
   const badge = isHub?'<span class="uk-badge uk-badge--stable">Your Hub</span>':myR?'<span class="uk-badge uk-badge--profit">Served</span>':'<span class="uk-badge uk-badge--muted">Unserved</span>';
   const open2 = _ukCardOpen();
-  return `<div class="uk-info-head"><span class="uk-info-pair">${c.abbr} <span style="color:var(--muted2);font-weight:500;font-size:12px;margin-left:6px">${name}</span></span>${badge}<span class="uk-hc-ctl"><span class="uk-hc-chev ${open2?'':'closed'}" data-hc="chev" title="${open2?'Collapse':'Expand'}">⌄</span><span class="uk-hc-x" data-hc="x" title="Close">✕</span></span></div>
+  return `<div class="uk-info-head"><span class="uk-info-pair">${c.abbr} <span style="color:var(--muted2);font-weight:500;font-size:13.6px;margin-left:6px">${name}</span></span>${badge}<span class="uk-hc-ctl"><span class="uk-hc-chev ${open2?'':'closed'}" data-hc="chev" title="${open2?'Collapse':'Expand'}">⌄</span><span class="uk-hc-x" data-hc="x" title="Close">✕</span></span></div>
     ${open2?`<div class="uk-info-grid">
       <div class="uk-info-cell"><div class="uk-k">Demand</div><div class="uk-v ${demCls}">${dem}</div><div class="uk-meter"><i style="width:${dem}%"></i></div></div>
-      <div class="uk-info-cell"><div class="uk-k">Region</div><div class="uk-v" style="font-size:12px">${c.region}</div></div>
+      <div class="uk-info-cell"><div class="uk-k">Region</div><div class="uk-v" style="font-size:13.6px">${c.region}</div></div>
       <div class="uk-info-cell"><div class="uk-k">Your Routes</div><div class="uk-v">${myR}</div></div>
       <div class="uk-info-cell"><div class="uk-k">Airport</div><div class="uk-v">Lv ${c.level||3}</div></div>
     </div>
-    <div style="font-size:9.5px;color:var(--muted2);margin-top:9px;text-align:center">Click to select as route origin</div>`:''}`;
+    <div style="font-size:10.7px;color:var(--muted2);margin-top:9px;text-align:center">Click to select as route origin</div>`:''}`;
 }
 function showHoverCard(name, clientX, clientY){
   const card=document.getElementById('uk-hovercard'); const cont=document.getElementById('map-container');
@@ -3793,7 +3845,7 @@ function buildInvestimatesTab(cityName) {
     return `<div class="cm-acc">
       <div class="cm-acc-head" onclick="toggleCmDemand('${id}')">
         <span class="cm-acc-chev" id="cm-chev-${id}" style="transform:rotate(${open?90:0}deg)">›</span>
-        <span style="font-size:14px">${icon}</span>
+        <span style="font-size:15.8px">${icon}</span>
         <span class="cm-acc-title">${title}</span>
         <span class="cm-acc-meta">${meta}</span>
       </div>
@@ -3803,22 +3855,22 @@ function buildInvestimatesTab(cityName) {
 
   let forecastInner = '';
   if (otherCities.length > 0) {
-    forecastInner += `<div style="font-size:10px;color:var(--muted2);margin-bottom:8px">Projected demand at 3 flights/week with a B727. Rivals already in region reduce estimate.</div>`;
+    forecastInner += `<div style="font-size:11.3px;color:var(--muted2);margin-bottom:8px">Projected demand at 3 flights/week with a B727. Rivals already in region reduce estimate.</div>`;
     otherCities.forEach(({name, ct, dist, demand, projLoad, refFare, region}) => {
       const loadColor = projLoad >= 70 ? 'var(--profit)' : projLoad >= 45 ? 'var(--warn)' : 'var(--muted)';
-      forecastInner += `<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;padding:6px 8px;background:rgba(0,0,0,0.2);border-radius:5px;font-size:10px">
+      forecastInner += `<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;padding:6px 8px;background:rgba(0,0,0,0.2);border-radius:5px;font-size:11.3px">
         <div style="flex:1">
           <span style="color:var(--text);font-weight:600">${name}</span>
-          <span style="color:var(--muted2);font-size:10px;margin-left:6px">${dist.toLocaleString()}mi · ${region}</span>
+          <span style="color:var(--muted2);font-size:11.3px;margin-left:6px">${dist.toLocaleString()}mi · ${region}</span>
         </div>
         <div style="text-align:right;min-width:80px">
           <div style="color:${loadColor};font-weight:700">${projLoad}% load</div>
-          <div style="font-size:9.5px;color:var(--muted2)">~${demand.toLocaleString()} pass/mo</div>
+          <div style="font-size:10.7px;color:var(--muted2)">~${demand.toLocaleString()} pass/mo</div>
         </div>
-        <div style="min-width:48px;text-align:right;font-size:10px;color:var(--muted2)">$${refFare} ref</div>
+        <div style="min-width:48px;text-align:right;font-size:11.3px;color:var(--muted2)">$${refFare} ref</div>
       </div>`;
     });
-    forecastInner += `<div style="font-size:9.5px;color:var(--muted2)">Showing top ${otherCities.length} unserved markets by demand. Mature routes earn ~20% more than shown.</div>`;
+    forecastInner += `<div style="font-size:10.7px;color:var(--muted2)">Showing top ${otherCities.length} unserved markets by demand. Mature routes earn ~20% more than shown.</div>`;
     html += sec('forecast', '📊', 'Route Forecast', `${otherCities.length} markets`, forecastInner);
   }
   let buildingsInner = '';
@@ -3868,12 +3920,12 @@ function buildInvestimatesTab(cityName) {
       </div>
       ${level > 0 ? `<div class="iv-active">✓ Active: ${activeBenefits.join(' · ')}</div>` : ''}
       ${maxed
-        ? `<div style="font-size:10px;color:var(--accent2);font-weight:600;margin-top:6px">★ MAXED OUT</div>`
+        ? `<div style="font-size:11.3px;color:var(--accent2);font-weight:600;margin-top:6px">★ MAXED OUT</div>`
         : `<div class="iv-grid">${chipHtml}</div>
            <div class="iv-foot">
              ${pill}
              <button class="action-btn${level>0?' success':''} iv-btn"
-               style="padding:6px 10px;font-size:10px;${!canAfford?'opacity:0.5':''}"
+               style="padding:6px 10px;font-size:11.3px;${!canAfford?'opacity:0.5':''}"
                onclick="${canAfford?`buyBuilding('${cityName}','${b.id}',${nextCost})`:`showFlash('Need $${nextCost}M to build')`}"
                ${!canAfford?'title="Not enough cash"':''}>
                ${level===0?'Build':'Upgrade'} — $${nextCost}M
@@ -3915,7 +3967,7 @@ function buildInvestimatesTab(cityName) {
            <div class="iv-foot">
              ${pill}
              <button class="action-btn${canAfford?' gold':''} iv-btn"
-               style="padding:6px 10px;font-size:10px;${!canAfford?'opacity:0.5':''}"
+               style="padding:6px 10px;font-size:11.3px;${!canAfford?'opacity:0.5':''}"
                onclick="${canAfford?`buySponsorship('${cityName}','${s.id}',${s.baseCost},${s.duration},${s.monthlyReturn},${s.demandBonus})`:`showFlash('Need $${s.baseCost}M to sponsor')`}"
                ${!canAfford?'title="Not enough cash"':''}>
                Sponsor — $${s.baseCost}M
@@ -3990,11 +4042,11 @@ function backToCityEntertain(city){
 }
 function buildSportsPicker(){
   const { city, sportId, arenaIdx } = _sportsPick;
-  const liv = STATE.livery || '#3fd6c0';
+  const liv = STATE.livery || '#a789ff';
   let html = modalHead('🏟 LOCAL SPORTS TEAM') + `<div class="modal-body">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
-      <button class="action-btn" style="padding:6px 11px;font-size:11px;width:auto;margin:0" onclick="backToCityEntertain('${city}')">‹ Back</button>
-      <div style="font-size:10.5px;color:var(--muted);line-height:1.5">Secure naming rights to a pro team in <b style="color:var(--text)">${city}</b> — boosts demand on every route here.</div>
+      <button class="action-btn" style="padding:6px 11px;font-size:12.4px;width:auto;margin:0" onclick="backToCityEntertain('${city}')">‹ Back</button>
+      <div style="font-size:11.9px;color:var(--muted);line-height:1.5">Secure naming rights to a pro team in <b style="color:var(--text)">${city}</b> — boosts demand on every route here.</div>
     </div>
     <div class="cm-section-title" style="margin:2px 0 8px">1 · Choose a sport</div>
     <div class="sports-grid">`;
@@ -4003,7 +4055,7 @@ function buildSportsPicker(){
     html += `<div class="sport-card ${sel?'selected':''}" onclick="pickSportType('${s.id}')" style="${sel?`border-color:${liv};box-shadow:0 0 14px ${liv}33`:''}">
       <div class="sport-ic">${s.icon}</div>
       <div style="flex:1;min-width:0">
-        <div class="sport-nm">${s.name} <span style="font-size:9.5px;color:var(--muted2);font-weight:500">· ${team}</span></div>
+        <div class="sport-nm">${s.name} <span style="font-size:10.7px;color:var(--muted2);font-weight:500">· ${team}</span></div>
         <div class="sport-meta">${s.duration}mo · +${Math.round(s.demandBonus*100)}% demand · $${s.monthlyReturn}M/mo</div>
         <div class="sport-fl">${s.flavor}</div>
       </div>
@@ -4022,12 +4074,12 @@ function buildSportsPicker(){
       const sel=i===arenaIdx; const cost=Math.round(sport.cost*o.costMult); const dem=Math.round((sport.demandBonus+o.demandAdd)*100);
       html += `<div class="arena-opt ${sel?'selected':''}" onclick="pickArenaName(${i})" style="${sel?`border-color:${liv}`:''}">
         <div class="arena-radio" style="${sel?`border-color:${liv};background:${liv}`:''}"></div>
-        <div style="flex:1;min-width:0"><div class="arena-nm">${o.label} <span style="font-weight:500;color:var(--muted2);font-size:9.5px">· e.g. ${o.name}</span></div><div class="arena-meta">+${dem}% demand · ${sport.duration}mo · $${sport.monthlyReturn}M/mo</div></div>
+        <div style="flex:1;min-width:0"><div class="arena-nm">${o.label} <span style="font-weight:500;color:var(--muted2);font-size:10.7px">· e.g. ${o.name}</span></div><div class="arena-meta">+${dem}% demand · ${sport.duration}mo · $${sport.monthlyReturn}M/mo</div></div>
         <div class="arena-cost">$${cost}M</div>
       </div>`;
     });
     html += `</div>`;
-    html += `<div class="cm-section-title" style="margin:15px 0 7px">3 · Your branding <span style="color:var(--muted2);font-weight:500;font-size:10px">— name it whatever you like</span></div>
+    html += `<div class="cm-section-title" style="margin:15px 0 7px">3 · Your branding <span style="color:var(--muted2);font-weight:500;font-size:11.3px">— name it whatever you like</span></div>
       <div style="display:flex;flex-direction:column;gap:9px">
         <div><div class="found-label" style="margin-bottom:4px">${sport.venue} name</div>
           <input id="arena-name-input" class="brand-input" maxlength="34" value="${arenaName.replace(/"/g,'&quot;')}" oninput="onArenaNameInput(this.value)" placeholder="${sport.venue} name"></div>
@@ -4037,18 +4089,18 @@ function buildSportsPicker(){
     const opt=opts[arenaIdx]; const cost=Math.round(sport.cost*opt.costMult); const canAfford=STATE.cash>=cost;
     html += `<div style="margin-top:14px;background:${liv}10;border:1px solid ${liv}44;border-radius:10px;padding:12px 14px">
       <div style="display:flex;align-items:center;gap:10px">
-        <div style="font-size:26px">${sport.icon}</div>
+        <div style="font-size:29.4px">${sport.icon}</div>
         <div style="flex:1;min-width:0">
-          <div style="font-size:13px;font-weight:800;color:var(--text)"><span id="arena-preview-name">${(arenaName.trim()||'—').replace(/</g,'&lt;')}</span></div>
-          <div style="font-size:10px;color:var(--muted)">Home of the <b style="color:${liv}"><span id="arena-preview-team">${(teamName.trim()||'—').replace(/</g,'&lt;')}</span></b> · ${sport.duration}-month deal</div>
+          <div style="font-size:14.7px;font-weight:800;color:var(--text)"><span id="arena-preview-name">${(arenaName.trim()||'—').replace(/</g,'&lt;')}</span></div>
+          <div style="font-size:11.3px;color:var(--muted)">Home of the <b style="color:${liv}"><span id="arena-preview-team">${(teamName.trim()||'—').replace(/</g,'&lt;')}</span></b> · ${sport.duration}-month deal</div>
         </div>
-        <div style="text-align:right"><div style="font-size:16px;font-weight:800;font-family:'DM Mono';color:var(--accent2)">$${cost}M</div><div style="font-size:9px;color:var(--muted)">naming rights</div></div>
+        <div style="text-align:right"><div style="font-size:18.1px;font-weight:800;font-family:'DM Mono';color:var(--accent2)">$${cost}M</div><div style="font-size:10.2px;color:var(--muted)">naming rights</div></div>
       </div>
       <button class="nr-open-btn" style="width:100%;margin-top:11px;border-color:${liv};color:${canAfford?liv:'var(--muted)'};background:linear-gradient(135deg,${liv}33,${liv}14)" ${canAfford?'':'disabled'}
         onclick="confirmSportsTeam()">${canAfford?`🏟 SECURE NAMING RIGHTS · $${cost}M`:`Need $${cost-Math.round(STATE.cash)}M more`}</button>
     </div>`;
   } else {
-    html += `<div style="margin-top:14px;font-size:10.5px;color:var(--muted2);text-align:center;padding:10px">Pick a sport above to name your arena.</div>`;
+    html += `<div style="margin-top:14px;font-size:11.9px;color:var(--muted2);text-align:center;padding:10px">Pick a sport above to name your arena.</div>`;
   }
   return html + `</div>`;
 }
@@ -4091,7 +4143,7 @@ function stadiumSVG(liv, icon){
 }
 function sportsCongrats(city, sport, arena, team){
   if (document.getElementById('arena-overlay')) return;
-  const liv = STATE.livery || '#3fd6c0';
+  const liv = STATE.livery || '#a789ff';
   const ov = document.createElement('div'); ov.id='arena-overlay';
   ov.innerHTML = `<div class="arena-card">
       <div class="arena-kicker" style="color:${liv}">${STATE.logo||'✈'} ${STATE.coName||'YOUR AIRLINE'} · NAMING RIGHTS SECURED</div>
@@ -4168,13 +4220,13 @@ function openCityModal(name) {
       STATE.routes.some(r=>r.to===name||r.from===name);
     const hubCost = Math.round(((c.econ+c.tourism)*0.7+25) * (1 - execBonus('strategy','hubCut')));
     const negCost  = Math.round((c.econ+c.tourism)*0.25+4);
-    let html = `<div style="font-size:11.5px;color:var(--muted);line-height:1.6;margin-bottom:12px">
+    let html = `<div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:12px">
       Investments and opportunities at <b style="color:var(--text)">${name}</b>.
     </div>`;
     if (isHome || isHub) {
       const gColor = gatesUsed >= gatesCap ? 'var(--danger)' : gatesUsed >= gatesCap*0.8 ? 'var(--warn)' : 'var(--profit)';
       html += `<div class="info-box" style="margin-bottom:10px">
-        <div style="color:var(--accent);font-size:10px;font-weight:600;margin-bottom:6px">${isHome?'🏠 HOME HUB':'🏛 REGIONAL HUB'}</div>
+        <div style="color:#fff;font-size:11.3px;font-weight:600;margin-bottom:6px">${isHome?'🏠 HOME HUB':'🏛 REGIONAL HUB'}</div>
         <div class="ib-row"><span class="ib-label">Gates used</span>
           <span class="ib-val" style="color:${gColor}">${gatesUsed} / ${gatesCap}</span></div>
         <div class="ib-row"><span class="ib-label">Gates free</span>
@@ -4184,7 +4236,7 @@ function openCityModal(name) {
         <div style="height:4px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden">
           <div style="height:100%;width:${Math.round(gatesUsed/gatesCap*100)}%;background:${gColor};border-radius:2px"></div>
         </div>
-        <div style="font-size:9.5px;color:var(--muted2);margin-top:4px">
+        <div style="font-size:10.7px;color:var(--muted2);margin-top:4px">
           Gate capacity grows as city levels up · Serve more cities to level this city up
         </div>
       </div>`;
@@ -4192,19 +4244,19 @@ function openCityModal(name) {
     if (!isHub && !isHome) {
       if (slotFrozen) {
         html += `<div class="info-box" style="margin-bottom:10px;border-color:var(--danger)">
-          <div style="color:var(--danger);font-size:10px;font-weight:600">🚫 SLOT FREEZE</div>
-          <div style="font-size:11px;margin-top:4px">Slots are frozen here for ${slotFrozen} more month${slotFrozen!==1?'s':''}. No new routes possible.</div>
+          <div style="color:var(--danger);font-size:11.3px;font-weight:600">🚫 SLOT FREEZE</div>
+          <div style="font-size:12.4px;margin-top:4px">Slots are frozen here for ${slotFrozen} more month${slotFrozen!==1?'s':''}. No new routes possible.</div>
         </div>`;
       } else if (negotiating) {
         html += `<div class="info-box" style="margin-bottom:10px;border-color:var(--accent)">
-          <div style="color:var(--accent);font-size:10px;font-weight:600">⏳ NEGOTIATING SLOTS</div>
-          <div style="font-size:11px;margin-top:4px">Manager en route — ${negotiating} month${negotiating!==1?'s':''} remaining.</div>
+          <div style="color:#fff;font-size:11.3px;font-weight:600">⏳ NEGOTIATING SLOTS</div>
+          <div style="font-size:12.4px;margin-top:4px">Manager en route — ${negotiating} month${negotiating!==1?'s':''} remaining.</div>
         </div>`;
       } else {
         html += `<div class="info-box" style="margin-bottom:10px">
-          <div style="color:var(--muted);font-size:10px;font-weight:600">SLOT NEGOTIATION</div>
-          <div style="font-size:11px;margin-top:4px;margin-bottom:8px">Secure landing rights here for better load factors on all routes.</div>
-          <button class="action-btn" style="padding:7px;font-size:11px" onclick="_negPreselectCity='${name}';closeModal();openModal('negotiations')">
+          <div style="color:var(--muted);font-size:11.3px;font-weight:600">SLOT NEGOTIATION</div>
+          <div style="font-size:12.4px;margin-top:4px;margin-bottom:8px">Secure landing rights here for better load factors on all routes.</div>
+          <button class="action-btn" style="padding:7px;font-size:12.4px" onclick="_negPreselectCity='${name}';closeModal();openModal('negotiations')">
             Negotiate Slots — $${negCost}M
           </button>
         </div>`;
@@ -4212,27 +4264,27 @@ function openCityModal(name) {
     }
     if (canBuildHub) {
       html += `<div class="info-box" style="margin-bottom:10px;border-color:var(--accent2)">
-        <div style="color:var(--accent2);font-size:10px;font-weight:600">🏗 HUB OPPORTUNITY</div>
-        <div style="font-size:11px;margin-top:4px;margin-bottom:8px">
+        <div style="color:var(--accent2);font-size:11.3px;font-weight:600">🏗 HUB OPPORTUNITY</div>
+        <div style="font-size:12.4px;margin-top:4px;margin-bottom:8px">
           You fly here — build a hub to unlock routes from ${name} across the ${c.region} region.
         </div>
-        <button class="action-btn gold" style="padding:7px;font-size:11px"
+        <button class="action-btn gold" style="padding:7px;font-size:12.4px"
           onclick="tapConfirm(this,()=>{closeModal();doBuildHub('${name}',${hubCost})},'Tap to confirm')">
           Build Hub — $${hubCost}M
         </button>
       </div>`;
     } else if (!isHub && !isHome && !c.major) {
-      html += `<div style="color:var(--muted2);font-size:11px;margin-bottom:10px">
+      html += `<div style="color:var(--muted2);font-size:12.4px;margin-bottom:10px">
         Hub construction requires a major city. ${name} is a secondary city.
       </div>`;
     } else if (!isHub && !isHome) {
-      html += `<div style="color:var(--muted2);font-size:11px;margin-bottom:10px">
+      html += `<div style="color:var(--muted2);font-size:12.4px;margin-bottom:10px">
         Fly a route here first before building a hub.
       </div>`;
     }
     const fillColor2 = c.fulfill>60?'var(--profit)':c.fulfill<30?'var(--loss)':'var(--warn)';
     html += `<div class="info-box">
-      <div style="color:var(--muted);font-size:10px;font-weight:600">CITY GROWTH</div>
+      <div style="color:var(--muted);font-size:11.3px;font-weight:600">CITY GROWTH</div>
       <div class="ib-row" style="margin-top:6px"><span class="ib-label">Service fulfillment</span>
         <span class="ib-val" style="color:${fillColor2}">${Math.round(c.fulfill)}%</span></div>
       <div class="ib-row"><span class="ib-label">City level</span>
@@ -4240,7 +4292,7 @@ function openCityModal(name) {
       <div style="height:4px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden">
         <div style="height:100%;width:${Math.round(c.fulfill)}%;background:${fillColor2};border-radius:2px"></div>
       </div>
-      <div style="font-size:9.5px;color:var(--muted2);margin-top:5px;line-height:1.5">
+      <div style="font-size:10.7px;color:var(--muted2);margin-top:5px;line-height:1.5">
         ${c.fulfill>75 ? `✓ High service — city growing. Keep load factors above 60% to level up.`
         : c.fulfill>40 ? `Maintain routes with strong loads to grow fulfillment toward 75%.`
         : `Low fulfillment — increase flights or improve aircraft to serve this city better.`}
@@ -4263,7 +4315,7 @@ function openCityModal(name) {
         <div class="cm-fact-row"><span>Region</span><b>${c.region}</b></div>
         <div class="cm-fact-row"><span>City Level</span><b style="color:var(--accent2)">${stars}</b></div>
         <div class="cm-fact-row"><span>Gate Slots</span><b>${c.slots}</b></div>
-        <div class="cm-fact-row"><span>Status</span><b>${isHome?'<span style="color:var(--accent)">Home Hub</span>':isHub?'<span style="color:var(--accent)">Regional Hub</span>':'<span style="color:var(--muted)">Open Market</span>'}</b></div>
+        <div class="cm-fact-row"><span>Status</span><b>${isHome?'<span style="color:#fff">Home Hub</span>':isHub?'<span style="color:#fff">Regional Hub</span>':'<span style="color:var(--muted)">Open Market</span>'}</b></div>
       </div>
       <div class="cm-section">
         <div class="cm-section-title">📊 Market Metrics</div>
@@ -4278,12 +4330,12 @@ function openCityModal(name) {
     </div>
     <div class="cm-section" style="margin-top:10px">
       <div class="cm-section-title">📈 Growth Status</div>
-      <div style="font-size:10.5px;color:var(--muted);line-height:1.7;padding:4px 0">
+      <div style="font-size:11.9px;color:var(--muted);line-height:1.7;padding:4px 0">
         ${c.fulfill>75
-          ? `<span style="display:inline-block;background:rgba(95,224,160,0.15);color:var(--profit);border:1px solid rgba(95,224,160,0.4);border-radius:4px;font-size:9.5px;font-weight:700;padding:1px 7px;letter-spacing:.6px;margin-bottom:4px">● GROWING</span><br>Passengers well served. Keep load factors above 60% to level up the city.`
+          ? `<span style="display:inline-block;background:rgba(95,224,160,0.15);color:var(--profit);border:1px solid rgba(95,224,160,0.4);border-radius:4px;font-size:10.7px;font-weight:700;padding:1px 7px;letter-spacing:.6px;margin-bottom:4px">● GROWING</span><br>Passengers well served. Keep load factors above 60% to level up the city.`
           : c.fulfill>40
-          ? `<span style="display:inline-block;background:rgba(255,207,90,0.12);color:var(--warn);border:1px solid rgba(255,207,90,0.4);border-radius:4px;font-size:9.5px;font-weight:700;padding:1px 7px;letter-spacing:.6px;margin-bottom:4px">◑ DEVELOPING</span><br>Maintain routes with healthy loads to push fulfillment above 75%.`
-          : `<span style="display:inline-block;background:rgba(255,93,114,0.12);color:var(--loss);border:1px solid rgba(255,93,114,0.4);border-radius:4px;font-size:9.5px;font-weight:700;padding:1px 7px;letter-spacing:.6px;margin-bottom:4px">⚠ UNDERSERVED</span><br>Low fulfillment slows city growth. Add flights or improve aircraft utilization.`}
+          ? `<span style="display:inline-block;background:rgba(255,207,90,0.12);color:var(--warn);border:1px solid rgba(255,207,90,0.4);border-radius:4px;font-size:10.7px;font-weight:700;padding:1px 7px;letter-spacing:.6px;margin-bottom:4px">◑ DEVELOPING</span><br>Maintain routes with healthy loads to push fulfillment above 75%.`
+          : `<span style="display:inline-block;background:rgba(255,93,114,0.12);color:var(--loss);border:1px solid rgba(255,93,114,0.4);border-radius:4px;font-size:10.7px;font-weight:700;padding:1px 7px;letter-spacing:.6px;margin-bottom:4px">⚠ UNDERSERVED</span><br>Low fulfillment slows city growth. Add flights or improve aircraft utilization.`}
         <br>Higher economy and tourism attract more passengers on routes here. Invest in city infrastructure to boost both.
       </div>
     </div>`;
@@ -4299,8 +4351,8 @@ function openCityModal(name) {
           <div class="cm-route-cities">${name} <span style="color:var(--muted)">↔</span> ${other}</div>
           <div class="cm-route-meta">${r.plane}${(r.planes&&r.planes.length>1)?` +${r.planes.length-1}`:''} · ${r.flights}f/wk · $${r.fare} fare · ${r.load||0}% load</div>
           <div class="cm-route-profit" style="color:${profColor}">${prof>=0?'+':''}$${prof.toFixed(1)}M/yr
-            <span style="color:var(--muted);font-size:10px">${(r.pax||0).toLocaleString()} pass</span>
-            <span style="color:var(--accent);font-size:10px;float:right">✈ Add / Change Plane ›</span>
+            <span style="color:var(--muted);font-size:11.3px">${(r.pax||0).toLocaleString()} pass</span>
+            <span style="color:#fff;font-size:11.3px;float:right">✈ Add / Change Plane ›</span>
           </div>
         </div>`;
       }).join('')}` : `<div class="cm-empty">No routes to ${name} yet.<br><span style="color:var(--muted2)">Open a route from your home hub to start earning here.</span></div>`}
@@ -4318,7 +4370,7 @@ function openCityModal(name) {
     const citySponsors = Object.entries(sp).filter(([k,v])=>v.city===name);
     const CITY_SPONSORSHIPS_HERE = CITY_SPONSORSHIPS ? CITY_SPONSORSHIPS.filter(s=>!s.region||s.region===c.region) : [];
     let html = `<div class="cm-section-title" style="margin-bottom:10px">🎭 Entertainment & Sponsorships</div>
-    <div style="font-size:10.5px;color:var(--muted);margin-bottom:12px;line-height:1.6">
+    <div style="font-size:11.9px;color:var(--muted);margin-bottom:12px;line-height:1.6">
       Sponsorships boost demand on all routes to ${name} for a fixed term.
       Active sponsorships stack with building bonuses.
     </div>`;
@@ -4382,7 +4434,7 @@ function openCityModal(name) {
         </div>`;
       });
     } else {
-      html += `<div style="font-size:10px;color:var(--muted2)">No active events in this market.</div>`;
+      html += `<div style="font-size:11.3px;color:var(--muted2)">No active events in this market.</div>`;
     }
     return html;
   })();
@@ -4562,7 +4614,7 @@ function planeSVG(from, to, r) {
   const pax   = r.pax || 0;
   const count = pax < 2000 ? 1 : pax < 8000 ? 2 : pax < 20000 ? 3 : 4;
   const load  = r.load || 0;
-  const color = STATE.livery || paxRouteColor(r);
+  const color = '#000000';   // route planes: always black per art direction
   const dist  = getDistance(from, to);
   const speedMul = ({ fast:1, normal:1.8, relaxed:2.8, off:2.2, turbo:0.5 })[STATE.timerMode] || 1.8;
   // The route may be flown by a mix of aircraft — give each plane glyph its own
@@ -4590,7 +4642,7 @@ function planeSVG(from, to, r) {
       <animateMotion dur="${cycle}s" repeatCount="indefinite" begin="${begin}" rotate="auto"
            path="${dLoop}" calcMode="linear"/>
       <circle r="${Math.max(7, len)}" fill="transparent"/>
-      <path d="${PLANE_PATH_D}" transform="scale(${scale})" fill="${color}" stroke="rgba(0,0,0,0.55)" stroke-width="0.5" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
+      <path d="${PLANE_PATH_D}" transform="scale(${scale})" fill="${color}" stroke="rgba(255,255,255,0.75)" stroke-width="0.6" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
     </g>`;
   }
   const clickOverlay = `<path d="${d}" fill="none" stroke="transparent" stroke-width="18"
@@ -5168,15 +5220,15 @@ function showPlaneInfo(from, to, evt) {
   if (!pop) {
     pop = document.createElement('div');
     pop.id = 'plane-pop';
-    pop.style.cssText = 'position:fixed;z-index:9990;min-width:215px;max-width:260px;background:rgba(10,14,17,0.97);border:1px solid rgba(63,214,192,0.4);border-radius:9px;padding:11px 13px;box-shadow:0 8px 30px rgba(0,0,0,0.6);font-size:10px';
+    pop.style.cssText = 'position:fixed;z-index:9990;min-width:215px;max-width:260px;background:rgba(10,14,17,0.97);border:1px solid rgba(167,137,255,0.4);border-radius:9px;padding:11px 13px;box-shadow:0 8px 30px rgba(0,0,0,0.6);font-size:11.3px';
     pop.onclick = e => e.stopPropagation();
     document.body.appendChild(pop);
     document.addEventListener('click', closePlanePop);
   }
   pop.innerHTML = `
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-      <b style="color:var(--accent);font-size:12px">✈ ${r.plane}</b>
-      <span onclick="closePlanePop()" style="color:var(--muted);font-size:13px;padding:0 2px">✕</span>
+      <b style="color:#fff;font-size:13.6px">✈ ${r.plane}</b>
+      <span onclick="closePlanePop()" style="color:var(--muted);font-size:14.7px;padding:0 2px">✕</span>
     </div>
     <div style="color:var(--text);font-weight:700;margin-bottom:5px">${r.from} → ${r.to} <span style="color:var(--muted2);font-weight:400">· ${dist.toLocaleString()}mi</span></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;color:var(--muted2)">
@@ -5189,7 +5241,7 @@ function showPlaneInfo(from, to, evt) {
       <span>Flights <b style="color:var(--text)">${r.flights}/wk</b></span>
       <span>P&amp;L <b style="color:${prof>=0?'var(--profit)':'var(--loss)'}">${prof>=0?'+':''}$${prof.toFixed(1)}M</b></span>
     </div>
-    <button class="action-btn" style="width:100%;margin-top:9px;padding:6px;font-size:10px" onclick="closePlanePop();openPnlModal(STATE.routes.find(r=>(r.from==='${nrEsc(from)}'&&r.to==='${nrEsc(to)}')||(r.from==='${nrEsc(to)}'&&r.to==='${nrEsc(from)}')))">📊 Full Route P&amp;L</button>`;
+    <button class="action-btn" style="width:100%;margin-top:9px;padding:6px;font-size:11.3px" onclick="closePlanePop();openPnlModal(STATE.routes.find(r=>(r.from==='${nrEsc(from)}'&&r.to==='${nrEsc(to)}')||(r.from==='${nrEsc(to)}'&&r.to==='${nrEsc(from)}')))">📊 Full Route P&amp;L</button>`;
   pop.style.display = 'block';
   const W = pop.offsetWidth || 230, H = pop.offsetHeight || 180;
   pop.style.left = Math.min(window.innerWidth - W - 10, Math.max(8, evt.clientX + 12)) + 'px';
@@ -5281,7 +5333,7 @@ function openPnlModal(r) {
         return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.5" fill="${v>=0?'var(--profit)':'var(--loss)'}"/>`;
       }).join('')}
     </svg>
-    <div style="display:flex;justify-content:space-between;font-size:9.5px;color:var(--muted2)">
+    <div style="display:flex;justify-content:space-between;font-size:10.7px;color:var(--muted2)">
       ${hist.map(h=>`<span>${MONTHS_SHORT[h.month]}</span>`).join('')}
     </div>`;
   }
@@ -5296,8 +5348,8 @@ function openPnlModal(r) {
       <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
         <div class="city-stat-box" style="flex:1;min-width:80px">
           <div class="csb-l">Profit/mo</div>
-          <div class="csb-v" style="font-size:17px;color:${profCol(res.profit)}">${res.profit>=0?'+':''}$${res.profit.toFixed(2)}M</div>
-          <div style="font-size:9.5px;color:var(--muted2)">$${(res.profit*12).toFixed(1)}M/yr</div>
+          <div class="csb-v" style="font-size:19.2px;color:${profCol(res.profit)}">${res.profit>=0?'+':''}$${res.profit.toFixed(2)}M</div>
+          <div style="font-size:10.7px;color:var(--muted2)">$${(res.profit*12).toFixed(1)}M/yr</div>
         </div>
         <div class="city-stat-box" style="flex:1;min-width:80px">
           <div class="csb-l">Load</div>
@@ -5305,18 +5357,18 @@ function openPnlModal(r) {
           ${(()=>{const be=breakevenLoad(r);const lc=res.load>=70?'var(--profit)':res.load>=45?'var(--warn)':'var(--loss)';return `<div style="position:relative;height:5px;border-radius:3px;background:var(--border);margin:5px 0 2px">
             <div style="height:5px;border-radius:3px;width:${Math.min(100,Math.max(0,res.load))}%;background:${lc};transition:width .3s"></div>
             <div title="Breakeven ${be}%" style="position:absolute;top:-2px;left:${Math.min(100,Math.max(0,be))}%;width:2px;height:9px;background:var(--warn);border-radius:1px"></div>
-          </div><div style="font-size:9px;color:var(--warn);font-family:'DM Mono';letter-spacing:.3px">breakeven ${be}%</div>`;})()}
-          ${(()=>{const dem=res.demand||0,cap=res.capacity||capacity||1;if(dem>=cap){return `<div style="font-size:9px;color:var(--profit);margin-top:3px">▲ DEMAND FULL</div>`;}const slack=Math.round((1-dem/cap)*100);return slack>30?`<div style="font-size:9px;color:var(--warn);margin-top:3px">${slack}% seat slack</div>`:`<div style="font-size:9px;color:var(--muted2);margin-top:3px">${Math.round(dem/cap*100)}% demanded</div>`;})()}
+          </div><div style="font-size:10.2px;color:var(--warn);font-family:'DM Mono';letter-spacing:.3px">breakeven ${be}%</div>`;})()}
+          ${(()=>{const dem=res.demand||0,cap=res.capacity||capacity||1;if(dem>=cap){return `<div style="font-size:10.2px;color:var(--profit);margin-top:3px">▲ DEMAND FULL</div>`;}const slack=Math.round((1-dem/cap)*100);return slack>30?`<div style="font-size:10.2px;color:var(--warn);margin-top:3px">${slack}% seat slack</div>`:`<div style="font-size:10.2px;color:var(--muted2);margin-top:3px">${Math.round(dem/cap*100)}% demanded</div>`;})()}
         </div>
         <div class="city-stat-box" style="flex:1;min-width:80px">
           <div class="csb-l">Demand / Cap</div>
           <div class="csb-v">${(res.demand||0).toLocaleString()}</div>
-          <div style="font-size:9.5px;color:var(--muted2)">${(res.capacity||capacity).toLocaleString()} seats/mo</div>
+          <div style="font-size:10.7px;color:var(--muted2)">${(res.capacity||capacity).toLocaleString()} seats/mo</div>
         </div>
         <div class="city-stat-box" style="flex:1;min-width:80px">
           <div class="csb-l">Age</div>
           <div class="csb-v">${age}mo</div>
-          <div style="font-size:9.5px;color:var(--muted2)">${longHaul?'LONG·'+hrsTxt:'SHORT·'+hrsTxt}</div>
+          <div style="font-size:10.7px;color:var(--muted2)">${longHaul?'LONG·'+hrsTxt:'SHORT·'+hrsTxt}</div>
         </div>
       </div>
       <!-- Competition on Route (shell-styled share bars) -->
@@ -5329,10 +5381,10 @@ function openPnlModal(r) {
         }).filter(c => c.freq > 0);
         if (!rivalsHere.length) {
           return `<div style="margin-bottom:12px">
-            <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin-bottom:6px">COMPETITION ON ROUTE</div>
+            <div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin-bottom:6px">COMPETITION ON ROUTE</div>
             <div style="display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 11px">
-              <span style="font-size:13px">\u2705</span>
-              <span style="font-size:10.5px;color:var(--muted)">You fly this city-pair uncontested \u2014 no rival is on this route.</span>
+              <span style="font-size:14.7px">\u2705</span>
+              <span style="font-size:11.9px;color:var(--muted)">You fly this city-pair uncontested \u2014 no rival is on this route.</span>
             </div>
           </div>`;
         }
@@ -5343,18 +5395,18 @@ function openPnlModal(r) {
           const pct = Math.round(c.freq/total*100);
           const fill = c.you ? 'linear-gradient(90deg,var(--accent),var(--accent3))' : c.color;
           return `<div style="display:flex;align-items:center;gap:9px;margin-bottom:8px">
-            <span style="width:96px;font-size:11px;color:${c.you?'var(--accent)':'var(--muted)'};font-weight:${c.you?700:500};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.name}</span>
+            <span style="width:96px;font-size:12.4px;color:${c.you?'var(--accent)':'var(--muted)'};font-weight:${c.you?700:500};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.name}</span>
             <span style="flex:1;height:7px;border-radius:4px;background:var(--border);overflow:hidden">
               <span style="display:block;height:100%;width:${pct}%;border-radius:4px;background:${fill}"></span>
             </span>
-            <span style="width:34px;text-align:right;font-size:11px;font-weight:700;color:${c.you?'var(--accent)':'var(--text)'};font-family:'DM Mono'">${pct}%</span>
+            <span style="width:34px;text-align:right;font-size:12.4px;font-weight:700;color:${c.you?'var(--accent)':'var(--text)'};font-family:'DM Mono'">${pct}%</span>
           </div>`;
         };
         return `<div style="margin-bottom:12px">
-          <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin-bottom:8px">COMPETITION ON ROUTE</div>
+          <div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin-bottom:8px">COMPETITION ON ROUTE</div>
           <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:11px 12px 4px">
             ${rows.map(barRow).join('')}
-            <div style="font-size:9px;color:var(--muted2);letter-spacing:.3px;padding-top:2px">Share by weekly frequency on this city-pair</div>
+            <div style="font-size:10.2px;color:var(--muted2);letter-spacing:.3px;padding-top:2px">Share by weekly frequency on this city-pair</div>
           </div>
         </div>`;
       })()}
@@ -5366,26 +5418,26 @@ function openPnlModal(r) {
         const pct = Math.round((sg2.intensity||0)*100);
         const col = pct>=66?'var(--danger)':pct>=33?'var(--accent2)':'var(--accent)';
         return `<div style="margin-bottom:12px">
-          <div style="font-size:10px;font-weight:700;color:var(--danger);letter-spacing:1.5px;margin-bottom:6px">\u2694 UNDER ATTACK</div>
+          <div style="font-size:11.3px;font-weight:700;color:var(--danger);letter-spacing:1.5px;margin-bottom:6px">\u2694 UNDER ATTACK</div>
           <div style="background:rgba(255,93,114,.06);border:1px solid rgba(255,93,114,.35);border-radius:8px;padding:10px 12px">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px">
-              <span style="font-size:11.5px;color:var(--text)"><b style="color:var(--danger)">${sg2.rival}</b> is besieging this route${sg2.priceWar?' \u00b7 <span style="color:var(--accent2)">price war</span>':''}</span>
+              <span style="font-size:13px;color:var(--text)"><b style="color:var(--danger)">${sg2.rival}</b> is besieging this route${sg2.priceWar?' \u00b7 <span style="color:var(--accent2)">price war</span>':''}</span>
             </div>
             <div style="display:flex;align-items:center;gap:9px;margin-bottom:9px">
-              <span style="font-size:10px;color:var(--muted2);width:74px">Siege pressure</span>
+              <span style="font-size:11.3px;color:var(--muted2);width:74px">Siege pressure</span>
               <span style="flex:1;height:7px;border-radius:4px;background:var(--border);overflow:hidden"><span style="display:block;height:100%;width:${pct}%;background:${col}"></span></span>
-              <span style="width:34px;text-align:right;font-size:11px;font-weight:700;color:${col};font-family:'DM Mono'">${pct}%</span>
+              <span style="width:34px;text-align:right;font-size:12.4px;font-weight:700;color:${col};font-family:'DM Mono'">${pct}%</span>
             </div>
             <div style="display:flex;gap:8px">
               <button class="uk-btn uk-btn--danger uk-btn--sm" onclick="defendRoute('${r.from.replace(/'/g,"\\'")}','${r.to.replace(/'/g,"\\'")}'); closeModal();">\u2694 Defend ($14M)</button>
-              <span style="font-size:9.5px;color:var(--muted2);align-self:center;line-height:1.4">Or use Gate Wars / an Alliance to break the siege.</span>
+              <span style="font-size:10.7px;color:var(--muted2);align-self:center;line-height:1.4">Or use Gate Wars / an Alliance to break the siege.</span>
             </div>
           </div>
         </div>`;
       })()}
       <!-- P&L Breakdown -->
       <div style="margin-bottom:12px">
-        <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin-bottom:6px">P&L BREAKDOWN</div>
+        <div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin-bottom:6px">P&L BREAKDOWN</div>
         <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden">
           ${(() => {
             const totalRev = res.revenue + (res.foodRevenue||0) + (res.drinkRevenue||0) + (res.mhcRevenue||0);
@@ -5393,33 +5445,33 @@ function openPnlModal(r) {
             const margin = totalRev > 0 ? Math.round((netProfit / totalRev) * 100) : 0;
             const pnlRow = (label, val, col, sub) =>
               val > 0.001 ? `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 10px;border-bottom:1px solid var(--border)">
-                <span style="font-size:10px;color:${col||'var(--muted)'};">${label}</span>
-                ${sub?`<span style="font-size:9px;color:var(--muted2);flex:1;margin-left:8px">${sub}</span>`:''}
-                <span style="font-size:10px;font-weight:600;color:var(--profit);font-family:'DM Mono'">+$${val.toFixed(2)}M</span>
+                <span style="font-size:11.3px;color:${col||'var(--muted)'};">${label}</span>
+                ${sub?`<span style="font-size:10.2px;color:var(--muted2);flex:1;margin-left:8px">${sub}</span>`:''}
+                <span style="font-size:11.3px;font-weight:600;color:var(--profit);font-family:'DM Mono'">+$${val.toFixed(2)}M</span>
               </div>` : '';
             const pnlCostRow = (label, val, col) =>
               val > 0.001 ? `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 10px;border-bottom:1px solid var(--border)">
-                <span style="font-size:10px;color:${col||'var(--muted)'};">${label}</span>
-                <span style="font-size:10px;font-weight:600;color:var(--loss);font-family:'DM Mono'">−$${val.toFixed(2)}M</span>
+                <span style="font-size:11.3px;color:${col||'var(--muted)'};">${label}</span>
+                <span style="font-size:11.3px;font-weight:600;color:var(--loss);font-family:'DM Mono'">−$${val.toFixed(2)}M</span>
               </div>` : '';
             return `
               <div style="padding:4px 10px 3px;background:rgba(78,234,170,0.04);border-bottom:1px solid var(--border)">
-                <span style="font-size:9px;color:var(--muted2);letter-spacing:.8px">REVENUE</span>
+                <span style="font-size:10.2px;color:var(--muted2);letter-spacing:.8px">REVENUE</span>
               </div>
               ${pnlRow('Fares', res.revenue, 'var(--text)', `${res.pax.toLocaleString()} pass × $${r.fare}`)}
-              ${(res.transferPax||0) > 0 ? `<div style="display:flex;justify-content:space-between;align-items:center;padding:3px 10px;border-bottom:1px solid var(--border);background:rgba(63,214,192,0.04)">
-                <span style="font-size:9.5px;color:var(--accent)">🔁 incl. hub connections</span>
-                <span style="font-size:9.5px;color:var(--muted2)">${res.transferPax.toLocaleString()} transfer pass · $${(res.connRevenue||0).toFixed(2)}M of fares</span>
+              ${(res.transferPax||0) > 0 ? `<div style="display:flex;justify-content:space-between;align-items:center;padding:3px 10px;border-bottom:1px solid var(--border);background:rgba(167,137,255,0.04)">
+                <span style="font-size:10.7px;color:#fff">🔁 incl. hub connections</span>
+                <span style="font-size:10.7px;color:var(--muted2)">${res.transferPax.toLocaleString()} transfer pass · $${(res.connRevenue||0).toFixed(2)}M of fares</span>
               </div>` : ''}
               ${pnlRow(foodTier.icon+' Food ('+foodTier.short+')', res.foodRevenue||0, foodTier.color, res.foodBuyers>0?`${res.foodBuyers.toLocaleString()} buying`:'')}
               ${pnlRow(resolvedDrinkTier(r).icon+' Drinks ('+resolvedDrinkTier(r).short+')', res.drinkRevenue||0, resolvedDrinkTier(r).color, (res.drinkBuyers||0)>0?`${res.drinkBuyers.toLocaleString()} buying`:'')}
               ${pnlRow('💎 MHC Suites', res.mhcRevenue||0, '#a78bfa', (res.mhcPax||0)>0?`${res.mhcPax} suite pass`:'')}
               <div style="display:flex;justify-content:space-between;padding:4px 10px;border-bottom:1px solid var(--border);background:rgba(78,234,170,0.04)">
-                <span style="font-size:10px;font-weight:700;color:var(--muted)">Total Revenue</span>
-                <span style="font-size:10px;font-weight:700;color:var(--profit);font-family:'DM Mono'">$${totalRev.toFixed(2)}M</span>
+                <span style="font-size:11.3px;font-weight:700;color:var(--muted)">Total Revenue</span>
+                <span style="font-size:11.3px;font-weight:700;color:var(--profit);font-family:'DM Mono'">$${totalRev.toFixed(2)}M</span>
               </div>
               <div style="padding:4px 10px 3px;background:rgba(255,93,114,0.04);border-bottom:1px solid var(--border)">
-                <span style="font-size:9px;color:var(--muted2);letter-spacing:.8px">COSTS</span>
+                <span style="font-size:10.2px;color:var(--muted2);letter-spacing:.8px">COSTS</span>
               </div>
               ${pnlCostRow('Fuel', res.fuel, '#e87040')}
               ${pnlCostRow('Crew & ops', res.crew, '#5090e0')}
@@ -5431,15 +5483,15 @@ function openPnlModal(r) {
               ${pnlCostRow('💎 MHC suite cost', res.mhcCost||0, '#a78bfa')}
               ${pnlCostRow('Wear surcharge', res.ageCost||0, '#e04060')}
               <div style="display:flex;justify-content:space-between;padding:4px 10px;border-bottom:1px solid var(--border);background:rgba(255,93,114,0.04)">
-                <span style="font-size:10px;font-weight:700;color:var(--muted)">Total Costs</span>
-                <span style="font-size:10px;font-weight:700;color:var(--loss);font-family:'DM Mono'">$${totalCost.toFixed(2)}M</span>
+                <span style="font-size:11.3px;font-weight:700;color:var(--muted)">Total Costs</span>
+                <span style="font-size:11.3px;font-weight:700;color:var(--loss);font-family:'DM Mono'">$${totalCost.toFixed(2)}M</span>
               </div>
               <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:${netProfit>=0?'rgba(78,234,170,0.07)':'rgba(255,93,114,0.07)'}">
                 <div>
-                  <span style="font-size:10px;font-weight:700;color:${netProfit>=0?'var(--profit)':'var(--loss)'}">NET PROFIT/MO</span>
-                  <span style="font-size:9.5px;color:var(--muted2);margin-left:8px">margin ${margin}% · $${(netProfit*12).toFixed(1)}M/yr</span>
+                  <span style="font-size:11.3px;font-weight:700;color:${netProfit>=0?'var(--profit)':'var(--loss)'}">NET PROFIT/MO</span>
+                  <span style="font-size:10.7px;color:var(--muted2);margin-left:8px">margin ${margin}% · $${(netProfit*12).toFixed(1)}M/yr</span>
                 </div>
-                <span style="font-size:14px;font-weight:700;color:${netProfit>=0?'var(--profit)':'var(--loss)'};font-family:'DM Mono'">${netProfit>=0?'+':''}$${netProfit.toFixed(2)}M</span>
+                <span style="font-size:15.8px;font-weight:700;color:${netProfit>=0?'var(--profit)':'var(--loss)'};font-family:'DM Mono'">${netProfit>=0?'+':''}$${netProfit.toFixed(2)}M</span>
               </div>`;
           })()}
         </div>
@@ -5452,15 +5504,15 @@ function openPnlModal(r) {
         const theme = {
           danger:{bg:'rgba(244,63,94,0.07)', bd:'rgba(244,63,94,0.25)', col:'var(--loss)',   head:'⚠ WHY THIS ROUTE IS LOSING'},
           warn:  {bg:'rgba(245,158,11,0.07)',bd:'rgba(245,158,11,0.28)',col:'var(--warn)',   head:'⚠ ROUTE WATCH-OUTS'},
-          info:  {bg:'rgba(63,214,192,0.06)',bd:'rgba(63,214,192,0.22)',col:'var(--accent)', head:'ℹ ROUTE NOTES'},
+          info:  {bg:'rgba(167,137,255,0.06)',bd:'rgba(167,137,255,0.22)',col:'var(--accent)', head:'ℹ ROUTE NOTES'},
           good:  {bg:'rgba(78,234,170,0.07)',bd:'rgba(78,234,170,0.25)',col:'var(--profit)', head:'✅ ROUTE HEALTH'},
         }[worst];
         const sevCol = s => s==='danger'?'var(--loss)':s==='warn'?'var(--warn)':s==='good'?'var(--profit)':'var(--accent)';
         return `
       <!-- Why is this route red / route health -->
       <div style="background:${theme.bg};border:1px solid ${theme.bd};border-radius:8px;padding:10px 12px;margin-bottom:12px">
-        <div style="font-size:10px;font-weight:700;color:${theme.col};letter-spacing:1.2px;margin-bottom:8px">${theme.head}</div>
-        ${hints.map(h=>`<div style="display:flex;gap:8px;margin-bottom:7px;font-size:10px;line-height:1.5">
+        <div style="font-size:11.3px;font-weight:700;color:${theme.col};letter-spacing:1.2px;margin-bottom:8px">${theme.head}</div>
+        ${hints.map(h=>`<div style="display:flex;gap:8px;margin-bottom:7px;font-size:11.3px;line-height:1.5">
           <span style="flex-shrink:0">${h.icon}</span>
           <span style="flex:1">
             <span style="color:var(--muted)">${h.text}</span>
@@ -5470,7 +5522,7 @@ function openPnlModal(r) {
       </div>`;
       })() : ''}
       <!-- Cabin class breakdown -->
-      <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin-bottom:8px">CABIN BREAKDOWN</div>
+      <div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin-bottom:8px">CABIN BREAKDOWN</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px">
         ${(() => {
           const tier = r.service || 'economy';
@@ -5495,16 +5547,16 @@ function openPnlModal(r) {
               (tier==='premium'&&cb.short==='PREM')||
               (tier==='first'&&cb.short==='1ST')?
               cb.col+'66':'var(--border)'};border-radius:6px;padding:8px 10px;text-align:center">
-              <div style="font-size:10px;color:${cb.col};font-weight:700;letter-spacing:.8px">${cb.short}</div>
-              <div style="font-size:12px;font-weight:700;color:${cb.pax>0?'var(--text)':'var(--muted2)'};margin-top:2px">${cb.pax.toLocaleString()}</div>
-              <div style="font-size:9.5px;color:var(--muted2)">pass</div>
-              <div style="font-size:10px;font-weight:600;color:${cb.rev>0?'var(--profit)':'var(--muted2)'};margin-top:2px">$${cb.rev.toFixed(2)}M</div>
+              <div style="font-size:11.3px;color:${cb.col};font-weight:700;letter-spacing:.8px">${cb.short}</div>
+              <div style="font-size:13.6px;font-weight:700;color:${cb.pax>0?'var(--text)':'var(--muted2)'};margin-top:2px">${cb.pax.toLocaleString()}</div>
+              <div style="font-size:10.7px;color:var(--muted2)">pass</div>
+              <div style="font-size:11.3px;font-weight:600;color:${cb.rev>0?'var(--profit)':'var(--muted2)'};margin-top:2px">$${cb.rev.toFixed(2)}M</div>
             </div>`).join('');
         })()}
       </div>
       <div style="margin-bottom:12px">
         ${costItems.filter(x=>x.val>0.001).map(x=>`
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:10px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:11.3px">
             <div style="width:7px;height:7px;border-radius:2px;background:${x.col};flex-shrink:0"></div>
             <div style="min-width:110px;color:var(--muted)">${x.label}</div>
             <div style="flex:1">${bar(pct(x.val,totalCost), x.col)}</div>
@@ -5513,8 +5565,8 @@ function openPnlModal(r) {
           </div>`).join('')}
       </div>
       <!-- Demand factors -->
-      <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin-bottom:8px">DEMAND FACTORS</div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px;font-size:10px">
+      <div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin-bottom:8px">DEMAND FACTORS</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px;font-size:11.3px">
         <div class="city-stat-box"><div class="csb-l">Maturity</div>
           <div class="csb-v">${Math.round(Math.min(1,0.78+age*0.037)*100)}%</div></div>
         <div class="city-stat-box"><div class="csb-l">Fare vs mkt</div>
@@ -5526,8 +5578,8 @@ function openPnlModal(r) {
       </div>
       <!-- Food service selector -->
       <div style="margin-bottom:12px">
-        <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin-bottom:6px">FOOD SERVICE
-          <span style="font-size:9px;color:var(--muted2);font-weight:400;letter-spacing:0;margin-left:6px">${hrs>=3?'meal available':hrs>=1.5?'snack available':'< 1.5h — no food service'}</span>
+        <div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin-bottom:6px">FOOD SERVICE
+          <span style="font-size:10.2px;color:var(--muted2);font-weight:400;letter-spacing:0;margin-left:6px">${hrs>=3?'meal available':hrs>=1.5?'snack available':'< 1.5h — no food service'}</span>
         </div>
         <div style="display:flex;gap:5px">
           ${Object.entries(FOOD_TIERS).map(([key, t]) => {
@@ -5541,19 +5593,19 @@ function openPnlModal(r) {
                      background:${active?t.color+'22':'transparent'};
                      color:${active?t.color:'var(--muted)'}"
               ${locked?'disabled':''}>
-              <div style="font-size:13px;margin-bottom:2px">${t.icon||'✕'}</div>
-              <div style="font-size:10px;font-weight:700;letter-spacing:.5px">${t.short}</div>
-              <div style="font-size:9px;color:var(--muted2);margin-top:1px">${t.revenuePerPax?`+$${netPax}/pass net`:'no revenue'}</div>
-              ${active&&res.foodRevenue>0.001?`<div style="font-size:9px;color:${t.color};margin-top:2px">$${res.foodRevenue.toFixed(2)}M/mo</div>`:''}
+              <div style="font-size:14.7px;margin-bottom:2px">${t.icon||'✕'}</div>
+              <div style="font-size:11.3px;font-weight:700;letter-spacing:.5px">${t.short}</div>
+              <div style="font-size:10.2px;color:var(--muted2);margin-top:1px">${t.revenuePerPax?`+$${netPax}/pass net`:'no revenue'}</div>
+              ${active&&res.foodRevenue>0.001?`<div style="font-size:10.2px;color:${t.color};margin-top:2px">$${res.foodRevenue.toFixed(2)}M/mo</div>`:''}
             </button>`;
           }).join('')}
         </div>
-        ${res.foodBuyers>0?`<div style="font-size:9.5px;color:var(--muted2);margin-top:5px">${res.foodBuyers.toLocaleString()} of ${res.pax.toLocaleString()} pass buying (${Math.round(resolvedFoodTier(r).buyRate*100)}% take-rate) · net $${((res.foodRevenue||0)-(res.foodCost||0)).toFixed(2)}M</div>`:''}
+        ${res.foodBuyers>0?`<div style="font-size:10.7px;color:var(--muted2);margin-top:5px">${res.foodBuyers.toLocaleString()} of ${res.pax.toLocaleString()} pass buying (${Math.round(resolvedFoodTier(r).buyRate*100)}% take-rate) · net $${((res.foodRevenue||0)-(res.foodCost||0)).toFixed(2)}M</div>`:''}
       </div>
       <!-- Drinks service selector -->
       <div style="margin-bottom:12px">
-        <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin-bottom:6px">DRINKS SERVICE
-          <span style="font-size:9px;color:var(--muted2);font-weight:400;letter-spacing:0;margin-left:6px">${hrs>=1.5?'full bar available':hrs>=0.5?'soft drinks available':'< 30m — no drink service'}</span>
+        <div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin-bottom:6px">DRINKS SERVICE
+          <span style="font-size:10.2px;color:var(--muted2);font-weight:400;letter-spacing:0;margin-left:6px">${hrs>=1.5?'full bar available':hrs>=0.5?'soft drinks available':'< 30m — no drink service'}</span>
         </div>
         <div style="display:flex;gap:5px">
           ${Object.entries(DRINK_TIERS).map(([key, t]) => {
@@ -5568,31 +5620,31 @@ function openPnlModal(r) {
                      background:${active?t.color+'22':'transparent'};
                      color:${active?t.color:'var(--muted)'}"
               ${locked?'disabled':''}>
-              <div style="font-size:13px;margin-bottom:2px">${t.icon||'✕'}</div>
-              <div style="font-size:10px;font-weight:700;letter-spacing:.5px">${t.short}</div>
-              <div style="font-size:9px;color:var(--muted2);margin-top:1px">${t.revenuePerPax?`+$${netPax}/pass net`:'no revenue'}</div>
-              ${active&&(res.drinkRevenue||0)>0.001?`<div style="font-size:9px;color:${t.color};margin-top:2px">$${(res.drinkRevenue||0).toFixed(2)}M/mo</div>`:''}
+              <div style="font-size:14.7px;margin-bottom:2px">${t.icon||'✕'}</div>
+              <div style="font-size:11.3px;font-weight:700;letter-spacing:.5px">${t.short}</div>
+              <div style="font-size:10.2px;color:var(--muted2);margin-top:1px">${t.revenuePerPax?`+$${netPax}/pass net`:'no revenue'}</div>
+              ${active&&(res.drinkRevenue||0)>0.001?`<div style="font-size:10.2px;color:${t.color};margin-top:2px">$${(res.drinkRevenue||0).toFixed(2)}M/mo</div>`:''}
             </button>`;
           }).join('')}
         </div>
-        ${(res.drinkBuyers||0)>0?`<div style="font-size:9.5px;color:var(--muted2);margin-top:5px">${res.drinkBuyers.toLocaleString()} of ${res.pax.toLocaleString()} pass buying (${Math.round(resolvedDrinkTier(r).buyRate*100)}% take-rate) · net $${((res.drinkRevenue||0)-(res.drinkCost||0)).toFixed(2)}M</div>`:''}
+        ${(res.drinkBuyers||0)>0?`<div style="font-size:10.7px;color:var(--muted2);margin-top:5px">${res.drinkBuyers.toLocaleString()} of ${res.pax.toLocaleString()} pass buying (${Math.round(resolvedDrinkTier(r).buyRate*100)}% take-rate) · net $${((res.drinkRevenue||0)-(res.drinkCost||0)).toFixed(2)}M</div>`:''}
       </div>
       <!-- Profit trend -->
       ${hist.length >= 2 ? `
-      <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin-bottom:4px">TREND (${hist.length} months)</div>
-      ${sparkSvg}` : `<div style="font-size:10px;color:var(--muted2);margin-bottom:10px">📈 Trend available after first month-end.</div>`}
+      <div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin-bottom:4px">TREND (${hist.length} months)</div>
+      ${sparkSvg}` : `<div style="font-size:11.3px;color:var(--muted2);margin-bottom:10px">📈 Trend available after first month-end.</div>`}
       <!-- Quick actions -->
-      <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin:12px 0 8px">QUICK ACTIONS</div>
+      <div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin:12px 0 8px">QUICK ACTIONS</div>
       <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px">
-        <button class="action-btn" style="flex:1;font-size:10px;padding:7px"
+        <button class="action-btn" style="flex:1;font-size:11.3px;padding:7px"
           onclick="adjustRouteFare('${r.from}','${r.to}',${lowerFare})"><svg width="9" height="9" viewBox="0 0 10 6" style="vertical-align:-1px"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> $${lowerFare}</button>
-        <button class="action-btn" style="flex:1;font-size:10px;padding:7px"
+        <button class="action-btn" style="flex:1;font-size:11.3px;padding:7px"
           onclick="adjustRouteFare('${r.from}','${r.to}',${raiseFare})"><svg width="9" height="9" viewBox="0 0 10 6" style="vertical-align:-1px"><path d="M1 5l4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> $${raiseFare}</button>
-        <button class="action-btn" style="flex:1;font-size:10px;padding:7px"
+        <button class="action-btn" style="flex:1;font-size:11.3px;padding:7px"
           onclick="adjustRouteFlights('${r.from}','${r.to}',${moreFlight})">+1 flt/wk</button>
-        ${r.flights > 1 ? `<button class="action-btn" style="flex:1;font-size:10px;padding:7px"
+        ${r.flights > 1 ? `<button class="action-btn" style="flex:1;font-size:11.3px;padding:7px"
           onclick="adjustRouteFlights('${r.from}','${r.to}',${lessFlight})">−1 flt/wk</button>` : ''}
-        <button class="action-btn danger" style="flex:1;font-size:10px;padding:7px"
+        <button class="action-btn danger" style="flex:1;font-size:11.3px;padding:7px"
           onclick="closeRouteConfirm('${r.from}','${r.to}')">✕ Close</button>
       </div>
       <!-- Fleet on this route -->
@@ -5603,17 +5655,17 @@ function openPnlModal(r) {
         const rows = list.map(e => {
           const ac = STATE.planes[e.type] || AIRCRAFT[e.type] || {};
           const canRelease = total > 1;
-          return `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:4px 8px;border:1px solid var(--border);border-radius:5px;margin-bottom:3px;font-size:9.5px">
+          return `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:4px 8px;border:1px solid var(--border);border-radius:5px;margin-bottom:3px;font-size:10.7px">
             <span style="color:var(--text)"><b>${e.flights}×</b> ${e.type}</span>
             <span style="display:flex;align-items:center;gap:8px;flex-shrink:0">
-              <span style="color:var(--muted2);font-size:9px">${((ac.seats||0)*e.flights*ECON.weeksPerMonth).toLocaleString()} s/mo</span>
-              <button class="action-btn" style="font-size:10px;padding:3px 8px;${canRelease?'':'opacity:.35'}" ${canRelease?'':'disabled'}
+              <span style="color:var(--muted2);font-size:10.2px">${((ac.seats||0)*e.flights*ECON.weeksPerMonth).toLocaleString()} s/mo</span>
+              <button class="action-btn" style="font-size:11.3px;padding:3px 8px;${canRelease?'':'opacity:.35'}" ${canRelease?'':'disabled'}
                 onclick="releaseRouteAircraft('${r.from}','${r.to}','${nrEsc(e.type)}')">− release</button>
             </span>
           </div>`;
         }).join('');
         return `<div style="margin-bottom:8px">
-          <div style="font-size:10px;color:var(--muted2);margin-bottom:4px">Fleet on this route (${total} flights/wk · 1 flight = 1 airframe):</div>
+          <div style="font-size:11.3px;color:var(--muted2);margin-bottom:4px">Fleet on this route (${total} flights/wk · 1 flight = 1 airframe):</div>
           ${rows}
         </div>`;
       })()}
@@ -5625,12 +5677,12 @@ function openPnlModal(r) {
           .map(([n,p]) => `<option value="${n}">${n} (${p.owned-p.assigned} free, ${AIRCRAFT[n]?.seats||p.seats}s)</option>`).join('');
         if (!swapTypes) return '';
         return `<div style="margin-bottom:8px">
-          <div style="font-size:10px;color:var(--muted2);margin-bottom:4px">Swap aircraft:</div>
+          <div style="font-size:11.3px;color:var(--muted2);margin-bottom:4px">Swap aircraft:</div>
           <div style="display:flex;gap:6px">
-            <select id="pnl-swap-ac" style="flex:1;font-size:10px;padding:5px 22px 5px 7px;background-color:var(--surface);color:var(--text);border:1px solid var(--border2);border-radius:5px">
+            <select id="pnl-swap-ac" style="flex:1;font-size:11.3px;padding:5px 22px 5px 7px;background-color:var(--surface);color:var(--text);border:1px solid var(--border2);border-radius:5px">
               ${swapTypes}
             </select>
-            <button class="action-btn" style="flex:0 0 auto;width:auto;font-size:10px;padding:6px 14px"
+            <button class="action-btn" style="flex:0 0 auto;width:auto;font-size:11.3px;padding:6px 14px"
               onclick="reassignAircraft(${idx},document.getElementById('pnl-swap-ac').value)">Swap</button>
           </div>
         </div>`;
@@ -5641,12 +5693,12 @@ function openPnlModal(r) {
           .map(([n,p])=>`<option value="${n}">${n} (${p.owned-p.assigned} free)</option>`).join('');
         if (!freeTypes) return '';
         return `<div style="margin-bottom:8px">
-          <div style="font-size:10px;color:var(--muted2);margin-bottom:4px">Add aircraft:</div>
+          <div style="font-size:11.3px;color:var(--muted2);margin-bottom:4px">Add aircraft:</div>
           <div style="display:flex;gap:6px">
-            <select id="pnl-add-ac" style="flex:1;font-size:10px;padding:5px 22px 5px 7px;background-color:var(--surface);color:var(--text);border:1px solid var(--border2);border-radius:5px">
+            <select id="pnl-add-ac" style="flex:1;font-size:11.3px;padding:5px 22px 5px 7px;background-color:var(--surface);color:var(--text);border:1px solid var(--border2);border-radius:5px">
               ${freeTypes}
             </select>
-            <button class="action-btn success" style="flex:0 0 auto;width:auto;font-size:10px;padding:6px 14px"
+            <button class="action-btn success" style="flex:0 0 auto;width:auto;font-size:11.3px;padding:6px 14px"
               onclick="addAircraftToRoute('${r.from}','${r.to}',document.getElementById('pnl-add-ac').value)">+ Add</button>
           </div>
         </div>`;
@@ -6545,13 +6597,13 @@ function openCandidateProfile(candId){
   const rankLabel = c.role==='pilot' ? (c.seniority>=10?'Capt.':'F.O.') : (c.seniority>=10?'Purser':'Cabin Crew');
   const stars = '★'.repeat(c.rating)+'☆'.repeat(5-c.rating);
   const initials = c.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
-  const avBg = c.role==='pilot'?'rgba(63,214,192,0.15)':'rgba(157,142,224,0.15)';
+  const avBg = c.role==='pilot'?'rgba(167,137,255,0.15)':'rgba(157,142,224,0.15)';
   const avCol = c.role==='pilot'?'var(--accent)':'var(--purple)';
   const skillRows = skillDefs.map(s=>{
     const v = Math.round(c.skills[s.id]||0);
     const col = v>=70?'var(--profit)':v>=50?'var(--accent)':v>=30?'var(--warn)':'var(--danger)';
     return `<div style="margin-bottom:8px" title="${s.blurb}">
-      <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px">
+      <div style="display:flex;justify-content:space-between;font-size:11.3px;margin-bottom:3px">
         <span style="color:var(--text)">${s.icon} ${s.label}</span>
         <span style="color:${col};font-family:'DM Mono';font-weight:700">${v}</span>
       </div>
@@ -6561,29 +6613,29 @@ function openCandidateProfile(candId){
   const traitChips = c.traits.length ? c.traits.map(tid=>{
     const t = traitDefs.find(x=>x.id===tid); if(!t) return '';
     const good = (t.demandMod||0)>=0 && (t.costMod||0)<=0;
-    return `<span title="${t.blurb}" style="font-size:10px;padding:4px 9px;border-radius:6px;${good?'background:rgba(95,224,160,0.1);color:var(--profit);border:0.5px solid rgba(95,224,160,0.3)':'background:rgba(255,93,114,0.08);color:var(--loss);border:0.5px solid rgba(255,93,114,0.3)'}">${t.icon} ${t.label}</span>`;
-  }).join('') : '<span style="font-size:10px;color:var(--muted2)">No notable traits</span>';
+    return `<span title="${t.blurb}" style="font-size:11.3px;padding:4px 9px;border-radius:6px;${good?'background:rgba(95,224,160,0.1);color:var(--profit);border:0.5px solid rgba(95,224,160,0.3)':'background:rgba(255,93,114,0.08);color:var(--loss);border:0.5px solid rgba(255,93,114,0.3)'}">${t.icon} ${t.label}</span>`;
+  }).join('') : '<span style="font-size:11.3px;color:var(--muted2)">No notable traits</span>';
   document.getElementById('modal-content').innerHTML = modalHead('🧑‍✈️ CANDIDATE PROFILE') + `<div class="modal-body">
-    <button onclick="openModal('hr');setTimeout(()=>window._crewTab&&window._crewTab('recruit'),0)" style="font-size:10px;padding:5px 10px;margin-bottom:10px;background:var(--surface3);border:1px solid var(--border);border-radius:5px;color:var(--muted);cursor:pointer">← Back to candidates</button>
+    <button onclick="openModal('hr');setTimeout(()=>window._crewTab&&window._crewTab('recruit'),0)" style="font-size:11.3px;padding:5px 10px;margin-bottom:10px;background:var(--surface3);border:1px solid var(--border);border-radius:5px;color:var(--muted);cursor:pointer">← Back to candidates</button>
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-      <div style="width:48px;height:48px;border-radius:50%;background:${avBg};display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:${avCol}">${initials}</div>
+      <div style="width:48px;height:48px;border-radius:50%;background:${avBg};display:flex;align-items:center;justify-content:center;font-size:16.9px;font-weight:700;color:${avCol}">${initials}</div>
       <div style="flex:1">
-        <div style="font-size:16px;font-weight:700;color:var(--text)">${rankLabel} ${c.name}</div>
-        <div style="font-size:10px;color:var(--muted2);margin-top:2px">${c.background} · ${c.seniority} yrs experience · ${c.incidents} incident${c.incidents!==1?'s':''} on record</div>
-        <div style="color:var(--accent2);font-size:12px;margin-top:3px;letter-spacing:1px">${stars}</div>
+        <div style="font-size:18.1px;font-weight:700;color:var(--text)">${rankLabel} ${c.name}</div>
+        <div style="font-size:11.3px;color:var(--muted2);margin-top:2px">${c.background} · ${c.seniority} yrs experience · ${c.incidents} incident${c.incidents!==1?'s':''} on record</div>
+        <div style="color:var(--accent2);font-size:13.6px;margin-top:3px;letter-spacing:1px">${stars}</div>
       </div>
       <div style="text-align:right">
-        <div style="font-size:18px;font-weight:700;color:var(--accent2);font-family:'DM Mono'">$${c.askPay}M</div>
-        <div style="font-size:9px;color:var(--muted2)">asking pay</div>
+        <div style="font-size:20.3px;font-weight:700;color:var(--accent2);font-family:'DM Mono'">$${c.askPay}M</div>
+        <div style="font-size:10.2px;color:var(--muted2)">asking pay</div>
       </div>
     </div>
-    <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin-bottom:8px">SKILLS</div>
+    <div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin-bottom:8px">SKILLS</div>
     ${skillRows}
-    <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin:12px 0 8px">TRAITS</div>
+    <div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin:12px 0 8px">TRAITS</div>
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">${traitChips}</div>
     <div style="display:flex;gap:8px">
-      <button onclick="approveCandidate('${c.id}')" style="flex:1;padding:11px;font-size:11px;font-weight:700;background:rgba(95,224,160,0.1);border:1px solid var(--profit);border-radius:7px;color:var(--profit);cursor:pointer">✓ APPROVE — HIRE $${c.askPay}M</button>
-      <button onclick="passCandidate('${c.id}');openModal('hr');setTimeout(()=>window._crewTab&&window._crewTab('recruit'),0)" style="padding:11px 18px;font-size:11px;background:transparent;border:1px solid var(--border);border-radius:7px;color:var(--muted);cursor:pointer">Pass</button>
+      <button onclick="approveCandidate('${c.id}')" style="flex:1;padding:11px;font-size:12.4px;font-weight:700;background:rgba(95,224,160,0.1);border:1px solid var(--profit);border-radius:7px;color:var(--profit);cursor:pointer">✓ APPROVE — HIRE $${c.askPay}M</button>
+      <button onclick="passCandidate('${c.id}');openModal('hr');setTimeout(()=>window._crewTab&&window._crewTab('recruit'),0)" style="padding:11px 18px;font-size:12.4px;background:transparent;border:1px solid var(--border);border-radius:7px;color:var(--muted);cursor:pointer">Pass</button>
     </div>
   </div>`;
 }
@@ -6661,14 +6713,14 @@ function openCrewProfile(crewId) {
   const traitDefs = c.role==='pilot' ? PILOT_TRAITS : CABIN_TRAITS;
   const traitsHtml = (c.traits||[]).map(tid => {
     const t = traitDefs.find(x=>x.id===tid);
-    return t ? `<span title="${t.blurb}" style="font-size:9.5px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:4px;padding:3px 6px;cursor:help">${t.icon} ${t.label}</span>` : '';
-  }).join('') || '<span style="font-size:10px;color:var(--muted2)">No notable traits yet</span>';
+    return t ? `<span title="${t.blurb}" style="font-size:10.7px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:4px;padding:3px 6px;cursor:help">${t.icon} ${t.label}</span>` : '';
+  }).join('') || '<span style="font-size:11.3px;color:var(--muted2)">No notable traits yet</span>';
 
   const skillBars = skills.map(s => {
     const v = Math.round(c.skills[s.id]||0);
     const col = v>=75?'var(--profit)':v>=50?'var(--accent)':v>=30?'var(--warn)':'var(--danger)';
     return `<div style="margin-bottom:8px" title="${s.blurb}">
-      <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px">
+      <div style="display:flex;justify-content:space-between;font-size:11.3px;margin-bottom:3px">
         <span style="color:var(--text)">${s.icon} ${s.label}</span>
         <span style="color:${col};font-family:'DM Mono';font-weight:700">${v}</span>
       </div>
@@ -6679,75 +6731,75 @@ function openCrewProfile(crewId) {
   }).join('');
 
   const prog = c.training ? TRAINING_PROGRAMS.find(p=>p.id===c.training.id) : null;
-  const activeTraining = prog ? `<div style="background:rgba(63,214,192,0.08);border:1px solid var(--accent);border-radius:6px;padding:8px 10px;margin-bottom:8px;font-size:10.5px;color:var(--accent)">
+  const activeTraining = prog ? `<div style="background:rgba(167,137,255,0.08);border:1px solid var(--accent);border-radius:6px;padding:8px 10px;margin-bottom:8px;font-size:11.9px;color:#fff">
       📚 In program: <b>${prog.label}</b> — ${c.training.monthsLeft} month${c.training.monthsLeft!==1?'s':''} remaining</div>` : '';
   const doneHtml = (c.completedTraining||[]).length
     ? c.completedTraining.map(ct => {
         const p = TRAINING_PROGRAMS.find(x=>x.id===ct.id);
-        return p ? `<div style="font-size:10px;color:var(--muted);padding:3px 0;border-bottom:1px dashed var(--border)">${p.icon} ${p.label} <span style="color:var(--muted2);float:right">${MONTHS[ct.m]} ${ct.y}</span></div>` : '';
+        return p ? `<div style="font-size:11.3px;color:var(--muted);padding:3px 0;border-bottom:1px dashed var(--border)">${p.icon} ${p.label} <span style="color:var(--muted2);float:right">${MONTHS[ct.m]} ${ct.y}</span></div>` : '';
       }).join('')
-    : '<div style="font-size:10px;color:var(--muted2)">No programs completed yet</div>';
+    : '<div style="font-size:11.3px;color:var(--muted2)">No programs completed yet</div>';
 
   const historyHtml = (c.history||[]).length
-    ? c.history.map(h => `<div style="display:flex;gap:8px;padding:5px 0;border-bottom:1px dashed var(--border);font-size:10.5px">
+    ? c.history.map(h => `<div style="display:flex;gap:8px;padding:5px 0;border-bottom:1px dashed var(--border);font-size:11.9px">
         <span style="flex-shrink:0">${h.icon}</span>
         <span style="flex:1;color:var(--muted)">${h.text}</span>
-        <span style="flex-shrink:0;color:var(--muted2);font-size:10px;font-family:'DM Mono'">${MONTHS[h.m]} ${h.y}</span>
+        <span style="flex-shrink:0;color:var(--muted2);font-size:11.3px;font-family:'DM Mono'">${MONTHS[h.m]} ${h.y}</span>
       </div>`).join('')
-    : '<div style="font-size:10px;color:var(--muted2)">No record entries</div>';
+    : '<div style="font-size:11.3px;color:var(--muted2)">No record entries</div>';
 
   const trainingOpts = c.status==='active' ? TRAINING_PROGRAMS
     .filter(p=>p.appliesTo==='all'||p.appliesTo===c.role)
     .map(p=>`<option value="${p.id}">${p.icon} ${p.label} — $${p.cost}M (${p.duration}mo)</option>`).join('') : '';
 
   const html = modalHead(`${c.role==='pilot'?'✈':'🧳'} ${c.name.toUpperCase()}`) + `<div class="modal-body" style="max-height:72vh;overflow-y:auto">
-    <button onclick="openModal('crew')" style="font-size:10px;padding:5px 10px;margin-bottom:10px;background:var(--surface3);border:1px solid var(--border);border-radius:5px;color:var(--muted);cursor:pointer">← Back to Crew</button>
+    <button onclick="openModal('crew')" style="font-size:11.3px;padding:5px 10px;margin-bottom:10px;background:var(--surface3);border:1px solid var(--border);border-radius:5px;color:var(--muted);cursor:pointer">← Back to Crew</button>
 
     <div style="display:flex;align-items:center;gap:12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:10px">
-      <span style="font-size:34px">${c.role==='pilot'?'✈':'🧳'}</span>
+      <span style="font-size:38.4px">${c.role==='pilot'?'✈':'🧳'}</span>
       <div style="flex:1">
-        <div style="font-size:15px;font-weight:800;color:var(--text)">${c.name}</div>
-        <div style="font-size:10px;color:var(--muted2);margin-top:2px">
+        <div style="font-size:16.9px;font-weight:800;color:var(--text)">${c.name}</div>
+        <div style="font-size:11.3px;color:var(--muted2);margin-top:2px">
           ${c.role==='pilot'?'Pilot':'Cabin Crew'} · <span style="color:${statusColor}">${c.status.toUpperCase()}</span>
           · Hired ${MONTHS[c.hired?.month||0]} ${c.hired?.year||'—'} · ${tenure} tenure</div>
-        <div style="font-size:10px;color:var(--muted2);margin-top:2px">${c.incidents||0} incident${(c.incidents||0)!==1?'s':''} · ${c.commendations||0} commendation${(c.commendations||0)!==1?'s':''}</div>
+        <div style="font-size:11.3px;color:var(--muted2);margin-top:2px">${c.incidents||0} incident${(c.incidents||0)!==1?'s':''} · ${c.commendations||0} commendation${(c.commendations||0)!==1?'s':''}</div>
       </div>
       <div style="text-align:right">
-        <div style="font-size:14px;color:#f5c842;letter-spacing:1.5px">${stars}</div>
-        <div style="font-size:10.5px;color:${mColor};margin-top:3px">Morale ${Math.round(c.morale)}%</div>
+        <div style="font-size:15.8px;color:#f5c842;letter-spacing:1.5px">${stars}</div>
+        <div style="font-size:11.9px;color:${mColor};margin-top:3px">Morale ${Math.round(c.morale)}%</div>
       </div>
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
       <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px">
-        <div style="font-size:10px;font-weight:700;color:var(--accent2);letter-spacing:1px;margin-bottom:8px">SKILLS</div>
+        <div style="font-size:11.3px;font-weight:700;color:var(--accent2);letter-spacing:1px;margin-bottom:8px">SKILLS</div>
         ${skillBars}
-        <div style="font-size:10px;color:var(--muted2);margin-top:4px">Grows with training programs and on-the-job experience.</div>
+        <div style="font-size:11.3px;color:var(--muted2);margin-top:4px">Grows with training programs and on-the-job experience.</div>
       </div>
       <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px">
-        <div style="font-size:10px;font-weight:700;color:var(--accent2);letter-spacing:1px;margin-bottom:8px">TRAINING RECORD</div>
+        <div style="font-size:11.3px;font-weight:700;color:var(--accent2);letter-spacing:1px;margin-bottom:8px">TRAINING RECORD</div>
         ${activeTraining}
         ${doneHtml}
         ${trainingOpts ? `<div style="display:flex;gap:5px;margin-top:10px;align-items:center">
-          <select id="prof-train-sel" style="flex:1;font-size:10px;padding:3px 5px;background:var(--surface3);border:1px solid var(--border);border-radius:4px;color:var(--text)">
+          <select id="prof-train-sel" style="flex:1;font-size:11.3px;padding:3px 5px;background:var(--surface3);border:1px solid var(--border);border-radius:4px;color:var(--text)">
             <option value="">— enrol in training —</option>${trainingOpts}
           </select>
-          <button onclick="startTraining('${c.id}',document.getElementById('prof-train-sel').value,true)" style="font-size:10px;padding:4px 8px;background:rgba(63,214,192,0.1);border:1px solid var(--accent);border-radius:5px;color:var(--accent);cursor:pointer">Enrol</button>
+          <button onclick="startTraining('${c.id}',document.getElementById('prof-train-sel').value,true)" style="font-size:11.3px;padding:4px 8px;background:rgba(167,137,255,0.1);border:1px solid var(--accent);border-radius:5px;color:#fff;cursor:pointer">Enrol</button>
         </div>` : ''}
       </div>
     </div>
 
     <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:10px">
-      <div style="font-size:10px;font-weight:700;color:var(--accent2);letter-spacing:1px;margin-bottom:6px">TRAITS</div>
+      <div style="font-size:11.3px;font-weight:700;color:var(--accent2);letter-spacing:1px;margin-bottom:6px">TRAITS</div>
       <div style="display:flex;flex-wrap:wrap;gap:4px">${traitsHtml}</div>
     </div>
 
     <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px">
-      <div style="font-size:10px;font-weight:700;color:var(--accent2);letter-spacing:1px;margin-bottom:6px">CAREER HISTORY</div>
+      <div style="font-size:11.3px;font-weight:700;color:var(--accent2);letter-spacing:1px;margin-bottom:6px">CAREER HISTORY</div>
       <div style="max-height:180px;overflow-y:auto">${historyHtml}</div>
     </div>
 
-    ${c.status!=='terminated' ? `<button onclick="terminateCrew('${c.id}')" style="margin-top:10px;font-size:10px;padding:5px 12px;background:rgba(255,93,114,0.1);border:1px solid var(--danger);border-radius:5px;color:var(--danger);cursor:pointer">🚪 Dismiss ${c.name.split(' ')[0]}</button>` : ''}
+    ${c.status!=='terminated' ? `<button onclick="terminateCrew('${c.id}')" style="margin-top:10px;font-size:11.3px;padding:5px 12px;background:rgba(255,93,114,0.1);border:1px solid var(--danger);border-radius:5px;color:var(--danger);cursor:pointer">🚪 Dismiss ${c.name.split(' ')[0]}</button>` : ''}
   </div>`;
   document.getElementById('modal-overlay').classList.add('open');
   document.getElementById('modal-content').innerHTML = html;
@@ -6760,7 +6812,7 @@ function updateCrewBtn() {
   if (openInc > 0 || avgMorale < 50) {
     btn.style.borderColor = 'var(--danger)';
     btn.style.color = 'var(--danger)';
-    const badge = openInc > 0 ? ` <span style="background:var(--danger);color:#fff;border-radius:9px;padding:1px 6px;font-size:10px;font-weight:700">${openInc}</span>` : '';
+    const badge = openInc > 0 ? ` <span style="background:var(--danger);color:#fff;border-radius:9px;padding:1px 6px;font-size:11.3px;font-weight:700">${openInc}</span>` : '';
     btn.innerHTML = `<span class="icon">👨‍✈️</span> Crew Management${badge}`;
   } else {
     btn.style.borderColor = '';
@@ -6789,38 +6841,38 @@ function buildCrewModal(view) {
     const traitDefs = c.role==='pilot' ? PILOT_TRAITS : CABIN_TRAITS;
     const traits = (c.traits||[]).map(tid => {
       const t = traitDefs.find(x=>x.id===tid);
-      return t ? `<span title="${t.blurb}" style="font-size:10px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:4px;padding:2px 5px;cursor:help">${t.icon} ${t.label}</span>` : '';
+      return t ? `<span title="${t.blurb}" style="font-size:11.3px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:4px;padding:2px 5px;cursor:help">${t.icon} ${t.label}</span>` : '';
     }).join('');
     const rating = _crewRating(c.morale, c.seniority, crewSkillAvg(_ensureProfile(c)));
     const stars = '★'.repeat(rating) + '☆'.repeat(5-rating);
     const statusColor = c.status==='training'?'var(--accent)':c.status==='suspended'?'var(--warn)':'var(--profit)';
     const mColor = c.morale>=70?'var(--profit)':c.morale>=45?'var(--warn)':'var(--danger)';
     const prog = c.training ? TRAINING_PROGRAMS.find(p=>p.id===c.training.id) : null;
-    const trainingHtml = prog ? `<div style="font-size:10px;color:var(--accent);margin-top:2px">📚 ${prog.label} — ${c.training.monthsLeft}mo left</div>` : '';
+    const trainingHtml = prog ? `<div style="font-size:11.3px;color:#fff;margin-top:2px">📚 ${prog.label} — ${c.training.monthsLeft}mo left</div>` : '';
     const trainingOpts = unlocked && c.status==='active' ? TRAINING_PROGRAMS
       .filter(p=>p.appliesTo==='all'||(p.appliesTo===c.role)||(p.appliesTo==='pilot'&&c.role==='pilot')||(p.appliesTo==='cabin'&&c.role==='cabin'))
       .map(p=>`<option value="${p.id}">${p.icon} ${p.label} — $${p.cost}M (${p.duration}mo)</option>`).join('') : '';
     return `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:7px">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-        <span style="font-size:18px">${c.role==='pilot'?'✈':'🧳'}</span>
+        <span style="font-size:20.3px">${c.role==='pilot'?'✈':'🧳'}</span>
         <div style="flex:1${unlocked?`;cursor:pointer" onclick="openCrewProfile('${c.id}')" title="Open profile`:''}">
-          <div style="font-size:12px;font-weight:700;color:var(--text)">${c.name}${unlocked?' <span style=\'font-size:10px;color:var(--accent);font-weight:600\'>PROFILE ▸</span>':''}</div>
-          <div style="font-size:9.5px;color:var(--muted2)">${c.seniority} months · <span style="color:${statusColor}">${c.status.toUpperCase()}</span> · ${c.incidents||0} incident${(c.incidents||0)!==1?'s':''} · ${c.commendations||0} commendations</div>
+          <div style="font-size:13.6px;font-weight:700;color:var(--text)">${c.name}${unlocked?' <span style=\'font-size:11.3px;color:#fff;font-weight:600\'>PROFILE ▸</span>':''}</div>
+          <div style="font-size:10.7px;color:var(--muted2)">${c.seniority} months · <span style="color:${statusColor}">${c.status.toUpperCase()}</span> · ${c.incidents||0} incident${(c.incidents||0)!==1?'s':''} · ${c.commendations||0} commendations</div>
         </div>
         <div style="text-align:right">
-          <div style="font-size:11px;color:#f5c842;letter-spacing:1px">${stars}</div>
-          <div style="font-size:9.5px;color:${mColor}">Morale ${Math.round(c.morale)}%</div>
+          <div style="font-size:12.4px;color:#f5c842;letter-spacing:1px">${stars}</div>
+          <div style="font-size:10.7px;color:${mColor}">Morale ${Math.round(c.morale)}%</div>
         </div>
       </div>
       ${traits ? `<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:5px">${traits}</div>` : ''}
       ${trainingHtml}
       ${unlocked && c.status==='active' && trainingOpts ? `
       <div style="display:flex;gap:5px;margin-top:6px;align-items:center">
-        <select id="train-sel-${c.id}" style="flex:1;font-size:10px;padding:3px 5px;background:var(--surface3);border:1px solid var(--border);border-radius:4px;color:var(--text)">
+        <select id="train-sel-${c.id}" style="flex:1;font-size:11.3px;padding:3px 5px;background:var(--surface3);border:1px solid var(--border);border-radius:4px;color:var(--text)">
           <option value="">— enrol in training —</option>${trainingOpts}
         </select>
-        <button onclick="startTraining('${c.id}',document.getElementById('train-sel-${c.id}').value)" style="font-size:10px;padding:4px 8px;background:rgba(63,214,192,0.1);border:1px solid var(--accent);border-radius:5px;color:var(--accent);cursor:pointer">Enrol</button>
-        <button onclick="terminateCrew('${c.id}')" style="font-size:10px;padding:4px 8px;background:rgba(255,93,114,0.1);border:1px solid var(--danger);border-radius:5px;color:var(--danger);cursor:pointer">Dismiss</button>
+        <button onclick="startTraining('${c.id}',document.getElementById('train-sel-${c.id}').value)" style="font-size:11.3px;padding:4px 8px;background:rgba(167,137,255,0.1);border:1px solid var(--accent);border-radius:5px;color:#fff;cursor:pointer">Enrol</button>
+        <button onclick="terminateCrew('${c.id}')" style="font-size:11.3px;padding:4px 8px;background:rgba(255,93,114,0.1);border:1px solid var(--danger);border-radius:5px;color:var(--danger);cursor:pointer">Dismiss</button>
       </div>` : ''}
     </div>`;
   }
@@ -6830,18 +6882,18 @@ function buildCrewModal(view) {
     if (!template) return '';
     const sColor = inc.severity==='major'?'var(--danger)':inc.severity==='positive'?'var(--profit)':inc.severity==='medium'?'var(--warn)':'var(--muted2)';
     const opts = template.resolveOpts.map((o,i) =>
-      `<button onclick="resolveIncident('${inc.id}',${i})" style="font-size:10px;padding:4px 9px;background:rgba(63,214,192,0.08);border:1px solid var(--accent);border-radius:5px;color:var(--accent);cursor:pointer;margin-right:4px">${o}</button>`
+      `<button onclick="resolveIncident('${inc.id}',${i})" style="font-size:11.3px;padding:4px 9px;background:rgba(167,137,255,0.08);border:1px solid var(--accent);border-radius:5px;color:#fff;cursor:pointer;margin-right:4px">${o}</button>`
     ).join('');
     return `<div style="background:var(--surface2);border:1px solid ${sColor};border-left:3px solid ${sColor};border-radius:8px;padding:9px 12px;margin-bottom:6px">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-        <span style="font-size:16px">${template.icon}</span>
+        <span style="font-size:18.1px">${template.icon}</span>
         <div style="flex:1">
-          <div style="font-size:11.5px;font-weight:700;color:var(--text)">${template.label}</div>
-          <div style="font-size:9.5px;color:var(--muted2)">Crew: ${inc.crewName} · ${MONTHS[inc.month]} ${inc.year}</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text)">${template.label}</div>
+          <div style="font-size:10.7px;color:var(--muted2)">Crew: ${inc.crewName} · ${MONTHS[inc.month]} ${inc.year}</div>
         </div>
-        <span style="font-size:10px;font-weight:700;color:${sColor};text-transform:uppercase">${inc.severity}</span>
+        <span style="font-size:11.3px;font-weight:700;color:${sColor};text-transform:uppercase">${inc.severity}</span>
       </div>
-      <div style="font-size:11px;color:var(--muted);margin-bottom:7px">${template.desc}${inc.demandHit<0?` <span style="color:var(--danger)">${Math.round(inc.demandHit*100)}% demand</span>`:inc.demandHit>0?` <span style="color:var(--profit)">+${Math.round(inc.demandHit*100)}% demand</span>`:''}</div>
+      <div style="font-size:12.4px;color:var(--muted);margin-bottom:7px">${template.desc}${inc.demandHit<0?` <span style="color:var(--danger)">${Math.round(inc.demandHit*100)}% demand</span>`:inc.demandHit>0?` <span style="color:var(--profit)">+${Math.round(inc.demandHit*100)}% demand</span>`:''}</div>
       <div>${opts}</div>
     </div>`;
   }
@@ -6856,27 +6908,27 @@ function buildCrewModal(view) {
     const typeLabel = role==='pilot' ? 'Pilots' : 'Cabin crew';
     const hireOnclick = `openModal('hr');setTimeout(()=>window._crewTab&&window._crewTab('recruit'),0)`;
     const hireLabel = candCount > 0 ? `→ ${candCount} candidate${candCount!==1?'s':''}` : 'Recruit ▸';
-    const staffCard = `<div style="background:var(--surface2);border:1px solid ${needed>0?'rgba(255,93,114,0.35)':'rgba(63,214,192,0.22)'};border-radius:8px;padding:10px 13px;display:flex;justify-content:space-between;align-items:center">
+    const staffCard = `<div style="background:var(--surface2);border:1px solid ${needed>0?'rgba(255,93,114,0.35)':'rgba(167,137,255,0.22)'};border-radius:8px;padding:10px 13px;display:flex;justify-content:space-between;align-items:center">
       <div>
-        <div style="font-size:12px;font-weight:700;color:${color};margin-bottom:3px">${typeLabel}</div>
-        <div style="font-size:10px;color:var(--muted2)">${members.length} active · ${routeCount} route${routeCount!==1?'s':''}</div>
+        <div style="font-size:13.6px;font-weight:700;color:${color};margin-bottom:3px">${typeLabel}</div>
+        <div style="font-size:11.3px;color:var(--muted2)">${members.length} active · ${routeCount} route${routeCount!==1?'s':''}</div>
       </div>
       <div style="text-align:right">
-        <div style="font-size:20px;font-weight:700;color:${color}">${members.length}</div>
-        <div style="font-size:10px;color:var(--muted2);margin-top:1px">staffed</div>
-        <div onclick="${hireOnclick}" style="margin-top:5px;background:${role==='pilot'?'rgba(63,214,192,0.12)':'rgba(157,142,224,0.12)'};border:0.5px solid ${color};border-radius:5px;padding:4px 9px;font-size:10px;color:${color};cursor:${canAfford?'pointer':'default'};opacity:${canAfford?1:0.5}">${hireLabel}</div>
+        <div style="font-size:22.6px;font-weight:700;color:${color}">${members.length}</div>
+        <div style="font-size:11.3px;color:var(--muted2);margin-top:1px">staffed</div>
+        <div onclick="${hireOnclick}" style="margin-top:5px;background:${role==='pilot'?'rgba(167,137,255,0.12)':'rgba(157,142,224,0.12)'};border:0.5px solid ${color};border-radius:5px;padding:4px 9px;font-size:11.3px;color:${color};cursor:${canAfford?'pointer':'default'};opacity:${canAfford?1:0.5}">${hireLabel}</div>
       </div>
     </div>`;
     if (needed <= 0) return staffCard;
     const gapCard = `<div style="background:var(--surface2);border:1px solid rgba(255,93,114,0.4);border-radius:8px;padding:10px 13px;display:flex;justify-content:space-between;align-items:center">
       <div>
-        <div style="font-size:12px;font-weight:700;color:var(--danger);margin-bottom:3px">Coverage gap</div>
-        <div style="font-size:10px;color:var(--muted2)">~${needed} more ${typeLabel.toLowerCase()} recommended</div>
+        <div style="font-size:13.6px;font-weight:700;color:var(--danger);margin-bottom:3px">Coverage gap</div>
+        <div style="font-size:11.3px;color:var(--muted2)">~${needed} more ${typeLabel.toLowerCase()} recommended</div>
       </div>
       <div style="text-align:right">
-        <div style="font-size:20px;font-weight:700;color:var(--danger)">${needed}</div>
-        <div style="font-size:10px;color:var(--muted2);margin-top:1px">short</div>
-        <div onclick="${hireOnclick}" style="margin-top:5px;background:rgba(63,214,192,0.12);border:0.5px solid var(--accent);border-radius:5px;padding:4px 9px;font-size:10px;color:var(--accent);cursor:${canAfford?'pointer':'default'};opacity:${canAfford?1:0.5}">${hireLabel}</div>
+        <div style="font-size:22.6px;font-weight:700;color:var(--danger)">${needed}</div>
+        <div style="font-size:11.3px;color:var(--muted2);margin-top:1px">short</div>
+        <div onclick="${hireOnclick}" style="margin-top:5px;background:rgba(167,137,255,0.12);border:0.5px solid var(--accent);border-radius:5px;padding:4px 9px;font-size:11.3px;color:#fff;cursor:${canAfford?'pointer':'default'};opacity:${canAfford?1:0.5}">${hireLabel}</div>
       </div>
     </div>`;
     return staffCard + gapCard;
@@ -6888,14 +6940,14 @@ function buildCrewModal(view) {
       <div style="flex:1;height:4px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden">
         <div style="height:4px;width:${pct}%;background:${col};border-radius:2px"></div>
       </div>
-      <div style="font-size:10px;min-width:28px;text-align:right;font-family:'DM Mono';color:${col}">${Math.round(pct)}%</div>
+      <div style="font-size:11.3px;min-width:28px;text-align:right;font-family:'DM Mono';color:${col}">${Math.round(pct)}%</div>
     </div>`;
   }
 
   function crewRowNew(c) {
     const initials = c.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
     const isPilot = c.role==='pilot';
-    const avatarBg = isPilot ? 'rgba(63,214,192,0.15)' : 'rgba(157,142,224,0.15)';
+    const avatarBg = isPilot ? 'rgba(167,137,255,0.15)' : 'rgba(157,142,224,0.15)';
     const avatarColor = isPilot ? 'var(--accent)' : 'var(--purple)';
     const statusLabel = c.status==='training' ? '📚 Training' : c.status==='suspended' ? '⚠ Suspended' : '';
     const prog = c.training ? TRAINING_PROGRAMS.find(p=>p.id===c.training.id) : null;
@@ -6904,28 +6956,28 @@ function buildCrewModal(view) {
       .map(p=>`<option value="${p.id}">${p.icon} ${p.label} — $${p.cost}M (${p.duration}mo)</option>`).join('') : '';
     return `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;margin-bottom:6px">
       <div style="display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center">
-        <div style="width:28px;height:28px;border-radius:50%;background:${avatarBg};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:${avatarColor};flex-shrink:0">${initials}</div>
+        <div style="width:28px;height:28px;border-radius:50%;background:${avatarBg};display:flex;align-items:center;justify-content:center;font-size:11.3px;font-weight:600;color:${avatarColor};flex-shrink:0">${initials}</div>
         <div style="cursor:pointer" onclick="openCrewProfile('${c.id}')">
-          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px">${c.name} <span style="font-size:10px;color:var(--accent);font-weight:500">PROFILE ▸</span></div>
-          <div style="font-size:10px;color:var(--muted2);display:flex;gap:8px;flex-wrap:wrap">
+          <div style="font-size:13.6px;font-weight:700;color:var(--text);margin-bottom:2px">${c.name} <span style="font-size:11.3px;color:#fff;font-weight:500">PROFILE ▸</span></div>
+          <div style="font-size:11.3px;color:var(--muted2);display:flex;gap:8px;flex-wrap:wrap">
             <span>Skill ${Math.round(crewSkillAvg(_ensureProfile(c)))}</span>
             <span style="color:var(--muted)">·</span>
             <span>${c.seniority}mo</span>
-            ${statusLabel ? `<span style="color:var(--accent)">${statusLabel}</span>` : ''}
+            ${statusLabel ? `<span style="color:#fff">${statusLabel}</span>` : ''}
             ${c.morale < 35 ? `<span style="color:var(--danger)">⚠ Low morale</span>` : ''}
             ${(c.awards||[]).length ? `<span style="color:#f5c842" title="${(c.awards||[]).map(a=>(_awardDef(a.id)||{}).label).filter(Boolean).join(', ')}">🏆 ${(c.awards||[]).length}</span>` : ''}
           </div>
-          ${prog ? `<div style="font-size:10px;color:var(--accent);margin-top:2px">📚 ${prog.label} — ${c.training.monthsLeft}mo left</div>` : ''}
+          ${prog ? `<div style="font-size:11.3px;color:#fff;margin-top:2px">📚 ${prog.label} — ${c.training.monthsLeft}mo left</div>` : ''}
         </div>
         ${crewMoraleBar(c.morale)}
       </div>
       ${c.status==='active' && trainingOpts ? `<div style="display:flex;gap:5px;margin-top:7px;align-items:center;padding-top:7px;border-top:0.5px solid var(--border)">
-        <select id="train-sel-${c.id}" style="flex:1;font-size:10px;padding:3px 5px;background:var(--surface3);border:1px solid var(--border);border-radius:4px;color:var(--text)">
+        <select id="train-sel-${c.id}" style="flex:1;font-size:11.3px;padding:3px 5px;background:var(--surface3);border:1px solid var(--border);border-radius:4px;color:var(--text)">
           <option value="">— enrol in training —</option>${trainingOpts}
         </select>
-        <button onclick="startTraining('${c.id}',document.getElementById('train-sel-${c.id}').value)" style="font-size:10px;padding:4px 8px;background:rgba(63,214,192,0.1);border:1px solid var(--accent);border-radius:5px;color:var(--accent);cursor:pointer">Enrol</button>
-        ${(()=>{const mo=STATE._absMonth||0;const onCd=c.lastAwardMo!=null&&(mo-c.lastAwardMo)<PLAYER_AWARD_COOLDOWN;const can=!onCd&&(STATE.cash||0)>=PLAYER_AWARD_COST;return `<button onclick="recognizeCrew('${c.id}')" ${can?'':'disabled'} title="${onCd?'Recently recognised — on cooldown':'Costs $'+PLAYER_AWARD_COST+'M · boosts morale & retention'}" style="font-size:10px;padding:4px 8px;background:rgba(245,200,66,0.1);border:1px solid #f5c842;border-radius:5px;color:#f5c842;cursor:${can?'pointer':'default'};opacity:${can?1:0.45}">🏆 ${onCd?'On CD':'Recognise'}</button>`;})()}
-        <button onclick="terminateCrew('${c.id}')" style="font-size:10px;padding:4px 8px;background:rgba(255,93,114,0.1);border:1px solid var(--danger);border-radius:5px;color:var(--danger);cursor:pointer">Dismiss</button>
+        <button onclick="startTraining('${c.id}',document.getElementById('train-sel-${c.id}').value)" style="font-size:11.3px;padding:4px 8px;background:rgba(167,137,255,0.1);border:1px solid var(--accent);border-radius:5px;color:#fff;cursor:pointer">Enrol</button>
+        ${(()=>{const mo=STATE._absMonth||0;const onCd=c.lastAwardMo!=null&&(mo-c.lastAwardMo)<PLAYER_AWARD_COOLDOWN;const can=!onCd&&(STATE.cash||0)>=PLAYER_AWARD_COST;return `<button onclick="recognizeCrew('${c.id}')" ${can?'':'disabled'} title="${onCd?'Recently recognised — on cooldown':'Costs $'+PLAYER_AWARD_COST+'M · boosts morale & retention'}" style="font-size:11.3px;padding:4px 8px;background:rgba(245,200,66,0.1);border:1px solid #f5c842;border-radius:5px;color:#f5c842;cursor:${can?'pointer':'default'};opacity:${can?1:0.45}">🏆 ${onCd?'On CD':'Recognise'}</button>`;})()}
+        <button onclick="terminateCrew('${c.id}')" style="font-size:11.3px;padding:4px 8px;background:rgba(255,93,114,0.1);border:1px solid var(--danger);border-radius:5px;color:var(--danger);cursor:pointer">Dismiss</button>
       </div>` : ''}
     </div>`;
   }
@@ -6936,39 +6988,39 @@ function buildCrewModal(view) {
     const traitDefs = c.role==='pilot' ? PILOT_TRAITS : CABIN_TRAITS;
     const initials = c.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
     const isPilot = c.role==='pilot';
-    const avBg = isPilot?'rgba(63,214,192,0.12)':'rgba(157,142,224,0.14)';
+    const avBg = isPilot?'rgba(167,137,255,0.12)':'rgba(157,142,224,0.14)';
     const avCol = isPilot?'var(--accent)':'var(--purple)';
     const stars = '★'.repeat(c.rating)+'☆'.repeat(5-c.rating);
     const canAfford = STATE.cash >= c.askPay;
     const skillCells = skillDefs.map(s=>{
       const v = Math.round(c.skills[s.id]||0);
       const col = v>=70?'var(--profit)':v>=50?'var(--accent)':v>=30?'var(--warn)':'var(--danger)';
-      return `<div><div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px"><span style="color:var(--muted)">${s.icon} ${s.label}</span><b style="color:${col};font-family:'DM Mono'">${v}</b></div>
+      return `<div><div style="display:flex;justify-content:space-between;font-size:11.3px;margin-bottom:2px"><span style="color:var(--muted)">${s.icon} ${s.label}</span><b style="color:${col};font-family:'DM Mono'">${v}</b></div>
         <div style="height:4px;background:var(--surface3);border-radius:2px;overflow:hidden"><div style="height:4px;width:${v}%;background:${col};border-radius:2px"></div></div></div>`;
     }).join('');
     const traitChips = c.traits.map(tid=>{
       const t = traitDefs.find(x=>x.id===tid); if(!t) return '';
       const good = (t.demandMod||0)>=0 && (t.costMod||0)<=0;
-      return `<span title="${t.blurb}" style="font-size:10px;padding:3px 8px;border-radius:5px;${good?'background:rgba(95,224,160,0.1);color:var(--profit);border:0.5px solid rgba(95,224,160,0.25)':'background:rgba(255,93,114,0.08);color:var(--loss);border:0.5px solid rgba(255,93,114,0.25)'}">${t.icon} ${t.label}</span>`;
+      return `<span title="${t.blurb}" style="font-size:11.3px;padding:3px 8px;border-radius:5px;${good?'background:rgba(95,224,160,0.1);color:var(--profit);border:0.5px solid rgba(95,224,160,0.25)':'background:rgba(255,93,114,0.08);color:var(--loss);border:0.5px solid rgba(255,93,114,0.25)'}">${t.icon} ${t.label}</span>`;
     }).join('');
     return `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:12px 14px;margin-bottom:10px">
       <div style="display:flex;align-items:flex-start;gap:11px;margin-bottom:10px">
-        <div style="width:40px;height:40px;border-radius:50%;background:${avBg};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:${avCol};flex-shrink:0">${initials}</div>
+        <div style="width:40px;height:40px;border-radius:50%;background:${avBg};display:flex;align-items:center;justify-content:center;font-size:13.6px;font-weight:700;color:${avCol};flex-shrink:0">${initials}</div>
         <div style="flex:1;min-width:0">
-          <div style="font-size:13px;font-weight:700;color:var(--text)">${rankLabel?rankLabel+' ':''}${c.name} <span style="color:var(--accent2);font-size:10px;letter-spacing:1px">${stars}</span></div>
-          <div style="font-size:9.5px;color:var(--muted2);margin-top:2px">${c.seniority} yrs · ${c.incidents} incident${c.incidents!==1?'s':''} · ${c.background}</div>
+          <div style="font-size:14.7px;font-weight:700;color:var(--text)">${rankLabel?rankLabel+' ':''}${c.name} <span style="color:var(--accent2);font-size:11.3px;letter-spacing:1px">${stars}</span></div>
+          <div style="font-size:10.7px;color:var(--muted2);margin-top:2px">${c.seniority} yrs · ${c.incidents} incident${c.incidents!==1?'s':''} · ${c.background}</div>
         </div>
         <div style="text-align:right;flex-shrink:0">
-          <div style="font-size:14px;font-weight:700;font-family:'DM Mono';color:var(--accent2)">$${c.askPay}M</div>
-          <div style="font-size:9px;color:var(--muted2)">to hire</div>
+          <div style="font-size:15.8px;font-weight:700;font-family:'DM Mono';color:var(--accent2)">$${c.askPay}M</div>
+          <div style="font-size:10.2px;color:var(--muted2)">to hire</div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;margin-bottom:10px">${skillCells}</div>
       ${traitChips ? `<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:11px">${traitChips}</div>` : ''}
       <div style="display:flex;gap:8px;align-items:center">
-        <button onclick="approveCandidate('${c.id}')" ${canAfford?'':'disabled'} style="flex:1;padding:8px;font-size:11px;font-weight:700;border-radius:7px;cursor:${canAfford?'pointer':'default'};background:rgba(95,224,160,0.1);border:1px solid var(--profit);color:var(--profit);opacity:${canAfford?1:0.45}">✓ ${canAfford?'APPROVE — HIRE':'Need $'+(c.askPay-STATE.cash).toFixed(1)+'M'}</button>
-        <button onclick="openCandidateProfile('${c.id}')" style="padding:8px 12px;font-size:10px;border-radius:7px;cursor:pointer;background:transparent;border:1px solid var(--border);color:var(--accent)">Profile</button>
-        <button onclick="passCandidate('${c.id}')" style="padding:8px 14px;font-size:10px;border-radius:7px;cursor:pointer;background:transparent;border:1px solid var(--border);color:var(--muted)">Pass</button>
+        <button onclick="approveCandidate('${c.id}')" ${canAfford?'':'disabled'} style="flex:1;padding:8px;font-size:12.4px;font-weight:700;border-radius:7px;cursor:${canAfford?'pointer':'default'};background:rgba(95,224,160,0.1);border:1px solid var(--profit);color:var(--profit);opacity:${canAfford?1:0.45}">✓ ${canAfford?'APPROVE — HIRE':'Need $'+(c.askPay-STATE.cash).toFixed(1)+'M'}</button>
+        <button onclick="openCandidateProfile('${c.id}')" style="padding:8px 12px;font-size:11.3px;border-radius:7px;cursor:pointer;background:transparent;border:1px solid var(--border);color:#fff">Profile</button>
+        <button onclick="passCandidate('${c.id}')" style="padding:8px 14px;font-size:11.3px;border-radius:7px;cursor:pointer;background:transparent;border:1px solid var(--border);color:var(--muted)">Pass</button>
       </div>
     </div>`;
   }
@@ -6978,22 +7030,22 @@ function buildCrewModal(view) {
     const needPilot = Math.max(0, Math.ceil(routeCount/2) - pilots.length);
     const needCabin = Math.max(0, routeCount - cabin.length);
     const needTxt = (needPilot||needCabin)
-      ? `${needPilot?`<b style="color:var(--accent)">${needPilot} pilot</b>`:''}${needPilot&&needCabin?' and ':''}${needCabin?`<b style="color:var(--purple)">${needCabin} cabin</b>`:''} opening${(needPilot+needCabin)!==1?'s':''} based on your network.`
+      ? `${needPilot?`<b style="color:#fff">${needPilot} pilot</b>`:''}${needPilot&&needCabin?' and ':''}${needCabin?`<b style="color:#fff">${needCabin} cabin</b>`:''} opening${(needPilot+needCabin)!==1?'s':''} based on your network.`
       : 'Your network is fully staffed — hire ahead of growth if you like.';
     const header = `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:12px;display:flex;align-items:center;gap:10px">
-      <span style="font-size:16px">📋</span>
-      <div style="flex:1;font-size:10px;color:var(--muted);line-height:1.5">${needTxt} HR screened ${cands.length} candidate${cands.length!==1?'s':''} — approve to hire, pass to send away.</div>
+      <span style="font-size:18.1px">📋</span>
+      <div style="flex:1;font-size:11.3px;color:var(--muted);line-height:1.5">${needTxt} HR screened ${cands.length} candidate${cands.length!==1?'s':''} — approve to hire, pass to send away.</div>
     </div>`;
     const pilotCands = cands.filter(c=>c.role==='pilot');
     const cabinCands = cands.filter(c=>c.role==='cabin');
     let body = '';
-    if (pilotCands.length) body += `<div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin-bottom:8px">PILOT CANDIDATES</div>${pilotCands.map(recruitCard).join('')}`;
-    if (cabinCands.length) body += `<div style="font-size:10px;font-weight:700;color:var(--purple);letter-spacing:1.5px;margin:12px 0 8px">CABIN CREW CANDIDATES</div>${cabinCands.map(recruitCard).join('')}`;
-    if (!cands.length) body = `<div style="text-align:center;padding:18px;color:var(--muted2);font-size:11px">No candidates right now.<br><span style="font-size:10px">HR is sourcing new applicants — check back next month.</span></div>`;
+    if (pilotCands.length) body += `<div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin-bottom:8px">PILOT CANDIDATES</div>${pilotCands.map(recruitCard).join('')}`;
+    if (cabinCands.length) body += `<div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin:12px 0 8px">CABIN CREW CANDIDATES</div>${cabinCands.map(recruitCard).join('')}`;
+    if (!cands.length) body = `<div style="text-align:center;padding:18px;color:var(--muted2);font-size:12.4px">No candidates right now.<br><span style="font-size:11.3px">HR is sourcing new applicants — check back next month.</span></div>`;
     const refresh = `<div style="display:flex;align-items:center;gap:9px;margin-top:6px;padding:9px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px">
-      <span style="font-size:13px">🔄</span>
+      <span style="font-size:14.7px">🔄</span>
       <div style="flex:1;height:3px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden"><div style="height:3px;width:${Math.round((1-_candMonthsToRefresh()/3)*100)}%;background:var(--accent);border-radius:2px"></div></div>
-      <div style="font-size:10px;color:var(--muted2);min-width:130px;text-align:right">${_candMonthsToRefresh()>0?`new applicants in ~${_candMonthsToRefresh()} mo`:'new applicants arriving'}</div>
+      <div style="font-size:11.3px;color:var(--muted2);min-width:130px;text-align:right">${_candMonthsToRefresh()>0?`new applicants in ~${_candMonthsToRefresh()} mo`:'new applicants arriving'}</div>
     </div>`;
     return header + body + refresh;
   }
@@ -7003,14 +7055,14 @@ function buildCrewModal(view) {
     const mCol = avgM>=70?'var(--profit)':avgM>=45?'var(--warn)':'var(--danger)';
     const progPct = Math.round(Math.min(100, ((STATE._absMonth||0)/12)*100));
     return `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:13px 16px;text-align:center;margin-bottom:10px">
-      <div style="font-size:26px;font-weight:700;color:${mCol};font-family:'DM Mono'">${avgM}%</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">Pool morale · ${members.length} staff</div>
-      <div style="font-size:10px;color:var(--muted2);margin-top:8px;padding-top:8px;border-top:0.5px solid var(--border)">Individual profiles unlock at 12 months</div>
+      <div style="font-size:29.4px;font-weight:700;color:${mCol};font-family:'DM Mono'">${avgM}%</div>
+      <div style="font-size:12.4px;color:var(--muted);margin-top:3px">Pool morale · ${members.length} staff</div>
+      <div style="font-size:11.3px;color:var(--muted2);margin-top:8px;padding-top:8px;border-top:0.5px solid var(--border)">Individual profiles unlock at 12 months</div>
       <div style="display:flex;align-items:center;gap:10px;margin-top:6px">
         <div style="flex:1;height:3px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden">
           <div style="height:3px;width:${progPct}%;background:var(--accent);border-radius:2px"></div>
         </div>
-        <div style="font-size:10px;color:var(--muted2);min-width:60px;text-align:right">${monthsLeft > 0 ? monthsLeft+' mo to go' : 'Unlocking…'}</div>
+        <div style="font-size:11.3px;color:var(--muted2);min-width:60px;text-align:right">${monthsLeft > 0 ? monthsLeft+' mo to go' : 'Unlocking…'}</div>
       </div>
     </div>`;
   }
@@ -7025,18 +7077,18 @@ function buildCrewModal(view) {
   const _recentAw = _allAwards.slice(0,3);
   const recognitionStrip = `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:10px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:${_recentAw.length?'7px':'0'}">
-      <div style="font-size:10px;font-weight:700;color:#f5c842;letter-spacing:1px">\u{1F3C6} RECOGNITION</div>
-      <div style="font-size:10px;color:var(--muted2)">${_allAwards.length} award${_allAwards.length!==1?'s':''} given</div>
+      <div style="font-size:11.3px;font-weight:700;color:#f5c842;letter-spacing:1px">\u{1F3C6} RECOGNITION</div>
+      <div style="font-size:11.3px;color:var(--muted2)">${_allAwards.length} award${_allAwards.length!==1?'s':''} given</div>
     </div>
     ${_recentAw.length ? _recentAw.map(a=>{
       const def=_awardDef(a.id)||{icon:'\u{1F3C6}',label:'Award'};
-      return `<div style="display:flex;align-items:center;gap:8px;font-size:10px;color:var(--muted);padding:3px 0">
-        <span style="font-size:13px">${def.icon}</span>
+      return `<div style="display:flex;align-items:center;gap:8px;font-size:11.3px;color:var(--muted);padding:3px 0">
+        <span style="font-size:14.7px">${def.icon}</span>
         <span style="color:var(--text);font-weight:600">${a.name}</span>
         <span style="color:var(--muted2)">\u2014 ${def.label}</span>
-        <span style="margin-left:auto;color:var(--muted2);font-size:10px">${(MONTHS[a.m]||'')} ${(a.y||'')}</span>
+        <span style="margin-left:auto;color:var(--muted2);font-size:11.3px">${(MONTHS[a.m]||'')} ${(a.y||'')}</span>
       </div>`;
-    }).join('') : `<div style="font-size:10px;color:var(--muted2);line-height:1.5">No awards yet. Recognise standout crew below (\u{1F3C6} on each card), or let HR auto-award a top performer each quarter.</div>`}
+    }).join('') : `<div style="font-size:11.3px;color:var(--muted2);line-height:1.5">No awards yet. Recognise standout crew below (\u{1F3C6} on each card), or let HR auto-award a top performer each quarter.</div>`}
   </div>`;
   // ── View split: roster (crew ops) vs hr (people ops) — shared builders, two layouts ──
   const _statCard = (v,label,sub,color) => `<div class="hr-stat">
@@ -7066,14 +7118,14 @@ function buildCrewModal(view) {
       <div class="hr-budget-note">${budgetLabels[STATE.crewBudget||2]} · Morale drift: ${budgetDrift>=0?'+':''}${budgetDrift}/month${STATE.crewBudget<3?' · <span style="color:var(--accent2)">Upgrade to Generous for +4/mo</span>':''}</div>
     </div>`;
   const rosterHint = `<div onclick="openModal('hr')" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;margin-bottom:10px;display:flex;align-items:center;gap:9px;cursor:pointer">
-      <span style="font-size:15px">👔</span>
-      <div style="flex:1;font-size:10px;color:var(--muted)">Recruiting, crew budget, incidents & the recognition program live in <b style="color:var(--accent2)">HR</b>.</div>
-      <span style="font-size:10px;color:var(--accent);white-space:nowrap">Open HR ▸</span>
+      <span style="font-size:16.9px">👔</span>
+      <div style="flex:1;font-size:11.3px;color:var(--muted)">Recruiting, crew budget, incidents & the recognition program live in <b style="color:var(--accent2)">HR</b>.</div>
+      <span style="font-size:11.3px;color:#fff;white-space:nowrap">Open HR ▸</span>
     </div>`;
   const hrHint = `<div onclick="openModal('crew')" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;margin-bottom:10px;display:flex;align-items:center;gap:9px;cursor:pointer">
-      <span style="font-size:15px">👨‍✈️</span>
-      <div style="flex:1;font-size:10px;color:var(--muted)">Manage active pilots & cabin crew — training & recognition — on the <b style="color:var(--accent2)">Roster</b>.</div>
-      <span style="font-size:10px;color:var(--accent);white-space:nowrap">Open Roster ▸</span>
+      <span style="font-size:16.9px">👨‍✈️</span>
+      <div style="flex:1;font-size:11.3px;color:var(--muted)">Manage active pilots & cabin crew — training & recognition — on the <b style="color:var(--accent2)">Roster</b>.</div>
+      <span style="font-size:11.3px;color:#fff;white-space:nowrap">Open Roster ▸</span>
     </div>`;
   const _title = isHR ? '👔 HUMAN RESOURCES' : '👨‍✈️ CREW / ROSTER';
   const _tabs = isHR ? ['recruit','incidents'] : ['pilots','cabin'];
@@ -7090,38 +7142,38 @@ function buildCrewModal(view) {
     <div style="display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:10px">
       ${_tabs.map(tab=>`
         <button onclick="_crewTab('${tab}')" id="ctab-${tab}"
-          style="padding:7px 13px;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+          style="padding:7px 13px;font-size:11.3px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
           cursor:pointer;border:none;border-bottom:2px solid transparent;background:transparent;
           color:var(--muted);transition:color .15s">
           ${tab==='recruit'
-            ? 'Recruit'+((STATE.crewCandidates||[]).length?' <span style="background:rgba(95,224,160,0.15);color:var(--profit);border-radius:8px;padding:1px 5px;font-size:9px">'+(STATE.crewCandidates||[]).length+'</span>':'')
+            ? 'Recruit'+((STATE.crewCandidates||[]).length?' <span style="background:rgba(95,224,160,0.15);color:var(--profit);border-radius:8px;padding:1px 5px;font-size:10.2px">'+(STATE.crewCandidates||[]).length+'</span>':'')
             : tab==='incidents'
-            ? 'Incidents'+(openInc.length>0?' <span style="background:rgba(255,93,114,0.2);color:var(--danger);border-radius:8px;padding:1px 5px;font-size:9px">'+openInc.length+'</span>':'')
+            ? 'Incidents'+(openInc.length>0?' <span style="background:rgba(255,93,114,0.2);color:var(--danger);border-radius:8px;padding:1px 5px;font-size:10.2px">'+openInc.length+'</span>':'')
             : tab==='pilots'
-              ? 'Pilots <span style="background:rgba(63,214,192,0.12);color:var(--accent);border-radius:8px;padding:1px 5px;font-size:9px">'+pilots.length+'</span>'
-              : 'Cabin <span style="background:rgba(157,142,224,0.12);color:var(--purple);border-radius:8px;padding:1px 5px;font-size:9px">'+cabin.length+'</span>'
+              ? 'Pilots <span style="background:rgba(167,137,255,0.12);color:#fff;border-radius:8px;padding:1px 5px;font-size:10.2px">'+pilots.length+'</span>'
+              : 'Cabin <span style="background:rgba(157,142,224,0.12);color:#fff;border-radius:8px;padding:1px 5px;font-size:10.2px">'+cabin.length+'</span>'
           }
         </button>
       `).join('')}
     </div>
     <div id="crew-tab-content"></div>
 
-    ${!unlocked?`<div style="margin-top:8px;padding:8px 12px;background:rgba(63,214,192,0.05);border:1px solid rgba(63,214,192,0.15);border-radius:6px;font-size:10px;color:var(--muted2)">🔒 Individual crew profiles unlock after 12 months — ${monthsLeft} month${monthsLeft!==1?'s':''} to go.</div>`:''}
+    ${!unlocked?`<div style="margin-top:8px;padding:8px 12px;background:rgba(167,137,255,0.05);border:1px solid rgba(167,137,255,0.15);border-radius:6px;font-size:11.3px;color:var(--muted2)">🔒 Individual crew profiles unlock after 12 months — ${monthsLeft} month${monthsLeft!==1?'s':''} to go.</div>`:''}
   </div>`;
 
     window._crewTabContent = {
     recruit: buildRecruitTab(),
     pilots: `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">${coverageCards('pilot',pilots)}</div>`
       + (unlocked
-        ? (pilots.length ? pilots.map(c=>crewRowNew(c)).join('') : '<div style="color:var(--muted2);font-size:11px;padding:12px 0;text-align:center">No pilots — recruit one from the Recruit tab.</div>')
+        ? (pilots.length ? pilots.map(c=>crewRowNew(c)).join('') : '<div style="color:var(--muted2);font-size:12.4px;padding:12px 0;text-align:center">No pilots — recruit one from the Recruit tab.</div>')
         : poolCardNew('pilot')),
     cabin: `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">${coverageCards('cabin',cabin)}</div>`
       + (unlocked
-        ? (cabin.length ? cabin.map(c=>crewRowNew(c)).join('') : '<div style="color:var(--muted2);font-size:11px;padding:12px 0;text-align:center">No cabin crew — recruit from the Recruit tab.</div>')
+        ? (cabin.length ? cabin.map(c=>crewRowNew(c)).join('') : '<div style="color:var(--muted2);font-size:12.4px;padding:12px 0;text-align:center">No cabin crew — recruit from the Recruit tab.</div>')
         : poolCardNew('cabin')),
     incidents: openInc.length
       ? openInc.map(inc=>renderIncidentCard(inc)).join('')
-      : '<div style="color:var(--muted2);font-size:11px;padding:12px 0;text-align:center">✅ No open incidents — all clear.</div>',
+      : '<div style="color:var(--muted2);font-size:12.4px;padding:12px 0;text-align:center">✅ No open incidents — all clear.</div>',
   };
 
   window._crewTab = function(tab) {
@@ -7298,9 +7350,9 @@ function renderMhcPanel() {
     const lhRoutes = (STATE.routes||[]).filter(r => isLongHaul(getDistance(r.from,r.to)) && (r._avgLoad||0)>=55);
     const mo = STATE._absMonth||0;
     el.innerHTML = `
-      <div style="font-size:10px;color:var(--muted2);line-height:1.6;padding:4px 0">
-        <div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:6px">💎 MILE HIGH CLUB</div>
-        <div style="color:var(--muted2);margin-bottom:8px;font-size:9.5px">Premium suite service for long-haul elites. Unlock by operating 3+ profitable long-haul routes.</div>
+      <div style="font-size:11.3px;color:var(--muted2);line-height:1.6;padding:4px 0">
+        <div style="font-size:12.4px;color:var(--muted);font-weight:700;margin-bottom:6px">💎 MILE HIGH CLUB</div>
+        <div style="color:var(--muted2);margin-bottom:8px;font-size:10.7px">Premium suite service for long-haul elites. Unlock by operating 3+ profitable long-haul routes.</div>
         <div style="display:flex;flex-direction:column;gap:4px">
           <div style="display:flex;justify-content:space-between"><span>Long-haul routes ≥55% load</span><span style="color:${lhRoutes.length>=3?'var(--profit)':'var(--muted)'}">${lhRoutes.length}/3</span></div>
           <div style="display:flex;justify-content:space-between"><span>Months operated</span><span style="color:${mo>=12?'var(--profit)':'var(--muted)'}">${mo}/12</span></div>
@@ -7314,33 +7366,33 @@ function renderMhcPanel() {
   let routeRows = lhEnabled.slice(0,6).map(r => {
     const sp = mhcRoutePax(r);
     const en = r.mhcEnabled;
-    return `<div style="display:flex;align-items:center;gap:5px;padding:3px 0;border-bottom:1px solid var(--border);font-size:9.5px">
-      <button onclick="toggleMhcRoute('${r.id}')" style="background:${en?'rgba(63,214,192,0.18)':'var(--bg2)'};border:1px solid ${en?'var(--accent)':'var(--border)'};border-radius:4px;color:${en?'var(--accent)':'var(--muted)'};font-size:9px;padding:1px 5px;cursor:pointer;font-weight:700">${en?'ON':'OFF'}</button>
+    return `<div style="display:flex;align-items:center;gap:5px;padding:3px 0;border-bottom:1px solid var(--border);font-size:10.7px">
+      <button onclick="toggleMhcRoute('${r.id}')" style="background:${en?'rgba(167,137,255,0.18)':'var(--bg2)'};border:1px solid ${en?'var(--accent)':'var(--border)'};border-radius:4px;color:${en?'var(--accent)':'var(--muted)'};font-size:10.2px;padding:1px 5px;cursor:pointer;font-weight:700">${en?'ON':'OFF'}</button>
       <span style="flex:1;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.from}→${r.to}</span>
       ${en?`<span style="color:var(--profit)">+${sp.pax}pass/mo</span>`:''}
     </div>`;
   }).join('');
-  if (!lhEnabled.length) routeRows = `<div style="font-size:9.5px;color:var(--muted2);padding:4px 0">No long-haul routes yet</div>`;
+  if (!lhEnabled.length) routeRows = `<div style="font-size:10.7px;color:var(--muted2);padding:4px 0">No long-haul routes yet</div>`;
   el.innerHTML = `
-    <div style="font-size:10px;color:var(--muted2);padding:2px 0">
-      <div style="font-size:10px;color:var(--accent);font-weight:700;margin-bottom:6px;letter-spacing:.5px">💎 MILE HIGH CLUB</div>
+    <div style="font-size:11.3px;color:var(--muted2);padding:2px 0">
+      <div style="font-size:11.3px;color:#fff;font-weight:700;margin-bottom:6px;letter-spacing:.5px">💎 MILE HIGH CLUB</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:8px">
         <div style="background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:5px 6px">
-          <div style="font-size:9px;color:var(--muted2);margin-bottom:2px">POINTS</div>
-          <div style="font-size:14px;font-weight:700;color:var(--accent)">${(mhc.points||0).toLocaleString()}</div>
+          <div style="font-size:10.2px;color:var(--muted2);margin-bottom:2px">POINTS</div>
+          <div style="font-size:15.8px;font-weight:700;color:#fff">${(mhc.points||0).toLocaleString()}</div>
         </div>
         <div style="background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:5px 6px">
-          <div style="font-size:9px;color:var(--muted2);margin-bottom:2px">MEMBERS</div>
-          <div style="font-size:14px;font-weight:700;color:var(--text)">${(mhc.members||0).toLocaleString()}</div>
+          <div style="font-size:10.2px;color:var(--muted2);margin-bottom:2px">MEMBERS</div>
+          <div style="font-size:15.8px;font-weight:700;color:var(--text)">${(mhc.members||0).toLocaleString()}</div>
         </div>
       </div>
-      ${boostActive ? `<div style="background:rgba(63,214,192,0.1);border:1px solid rgba(63,214,192,0.3);border-radius:5px;padding:5px 7px;margin-bottom:7px;font-size:9.5px;color:var(--accent)">✦ Boost active — +${Math.round(MHC_REDEEM_BOOST*100)}% demand · ${boostLeft}mo left</div>` : `
-      <button onclick="mhcRedeem()" ${(mhc.points||0)<MHC_REDEEM_COST?'disabled':''} style="width:100%;padding:5px;background:${(mhc.points||0)>=MHC_REDEEM_COST?'rgba(63,214,192,0.15)':'var(--bg2)'};border:1px solid ${(mhc.points||0)>=MHC_REDEEM_COST?'rgba(63,214,192,0.5)':'var(--border)'};border-radius:5px;color:${(mhc.points||0)>=MHC_REDEEM_COST?'var(--accent)':'var(--muted2)'};font-size:10px;font-weight:700;cursor:${(mhc.points||0)>=MHC_REDEEM_COST?'pointer':'not-allowed'};margin-bottom:7px;font-family:inherit">
+      ${boostActive ? `<div style="background:rgba(167,137,255,0.1);border:1px solid rgba(167,137,255,0.3);border-radius:5px;padding:5px 7px;margin-bottom:7px;font-size:10.7px;color:#fff">✦ Boost active — +${Math.round(MHC_REDEEM_BOOST*100)}% demand · ${boostLeft}mo left</div>` : `
+      <button onclick="mhcRedeem()" ${(mhc.points||0)<MHC_REDEEM_COST?'disabled':''} style="width:100%;padding:5px;background:${(mhc.points||0)>=MHC_REDEEM_COST?'rgba(167,137,255,0.15)':'var(--bg2)'};border:1px solid ${(mhc.points||0)>=MHC_REDEEM_COST?'rgba(167,137,255,0.5)':'var(--border)'};border-radius:5px;color:${(mhc.points||0)>=MHC_REDEEM_COST?'var(--accent)':'var(--muted2)'};font-size:11.3px;font-weight:700;cursor:${(mhc.points||0)>=MHC_REDEEM_COST?'pointer':'not-allowed'};margin-bottom:7px;font-family:inherit">
         Redeem 5,000 pts → +2% demand (3mo)
       </button>`}
-      <div style="font-size:9px;color:var(--muted2);letter-spacing:.5px;margin-bottom:4px">LONG-HAUL ROUTES</div>
+      <div style="font-size:10.2px;color:var(--muted2);letter-spacing:.5px;margin-bottom:4px">LONG-HAUL ROUTES</div>
       ${routeRows}
-      <div style="font-size:9px;color:var(--muted2);margin-top:6px">Total earned: ${(mhc.totalEarned||0).toLocaleString()} pts · ${mhc.redemptions||0} redemption${(mhc.redemptions||0)!==1?'s':''}</div>
+      <div style="font-size:10.2px;color:var(--muted2);margin-top:6px">Total earned: ${(mhc.totalEarned||0).toLocaleString()} pts · ${mhc.redemptions||0} redemption${(mhc.redemptions||0)!==1?'s':''}</div>
     </div>`;
 }
 function flightHours(dist) { return dist / 480; }
@@ -7614,7 +7666,7 @@ function maintTick() {
 
     // Incident probability: low health + high age + active = more likely
     const healthFactor = Math.max(0.3, (100 - h.health) / 100);
-    const ageFactor    = 1 + Math.min(1.8, ageYrs * 0.09);
+    const ageFactor    = 1 + Math.min(1.8, designYrs2 * 0.09);
 
     for (const inc of MAINTENANCE_INCIDENTS) {
       const roll = inc.prob * healthFactor * ageFactor * (isActive ? 1.3 : 0.6);
@@ -7929,7 +7981,7 @@ function buildFleetRenewal() {
           </div>`;
         }
       }).join('')
-    : `<div class="fr-empty" style="padding:12px;text-align:left;background:rgba(95,224,160,0.06);border:1px solid rgba(95,224,160,0.2);border-radius:8px;font-size:10.5px;color:var(--profit)">✓ Fleet is current — no age-cost recommendations right now.</div>`;
+    : `<div class="fr-empty" style="padding:12px;text-align:left;background:rgba(95,224,160,0.06);border:1px solid rgba(95,224,160,0.2);border-radius:8px;font-size:11.9px;color:var(--profit)">✓ Fleet is current — no age-cost recommendations right now.</div>`;
 
   // ── Type roster ──────────────────────────────────────────────────────────
   const rosterHtml = owned.map(([name, p]) => {
@@ -7947,17 +7999,17 @@ function buildFleetRenewal() {
       `<div class="fr-tail">
         <span class="fr-tail-age">${age}yr</span>
         <div class="fr-tail-bar"><div class="fr-tail-fill" style="width:${Math.min(100,age/40*100)}%;background:${ageColor}"></div></div>
-        <span style="font-size:9.5px;color:${ageColor}">${age<10?'New':age<18?'Mature':age<28?'Aging':'Critical'}</span>
-        ${i<free?`<button class="fr-act-btn sell" onclick="frRetire('${name}')">Sell $${sellPx}M</button>`:`<span style="font-size:9px;color:var(--muted2)">Assigned</span>`}
+        <span style="font-size:10.7px;color:${ageColor}">${age<10?'New':age<18?'Mature':age<28?'Aging':'Critical'}</span>
+        ${i<free?`<button class="fr-act-btn sell" onclick="frRetire('${name}')">Sell $${sellPx}M</button>`:`<span style="font-size:10.2px;color:var(--muted2)">Assigned</span>`}
         ${repl&&i<free?`<button class="fr-act-btn upgrade" onclick="frApplyUpgrade('${name}','${repl[0]}')">→ ${repl[0]}</button>`:''}
       </div>`).join('');
     return `<div class="fr-type-row">
       <div class="fr-type-head" onclick="_frOpenTypes['${name}']=!_frOpenTypes['${name}'];hangarSwitchTab('renewal')">
-        <span style="font-size:13px">✈</span>
-        <span class="fr-type-name">${name} <span style="font-size:9.5px;color:var(--muted2);font-weight:400">×${p.owned}</span></span>
+        <span style="font-size:14.7px">✈</span>
+        <span class="fr-type-name">${name} <span style="font-size:10.7px;color:var(--muted2);font-weight:400">×${p.owned}</span></span>
         <span class="fr-type-age" style="color:${ageColor}">${age}yr</span>
         ${bleed>0.05?`<span class="fr-type-bleed" style="color:${bleedColor}">−$${bleed.toFixed(1)}M/mo</span>`:''}
-        <span style="color:var(--muted2);font-size:12px;margin-left:4px">${open?'▾':'›'}</span>
+        <span style="color:var(--muted2);font-size:13.6px;margin-left:4px">${open?'▾':'›'}</span>
       </div>
       <div class="fr-type-body${open?' open':''}">${tailRows}</div>
     </div>`;
@@ -7987,7 +8039,7 @@ function buildHangarModal() {
 
   // ── Tab: Fleet Health ──────────────────────────────────────────────────────
   const fleetTab = () => {
-    if (!owned.length) return `<div style="color:var(--muted);font-size:11px;padding:20px;text-align:center">No aircraft in fleet yet.</div>`;
+    if (!owned.length) return `<div style="color:var(--muted);font-size:12.4px;padding:20px;text-align:center">No aircraft in fleet yet.</div>`;
     return owned.map(([name, p]) => {
       const h = maintGetHealth(name);
       const ac = AIRCRAFT[name]||{};
@@ -8021,18 +8073,18 @@ function buildHangarModal() {
           <div class="fh-stat"><div class="fh-stat-v">${wearStr}</div><div class="fh-stat-l">Wear/mo</div></div>
           <div class="fh-stat"><div class="fh-stat-v">${checksMade}</div><div class="fh-stat-l">Checks done</div></div>
         </div>
-        ${grounded ? `<div style="background:rgba(255,93,114,.08);border:1px solid rgba(255,93,114,.25);border-radius:6px;padding:8px 10px;font-size:10.5px;color:var(--loss);margin-bottom:8px">
+        ${grounded ? `<div style="background:rgba(255,93,114,.08);border:1px solid rgba(255,93,114,.25);border-radius:6px;padding:8px 10px;font-size:11.9px;color:var(--loss);margin-bottom:8px">
           ✈ Grounded for maintenance — ${groundLeft} month${groundLeft!==1?'s':''} remaining. Routes using this aircraft have reduced demand.
         </div>` : ''}
         <div class="fh-actions">
           <button class="fh-btn primary" ${canAffordLight&&!grounded?`onclick="maintDoCheck('${name}','light')"`:'disabled'}>
-            A-Check · $${MAINTENANCE_CHECKS.light.cost}M<br><span style="font-size:9px;opacity:.7">+${MAINTENANCE_CHECKS.light.healthRestore}% health</span>
+            A-Check · $${MAINTENANCE_CHECKS.light.cost}M<br><span style="font-size:10.2px;opacity:.7">+${MAINTENANCE_CHECKS.light.healthRestore}% health</span>
           </button>
           <button class="fh-btn warn-btn" ${canAffordHeavy&&!grounded?`onclick="maintDoCheck('${name}','heavy')"`:'disabled'}>
-            C-Check · $${MAINTENANCE_CHECKS.heavy.cost}M<br><span style="font-size:9px;opacity:.7">+${MAINTENANCE_CHECKS.heavy.healthRestore}% · 1mo grd</span>
+            C-Check · $${MAINTENANCE_CHECKS.heavy.cost}M<br><span style="font-size:10.2px;opacity:.7">+${MAINTENANCE_CHECKS.heavy.healthRestore}% · 1mo grd</span>
           </button>
           <button class="fh-btn danger-btn" ${canAffordEngine?`onclick="maintDoCheck('${name}','engine')"`:'disabled'}>
-            Engine · $${MAINTENANCE_CHECKS.engine.cost}M<br><span style="font-size:9px;opacity:.7">+${MAINTENANCE_CHECKS.engine.healthRestore}% · 2mo grd</span>
+            Engine · $${MAINTENANCE_CHECKS.engine.cost}M<br><span style="font-size:10.2px;opacity:.7">+${MAINTENANCE_CHECKS.engine.healthRestore}% · 2mo grd</span>
           </button>
         </div>
       </div>`;
@@ -8044,9 +8096,9 @@ function buildHangarModal() {
     const tiers = Object.entries(INSURANCE_TIERS);
     const ownedCount = Object.values(STATE.planes||{}).reduce((s,p)=>s+(p.owned||0),0);
     return `
-      <div style="font-size:10.5px;color:var(--muted);line-height:1.6;margin-bottom:14px">
+      <div style="font-size:11.9px;color:var(--muted);line-height:1.6;margin-bottom:14px">
         Insurance reduces out-of-pocket repair costs when incidents occur. Premium cover also shortens groundings.
-        Current fleet: <b style="color:var(--accent)">${ownedCount} aircraft</b> · Monthly premium: <b style="color:var(--accent2)">$${insCostMo.toFixed(1)}M</b>
+        Current fleet: <b style="color:#fff">${ownedCount} aircraft</b> · Monthly premium: <b style="color:var(--accent2)">$${insCostMo.toFixed(1)}M</b>
       </div>
       <div class="ins-grid">
         ${tiers.map(([key,t])=>`
@@ -8057,8 +8109,8 @@ function buildHangarModal() {
             <div class="ic-cover">${t.desc}</div>
           </div>`).join('')}
       </div>
-      <div style="background:rgba(63,214,192,.06);border:1px solid rgba(63,214,192,.18);border-radius:8px;padding:10px 14px;font-size:10.5px;color:var(--muted);line-height:1.6">
-        <b style="color:var(--accent)">Active:</b> ${ins.name} — covers ${Math.round(ins.cover*100)}% of incident costs.
+      <div style="background:rgba(167,137,255,.06);border:1px solid rgba(167,137,255,.18);border-radius:8px;padding:10px 14px;font-size:11.9px;color:var(--muted);line-height:1.6">
+        <b style="color:#fff">Active:</b> ${ins.name} — covers ${Math.round(ins.cover*100)}% of incident costs.
         ${STATE.insurance==='premium' ? ' <span style="color:var(--profit)">✓ Groundings reduced 40%.</span>' : ''}
         ${STATE.insurance==='none'    ? ' <span style="color:var(--loss)">⚠ Full repair costs with no offset.</span>' : ''}
       </div>`;
@@ -8066,7 +8118,7 @@ function buildHangarModal() {
 
   // ── Tab: Incident Log ──────────────────────────────────────────────────────
   const incidentTab = () => {
-    if (!incidents.length) return `<div style="color:var(--muted2);font-size:10.5px;padding:20px;text-align:center">No incidents recorded yet. Fly safe!</div>`;
+    if (!incidents.length) return `<div style="color:var(--muted2);font-size:11.9px;padding:20px;text-align:center">No incidents recorded yet. Fly safe!</div>`;
     const totalSpent = incidents.reduce((s,i)=>s+(i.cost||0),0);
     return `
       <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
@@ -8084,8 +8136,8 @@ function buildHangarModal() {
           </div>
           <div class="ii-body">${inc.text} — <b>${inc.plane}</b></div>
           ${inc.cost>0?`<div class="ii-cost" style="margin-top:3px">Out-of-pocket: $${inc.cost.toFixed(1)}M ${STATE.insurance!=='none'?`(saved $${(inc.rawCost-inc.cost).toFixed(1)}M via insurance)`:''}</div>`:''}
-          ${inc.groundMonths>0&&!inc.resolved?`<div style="color:var(--muted2);font-size:10px;margin-top:2px">Grounding: ${inc.groundMonths} month${inc.groundMonths!==1?'s':''}</div>`:''}
-          ${!inc.resolved?`<button class="ii-resolve-btn" onclick="maintResolveIncident('${inc.id}')">✓ Mark Resolved</button>`:`<div style="color:var(--profit);font-size:10px;margin-top:4px">✓ Resolved</div>`}
+          ${inc.groundMonths>0&&!inc.resolved?`<div style="color:var(--muted2);font-size:11.3px;margin-top:2px">Grounding: ${inc.groundMonths} month${inc.groundMonths!==1?'s':''}</div>`:''}
+          ${!inc.resolved?`<button class="ii-resolve-btn" onclick="maintResolveIncident('${inc.id}')">✓ Mark Resolved</button>`:`<div style="color:var(--profit);font-size:11.3px;margin-top:4px">✓ Resolved</div>`}
         </div>`).join('')}`;
   };
 
@@ -8094,9 +8146,9 @@ function buildHangarModal() {
                    : _hangarTab === 'renewal'    ? buildFleetRenewal()
                    : incidentTab();
 
-  const badgeCnt = openInc.length > 0 ? `<span style="background:var(--loss);color:#fff;border-radius:8px;padding:0 5px;font-size:9px;margin-left:4px">${openInc.length}</span>` : '';
+  const badgeCnt = openInc.length > 0 ? `<span style="background:var(--loss);color:#fff;border-radius:8px;padding:0 5px;font-size:10.2px;margin-left:4px">${openInc.length}</span>` : '';
   const grndCnt = owned.filter(([n])=>maintIsGrounded(n)).length;
-  const fleetBadge = grndCnt > 0 ? `<span style="background:var(--warn);color:#111;border-radius:8px;padding:0 5px;font-size:9px;margin-left:4px">${grndCnt}</span>` : '';
+  const fleetBadge = grndCnt > 0 ? `<span style="background:var(--warn);color:#111;border-radius:8px;padding:0 5px;font-size:10.2px;margin-left:4px">${grndCnt}</span>` : '';
 
   return `
     <div class="modal-header" style="border-bottom:none;padding-bottom:6px">
@@ -8105,16 +8157,16 @@ function buildHangarModal() {
         <div class="hangar-sub">MAINTENANCE · RENEWAL · INSURANCE · INCIDENTS</div>
       </div>
       <div style="margin-left:auto;text-align:right">
-        <div style="font-size:9.5px;color:var(--muted2);letter-spacing:1px">CASH</div>
-        <div style="font-size:14px;font-weight:700;color:var(--accent);font-family:'DM Mono'">${STATE.cash.toFixed(0)}M</div>
+        <div style="font-size:10.7px;color:var(--muted2);letter-spacing:1px">CASH</div>
+        <div style="font-size:15.8px;font-weight:700;color:#fff;font-family:'DM Mono'">${STATE.cash.toFixed(0)}M</div>
       </div>
       <button class="modal-close" onclick="closeModal()" style="margin-left:12px">×</button>
     </div>
     <div style="display:flex;gap:10px;padding:8px 18px;background:rgba(0,0,0,.18);border-bottom:1px solid var(--border);flex-wrap:wrap">
-      <div style="font-size:10px;color:var(--muted)">🛡 ${ins.name}</div>
-      <div style="font-size:10px;color:var(--accent2)">$${insCostMo.toFixed(1)}M/mo premium</div>
-      ${grndCnt>0?`<div style="font-size:10px;color:var(--loss)">✈ ${grndCnt} aircraft grounded</div>`:''}
-      ${openInc.length>0?`<div style="font-size:10px;color:var(--warn)">⚠ ${openInc.length} open incident${openInc.length!==1?'s':''}</div>`:''}
+      <div style="font-size:11.3px;color:var(--muted)">🛡 ${ins.name}</div>
+      <div style="font-size:11.3px;color:var(--accent2)">$${insCostMo.toFixed(1)}M/mo premium</div>
+      ${grndCnt>0?`<div style="font-size:11.3px;color:var(--loss)">✈ ${grndCnt} aircraft grounded</div>`:''}
+      ${openInc.length>0?`<div style="font-size:11.3px;color:var(--warn)">⚠ ${openInc.length} open incident${openInc.length!==1?'s':''}</div>`:''}
     </div>
     <div class="hangar-tabs">
       <div class="hangar-tab ${_hangarTab==='fleet'?'active':''}" onclick="hangarSwitchTab('fleet')">Health ${fleetBadge}</div>
@@ -8648,12 +8700,12 @@ const _ADV_SL = {critical:'CRITICAL',warn:'WARNING',good:'OPPORTUNITY',info:'INF
 function _advItemRow(e){
   return `<div style="display:flex;gap:8px;margin-bottom:6px;padding:7px 10px;
       background:rgba(0,0,0,0.22);border-left:3px solid ${_ADV_SC[e.sev]};border-radius:0 5px 5px 0">
-      <span style="font-size:14px;flex-shrink:0">${e.icon}</span>
+      <span style="font-size:15.8px;flex-shrink:0">${e.icon}</span>
       <div style="flex:1">
-        <div style="font-size:10.5px;font-weight:700;color:var(--text);margin-bottom:2px">${e.title}
-          <span style="font-size:9px;font-weight:400;color:${_ADV_SC[e.sev]};margin-left:6px">${_ADV_SL[e.sev]||''}</span>
+        <div style="font-size:11.9px;font-weight:700;color:var(--text);margin-bottom:2px">${e.title}
+          <span style="font-size:10.2px;font-weight:400;color:${_ADV_SC[e.sev]};margin-left:6px">${_ADV_SL[e.sev]||''}</span>
         </div>
-        <div style="font-size:10px;color:var(--muted);line-height:1.5">${e.detail}</div>
+        <div style="font-size:11.3px;color:var(--muted);line-height:1.5">${e.detail}</div>
       </div>
     </div>`;
 }
@@ -8829,30 +8881,30 @@ function advisorBrief(role){
 }
 function _advTierTag(role, compact){
   const a = ADVISORS[role];
-  if(!a.board) return `<span style="font-size:9px;color:var(--muted2);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:3px">Dept. head</span>`;
+  if(!a.board) return `<span style="font-size:10.2px;color:var(--muted2);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:3px">Dept. head</span>`;
   const t = execTier(a.board);
   const e = (STATE.board||{})[a.board];
-  if(t) return `<span style="font-size:9px;color:var(--muted2);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:3px">${e.name.split(' ')[0]} · ${t.title}</span>`;
-  return `<span style="font-size:9px;color:var(--muted2);cursor:pointer" onclick="event.stopPropagation();closeModal();showBoardMeeting()">○ seat empty — hire ›</span>`;
+  if(t) return `<span style="font-size:10.2px;color:var(--muted2);background:rgba(255,255,255,0.05);padding:1px 6px;border-radius:3px">${e.name.split(' ')[0]} · ${t.title}</span>`;
+  return `<span style="font-size:10.2px;color:var(--muted2);cursor:pointer" onclick="event.stopPropagation();closeModal();showBoardMeeting()">○ seat empty — hire ›</span>`;
 }
 function _advRosterCard(role){
   const a = ADVISORS[role];
   const s = advisorStatus(role);
   const m = advisorStatusMeta(s);
   const sel = (STATE._advSel===role && !STATE._advAllHands);
-  const bg = sel ? 'rgba(63,214,192,0.06)' : (s.sev==='critical' ? 'rgba(255,106,126,0.05)' : 'var(--bg2)');
-  const bd = sel ? 'rgba(63,214,192,0.4)' : (s.sev==='critical' ? 'rgba(255,106,126,0.3)' : 'var(--border)');
-  const oppChip = s.opps>0 ? `<span style="color:var(--accent);font-size:10px;margin-left:6px">💡${s.opps}</span>` : '';
+  const bg = sel ? 'rgba(167,137,255,0.06)' : (s.sev==='critical' ? 'rgba(255,106,126,0.05)' : 'var(--bg2)');
+  const bd = sel ? 'rgba(167,137,255,0.4)' : (s.sev==='critical' ? 'rgba(255,106,126,0.3)' : 'var(--border)');
+  const oppChip = s.opps>0 ? `<span style="color:#fff;font-size:11.3px;margin-left:6px">💡${s.opps}</span>` : '';
   const tag = s.alerts>0 ? `${m.word} · ${s.alerts}` : m.word;
   return `<div onclick="selectAdvisor('${role}')" style="background:${bg};border:1px solid ${bd};border-left:3px solid ${a.color};border-radius:8px;padding:9px 11px;margin-bottom:7px;cursor:pointer">
       <div style="display:flex;align-items:center;gap:8px">
         <span style="width:8px;height:8px;border-radius:50%;background:${m.dot};flex-shrink:0"></span>
-        <span style="font-size:13px">${a.icon}</span>
-        <span style="font-size:12px;font-weight:700;color:${a.color}">${a.label}</span>
+        <span style="font-size:14.7px">${a.icon}</span>
+        <span style="font-size:13.6px;font-weight:700;color:${a.color}">${a.label}</span>
         ${_advTierTag(role)}
-        <span style="margin-left:auto;font-size:9px;font-weight:700;color:${m.color}">${tag}</span>
+        <span style="margin-left:auto;font-size:10.2px;font-weight:700;color:${m.color}">${tag}</span>
       </div>
-      <div style="font-size:10px;color:var(--muted);margin:5px 0 0 16px">${advisorRead(role)}${oppChip}</div>
+      <div style="font-size:11.3px;color:var(--muted);margin:5px 0 0 16px">${advisorRead(role)}${oppChip}</div>
     </div>`;
 }
 function _advFocusedPanel(role){
@@ -8861,18 +8913,18 @@ function _advFocusedPanel(role){
   const m = advisorStatusMeta(s);
   const b = advisorBrief(role);
   const metrics = b.metrics.map(x=>`<div class="city-stat-box"><div class="csb-l">${x.l}</div><div class="csb-v" style="color:${x.c}">${x.v}</div></div>`).join('');
-  const flags = s.flags.length ? s.flags.map(_advItemRow).join('') : `<div style="color:var(--profit);font-size:10px;padding:4px 0">✓ ${ADVISOR_CLEAR[role]}</div>`;
-  const acts = (ADV_ACTIONS[role]||[]).map(([lbl,fn])=>`<button class="action-btn" style="flex:1;padding:8px;font-size:10px" onclick="closeModal();${fn}">${lbl}</button>`).join('');
+  const flags = s.flags.length ? s.flags.map(_advItemRow).join('') : `<div style="color:var(--profit);font-size:11.3px;padding:4px 0">✓ ${ADVISOR_CLEAR[role]}</div>`;
+  const acts = (ADV_ACTIONS[role]||[]).map(([lbl,fn])=>`<button class="action-btn" style="flex:1;padding:8px;font-size:11.3px" onclick="closeModal();${fn}">${lbl}</button>`).join('');
   return `<div style="margin-top:2px">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-        <span style="font-size:10px;font-weight:700;color:${a.color};background:rgba(255,255,255,0.05);border:1px solid var(--border);padding:2px 8px;border-radius:5px">${a.icon} ${a.label}</span>
+        <span style="font-size:11.3px;font-weight:700;color:${a.color};background:rgba(255,255,255,0.05);border:1px solid var(--border);padding:2px 8px;border-radius:5px">${a.icon} ${a.label}</span>
         ${_advTierTag(role)}
-        <span style="margin-left:auto;font-size:9px;font-weight:700;color:${m.color}">${m.word}</span>
+        <span style="margin-left:auto;font-size:10.2px;font-weight:700;color:${m.color}">${m.word}</span>
       </div>
       <div style="display:grid;grid-template-columns:repeat(${b.metrics.length},1fr);gap:6px;margin-bottom:10px">${metrics}</div>
       <div style="background:rgba(0,0,0,0.2);border:1px solid var(--border);border-left:3px solid ${a.color};border-radius:6px;padding:9px 11px;margin-bottom:10px">
-        <div style="font-size:10px;font-weight:700;color:${a.color};margin-bottom:3px">${a.label.toUpperCase()}'S READ</div>
-        <div style="font-size:10.5px;color:var(--text);line-height:1.6">${b.read}</div>
+        <div style="font-size:11.3px;font-weight:700;color:${a.color};margin-bottom:3px">${a.label.toUpperCase()}'S READ</div>
+        <div style="font-size:11.9px;color:var(--text);line-height:1.6">${b.read}</div>
       </div>
       ${flags}
       <div style="display:flex;gap:7px;margin-top:11px">${acts}</div>
@@ -8900,9 +8952,9 @@ function renderAdvisorModal(){
   const sel = ADVISORS[STATE._advSel] ? STATE._advSel : _advMostAlarmed();
   const roster = ADVISOR_ORDER.map(_advRosterCard).join('');
   const toggleRow = `<div style="display:flex;gap:6px;align-items:center;margin:13px 0 11px">
-      <button class="action-btn" style="padding:5px 12px;font-size:10px" onclick="advToggleAllHands()">${STATE._advAllHands?'◂ Advisor focus':'▦ All-hands report'}</button>
-      <span style="font-size:10px;color:var(--muted2);margin-left:auto">${active.filter(e=>e.sev==='critical').length} alerts · ${active.filter(e=>e.sev==='warn').length} warnings · ${active.filter(e=>e.sev==='good').length} opps</span>
-      <button class="action-btn" style="padding:5px 9px;font-size:10px" onclick="runGameMonitor();renderAdvisorModal()" title="Refresh">↻</button>
+      <button class="action-btn" style="padding:5px 12px;font-size:11.3px" onclick="advToggleAllHands()">${STATE._advAllHands?'◂ Advisor focus':'▦ All-hands report'}</button>
+      <span style="font-size:11.3px;color:var(--muted2);margin-left:auto">${active.filter(e=>e.sev==='critical').length} alerts · ${active.filter(e=>e.sev==='warn').length} warnings · ${active.filter(e=>e.sev==='good').length} opps</span>
+      <button class="action-btn" style="padding:5px 9px;font-size:11.3px" onclick="runGameMonitor();renderAdvisorModal()" title="Refresh">↻</button>
     </div>`;
   let panel;
   if(STATE._advAllHands){
@@ -8911,23 +8963,23 @@ function renderAdvisorModal(){
       const a = ADVISORS[role];
       const s = advisorStatus(role);
       const head = `<div style="display:flex;align-items:center;gap:8px;margin:14px 0 8px">
-          <span style="font-size:10px;font-weight:700;color:${a.color};background:rgba(255,255,255,0.05);border:1px solid var(--border);padding:2px 8px;border-radius:5px">${a.icon} ${a.label}</span>
+          <span style="font-size:11.3px;font-weight:700;color:${a.color};background:rgba(255,255,255,0.05);border:1px solid var(--border);padding:2px 8px;border-radius:5px">${a.icon} ${a.label}</span>
           ${_advTierTag(role)}
           <div style="flex:1;height:1px;background:rgba(255,255,255,0.08)"></div>
         </div>`;
-      const body = s.flags.length ? s.flags.map(_advItemRow).join('') : `<div style="color:var(--profit);font-size:10px;padding:2px 0">✓ ${ADVISOR_CLEAR[role]}</div>`;
+      const body = s.flags.length ? s.flags.map(_advItemRow).join('') : `<div style="color:var(--profit);font-size:11.3px;padding:2px 0">✓ ${ADVISOR_CLEAR[role]}</div>`;
       return head+body;
     }).join('');
     panel = `<div style="background:linear-gradient(135deg,rgba(0,0,0,0.28),rgba(0,0,0,0.12));border:1px solid var(--border);border-radius:8px;padding:11px 14px;margin-bottom:6px">
         <div style="margin-bottom:8px"><span class="qb-role-badge ${adv.cls}">${adv.badge}</span></div>
-        <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px">${adv.title}</div>
-        <div style="font-size:10.5px;color:var(--muted);line-height:1.6">${adv.body}</div>
+        <div style="font-size:13.6px;font-weight:700;color:var(--text);margin-bottom:4px">${adv.title}</div>
+        <div style="font-size:11.9px;color:var(--muted);line-height:1.6">${adv.body}</div>
       </div>
       ${sections}
       ${recentlyResolved.length>0?`
       <div style="margin-top:14px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06)">
-        <div style="font-size:10px;color:var(--muted2);letter-spacing:1.5px;margin-bottom:6px;text-transform:uppercase">Recently Resolved</div>
-        ${recentlyResolved.map(e=>`<div style="font-size:10px;color:var(--muted2);margin-bottom:3px;padding:4px 8px;background:rgba(0,0,0,0.15);border-radius:4px"><span style="color:var(--profit)">✓</span> ${e.title}</div>`).join('')}
+        <div style="font-size:11.3px;color:var(--muted2);letter-spacing:1.5px;margin-bottom:6px;text-transform:uppercase">Recently Resolved</div>
+        ${recentlyResolved.map(e=>`<div style="font-size:11.3px;color:var(--muted2);margin-bottom:3px;padding:4px 8px;background:rgba(0,0,0,0.15);border-radius:4px"><span style="color:var(--profit)">✓</span> ${e.title}</div>`).join('')}
       </div>`:''}`;
   } else {
     panel = _advFocusedPanel(sel);
@@ -9271,11 +9323,11 @@ function endGame(victory, reason, scored) {
   const gradeColor = {S:'#ffd700',A:'var(--profit)',B:'var(--accent)',C:'var(--warn)',D:'var(--muted)',F:'var(--loss)'}[grade];
   document.getElementById('endgame-stats').innerHTML = `
     <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:18px;flex-wrap:wrap">
-      <div style="font-size:72px;font-weight:900;color:${gradeColor};text-shadow:0 0 30px ${gradeColor}55;line-height:1">${grade}</div>
+      <div style="font-size:81.4px;font-weight:900;color:${gradeColor};text-shadow:0 0 30px ${gradeColor}55;line-height:1">${grade}</div>
       <div style="text-align:left">
-        <div style="font-size:22px;font-weight:700;color:${victory?'var(--profit)':'var(--loss)'}">${STATE.coName}</div>
-        <div style="font-size:13px;color:var(--muted)">${STATE.scenario?.name||''} · ${STATE.level?.name||''}</div>
-        <div style="font-size:12px;color:var(--muted2);margin-top:4px">${reason||objectiveStatus()?.label||''}</div>
+        <div style="font-size:24.9px;font-weight:700;color:${victory?'var(--profit)':'var(--loss)'}">${STATE.coName}</div>
+        <div style="font-size:14.7px;color:var(--muted)">${STATE.scenario?.name||''} · ${STATE.level?.name||''}</div>
+        <div style="font-size:13.6px;color:var(--muted2);margin-top:4px">${reason||objectiveStatus()?.label||''}</div>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px">
@@ -9291,32 +9343,32 @@ function endGame(victory, reason, scored) {
         ['Pass Carried',   totalPax.toLocaleString(), 'var(--profit)'],
         ['Monthly P&L',   `${totalProfit>=0?'+':''}$${totalProfit.toFixed(1)}M`, totalProfit>=0?'var(--profit)':'var(--loss)'],
       ].map(([l,v,c])=>`<div style="background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:8px;padding:10px 8px;text-align:center">
-        <div style="font-size:10px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">${l}</div>
-        <div style="font-size:16px;font-weight:700;color:${c}">${v}</div>
+        <div style="font-size:11.3px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">${l}</div>
+        <div style="font-size:18.1px;font-weight:700;color:${c}">${v}</div>
       </div>`).join('')}
     </div>
-    ${longestRoute ? `<div style="background:rgba(63,214,192,0.06);border:1px solid rgba(63,214,192,0.2);border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:11px">
+    ${longestRoute ? `<div style="background:rgba(167,137,255,0.06);border:1px solid rgba(167,137,255,0.2);border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:12.4px">
       <span style="color:var(--muted2)">Longest route: </span>
       <span style="color:var(--text);font-weight:700">${longestRoute.from} → ${longestRoute.to}</span>
       <span style="color:var(--muted2);margin-left:8px">${Math.round(getDistance(longestRoute.from,longestRoute.to)).toLocaleString()} mi</span>
     </div>` : ''}
-    ${bestRoute ? `<div style="background:rgba(78,234,170,0.08);border:1px solid rgba(78,234,170,0.2);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:11px">
+    ${bestRoute ? `<div style="background:rgba(78,234,170,0.08);border:1px solid rgba(78,234,170,0.2);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:12.4px">
       <span style="color:var(--text);font-weight:700">${bestRoute.from} → ${bestRoute.to}</span>
       <span style="color:var(--profit);margin-left:8px">+$${(bestRoute.profit||0).toFixed(2)}M/mo</span>
       <span style="color:var(--muted2);margin-left:8px">${bestRoute.load||0}% load · ${bestRoute._age||0} months</span>
     </div>` : ''}
-    ${topRival ? `<div style="font-size:10px;color:var(--muted2);margin-bottom:16px">
+    ${topRival ? `<div style="font-size:11.3px;color:var(--muted2);margin-bottom:16px">
       Top rival: <span style="color:${topRival.color||'var(--text)'};font-weight:600">${topRival.name}</span>
       — $${topRival.value}M · ${(topRival.routeList||[]).length} routes
       ${topRival.value > STATE.companyValue ? '<span style="color:var(--loss)"> (beat you)</span>' : '<span style="color:var(--profit)"> (you won the rivalry)</span>'}
     </div>` : ''}
-    ${(window.__runUnlocks||[]).length ? `<div style="background:rgba(255,207,90,0.08);border:1px solid rgba(255,207,90,0.3);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:11px;text-align:left">
-      <div style="font-size:10px;color:var(--accent2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px">🏆 Achievements unlocked this run</div>
+    ${(window.__runUnlocks||[]).length ? `<div style="background:rgba(255,207,90,0.08);border:1px solid rgba(255,207,90,0.3);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:12.4px;text-align:left">
+      <div style="font-size:11.3px;color:var(--accent2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px">🏆 Achievements unlocked this run</div>
       ${window.__runUnlocks.map(id => { const a = ACHIEVEMENTS.find(x=>x.id===id); return a ? `<div style="color:var(--text);margin-bottom:2px">${a.icon} <b>${a.name}</b> <span style="color:var(--muted2)">— ${a.desc}</span></div>` : ''; }).join('')}
     </div>` : ''}
     <div style="display:flex;gap:10px;justify-content:center;margin-top:4px">
-      <button class="action-btn" style="padding:12px 24px;font-size:13px" onclick="openRecords()">🏆 RECORDS</button>
-      <button class="action-btn success" style="padding:12px 32px;font-size:14px" onclick="location.reload()">PLAY AGAIN ▶</button>
+      <button class="action-btn" style="padding:12px 24px;font-size:14.7px" onclick="openRecords()">🏆 RECORDS</button>
+      <button class="action-btn success" style="padding:12px 32px;font-size:15.8px" onclick="location.reload()">PLAY AGAIN ▶</button>
     </div>`;
 }
 function fireEventNow(t){
@@ -9585,7 +9637,7 @@ function openCrewStrikeModal(months) {
   document.getElementById('modal-overlay').classList.add('open');
   document.getElementById('modal-content').innerHTML = modalHead('✊ CREW STRIKE') +
     `<div class="modal-body">
-      <div style="font-size:12px;color:var(--loss);margin-bottom:12px;line-height:1.6">Your crew has walked out. All flights suspended until resolved.</div>
+      <div style="font-size:13.6px;color:var(--loss);margin-bottom:12px;line-height:1.6">Your crew has walked out. All flights suspended until resolved.</div>
       <div class="info-box" style="margin-bottom:14px">
         <div class="ib-row"><span class="ib-label">Duration if ignored</span><span class="ib-val">${months} months</span></div>
         <div class="ib-row"><span class="ib-label">Settlement cost</span><span class="ib-val" style="color:var(--warn)">$${cost}M</span></div>
@@ -9608,14 +9660,14 @@ function openFuelHedgeModal() {
   document.getElementById('modal-overlay').classList.add('open');
   document.getElementById('modal-content').innerHTML = modalHead('⛽ FUEL HEDGING') +
     `<div class="modal-body">
-      <div style="font-size:11px;color:var(--muted);margin-bottom:14px;line-height:1.6">
+      <div style="font-size:12.4px;color:var(--muted);margin-bottom:14px;line-height:1.6">
         Lock in fuel price now to protect against shocks. Current modifier: <b style="color:${cur>1.1?'var(--loss)':'var(--accent)'}">${(cur*100).toFixed(0)}%</b>
       </div>
       ${months.map((m,i)=>{
         const fee=Math.round(m*4+(STATE.routes||[]).length*1.5);
         return `<div class="fleet-item" style="margin-bottom:8px">
           <div><div style="color:var(--text);font-weight:600">${m}-month lock at ${Math.round(rates[i]*100)}%</div>
-          <div style="font-size:9.5px;color:var(--muted)">Fee: $${fee}M · saves ${Math.round((1-rates[i])*100)}% on fuel</div></div>
+          <div style="font-size:10.7px;color:var(--muted)">Fee: $${fee}M · saves ${Math.round((1-rates[i])*100)}% on fuel</div></div>
           <button class="action-btn" style="padding:6px 12px" onclick="lockFuelHedge(${m},${rates[i]},${fee})">HEDGE</button>
         </div>`;
       }).join('')}
@@ -9915,6 +9967,9 @@ function navGo(el, key){
       case 'hr': openModal('hr'); break;
       case 'maintenance': openHangarModal(); break;
       case 'reports': openModal('ledger'); break;
+      case 'logs': openModal('logviewer'); break;
+      case 'mi': if(typeof openMarketIntel==='function') openMarketIntel('routes'); break;
+      case 'projects': openModal('projects'); break;
       case 'alliances': openAllianceModal(); break;
     }
   } catch(e){}
@@ -10064,10 +10119,10 @@ function renderRankings() {
   document.getElementById('rankings-list').innerHTML = all.map((a,i)=>`
     <div class="rank-row"${a.you?` style="background:${liv}14;border-left:2px solid ${liv}"`:''}>
       <div class="rank-num ${i===0?'first':''}">${i+1}</div>
-      <div class="rank-name" style="color:${a.color}">${a.you?`${a.logo} `:''}${a.name}${a.you?` <span style="font-size:9px;letter-spacing:1px;color:${liv};border:1px solid ${liv}66;border-radius:4px;padding:0 4px;margin-left:5px;opacity:.9">YOU</span>`:''}</div>
+      <div class="rank-name" style="color:${a.color}">${a.you?`${a.logo} `:''}${a.name}${a.you?` <span style="font-size:10.2px;letter-spacing:1px;color:${liv};border:1px solid ${liv}66;border-radius:4px;padding:0 4px;margin-left:5px;opacity:.9">YOU</span>`:''}</div>
       <div style="text-align:right">
-        <div class="rank-val">${a.pax.toLocaleString()} <span style="font-size:9px;opacity:.6">pass/yr</span></div>
-        <div style="font-size:9px;color:var(--purple)">$${a.val}M</div>
+        <div class="rank-val">${a.pax.toLocaleString()} <span style="font-size:10.2px;opacity:.6">pass/yr</span></div>
+        <div style="font-size:10.2px;color:#fff">$${a.val}M</div>
       </div>
     </div>`).join('');
 }
@@ -10114,15 +10169,15 @@ function renderRoutesList() {
   const el = document.getElementById('routes-list');
   if (!STATE.routes.length){ el.innerHTML=`
     <div style="padding:16px 12px;text-align:center">
-      <div style="font-size:28px;margin-bottom:8px">✈</div>
-      <div style="color:var(--text);font-weight:600;margin-bottom:6px;font-size:13px">No routes yet</div>
-      <div style="color:var(--muted);font-size:11.5px;line-height:1.6;margin-bottom:12px">
+      <div style="font-size:31.6px;margin-bottom:8px">✈</div>
+      <div style="color:var(--text);font-weight:600;margin-bottom:6px;font-size:14.7px">No routes yet</div>
+      <div style="color:var(--muted);font-size:13px;line-height:1.6;margin-bottom:12px">
         You need routes to carry passengers.<br>Click two cities on the map, or use<br>
-        <b style="color:var(--accent)">Operations › New Route</b>.
+        <b style="color:#fff">Operations › New Route</b>.
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
-        <button class="action-btn" onclick="openModal('new-route')" style="font-size:11px;padding:8px 14px">✈ Passenger Route</button>
-        <button class="action-btn" onclick="openModal('cargo-route')" style="font-size:11px;padding:8px 14px;color:var(--accent2);border-color:rgba(255,207,90,0.35)">📦 Cargo Route</button>
+        <button class="action-btn" onclick="openModal('new-route')" style="font-size:12.4px;padding:8px 14px">✈ Passenger Route</button>
+        <button class="action-btn" onclick="openModal('cargo-route')" style="font-size:12.4px;padding:8px 14px;color:var(--accent2);border-color:rgba(255,207,90,0.35)">📦 Cargo Route</button>
       </div>
     </div>`; return; }
   const sortBar = `<div class="rsort-bar">
@@ -10155,19 +10210,19 @@ function renderRoutesList() {
     return `<div class="route-card" onclick="showRouteDetail(${i})">
       <div class="rc-head">
         <div class="cities">${CITIES[r.from]?.abbr||r.from}→${CITIES[r.to]?.abbr||r.to}
-          ${inter?'<span style="color:var(--accent2);font-size:9px;margin-left:3px">INTL</span>':''}
-          ${rivalOnRoute?'<span style="color:#a78bfa;font-size:9px;margin-left:3px">⚔</span>':''}
-          ${demFull?'<span style="color:var(--profit);font-size:9px;margin-left:3px" title="Demand exceeds capacity — add flights!">▲FULL</span>':''}
-          ${(()=>{const d=routeDisruptions(r);if(!d.length)return'';const t=d[0];return `<span style="color:${t.col};font-size:9px;margin-left:3px;font-weight:700" title="${t.tip}">${t.icon}${t.label}</span>`;})()}
+          ${inter?'<span style="color:var(--accent2);font-size:10.2px;margin-left:3px">INTL</span>':''}
+          ${rivalOnRoute?'<span style="color:#ffffff;font-size:10.2px;margin-left:3px">⚔</span>':''}
+          ${demFull?'<span style="color:var(--profit);font-size:10.2px;margin-left:3px" title="Demand exceeds capacity — add flights!">▲FULL</span>':''}
+          ${(()=>{const d=routeDisruptions(r);if(!d.length)return'';const t=d[0];return `<span style="color:${t.col};font-size:10.2px;margin-left:3px;font-weight:700" title="${t.tip}">${t.icon}${t.label}</span>`;})()}
         </div>
         <div class="profit-badge ${ok?'pos':'neg'}">${ok?'+':''}$${(r.profit||0).toFixed(1)}M</div>
       </div>
       <div class="route-meta">
-        <span>${r.plane}${(r.planes&&r.planes.length>1)?`<span style="color:var(--accent2);font-size:9px"> +${r.planes.length-1}</span>`:''}</span><span>${r.flights}f/wk</span><span>$${r.fare}</span>
+        <span>${r.plane}${(r.planes&&r.planes.length>1)?`<span style="color:var(--accent2);font-size:10.2px"> +${r.planes.length-1}</span>`:''}</span><span>${r.flights}f/wk</span><span>$${r.fare}</span>
         <span style="color:${lc}">${loadLabel}</span>
-        <span style="color:var(--muted2);font-size:9.5px">${age}mo</span>
-        ${(()=>{const ft=resolvedFoodTier(r),dt=resolvedDrinkTier(r);const tags=(ft.icon?ft.icon:'')+(dt.icon?dt.icon:'')+(r.mhcEnabled?'💎':'');return tags?`<span style="font-size:9.5px">${tags}</span>`:''})()}
-        ${rivalOnRoute?'<span style="color:#a78bfa;font-size:9.5px">rival</span>':''}
+        <span style="color:var(--muted2);font-size:10.7px">${age}mo</span>
+        ${(()=>{const ft=resolvedFoodTier(r),dt=resolvedDrinkTier(r);const tags=(ft.icon?ft.icon:'')+(dt.icon?dt.icon:'')+(r.mhcEnabled?'💎':'');return tags?`<span style="font-size:10.7px">${tags}</span>`:''})()}
+        ${rivalOnRoute?'<span style="color:#ffffff;font-size:10.7px">rival</span>':''}
       </div>
       <div class="load-bar" style="position:relative">
         <div class="load-fill" style="width:${load}%;background:${lc}"></div>
@@ -10184,7 +10239,7 @@ function setRouteSort(key) { _routeSort = key; renderRoutesList(); }
 function renderFleet() {
   const owned = Object.entries(STATE.planes).filter(([,p])=>p.owned>0);
   const el = document.getElementById('fleet-list');
-  if (!owned.length){ el.innerHTML='<div style="color:var(--muted);font-size:10px;padding:8px">No aircraft. Buy planes to fly routes.</div>'; return; }
+  if (!owned.length){ el.innerHTML='<div style="color:var(--muted);font-size:11.3px;padding:8px">No aircraft. Buy planes to fly routes.</div>'; return; }
   const free  = owned.filter(([,p])=>p.owned>p.assigned);
   const busy  = owned.filter(([,p])=>p.owned<=p.assigned);
   const makeCard = ([n,p]) => {
@@ -10212,30 +10267,30 @@ function renderFleet() {
       <div style="display:flex;justify-content:space-between;align-items:center">
         <div style="flex:1">
           <div class="plane-name">${n} ${maintTagHtml}</div>
-          <div style="font-size:9.5px;color:var(--muted)">${AIRCRAFT[n]?.seats||p.seats}s · ${(AIRCRAFT[n]?.range||p.range||0).toLocaleString()}mi · ${AIRCRAFT[n]?.speed||'?'} mph</div>
-          ${age>15?`<div style="font-size:9px;color:${ageColor}">${age}yr old · +${ageSurcharge}% cost surcharge${age>28?' ⚠ Overdue for retirement':''}</div>`:''}
-          ${onRoutes.length?`<div style="font-size:9px;color:var(--muted2);margin-top:2px">✈ ${onRoutes.map(r=>`${r.from}→${r.to}`).join(' · ')}</div>`:''}
+          <div style="font-size:10.7px;color:var(--muted)">${AIRCRAFT[n]?.seats||p.seats}s · ${(AIRCRAFT[n]?.range||p.range||0).toLocaleString()}mi · ${AIRCRAFT[n]?.speed||'?'} mph</div>
+          ${age>15?`<div style="font-size:10.2px;color:${ageColor}">${age}yr old · +${ageSurcharge}% cost surcharge${age>28?' ⚠ Overdue for retirement':''}</div>`:''}
+          ${onRoutes.length?`<div style="font-size:10.2px;color:var(--muted2);margin-top:2px">✈ ${onRoutes.map(r=>`${r.from}→${r.to}`).join(' · ')}</div>`:''}
           <div class="maint-health-bar" style="margin-top:5px;width:90%"><div class="maint-health-fill" style="width:${hPct}%;background:${hColor}"></div></div>
-          <div style="font-size:9px;color:${hColor};margin-top:1px">Health ${hPct}%</div>
+          <div style="font-size:10.2px;color:${hColor};margin-top:1px">Health ${hPct}%</div>
         </div>
         <div style="text-align:right;flex-shrink:0">
           <div class="plane-count" style="color:${freeCount>0?'var(--accent3)':'var(--muted)'}">×${p.owned}</div>
-          <div style="font-size:9px;color:${freeCount>0?'var(--profit)':'var(--muted2)'}">${p.assigned} flying · <b style="color:${freeCount>0?'var(--profit)':'var(--muted)'}">${freeCount} free</b></div>
+          <div style="font-size:10.2px;color:${freeCount>0?'var(--profit)':'var(--muted2)'}">${p.assigned} flying · <b style="color:${freeCount>0?'var(--profit)':'var(--muted)'}">${freeCount} free</b></div>
         </div>
       </div>
-      ${freeCount>0&&onRoutes.length===0?`<div style="font-size:9px;color:var(--warn);margin-top:4px">⚠ Unassigned — add to a route or sell to recover cash</div>`:''}
+      ${freeCount>0&&onRoutes.length===0?`<div style="font-size:10.2px;color:var(--warn);margin-top:4px">⚠ Unassigned — add to a route or sell to recover cash</div>`:''}
       ${freeCount>0?`<div style="display:flex;gap:5px;margin-top:7px">
-        <button class="action-btn" style="flex:1;font-size:10px;padding:4px"
+        <button class="action-btn" style="flex:1;font-size:11.3px;padding:4px"
           onclick="openModal('buy-planes')">🛒 Buy More</button>
-        <button class="action-btn danger" style="flex:1;font-size:10px;padding:4px"
+        <button class="action-btn danger" style="flex:1;font-size:11.3px;padding:4px"
           onclick="tapConfirm(this,()=>{sellPlane('${n}')},'Confirm sell')">💰 Sell 1 — $${sellPrice}M</button>
       </div>`:''}
     </div>`;
   };
   el.innerHTML =
-    (free.length ? `<div style="font-size:9px;color:var(--profit);font-weight:700;letter-spacing:1px;margin-bottom:5px">FREE AIRCRAFT</div>${free.map(makeCard).join('')}` : '') +
-    (busy.length ? `<div style="font-size:9px;color:var(--muted2);font-weight:700;letter-spacing:1px;margin:${free.length?'10px':0} 0 5px">IN SERVICE</div>${busy.map(makeCard).join('')}` : '') +
-    `<button class="action-btn" style="width:100%;margin-top:10px;font-size:10px;border-color:rgba(255,207,90,.4);color:var(--warn)" onclick="openHangarModal()">🔧 Open Hangar — Maintenance &amp; Insurance</button>`;
+    (free.length ? `<div style="font-size:10.2px;color:var(--profit);font-weight:700;letter-spacing:1px;margin-bottom:5px">FREE AIRCRAFT</div>${free.map(makeCard).join('')}` : '') +
+    (busy.length ? `<div style="font-size:10.2px;color:var(--muted2);font-weight:700;letter-spacing:1px;margin:${free.length?'10px':0} 0 5px">IN SERVICE</div>${busy.map(makeCard).join('')}` : '') +
+    `<button class="action-btn" style="width:100%;margin-top:10px;font-size:11.3px;border-color:rgba(255,207,90,.4);color:var(--warn)" onclick="openHangarModal()">🔧 Open Hangar — Maintenance &amp; Insurance</button>`;
 }
 function renderRivals() {
   const myPaxYear = STATE.paxThisYear || STATE.totalPaxYear || 0;
@@ -10260,16 +10315,16 @@ function renderRivals() {
       <div class="comp-head">
         <div class="comp-icon" style="background:${known?c.color:'#444444'}">${known?initials:'?'}</div>
         <div class="comp-name" style="color:${known?c.color:'var(--muted)'}">${name}</div>
-        ${known?`<div style="font-size:10px;color:var(--muted);font-family:'DM Mono'">${cash}</div>`:''}
+        ${known?`<div style="font-size:11.3px;color:var(--muted);font-family:'DM Mono'">${cash}</div>`:''}
       </div>
-      <div style="font-size:9.5px;color:var(--muted);margin-bottom:5px">${meta}</div>
+      <div style="font-size:10.7px;color:var(--muted);margin-bottom:5px">${meta}</div>
       <div class="comp-bar"><div class="comp-fill" style="width:${pct}%;background:${known?c.color:'#444444'}"></div></div>
-      <div style="display:flex;justify-content:space-between;font-size:9.5px;color:var(--muted);margin-top:3px">
+      <div style="display:flex;justify-content:space-between;font-size:10.7px;color:var(--muted);margin-top:3px">
         <span>${paxLabel}</span>
         ${known?`<span style="color:${c.aggression>0.7?'var(--danger)':c.aggression>0.4?'var(--warn)':'var(--accent3)'}">${c.aggression>0.7?'🔴 HIGH':c.aggression>0.4?'🟡 MED':'🟢 LOW'} threat</span>`:''}
       </div>
     </div>`;
-  }).join('') || '<div style="color:var(--muted);font-size:10px;padding:8px">No rivals yet.</div>';
+  }).join('') || '<div style="color:var(--muted);font-size:11.3px;padding:8px">No rivals yet.</div>';
 }
 function showRivalRoutePopup(evt, rivalName, from, to) {
   evt.stopPropagation();
@@ -10289,28 +10344,28 @@ function showRivalRoutePopup(evt, rivalName, from, to) {
   pop.style.cssText = `position:absolute;left:${px}px;top:${py}px;z-index:120;
     background:var(--surface);border:1px solid ${c.color||'var(--border2)'};
     border-radius:10px;padding:12px 14px;min-width:200px;
-    box-shadow:0 8px 32px rgba(0,0,0,0.5);font-family:'Plus Jakarta Sans'`;
+    box-shadow:0 8px 32px rgba(0,0,0,0.5);font-family:'Inter'`;
   pop.innerHTML = `
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-      <div style="width:32px;height:32px;border-radius:50%;background:${c.color||'#888'};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0">${initials}</div>
+      <div style="width:32px;height:32px;border-radius:50%;background:${c.color||'#888'};display:flex;align-items:center;justify-content:center;font-size:13.6px;font-weight:700;color:#fff;flex-shrink:0">${initials}</div>
       <div>
-        <div style="font-size:13px;font-weight:700;color:${c.color||'var(--text)'}">${rivalName}</div>
-        <div style="font-size:10px;color:var(--muted)">Hub: ${c.hub}</div>
+        <div style="font-size:14.7px;font-weight:700;color:${c.color||'var(--text)'}">${rivalName}</div>
+        <div style="font-size:11.3px;color:var(--muted)">Hub: ${c.hub}</div>
       </div>
-      <button onclick="document.getElementById('rival-popup').remove()" style="margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:0">✕</button>
+      <button onclick="document.getElementById('rival-popup').remove()" style="margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:15.8px;padding:0">✕</button>
     </div>
-    ${!isHub ? `<div style="font-size:10px;color:var(--text);font-weight:600;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border)">
+    ${!isHub ? `<div style="font-size:11.3px;color:var(--text);font-weight:600;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border)">
       ✈ ${from} → ${to}
       <span style="color:var(--muted);font-weight:400;margin-left:6px">${Math.round(getDistance(from,to)).toLocaleString()} mi</span>
     </div>` : ''}
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:10px">
-      <div><div style="color:var(--muted2);font-size:9.5px">VALUE</div><div style="color:var(--text);font-weight:600">$${c.value}M</div></div>
-      <div><div style="color:var(--muted2);font-size:9.5px">ROUTES</div><div style="color:var(--text);font-weight:600">${routeCount}</div></div>
-      <div><div style="color:var(--muted2);font-size:9.5px">PASS/MO</div><div style="color:var(--text);font-weight:600">${(c.pax||0).toLocaleString()}</div></div>
-      <div><div style="color:var(--muted2);font-size:9.5px">STATUS</div><div style="color:var(--text);font-weight:600">${c.known?'Known':'Unknown'}</div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11.3px">
+      <div><div style="color:var(--muted2);font-size:10.7px">VALUE</div><div style="color:var(--text);font-weight:600">$${c.value}M</div></div>
+      <div><div style="color:var(--muted2);font-size:10.7px">ROUTES</div><div style="color:var(--text);font-weight:600">${routeCount}</div></div>
+      <div><div style="color:var(--muted2);font-size:10.7px">PASS/MO</div><div style="color:var(--text);font-weight:600">${(c.pax||0).toLocaleString()}</div></div>
+      <div><div style="color:var(--muted2);font-size:10.7px">STATUS</div><div style="color:var(--text);font-weight:600">${c.known?'Known':'Unknown'}</div></div>
     </div>
     <div style="margin-top:10px;display:flex;gap:6px">
-      <button class="action-btn" style="flex:1;font-size:10px;padding:6px" onclick="document.getElementById('rival-popup').remove();showRivalModal(${STATE.competitors.indexOf(c)})">Full Profile</button>
+      <button class="action-btn" style="flex:1;font-size:11.3px;padding:6px" onclick="document.getElementById('rival-popup').remove();showRivalModal(${STATE.competitors.indexOf(c)})">Full Profile</button>
     </div>`;
   mp.appendChild(pop);
   setTimeout(()=>{ document.addEventListener('click', function dismiss(e){ if(!pop.contains(e.target)){pop.remove(); document.removeEventListener('click',dismiss);} }, {once:false}); }, 100);
@@ -10324,9 +10379,9 @@ function showRivalModal(idx) {
     document.getElementById('modal-overlay').classList.add('open');
     document.getElementById('modal-content').innerHTML = modalHead('RIVAL INTEL') +
       `<div class="modal-body" style="text-align:center;padding:32px 18px">
-        <div style="font-size:36px;margin-bottom:12px">📡</div>
-        <div style="color:var(--muted);font-size:13px">No intelligence available.</div>
-        <div style="color:var(--muted2);font-size:11px;margin-top:8px">Enter their region to reveal this rival.</div>
+        <div style="font-size:40.7px;margin-bottom:12px">📡</div>
+        <div style="color:var(--muted);font-size:14.7px">No intelligence available.</div>
+        <div style="color:var(--muted2);font-size:12.4px;margin-top:8px">Enter their region to reveal this rival.</div>
         <button class="action-btn" onclick="closeModal()" style="margin-top:16px">CLOSE</button>
       </div>`;
     return;
@@ -10340,34 +10395,34 @@ function showRivalModal(idx) {
   document.getElementById('modal-overlay').classList.add('open');
   document.getElementById('modal-content').innerHTML = modalHead(
     `<span style="display:inline-flex;align-items:center;gap:10px">
-      <span style="width:28px;height:28px;border-radius:50%;background:${c.color};display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff">${initials}</span>
+      <span style="width:28px;height:28px;border-radius:50%;background:${c.color};display:inline-flex;align-items:center;justify-content:center;font-size:12.4px;font-weight:700;color:#fff">${initials}</span>
       <span style="color:${c.color}">${c.name}</span>
     </span>`
   ) + `<div class="modal-body">
     <div class="city-stat-grid" style="margin-bottom:12px">
-      <div class="city-stat-box"><div class="csb-l">Pass/mo est.</div><div class="csb-v" style="font-size:13px">${Math.round((c.paxYear||0)/Math.max(1,STATE.month||1)).toLocaleString()}</div></div>
-      <div class="city-stat-box"><div class="csb-l">Pass this yr</div><div class="csb-v" style="font-size:13px;color:var(--profit)">${(c.paxYear||0).toLocaleString()}</div></div>
-      <div class="city-stat-box"><div class="csb-l">Company Value</div><div class="csb-v" style="font-size:13px;color:var(--purple)">$${c.value}M</div></div>
-      <div class="city-stat-box"><div class="csb-l">Cash</div><div class="csb-v" style="font-size:13px;color:var(--accent3)">$${c.cash.toFixed(0)}M</div></div>
-      <div class="city-stat-box"><div class="csb-l">Routes</div><div class="csb-v" style="font-size:13px">${c.routes}</div></div>
+      <div class="city-stat-box"><div class="csb-l">Pass/mo est.</div><div class="csb-v" style="font-size:14.7px">${Math.round((c.paxYear||0)/Math.max(1,STATE.month||1)).toLocaleString()}</div></div>
+      <div class="city-stat-box"><div class="csb-l">Pass this yr</div><div class="csb-v" style="font-size:14.7px;color:var(--profit)">${(c.paxYear||0).toLocaleString()}</div></div>
+      <div class="city-stat-box"><div class="csb-l">Company Value</div><div class="csb-v" style="font-size:14.7px;color:#fff">$${c.value}M</div></div>
+      <div class="city-stat-box"><div class="csb-l">Cash</div><div class="csb-v" style="font-size:14.7px;color:#fff">$${c.cash.toFixed(0)}M</div></div>
+      <div class="city-stat-box"><div class="csb-l">Routes</div><div class="csb-v" style="font-size:14.7px">${c.routes}</div></div>
     </div>
     <div style="margin-bottom:12px">
-      <div style="font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:6px">Aggression — <span style="color:${aggColor}">${aggLabel}</span></div>
+      <div style="font-size:11.3px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:6px">Aggression — <span style="color:${aggColor}">${aggLabel}</span></div>
       <div style="height:6px;background:var(--border);border-radius:3px;overflow:hidden">
         <div style="height:100%;width:${aggPct}%;background:${aggColor};border-radius:3px"></div>
       </div>
     </div>
     <div style="margin-bottom:12px">
-      <div style="font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:6px">Regions Entered (${c.regionsEntered.length})</div>
+      <div style="font-size:11.3px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:6px">Regions Entered (${c.regionsEntered.length})</div>
       <div style="display:flex;flex-wrap:wrap;gap:5px">
-        ${c.regionsEntered.map(r=>`<span style="background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-size:9.5px;color:var(--text)">${r}</span>`).join('')}
+        ${c.regionsEntered.map(r=>`<span style="background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-size:10.7px;color:var(--text)">${r}</span>`).join('')}
       </div>
     </div>
     ${routes.length ? `
     <div style="margin-bottom:14px">
-      <div style="font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:6px">Known Routes (${routes.length})</div>
+      <div style="font-size:11.3px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:6px">Known Routes (${routes.length})</div>
       <div style="max-height:120px;overflow-y:auto">
-        ${routes.map(r=>`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);font-size:10px">
+        ${routes.map(r=>`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);font-size:11.3px">
           <span style="color:${c.color}">${r.from}</span>
           <span style="color:var(--muted2)">→</span>
           <span style="color:var(--text)">${Array.isArray(r.to) ? r.to[0] : r.to}</span>
@@ -10375,8 +10430,8 @@ function showRivalModal(idx) {
       </div>
     </div>` : ''}
     <div style="margin-bottom:12px">
-      <div style="font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:6px">Home Hub</div>
-      <div style="font-size:12px;color:var(--text)">${c.hub}${hubCity?` <span style="color:var(--muted);font-size:10px">· ${hubCity.region}</span>`:''}</div>
+      <div style="font-size:11.3px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:6px">Home Hub</div>
+      <div style="font-size:13.6px;color:var(--text)">${c.hub}${hubCity?` <span style="color:var(--muted);font-size:11.3px">· ${hubCity.region}</span>`:''}</div>
     </div>
     <div style="display:flex;gap:8px">
       <button class="action-btn" style="flex:1" onclick="zoomToRivalHub(${idx})">🗺 ZOOM TO HUB</button>
@@ -10417,18 +10472,18 @@ function renderHubsList() {
       ? `${cap} gates open`
       : free === 0 ? `FULL — ${cap}/${cap}`
       : `${free} of ${cap} free`;
-    const congestionNote = cMult > 1.12 ? `<div style="font-size:9px;color:var(--loss);margin-top:1px">⚡ +${Math.round((cMult-1)*100)}% congestion surcharge</div>`
-      : cMult > 1 ? `<div style="font-size:9px;color:var(--warn);margin-top:1px">⚠ +${Math.round((cMult-1)*100)}% surcharge</div>` : '';
+    const congestionNote = cMult > 1.12 ? `<div style="font-size:10.2px;color:var(--loss);margin-top:1px">⚡ +${Math.round((cMult-1)*100)}% congestion surcharge</div>`
+      : cMult > 1 ? `<div style="font-size:10.2px;color:var(--warn);margin-top:1px">⚠ +${Math.round((cMult-1)*100)}% surcharge</div>` : '';
     const spokes = hubSpokes(h);
     const netPct = hubNetworkBonusPct(h);
-    const netNote = spokes >= 2 ? `<div style="font-size:9px;color:var(--accent);margin-top:1px">🔁 ${spokes} spokes · +${netPct}% network demand</div>` : '';
-    return `<div style="margin-bottom:6px;font-size:10px">
+    const netNote = spokes >= 2 ? `<div style="font-size:10.2px;color:#fff;margin-top:1px">🔁 ${spokes} spokes · +${netPct}% network demand</div>` : '';
+    return `<div style="margin-bottom:6px;font-size:11.3px">
       <div style="display:flex;justify-content:space-between;align-items:baseline">
         <span style="color:${h===STATE.homeBase?'var(--accent)':'var(--accent3)'}">${h===STATE.homeBase?'★':'○'} ${h.split(' ')[0]}</span>
-        <span style="color:${gateColor};font-size:9.5px">${gateLabel}</span>
+        <span style="color:${gateColor};font-size:10.7px">${gateLabel}</span>
       </div>
       <div style="height:2px;background:var(--border);border-radius:1px;overflow:hidden;margin-top:2px">
-        <div style="height:100%;width:${pct}%;background:${used===0?'rgba(63,214,192,0.2)':gateColor};border-radius:1px"></div>
+        <div style="height:100%;width:${pct}%;background:${used===0?'rgba(167,137,255,0.2)':gateColor};border-radius:1px"></div>
       </div>
       ${congestionNote}
       ${netNote}
@@ -10536,13 +10591,13 @@ function renderGoalProgress() {
   if (fm && !fm.done && (fm.rung|0) < 5) {
     const r = fmRungs()[fm.rung|0];
     fmHtml = `
-    <div style="margin-bottom:7px;padding:7px 8px;border:1px solid var(--accent);border-radius:7px;background:linear-gradient(135deg,rgba(63,214,192,0.12),rgba(255,207,90,0.05))">
-      <div style="font-size:9px;letter-spacing:1.5px;color:var(--accent);margin-bottom:3px">▶ GETTING OFF THE GROUND · ${(fm.rung|0)+1}/5</div>
-      <div style="font-size:11px;color:var(--text);font-weight:600;margin-bottom:5px">${r.label}</div>
+    <div style="margin-bottom:7px;padding:7px 8px;border:1px solid var(--accent);border-radius:7px;background:linear-gradient(135deg,rgba(167,137,255,0.12),rgba(255,207,90,0.05))">
+      <div style="font-size:10.2px;letter-spacing:1.5px;color:#fff;margin-bottom:3px">▶ GETTING OFF THE GROUND · ${(fm.rung|0)+1}/5</div>
+      <div style="font-size:12.4px;color:var(--text);font-weight:600;margin-bottom:5px">${r.label}</div>
       <div style="height:5px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;margin-bottom:4px">
         <div style="height:100%;width:${r.pct}%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;transition:width .4s"></div>
       </div>
-      <div style="display:flex;justify-content:space-between;gap:6px;font-size:10px">
+      <div style="display:flex;justify-content:space-between;gap:6px;font-size:11.3px">
         <span style="color:var(--muted)">${r.prog}</span>
         <span style="color:var(--accent2);white-space:nowrap">🎁 ${r.reward}</span>
       </div>
@@ -10550,13 +10605,13 @@ function renderGoalProgress() {
   }
   const objDim = fmHtml ? 'opacity:.7;' : '';
   document.getElementById('goal-progress').innerHTML = fmHtml + `
-    <div style="${objDim}margin-bottom:5px; color:var(--accent); font-weight:600">${fmHtml?'Long game · ':''}${typeLabel}${STATE.twist?` · ${STATE.twist.name}`:''}</div>
+    <div style="${objDim}margin-bottom:5px; color:#fff; font-weight:600">${fmHtml?'Long game · ':''}${typeLabel}${STATE.twist?` · ${STATE.twist.name}`:''}</div>
     ${ mystery
       ? `<div style="${objDim}margin-bottom:4px; color:var(--warn)">▸ [CLASSIFIED]</div>
-         <div style="${objDim}font-size:10px; color:var(--muted); font-style:italic">"${STATE.objective.hint||'…'}"</div>`
+         <div style="${objDim}font-size:11.3px; color:var(--muted); font-style:italic">"${STATE.objective.hint||'…'}"</div>`
       : `<div style="${objDim}margin-bottom:4px; color:${st.done?'var(--profit)':'var(--text)'}">▸ ${st.label}</div>
-         <div style="${objDim}font-size:10px; color:var(--muted)">${st.prog}</div>` }
-    <div style="${objDim}color:var(--muted); font-size:10px; margin-top:6px">Year ${STATE.yearsElapsed}/${yearsCap}</div>`;
+         <div style="${objDim}font-size:11.3px; color:var(--muted)">${st.prog}</div>` }
+    <div style="${objDim}color:var(--muted); font-size:11.3px; margin-top:6px">Year ${STATE.yearsElapsed}/${yearsCap}</div>`;
 }
 let _newsFilter = 'all';
 function addEvent(type, text, loc) {
@@ -10581,20 +10636,20 @@ const TOUR_STEPS = [
   },
   {
     title: '🗺 Your Map',
-    body: 'This is your world. Rival hubs pulse with their airline colors. Use the <b style="color:var(--accent)">+ / −</b> buttons or scroll to zoom in on any region.',
+    body: 'This is your world. Rival hubs pulse with their airline colors. Use the <b style="color:#fff">+ / −</b> buttons or scroll to zoom in on any region.',
     pos: { top: '120px', left: '320px' },
     highlight: 'map-container',
     next: 'Next →',
   },
   {
     title: '💾 Save & Menu',
-    body: 'The <b style="color:var(--accent)">💾 Save</b> and <b style="color:var(--accent)">☰ Menu</b> buttons are always at the top of the left panel. Save often — the game auto-saves each turn.',
+    body: 'The <b style="color:#fff">💾 Save</b> and <b style="color:#fff">☰ Menu</b> buttons are always at the top of the left panel. Save often — the game auto-saves each turn.',
     pos: { top: '60px', left: '200px' },
     next: 'Next →',
   },
   {
     title: '✈ Open Your First Route',
-    body: 'Click <b style="color:var(--accent)">Operations › New Route</b> in the left panel. Pick your hub as the origin, choose a destination, select an aircraft, and set your fare.',
+    body: 'Click <b style="color:#fff">Operations › New Route</b> in the left panel. Pick your hub as the origin, choose a destination, select an aircraft, and set your fare.',
     pos: { top: '160px', left: '200px' },
     next: 'Next →',
   },
@@ -10606,7 +10661,7 @@ const TOUR_STEPS = [
   },
   {
     title: '🌡 Demand Overlay',
-    body: 'Click <b style="color:var(--accent)">🌡 Demand</b> on the map to see which cities are underserved — bigger glow = more unmet demand. Great for spotting where to expand.',
+    body: 'Click <b style="color:#fff">🌡 Demand</b> on the map to see which cities are underserved — bigger glow = more unmet demand. Great for spotting where to expand.',
     pos: { bottom: '80px', left: '60px' },
     next: 'Next →',
   },
@@ -10666,19 +10721,19 @@ function showDailyBriefing(){
   const mc = document.getElementById('modal-content');
   if (!ovl || !mc) return;
   const row = (l,v)=>`<div style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid var(--border)">
-    <span style="flex:0 0 90px;font-size:10px;color:var(--muted2);letter-spacing:1.2px;text-transform:uppercase;padding-top:2px">${l}</span>
-    <span style="font-size:11.5px;color:var(--text);line-height:1.55">${v}</span></div>`;
+    <span style="flex:0 0 90px;font-size:11.3px;color:var(--muted2);letter-spacing:1.2px;text-transform:uppercase;padding-top:2px">${l}</span>
+    <span style="font-size:13px;color:var(--text);line-height:1.55">${v}</span></div>`;
   mc.innerHTML = modalHead('📅 DAILY CHALLENGE — ' + (STATE.seed || todaySeed())) + `<div class="modal-body">
     ${row('Hub', `<b>${STATE.homeBase}</b> — same for every player today`)}
     ${row('Objective', `<b style="color:var(--accent2)">${(STATE.objective&&STATE.objective.desc)||'Maximize company value within 5 years'}</b>`)}
     ${row("Today's twist", `<b style="color:var(--warn)">${t.name||'—'}</b> — ${t.desc||'no modifier'}`)}
     ${row('Scoring', `Final <b>company value</b> is your score. One attempt per seed counts toward your best & streak 🔥.`)}
-    <div style="font-size:10px;color:var(--muted2);letter-spacing:1.5px;text-transform:uppercase;margin:14px 0 7px">Sub-bonuses — each adds +10% to your score</div>
+    <div style="font-size:11.3px;color:var(--muted2);letter-spacing:1.5px;text-transform:uppercase;margin:14px 0 7px">Sub-bonuses — each adds +10% to your score</div>
     ${DAILY_BONUSES.map(b=>`<div style="display:flex;gap:9px;align-items:flex-start;background:rgba(255,207,90,0.06);border:1px solid rgba(255,207,90,0.25);border-radius:8px;padding:8px 11px;margin-bottom:6px">
-      <span style="font-size:16px">${b.icon}</span>
-      <span><b style="font-size:10.5px;color:var(--accent2)">${b.name}</b><br><span style="font-size:9.5px;color:var(--muted)">${b.desc}</span></span>
+      <span style="font-size:18.1px">${b.icon}</span>
+      <span><b style="font-size:11.9px;color:var(--accent2)">${b.name}</b><br><span style="font-size:10.7px;color:var(--muted)">${b.desc}</span></span>
     </div>`).join('')}
-    <button class="action-btn success" style="width:100%;margin-top:12px;padding:11px;font-size:12px;letter-spacing:2px" onclick="closeModal()">✈ START THE CLOCK</button>
+    <button class="action-btn success" style="width:100%;margin-top:12px;padding:11px;font-size:13.6px;letter-spacing:2px" onclick="closeModal()">✈ START THE CLOCK</button>
   </div>`;
   ovl.classList.add('open');
 }
@@ -10871,10 +10926,10 @@ function buildProjectsModal(){
   const dots = Array.from({length:total},(_,i)=>`<span class="rp-slot-dot ${i<used?'used':''}"></span>`).join('');
   const upkeep = projectsUpkeep();
   const slotsStrip = `<div class="rp-slots">
-    <span style="font-size:10px;color:var(--muted2);letter-spacing:1px">BUILD SLOTS</span>
+    <span style="font-size:11.3px;color:var(--muted2);letter-spacing:1px">BUILD SLOTS</span>
     <div style="display:flex;gap:5px">${dots}</div>
-    <span style="font-size:10px;color:var(--muted)">${used}/${total} in progress</span>
-    <span style="font-size:10px;color:var(--accent2);margin-left:auto">Upkeep $${upkeep.toFixed(1)}M/mo</span>
+    <span style="font-size:11.3px;color:var(--muted)">${used}/${total} in progress</span>
+    <span style="font-size:11.3px;color:var(--accent2);margin-left:auto">Upkeep $${upkeep.toFixed(1)}M/mo</span>
   </div>`;
 
   // ── In-progress strip ──
@@ -10883,7 +10938,7 @@ function buildProjectsModal(){
   REGIONS.forEach(reg=>{ (_rp(reg).active||[]).forEach(a=>allActive.push({reg,...a})); });
   if(allActive.length){
     inProgHtml = `<div class="rp-inprog">
-      <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--muted2);margin-bottom:5px">IN PROGRESS</div>
+      <div style="font-size:10.2px;font-weight:700;letter-spacing:1.5px;color:var(--muted2);margin-bottom:5px">IN PROGRESS</div>
       ${allActive.map(a=>{
         const def = REGION_PROJECTS[a.id];
         const pct = Math.round((1 - (a.turnsLeft/def.turns))*100);
@@ -10933,17 +10988,17 @@ function buildProjectsModal(){
     }).join('');
     return `<div class="rp-region" ${isFocus?'style="border-color:rgba(255,207,90,0.35)"':''}>
       <div class="rp-region-head" onclick="_rpOpenRegions['${reg}']=!_rpOpenRegions['${reg}'];renderProjectsModal()">
-        <span class="rp-region-name">${reg} ${isFocus?'<span style="font-size:9px;color:var(--accent2);font-weight:700">◂ FOCUS</span>':''}</span>
-        ${completed.length?`<span style="font-size:9.5px;color:var(--profit)">${completed.length} built</span>`:''}
+        <span class="rp-region-name">${reg} ${isFocus?'<span style="font-size:10.2px;color:var(--accent2);font-weight:700">◂ FOCUS</span>':''}</span>
+        ${completed.length?`<span style="font-size:10.7px;color:var(--profit)">${completed.length} built</span>`:''}
         <span class="rp-stand ${st}">${STAND_WORD[st]}</span>
-        <span style="color:var(--muted2);font-size:12px">${open?'▾':'›'}</span>
+        <span style="color:var(--muted2);font-size:13.6px">${open?'▾':'›'}</span>
       </div>
       <div class="rp-region-body${open?' open':''}">${projList}</div>
     </div>`;
   }).join('');
 
   return modalHead('🏛 REGIONAL CAPITAL PROJECTS') + `<div class="modal-body" style="max-height:64vh;overflow-y:auto">
-    <div style="font-size:10.5px;color:var(--muted);line-height:1.6;margin-bottom:12px">
+    <div style="font-size:11.9px;color:var(--muted);line-height:1.6;margin-bottom:12px">
       Big-ticket regional builds. Each takes several turns, costs upkeep, and confers a permanent regional effect plus direct progress toward the conquest crown. Limited build slots force you to prioritize.
     </div>
     ${slotsStrip}
@@ -11058,7 +11113,7 @@ function renderEventsList() {
         <div>${e.text}</div>
       </div>`;
       }).join('')
-    : `<div style="color:var(--muted2);font-size:10px;padding:12px 10px">No ${_newsFilter === 'all' ? '' : _newsFilter + ' '}events yet.</div>`;
+    : `<div style="color:var(--muted2);font-size:11.3px;padding:12px 10px">No ${_newsFilter === 'all' ? '' : _newsFilter + ' '}events yet.</div>`;
 }
 function showFlash(msg){
   const el=document.getElementById('event-flash');
@@ -11080,7 +11135,7 @@ function openModal(type, arg){
   ov.classList.add('open');
   const map={'new-route':buildNewRoute,'buy-planes':buildBuyPlanes,'buy-biz':buildBiz,
     'negotiations':buildNegotiations,'budget':buildBudget,'build-hub':buildHub,
-    'bank':buildBank,'ledger':buildLedger,'shares':buildShares,'campaign':buildCampaign,'settings':buildSettings,
+    'bank':buildBank,'ledger':buildLedger,'logviewer':buildLogViewer,'shares':buildShares,'campaign':buildCampaign,'settings':buildSettings,
     'crew':()=>buildCrewModal('roster'),'hr':()=>buildCrewModal('hr'),'guide':()=>buildGuideModal(arg),
     'projects':buildProjectsModal,'route-manager':buildRouteManager,'fleet-page':buildFleetPage};
   if(map[type]) c.innerHTML=map[type]();
@@ -11098,7 +11153,7 @@ function modalHead(title){ return `<div class="modal-header"><div class="modal-t
 // ── UI KIT gallery (dev reference) — call openUIKit() from console.
 // Renders every uk-* component so the shared design system can be verified.
 function openUIKit(){
-  const sec=(t,inner)=>`<div style="margin:0 0 18px"><div style="font-size:11px;font-weight:800;letter-spacing:1.2px;color:var(--accent2);text-transform:uppercase;margin-bottom:9px">${t}</div>${inner}</div>`;
+  const sec=(t,inner)=>`<div style="margin:0 0 18px"><div style="font-size:12.4px;font-weight:800;letter-spacing:1.2px;color:var(--accent2);text-transform:uppercase;margin-bottom:9px">${t}</div>${inner}</div>`;
   const row=inner=>`<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">${inner}</div>`;
   const ic=p=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">${p}</svg>`;
   const html = modalHead('🎨 UI KIT — shared design system') + `<div class="modal-body" style="max-height:74vh;overflow:auto">
@@ -11143,7 +11198,7 @@ function openUIKit(){
       <div class="uk-panel"><div class="uk-panel-head"><span class="uk-panel-title">Panel Title</span><span class="uk-panel-x">×</span></div><div class="uk-panel-body">This is a standard panel used for content sections.</div></div>
       <div class="uk-panel uk-panel--warn"><div class="uk-panel-head"><span class="uk-panel-title">Panel Title</span><span class="uk-panel-x">×</span></div><div class="uk-panel-body">Warning or important information appears here.</div></div>
     </div>`)}
-    <div style="font-size:10px;color:var(--muted2);letter-spacing:.5px;margin-top:6px">UI STYLE GUIDE: dark theme, neon accents, high contrast, clear hierarchy, minimal noise.</div>
+    <div style="font-size:11.3px;color:var(--muted2);letter-spacing:.5px;margin-top:6px">UI STYLE GUIDE: dark theme, neon accents, high contrast, clear hierarchy, minimal noise.</div>
   </div>`;
   document.getElementById('modal-content').innerHTML = html;
   document.getElementById('modal-overlay').classList.add('open');
@@ -11351,7 +11406,7 @@ function nrCityGrid(){
       ? (c.toLowerCase().includes(_nrQ) || (ci.abbr||'').toLowerCase().includes(_nrQ))
       : (ci.region === _nrRegion && (_nrSubregion === null || nrSubregionKey(ci,c) === _nrSubregion))))
     .sort((a,b) => (b[1].econ + b[1].tourism + b[1].pop*4) - (a[1].econ + a[1].tourism + a[1].pop*4));
-  if (!cities.length) return `<div style="grid-column:1/-1;color:var(--muted);font-size:10px;padding:8px">${_nrQ?'No cities match "'+_nrQ+'"':'No destinations in this subregion'}</div>`;
+  if (!cities.length) return `<div style="grid-column:1/-1;color:var(--muted);font-size:11.3px;padding:8px">${_nrQ?'No cities match "'+_nrQ+'"':'No destinations in this subregion'}</div>`;
   const score = ci => ci.econ + ci.tourism + ci.pop*4;
   const maxScore = Math.max(...cities.map(([,ci]) => score(ci)));
   return cities.map(([c,ci]) => {
@@ -11366,22 +11421,22 @@ function nrCityGrid(){
     const lean = ci.econ - ci.tourism;
     const tag = lean > 12 ? {t:'BIZ', c:'var(--accent2)'} : lean < -12 ? {t:'LEIS', c:'var(--accent)'} : {t:'MIX', c:'var(--muted2)'};
     const status = frozen ? '🚫' : dupe ? '✓ ROUTE' : ci.abbr;
-    return `<div onclick="${dis?'':`nrSetTo('${nrEsc(c)}')`}" style="border:1px solid ${seld?'rgba(63,214,192,0.6)':'var(--border)'};background:${seld?'rgba(63,214,192,0.13)':dis?'rgba(255,255,255,0.015)':'rgba(255,255,255,0.035)'};border-radius:7px;padding:7px 9px;${dis?'opacity:.5;':'cursor:pointer;'}transition:border-color .12s,background .12s">
+    return `<div onclick="${dis?'':`nrSetTo('${nrEsc(c)}')`}" style="border:1px solid ${seld?'rgba(167,137,255,0.6)':'var(--border)'};background:${seld?'rgba(167,137,255,0.13)':dis?'rgba(255,255,255,0.015)':'rgba(255,255,255,0.035)'};border-radius:7px;padding:7px 9px;${dis?'opacity:.5;':'cursor:pointer;'}transition:border-color .12s,background .12s">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:5px;margin-bottom:5px">
-        <span style="font-size:10.5px;font-weight:600;color:${seld?'var(--accent)':'var(--text)'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${isHub?'<span style="color:var(--accent2)">★</span> ':''}${ci.major?'':''}${c}</span>
-        <span style="font-size:9px;color:${dupe?'var(--profit)':'var(--muted2)'};flex-shrink:0;font-family:'DM Mono';font-weight:600">${status}</span>
+        <span style="font-size:11.9px;font-weight:600;color:${seld?'var(--accent)':'var(--text)'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${isHub?'<span style="color:var(--accent2)">★</span> ':''}${ci.major?'':''}${c}</span>
+        <span style="font-size:10.2px;color:${dupe?'var(--profit)':'var(--muted2)'};flex-shrink:0;font-family:'DM Mono';font-weight:600">${status}</span>
       </div>
       <div style="display:flex;align-items:center;gap:7px">
         <div style="flex:1;height:4px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden"><div style="height:100%;width:${demPct}%;background:${demColor};border-radius:2px"></div></div>
-        <span style="font-size:9px;font-weight:700;letter-spacing:.5px;color:${tag.c};flex-shrink:0">${tag.t}</span>
-        ${dist!=null ? `<span style="font-size:9px;font-family:'DM Mono';color:var(--muted);flex-shrink:0">${(dist/1000).toFixed(dist<1000?2:1)}k mi</span>` : ''}
+        <span style="font-size:10.2px;font-weight:700;letter-spacing:.5px;color:${tag.c};flex-shrink:0">${tag.t}</span>
+        ${dist!=null ? `<span style="font-size:10.2px;font-family:'DM Mono';color:var(--muted);flex-shrink:0">${(dist/1000).toFixed(dist<1000?2:1)}k mi</span>` : ''}
       </div>
     </div>`;
   }).join('');
 }
 function nrPlaneList(){
   const entries = Object.entries(STATE.planes);
-  if (!entries.length) return '<div style="color:var(--muted);font-size:10px;padding:6px">No aircraft in fleet.</div>';
+  if (!entries.length) return '<div style="color:var(--muted);font-size:11.3px;padding:6px">No aircraft in fleet.</div>';
   const dist = nrRouteDist();
   const totalFlights = nrTotalFlights();
   // sort: free & in-range first, then by capacity
@@ -11404,12 +11459,12 @@ function nrPlaneList(){
       ${rec?'<span class="nr-rec-pill">★ RECOMMENDED</span>':''}
       <div class="nr-plane-art">${typeof aePlaneSVG==='function'?aePlaneSVG(58,23):'✈'}</div>
       <div style="min-width:0;flex:1">
-        <div style="color:${used>0?'var(--accent)':'var(--text)'};font-weight:700;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${n}${outRange?' <span style="color:var(--danger);font-weight:600;font-size:9px">⚠ OUT OF RANGE</span>':''}</div>
-        <div style="color:var(--muted2);font-size:9.5px;margin-top:1px">${p.seats}s · ${p.range.toLocaleString()}mi · <span style="color:${free>0?'var(--profit)':'var(--muted)'}">${free} free / ${p.owned} owned</span></div>
+        <div style="color:${used>0?'var(--accent)':'var(--text)'};font-weight:700;font-size:12.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${n}${outRange?' <span style="color:var(--danger);font-weight:600;font-size:10.2px">⚠ OUT OF RANGE</span>':''}</div>
+        <div style="color:var(--muted2);font-size:10.7px;margin-top:1px">${p.seats}s · ${p.range.toLocaleString()}mi · <span style="color:${free>0?'var(--profit)':'var(--muted)'}">${free} free / ${p.owned} owned</span></div>
       </div>
       <div style="display:flex;align-items:center;gap:7px;flex-shrink:0">
         <button class="nr-step" onclick="nrDecPlane('${nrEsc(n)}')" ${canDec?'':'disabled'}>−</button>
-        <span style="font-family:'DM Mono';font-size:13px;min-width:16px;text-align:center;color:${used>0?'var(--accent)':'var(--muted)'}">${used}</span>
+        <span style="font-family:'DM Mono';font-size:14.7px;min-width:16px;text-align:center;color:${used>0?'var(--accent)':'var(--muted)'}">${used}</span>
         <button class="nr-step" onclick="nrIncPlane('${nrEsc(n)}')" ${canInc?'':'disabled'}>+</button>
       </div>
     </div>`;
@@ -11423,10 +11478,10 @@ function nrPlaneSummary(){
     const p = STATE.planes[n] || AIRCRAFT[n];
     return s + (p ? p.seats * _nrPlanes[n] * E.weeksPerMonth : 0);
   }, 0);
-  if (!totalFlights) return `<div style="color:var(--muted2);font-size:10px;font-style:italic">No aircraft assigned — tap + to add flights.</div>`;
-  return `<div style="display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted)">
+  if (!totalFlights) return `<div style="color:var(--muted2);font-size:11.3px;font-style:italic">No aircraft assigned — tap + to add flights.</div>`;
+  return `<div style="display:flex;justify-content:space-between;align-items:center;font-size:11.3px;color:var(--muted)">
     <span><b style="color:var(--text)">${totalFlights}</b> flight${totalFlights!==1?'s':''}/wk · <b style="color:var(--text)">${types.length}</b> type${types.length!==1?'s':''}</span>
-    <span style="font-family:'DM Mono';color:var(--accent)">${Math.round(totalSeats).toLocaleString()} seats/mo</span>
+    <span style="font-family:'DM Mono';color:#fff">${Math.round(totalSeats).toLocaleString()} seats/mo</span>
   </div>`;
 }
 function nrIncPlane(n){
@@ -11485,7 +11540,7 @@ function buildNewRoute(preFrom, preTo){
             : (REGIONS.includes(_nrRegion) ? _nrRegion : (CITIES[fromHub]?.region || REGIONS[0]));
   const firstFree = Object.entries(STATE.planes).find(([,p]) => p.owned > p.assigned);
   const hasFree = !!firstFree;
-  const _liv = STATE.livery || '#3fd6c0';
+  const _liv = STATE.livery || '#a789ff';
   // fresh selection each time the dialog opens; pre-seed 1 flight of the first free type (if in range)
   _nrPlanes = {};
   _nrSubregion = null;
@@ -11517,9 +11572,9 @@ function buildNewRoute(preFrom, preTo){
               <div id="nr-plane-summary" style="margin-top:7px;padding-top:7px;border-top:1px solid var(--border)">${nrPlaneSummary()}</div>
               <button class="nr-buy-link" onclick="openBuyPlanesForRoute(document.getElementById('r-from')?.value||'', document.getElementById('r-to')?.value||'')">＋ Buy or change aircraft type…</button>`
           : `<div style="background:rgba(255,93,114,0.08);border:1px solid rgba(255,93,114,0.5);border-radius:7px;padding:11px 13px">
-              <div style="color:var(--danger);font-size:11px;font-weight:600;margin-bottom:8px">⚠ No free aircraft — buy a plane or close a route first.</div>
+              <div style="color:var(--danger);font-size:12.4px;font-weight:600;margin-bottom:8px">⚠ No free aircraft — buy a plane or close a route first.</div>
               ${nrPlaneList() ? `<div style="margin-bottom:9px">${nrPlaneList()}</div>` : ''}
-              <button class="action-btn" style="width:100%;border-color:var(--accent);color:var(--accent)"
+              <button class="action-btn" style="width:100%;border-color:var(--accent);color:#fff"
                 onclick="openBuyPlanesForRoute(document.getElementById('r-from')?.value||'', document.getElementById('r-to')?.value||'')">✈ Buy Aircraft</button>
             </div>`}
         <div class="nr-preview-label" style="margin-top:18px">Fare</div>
@@ -11533,12 +11588,12 @@ function buildNewRoute(preFrom, preTo){
             <input type="range" id="r-fare" min="50" max="900" step="10" value="200" style="width:100%" oninput="document.getElementById('rfa-v').textContent=this.value;updateRoutePreview()">
             <div class="nr-fare-marks">
               <span>LOW<br><b>$<span id="nr-f-low">120</span></b></span>
-              <span style="text-align:center">MARKET AVG<br><b style="color:var(--accent)">$<span id="nr-f-avg">200</span></b></span>
+              <span style="text-align:center">MARKET AVG<br><b style="color:#fff">$<span id="nr-f-avg">200</span></b></span>
               <span style="text-align:right">HIGH<br><b>$<span id="nr-f-high">350</span></b></span>
             </div>
           </div>
         </div>
-        <div class="nr-tip"><span class="nr-tip-ic">📈</span><span><b style="color:var(--accent)">Tip:</b> <b>$<span id="nr-tip-avg">200</span></b> is the average fare for this route. Adjust to compete or maximize profit.</span></div>
+        <div class="nr-tip"><span class="nr-tip-ic">📈</span><span><b style="color:#fff">Tip:</b> <b>$<span id="nr-tip-avg">200</span></b> is the average fare for this route. Adjust to compete or maximize profit.</span></div>
       </div>
     </div>
     <div class="nr-footer">
@@ -11570,10 +11625,10 @@ function updateRoutePreview(){
     const msg = !to ? 'Pick a destination on the left to preview route details and demand.'
       : flights===0 ? 'Assign at least one aircraft — tap + on a type.' : 'Select a destination and assign an aircraft.';
     el.innerHTML = `<div class="nr-sketch-wrap"><div class="nr-sub" style="margin:0 0 8px">${msg}</div>
-      <svg viewBox="0 0 560 34" class="nr-sketch"><circle cx="14" cy="24" r="5" fill="#3fd6c0" opacity=".8"/>
+      <svg viewBox="0 0 560 34" class="nr-sketch"><circle cx="14" cy="24" r="5" fill="#a789ff" opacity=".8"/>
       <path d="M24 24 Q280 -8 536 24" fill="none" stroke="#2aa8bf" stroke-width="1.6" stroke-dasharray="6 6" opacity=".55"/>
       <text x="272" y="15" font-size="15" text-anchor="middle" fill="#9fb6c6">✈</text>
-      <circle cx="546" cy="24" r="5" fill="#3fd6c0" opacity=".35"/></svg></div>`;
+      <circle cx="546" cy="24" r="5" fill="#a789ff" opacity=".35"/></svg></div>`;
     if(btn) btn.disabled = true;
     if(btnA) btnA.disabled = true;
     const _rf = 0;
@@ -11645,17 +11700,17 @@ function updateRoutePreview(){
       </div>
       <div class="nr-est">
         <div class="nr-est-k">Est. Revenue / wk</div>
-        <div class="nr-est-row"><span class="nr-est-ic">$</span><span class="nr-est-v" style="color:${canFly?'var(--profit)':'var(--muted2)'};font-size:17px">${wkRevStr}</span></div>
+        <div class="nr-est-row"><span class="nr-est-ic">$</span><span class="nr-est-v" style="color:${canFly?'var(--profit)':'var(--muted2)'};font-size:19.2px">${wkRevStr}</span></div>
         <div class="nr-est-d">Estimated revenue per week</div>
       </div>
     </div>
     <div class="nr-metrics" style="margin-top:10px">
-      <div class="nr-metric"><span class="k">Distance</span><span class="v" style="color:${canFly?'var(--text)':'var(--danger)'}">${dist.toLocaleString()}<span style="font-size:10px;color:var(--muted2)"> mi</span></span></div>
+      <div class="nr-metric"><span class="k">Distance</span><span class="v" style="color:${canFly?'var(--text)':'var(--danger)'}">${dist.toLocaleString()}<span style="font-size:11.3px;color:var(--muted2)"> mi</span></span></div>
       <div class="nr-metric"><span class="k">Pass / mo</span><span class="v">${estPax}</span></div>
       <div class="nr-metric"><span class="k">Open Cost</span><span class="v" style="color:var(--warn)">$${openCost}M</span></div>
-      <div class="nr-metric"><span class="k">${interR?'Intl':'Regional'}</span><span class="v" style="font-size:11px;color:var(--muted)">ref $${Math.round(refFare2)}</span></div>
+      <div class="nr-metric"><span class="k">${interR?'Intl':'Regional'}</span><span class="v" style="font-size:12.4px;color:var(--muted)">ref $${Math.round(refFare2)}</span></div>
     </div>
-    ${warns.length ? `<div style="font-size:10px;line-height:1.6;display:flex;flex-wrap:wrap;gap:4px 12px;margin:9px 0 0">${warns.join('')}</div>` : ''}`;
+    ${warns.length ? `<div style="font-size:11.3px;line-height:1.6;display:flex;flex-wrap:wrap;gap:4px 12px;margin:9px 0 0">${warns.join('')}</div>` : ''}`;
 }
 function confirmRoute(addAnother){
   const from=val('r-from'), to=val('r-to');
@@ -11740,7 +11795,7 @@ function buildBuyPlanesForRoute(from, to) {
   const distLabel = hasRoute
     ? `<div class="nr-chiprow">
         <span class="nr-chip">Route <b>${from} → ${to}</b></span>
-        <span class="nr-chip">Distance <b style="color:var(--accent)">${Math.round(dist).toLocaleString()} mi</b></span>
+        <span class="nr-chip">Distance <b style="color:#fff">${Math.round(dist).toLocaleString()} mi</b></span>
         <span class="nr-chip">Cash <b style="color:var(--accent2)">$${STATE.cash.toFixed(0)}M</b></span>
        </div>`
     : `<div class="nr-chiprow"><span class="nr-chip">Cash <b style="color:var(--accent2)">$${STATE.cash.toFixed(0)}M</b></span></div>`;
@@ -11753,8 +11808,8 @@ function buildBuyPlanesForRoute(from, to) {
     const canAfford1 = STATE.cash >= a.cost;
     const rangeTag = hasRoute
       ? inRange
-        ? `<span style="color:var(--profit);font-size:9.5px">✓ In range</span>`
-        : `<span style="color:var(--loss);font-size:9.5px">✗ Too short (${a.range.toLocaleString()} mi)</span>`
+        ? `<span style="color:var(--profit);font-size:10.7px">✓ In range</span>`
+        : `<span style="color:var(--loss);font-size:10.7px">✗ Too short (${a.range.toLocaleString()} mi)</span>`
       : '';
     const dimStyle = !inRange ? 'opacity:0.45;' : '';
     return `<div class="fleet-item" style="flex-direction:column;align-items:stretch;margin-bottom:8px;${dimStyle}border:1px solid ${inRange?'var(--border2)':'var(--border)'}">
@@ -11762,15 +11817,15 @@ function buildBuyPlanesForRoute(from, to) {
         <div>
           <div class="plane-name" style="color:${inRange?'var(--text)':'var(--muted)'}">${idn.icon} ${idn.name}</div>
           <div class="bp-identity-line">${idn.id} · ${idn.theme}</div>
-          <div style="font-size:9.5px;color:var(--muted);margin-top:2px">
+          <div style="font-size:10.7px;color:var(--muted);margin-top:2px">
             ${n} · ${a.seats}s · ${a.range.toLocaleString()} mi · ${a.speed} mph · <em>${a.type}</em>
           </div>
-          <div style="margin-top:3px">${rangeTag}${future ? `<span style="color:var(--warn);font-size:9px;margin-left:6px">Avail. ${a.era}</span>` : ''}</div>
-          ${owned ? `<div style="font-size:9px;color:var(--muted2);margin-top:2px">${owned} owned · <span style="color:${free>0?'var(--accent)':'var(--warn)'}">${free} free</span></div>` : ''}
+          <div style="margin-top:3px">${rangeTag}${future ? `<span style="color:var(--warn);font-size:10.2px;margin-left:6px">Avail. ${a.era}</span>` : ''}</div>
+          ${owned ? `<div style="font-size:10.2px;color:var(--muted2);margin-top:2px">${owned} owned · <span style="color:${free>0?'var(--accent)':'var(--warn)'}">${free} free</span></div>` : ''}
         </div>
         <div style="text-align:right;flex-shrink:0;margin-left:10px">
-          <div style="color:var(--warn);font-weight:700;font-size:13px">$${a.cost}M</div>
-          <div style="font-size:9.5px;color:var(--muted)">per aircraft</div>
+          <div style="color:var(--warn);font-weight:700;font-size:14.7px">$${a.cost}M</div>
+          <div style="font-size:10.7px;color:var(--muted)">per aircraft</div>
         </div>
       </div>
       ${inRange && !future ? `
@@ -11778,17 +11833,17 @@ function buildBuyPlanesForRoute(from, to) {
         ${[1,2,3,5].map(q => {
           const total = a.cost * q;
           const ok = STATE.cash >= total;
-          return `<button class="action-btn${ok?'':' danger'}" style="padding:4px 0;font-size:10px;text-align:center"
+          return `<button class="action-btn${ok?'':' danger'}" style="padding:4px 0;font-size:11.3px;text-align:center"
             ${ok?`onclick="buyPlaneForRoute('${n}',${q},'${from}','${to}')"` : 'disabled'}
             title="${ok?`Buy ${q} for $${total}M`:`Need $${total}M`}">
-            ×${q}<br><span style="font-size:9.5px;color:${ok?'var(--muted)':'var(--danger)'}">$${total}M</span>
+            ×${q}<br><span style="font-size:10.7px;color:${ok?'var(--muted)':'var(--danger)'}">$${total}M</span>
           </button>`;
         }).join('')}
       </div>` : !inRange ? `
-      <div style="font-size:10px;color:var(--muted2);margin-top:6px;text-align:center">
+      <div style="font-size:11.3px;color:var(--muted2);margin-top:6px;text-align:center">
         Cannot reach ${to} — need ${Math.round(dist).toLocaleString()} mi range
       </div>` : `
-      <div style="font-size:10px;color:var(--warn);margin-top:6px;text-align:center">Not yet available</div>`}
+      <div style="font-size:11.3px;color:var(--warn);margin-top:6px;text-align:center">Not yet available</div>`}
     </div>`;
   }).join('');
   return `<div class="modal-header">
@@ -11909,7 +11964,7 @@ function buildFleetPage(){
         <div class="flp-sum flp-sum-lead"><div class="flp-sum-k">Total Aircraft</div><div class="flp-sum-v">${totalAircraft}</div></div>
         <div class="flp-sum"><div class="flp-sum-k">Owned</div><div class="flp-sum-v" style="color:var(--profit)">${totalOwned}</div></div>
         <div class="flp-sum"><div class="flp-sum-k">Leased</div><div class="flp-sum-v" style="color:var(--warn)">${leased}</div></div>
-        <div class="flp-sum"><div class="flp-sum-k">On Order</div><div class="flp-sum-v" style="color:var(--accent)">${onOrder}</div></div>
+        <div class="flp-sum"><div class="flp-sum-k">On Order</div><div class="flp-sum-v" style="color:#fff">${onOrder}</div></div>
       </div>
     </div>
     <div class="flp-tabs">${tabHtml}</div>
@@ -11971,7 +12026,7 @@ function fleetLeasesTab(){
     const afford = STATE.cash >= deposit;
     return `<div class="flp-row">
       <div class="flp-c flp-c-ac"><div class="flp-plane-thumb" style="--p1:${a.type==='long'?'#23415f':'#1f3a4f'};--p2:#0d1a28">${a.type==='long'?'🛬':a.type==='supersonic'?'🚀':'✈'}</div><div><div class="flp-ac-name">${n}</div><div class="flp-ac-reg">${a.seats}s · ${(a.range||0).toLocaleString()}mi · ${cls}</div></div></div>
-      <div class="flp-c"><div class="flp-c-sm">Deposit</div><div class="flp-c-big" style="color:var(--accent)">$${deposit}M</div></div>
+      <div class="flp-c"><div class="flp-c-sm">Deposit</div><div class="flp-c-big" style="color:#fff">$${deposit}M</div></div>
       <div class="flp-c"><div class="flp-c-sm">Monthly</div><div class="flp-c-big" style="color:var(--warn)">$${moCost}M</div></div>
       <div class="flp-c"><div class="flp-c-sm">Buy price</div><div class="flp-c-big" style="color:var(--muted)">$${a.cost}M</div></div>
       <div class="flp-c flp-c-act"><button class="flp-leasebtn" ${afford?`onclick="tapConfirm(this,()=>{leasePlaneQty('${n.replace(/'/g,"\\'")}',1)},'Lease 1? $${deposit}M deposit')"`:'disabled'}>Lease</button></div>
@@ -11980,10 +12035,10 @@ function fleetLeasesTab(){
 
   return `
     <div class="flp-lease-banner">
-      <span style="font-size:22px;flex-shrink:0">📄</span>
+      <span style="font-size:24.9px;flex-shrink:0">📄</span>
       <div style="flex:1">
-        <div style="font-size:13px;color:var(--text);font-weight:600">Leasing lets you fly aircraft for a low upfront deposit + a monthly fee — no ownership, return any time.</div>
-        <div style="font-size:11px;color:var(--muted2);margin-top:3px">Deposit ≈ ${Math.round(LEASE.deposit*100)}% of value · Monthly ≈ ${(LEASE.monthly*100).toFixed(1)}% of value. Cheaper to start, costlier long-term than buying.</div>
+        <div style="font-size:14.7px;color:var(--text);font-weight:600">Leasing lets you fly aircraft for a low upfront deposit + a monthly fee — no ownership, return any time.</div>
+        <div style="font-size:12.4px;color:var(--muted2);margin-top:3px">Deposit ≈ ${Math.round(LEASE.deposit*100)}% of value · Monthly ≈ ${(LEASE.monthly*100).toFixed(1)}% of value. Cheaper to start, costlier long-term than buying.</div>
       </div>
       <div style="text-align:right;flex-shrink:0">
         <div class="flp-fk">Leased · monthly</div>
@@ -12142,11 +12197,11 @@ function openAircraftIdentityGuide(){
   const rows = Object.entries(AIRCRAFT_IDENTITY).map(([model,i])=>{
     const a = AIRCRAFT[model] || {};
     return `<div class="fleet-item" style="align-items:flex-start;margin-bottom:7px;border-left:3px solid ${i.accent};background:linear-gradient(135deg, ${i.color1}44, ${i.color2}22)">
-      <div style="font-size:22px;margin-right:8px">${i.icon}</div>
+      <div style="font-size:24.9px;margin-right:8px">${i.icon}</div>
       <div style="flex:1;min-width:0">
-        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b style="color:var(--text)">${i.name}</b><span class="bp-tag" style="color:${i.accent};border-color:${i.accent}66">${i.id}</span><span style="font-size:9px;color:var(--muted2)">${model}</span></div>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.8px">${i.theme} · ${a.type||'aircraft'} · ${a.seats||'?'} seats · ${(a.range||0).toLocaleString()} mi</div>
-        <div style="font-size:10px;color:var(--muted2);line-height:1.35;margin-top:3px">${i.role}</div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b style="color:var(--text)">${i.name}</b><span class="bp-tag" style="color:${i.accent};border-color:${i.accent}66">${i.id}</span><span style="font-size:10.2px;color:var(--muted2)">${model}</span></div>
+        <div style="font-size:11.3px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.8px">${i.theme} · ${a.type||'aircraft'} · ${a.seats||'?'} seats · ${(a.range||0).toLocaleString()} mi</div>
+        <div style="font-size:11.3px;color:var(--muted2);line-height:1.35;margin-top:3px">${i.role}</div>
       </div>
     </div>`;
   }).join('');
@@ -12197,7 +12252,7 @@ function buildBpBrowseView() {
   const header = `<div class="bp-cat-header">
     <div class="bp-cat-icon">✈</div>
     <div style="flex:1"><div class="bp-cat-name">Buy Aircraft</div><div class="bp-cat-sub">Grouped by range — aircraft now have names, IDs, and visual themes</div></div>
-    <button class="action-btn" style="margin:0;padding:7px 10px;font-size:10px" onclick="openAircraftIdentityGuide()">Identity Guide</button>
+    <button class="action-btn" style="margin:0;padding:7px 10px;font-size:11.3px" onclick="openAircraftIdentityGuide()">Identity Guide</button>
     <span class="nr-chip">Cash <b style="color:var(--accent2)">$${STATE.cash.toFixed(0)}M</b></span>
   </div>`;
   const bandsHtml = BP_RANGE_BANDS.map(band => {
@@ -12311,7 +12366,7 @@ function buildBpCatView(catId) {
     <span class="nr-chip">Cash <b style="color:var(--accent2)">$${STATE.cash.toFixed(0)}M</b></span>
   </div>`;
   const cards = bpCardsForPlanes(planes);
-  return header + (cards || `<div style="color:var(--muted);font-size:11px;padding:20px 0">No aircraft available in this category yet.</div>`);
+  return header + (cards || `<div style="color:var(--muted);font-size:12.4px;padding:20px 0">No aircraft available in this category yet.</div>`);
 }
 function buildBpFleetView(ownedFleet) {
   const header = `<div class="bp-cat-header">
@@ -12320,7 +12375,7 @@ function buildBpFleetView(ownedFleet) {
     <div class="bp-cash">Cash<br><b>$${STATE.cash.toFixed(0)}M</b></div>
   </div>`;
   if (!ownedFleet.length) {
-    return header + `<div style="color:var(--muted);font-size:11px;padding:20px 0;text-align:center">No aircraft owned yet.<br>Browse categories on the left to buy.</div>`;
+    return header + `<div style="color:var(--muted);font-size:12.4px;padding:20px 0;text-align:center">No aircraft owned yet.<br>Browse categories on the left to buy.</div>`;
   }
   const groups = {};
   ownedFleet.forEach(([n,p]) => {
@@ -12329,7 +12384,7 @@ function buildBpFleetView(ownedFleet) {
     groups[t].push([n,p,a]);
   });
   const groupHtml = Object.entries(groups).map(([type, planes]) => `
-    <div style="font-size:10px;letter-spacing:1.5px;color:var(--muted2);text-transform:uppercase;margin:10px 0 6px;font-weight:700">${type}</div>
+    <div style="font-size:11.3px;letter-spacing:1.5px;color:var(--muted2);text-transform:uppercase;margin:10px 0 6px;font-weight:700">${type}</div>
     ${planes.map(([n,p,a])=>{
       const idn = acIdentity(n);
       const free = p.owned - p.assigned;
@@ -12341,8 +12396,8 @@ function buildBpFleetView(ownedFleet) {
             <div class="bp-plane-specs"><span>${idn.id}</span><span>${n}</span><span>${a.seats} seats</span><span>${(a.range||0).toLocaleString()} mi</span><span>${a.speed||'—'} mph</span></div>
           </div>
           <div class="bp-plane-right">
-            <div style="font-size:12px;font-weight:700;color:var(--text);font-family:'DM Mono'">${p.owned} <span style="color:var(--muted);font-weight:400;font-size:10px">owned</span></div>
-            <div style="font-size:11px;font-weight:700;color:${freeColor};font-family:'DM Mono'">${free} <span style="color:var(--muted);font-weight:400;font-size:10px">free</span></div>
+            <div style="font-size:13.6px;font-weight:700;color:var(--text);font-family:'DM Mono'">${p.owned} <span style="color:var(--muted);font-weight:400;font-size:11.3px">owned</span></div>
+            <div style="font-size:12.4px;font-weight:700;color:${freeColor};font-family:'DM Mono'">${free} <span style="color:var(--muted);font-weight:400;font-size:11.3px">free</span></div>
           </div>
           <div class="bp-expand">›</div>
         </div>
@@ -12542,12 +12597,12 @@ function acHeroHTML(name, a, idn){
   return `<div style="position:relative;background:linear-gradient(180deg,#0d1a26,#0b0f13);overflow:hidden;border-radius:12px 12px 0 0;border-bottom:1px solid var(--border)">
     ${visual}
     <div style="position:absolute;inset:auto 0 0 0;height:74px;background:linear-gradient(transparent,rgba(10,13,17,0.95));pointer-events:none"></div>
-    <span style="position:absolute;top:10px;left:10px;font-size:9.5px;font-weight:800;letter-spacing:1.2px;padding:5px 10px;border-radius:8px;background:rgba(5,8,12,0.85);border:1.5px solid ${badge[1]};color:${badge[1]}">${badge[0]}</span>
-    <span onclick="closeAcDetail()" style="position:absolute;top:8px;right:10px;cursor:pointer;color:#d5dde2;font-size:15px;padding:2px 8px;background:rgba(5,8,12,0.65);border-radius:7px">✕</span>
+    <span style="position:absolute;top:10px;left:10px;font-size:10.7px;font-weight:800;letter-spacing:1.2px;padding:5px 10px;border-radius:8px;background:rgba(5,8,12,0.85);border:1.5px solid ${badge[1]};color:${badge[1]}">${badge[0]}</span>
+    <span onclick="closeAcDetail()" style="position:absolute;top:8px;right:10px;cursor:pointer;color:#d5dde2;font-size:16.9px;padding:2px 8px;background:rgba(5,8,12,0.65);border-radius:7px">✕</span>
     <div style="position:absolute;left:13px;bottom:7px">
-      <div style="font-size:9px;color:${idn.accent||'#9fb4c0'};letter-spacing:2px;text-transform:uppercase;font-weight:800;text-shadow:0 1px 6px rgba(0,0,0,.9)">${idn.id} · ${idn.theme}</div>
-      <div style="font-size:21px;font-weight:800;color:#fff;letter-spacing:.5px;text-shadow:0 2px 10px rgba(0,0,0,.9)">${idn.icon} ${idn.name}</div>
-      <div style="font-size:9.5px;color:#9fb0ba;text-shadow:0 1px 5px rgba(0,0,0,.9)">Model ${name} · ${TL[a.type]||a.type} · introduced ${a.era}</div>
+      <div style="font-size:10.2px;color:${idn.accent||'#9fb4c0'};letter-spacing:2px;text-transform:uppercase;font-weight:800;text-shadow:0 1px 6px rgba(0,0,0,.9)">${idn.id} · ${idn.theme}</div>
+      <div style="font-size:23.7px;font-weight:800;color:#fff;letter-spacing:.5px;text-shadow:0 2px 10px rgba(0,0,0,.9)">${idn.icon} ${idn.name}</div>
+      <div style="font-size:10.7px;color:#9fb0ba;text-shadow:0 1px 5px rgba(0,0,0,.9)">Model ${name} · ${TL[a.type]||a.type} · introduced ${a.era}</div>
     </div>
   </div>`;
 }
@@ -12569,9 +12624,9 @@ function openAcDetail(name){
   const TYPE_LABEL={short:'Short-haul',medium:'Medium-haul',long:'Long-haul',jumbo:'Jumbo',supersonic:'Supersonic'};
   const bar=(v,col)=>`<div style="height:5px;border-radius:3px;background:var(--border);margin-top:4px"><div style="height:5px;border-radius:3px;width:${Math.min(100,Math.max(2,v))}%;background:${col}"></div></div>`;
   const specBox=(v,l,w,col)=>`<div style="flex:1;min-width:70px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:7px 8px">
-    <div style="font-size:14px;font-weight:700;color:var(--text);font-family:'DM Mono'">${v}</div>
-    <div style="font-size:9px;color:var(--muted2);letter-spacing:.6px;text-transform:uppercase">${l}</div>${bar(w,col)}</div>`;
-  const priceRow=(l,v,c)=>`<div style="display:flex;justify-content:space-between;padding:5px 11px;border-bottom:1px solid var(--border);font-size:10px">
+    <div style="font-size:15.8px;font-weight:700;color:var(--text);font-family:'DM Mono'">${v}</div>
+    <div style="font-size:10.2px;color:var(--muted2);letter-spacing:.6px;text-transform:uppercase">${l}</div>${bar(w,col)}</div>`;
+  const priceRow=(l,v,c)=>`<div style="display:flex;justify-content:space-between;padding:5px 11px;border-bottom:1px solid var(--border);font-size:11.3px">
     <span style="color:var(--muted2)">${l}</span><span style="color:${c||'var(--text)'};font-family:'DM Mono';font-weight:600">${v}</span></div>`;
 
   const card=document.getElementById('ac-pop-card');
@@ -12586,8 +12641,8 @@ function openAcDetail(name){
           .map(([l,v,w,col])=>`<div class="bp-mini-i"><div class="bp-mini-top"><span>${l}</span><b>${v}</b></div><div class="bp-mini-bar"><i style="width:${Math.max(4,Math.min(100,w))}%;background:${col}"></i></div></div>`).join('')}
       </div>
 
-      <div style="font-size:10.5px;color:var(--muted);line-height:1.45;background:linear-gradient(135deg, ${idn.color1}55, ${idn.color2}33);border:1px solid ${idn.accent}55;border-radius:9px;padding:8px 10px;margin-bottom:12px"><b style="color:${idn.accent}">${idn.name}</b> — ${idn.role}</div>
-      <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.4px;margin-bottom:6px">PRICING — all-in</div>
+      <div style="font-size:11.9px;color:var(--muted);line-height:1.45;background:linear-gradient(135deg, ${idn.color1}55, ${idn.color2}33);border:1px solid ${idn.accent}55;border-radius:9px;padding:8px 10px;margin-bottom:12px"><b style="color:${idn.accent}">${idn.name}</b> — ${idn.role}</div>
+      <div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.4px;margin-bottom:6px">PRICING — all-in</div>
       <div style="background:var(--bg);border:1px solid var(--border);border-radius:9px;overflow:hidden;margin-bottom:6px">
         ${priceRow('Unit price', '$'+unit+'M', 'var(--accent2)')}
         ${priceRow('Resale value (each)', '$'+resale+'M', 'var(--profit)')}
@@ -12595,25 +12650,25 @@ function openAcDetail(name){
         ${priceRow('Monthly upkeep / airframe', '$'+(leaseMo*1000).toFixed(0)+'k', 'var(--warn)')}
         ${priceRow('Fuel burn', '$'+fuelCost1k+' / seat / 1000mi', 'var(--muted)')}
         <div style="display:flex;justify-content:space-between;padding:6px 11px;background:rgba(255,207,90,0.07)">
-          <span style="font-size:10px;font-weight:700;color:var(--muted)">Order total · ${qty}×</span>
-          <span style="font-size:13px;font-weight:800;color:${canBuy?'var(--accent2)':'var(--loss)'};font-family:'DM Mono'">$${total}M</span>
+          <span style="font-size:11.3px;font-weight:700;color:var(--muted)">Order total · ${qty}×</span>
+          <span style="font-size:14.7px;font-weight:800;color:${canBuy?'var(--accent2)':'var(--loss)'};font-family:'DM Mono'">$${total}M</span>
         </div>
       </div>
-      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted2);margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;font-size:11.3px;color:var(--muted2);margin-bottom:12px">
         <span>${owned?`Fleet: <b style="color:var(--text)">${owned}</b> owned · <b style="color:${free>0?'var(--accent)':'var(--warn)'}">${free}</b> free`:'None owned yet'}</span>
         <span>Cash: <b style="color:var(--accent2)">$${Math.round(STATE.cash)}M</b></span>
       </div>
 
-      ${future ? `<div style="text-align:center;color:var(--warn);font-size:11px;padding:8px 0">⏳ Enters service in ${a.era} — not purchasable yet.</div>` : `
+      ${future ? `<div style="text-align:center;color:var(--warn);font-size:12.4px;padding:8px 0">⏳ Enters service in ${a.era} — not purchasable yet.</div>` : `
       <div style="display:flex;align-items:center;gap:5px;margin-bottom:10px">
-        <span style="font-size:10px;color:var(--muted2);margin-right:2px">QTY</span>
-        ${[1,2,3,5,10].map(q=>`<button onclick="acSetQty('${name.replace(/'/g,"\\'")}',${q})" style="flex:1;padding:5px 0;font-size:10px;border-radius:6px;cursor:pointer;font-weight:700;border:1px solid ${qty===q?'var(--accent)':'var(--border)'};background:${qty===q?'rgba(63,214,192,0.16)':'var(--bg2)'};color:${qty===q?'var(--accent)':'var(--muted)'}">${q}</button>`).join('')}
+        <span style="font-size:11.3px;color:var(--muted2);margin-right:2px">QTY</span>
+        ${[1,2,3,5,10].map(q=>`<button onclick="acSetQty('${name.replace(/'/g,"\\'")}',${q})" style="flex:1;padding:5px 0;font-size:11.3px;border-radius:6px;cursor:pointer;font-weight:700;border:1px solid ${qty===q?'var(--accent)':'var(--border)'};background:${qty===q?'rgba(167,137,255,0.16)':'var(--bg2)'};color:${qty===q?'var(--accent)':'var(--muted)'}">${q}</button>`).join('')}
       </div>
       <div style="display:flex;gap:8px">
-        <button class="action-btn gold" style="flex:2;margin:0;padding:9px;font-size:12px" ${canBuy?'':'disabled'} onclick="tapConfirm(this,()=>{acBuy('${name.replace(/'/g,"\\'")}')},'Tap to confirm')">${shortfall>0?`Need $${shortfall}M more`:`BUY ${qty} · $${total}M`}</button>
-        <button class="action-btn danger" style="flex:1;margin:0;padding:9px;font-size:12px" ${free>0?'':'disabled'} onclick="tapConfirm(this,()=>{acSell('${name.replace(/'/g,"\\'")}')},'Tap to confirm')">SELL 1 · $${resale}M</button>
+        <button class="action-btn gold" style="flex:2;margin:0;padding:9px;font-size:13.6px" ${canBuy?'':'disabled'} onclick="tapConfirm(this,()=>{acBuy('${name.replace(/'/g,"\\'")}')},'Tap to confirm')">${shortfall>0?`Need $${shortfall}M more`:`BUY ${qty} · $${total}M`}</button>
+        <button class="action-btn danger" style="flex:1;margin:0;padding:9px;font-size:13.6px" ${free>0?'':'disabled'} onclick="tapConfirm(this,()=>{acSell('${name.replace(/'/g,"\\'")}')},'Tap to confirm')">SELL 1 · $${resale}M</button>
       </div>
-      ${free<=0&&owned>0?`<div style="font-size:9px;color:var(--muted2);text-align:center;margin-top:5px">All ${owned} copies are assigned to routes — unassign one to sell.</div>`:''}`}
+      ${free<=0&&owned>0?`<div style="font-size:10.2px;color:var(--muted2);text-align:center;margin-top:5px">All ${owned} copies are assigned to routes — unassign one to sell.</div>`:''}`}
     </div>`;
   document.getElementById('ac-pop').style.display='flex';
 }
@@ -12752,7 +12807,7 @@ function bizThumbSVG(name){
   } else if(name==='Amusement Park'){
     scene=`<circle cx="${W/2}" cy="${g-27}" r="20" fill="none" stroke="${c}" stroke-width="2"/><circle cx="${W/2}" cy="${g-27}" r="3" fill="${c}"/>${Array.from({length:8},(_,k)=>{const a=k/8*Math.PI*2;return `<circle cx="${(W/2+Math.cos(a)*20).toFixed(1)}" cy="${(g-27+Math.sin(a)*20).toFixed(1)}" r="2.6" fill="#ffd77a"/><line x1="${W/2}" y1="${g-27}" x2="${(W/2+Math.cos(a)*20).toFixed(1)}" y2="${(g-27+Math.sin(a)*20).toFixed(1)}" stroke="${c}" stroke-width=".8" opacity=".7"/>`;}).join('')}<path d="M${W/2-13} ${g} l13-16 13 16 z" fill="#0a1420"/>`;
   } else if(name==='Concert Hall'){
-    scene=`<rect x="30" y="${g-16}" width="120" height="16" fill="#0a1420"/>`+Array.from({length:5},(_,k)=>{const x=45+k*23;return `<path d="M${x} ${g-16} L${x-9+rnd()*18} ${g-58}" stroke="${['#e05c9e','#8b6fe0','#00d8f0','#ffcf5a','#3fd6c0'][k]}" stroke-width="4" opacity=".55" stroke-linecap="round"/>`;}).join('')+Array.from({length:12},()=>`<circle cx="${(35+rnd()*110).toFixed(0)}" cy="${g-4-rnd()*8}" r="1.6" fill="#e8edf3" opacity=".7"/>`).join('');
+    scene=`<rect x="30" y="${g-16}" width="120" height="16" fill="#0a1420"/>`+Array.from({length:5},(_,k)=>{const x=45+k*23;return `<path d="M${x} ${g-16} L${x-9+rnd()*18} ${g-58}" stroke="${['#e05c9e','#8b6fe0','#00d8f0','#ffcf5a','#a789ff'][k]}" stroke-width="4" opacity=".55" stroke-linecap="round"/>`;}).join('')+Array.from({length:12},()=>`<circle cx="${(35+rnd()*110).toFixed(0)}" cy="${g-4-rnd()*8}" r="1.6" fill="#e8edf3" opacity=".7"/>`).join('');
   } else if(name==='Museum'){
     scene=`<rect x="42" y="${g-8}" width="96" height="8" fill="#0a1420"/><path d="M40 ${g-40} L${W/2} ${g-54} L140 ${g-40} Z" fill="#0e1a28"/>`+Array.from({length:5},(_,k)=>`<rect x="${52+k*17}" y="${g-38}" width="6" height="30" fill="#12222f"/>`).join('');
   } else if(name==='Shuttle Service'){
@@ -12785,25 +12840,25 @@ function buildBiz(){
   entries.sort(sorters[_bizSort]||sorters.profit);
   const ownedHtml = owned.length ? owned.map(v=>`
     <div style="display:flex;align-items:center;gap:9px;padding:7px 10px;border-bottom:1px solid var(--border)">
-      <div style="font-size:16px">${v.icon}</div>
+      <div style="font-size:18.1px">${v.icon}</div>
       <div style="flex:1;min-width:0">
-        <div style="font-size:11px;font-weight:700;color:var(--text)">${v.name} <span style="font-size:9px;color:var(--muted2);font-weight:400">in ${v.city}</span>${v.stake&&v.stake<1?` <span style="font-size:9px;color:var(--accent2)">${Math.round(v.stake*100)}% stake</span>`:''}</div>
-        <div style="font-size:9.5px;color:var(--accent3)">+$${v.income}M/Q</div>
+        <div style="font-size:12.4px;font-weight:700;color:var(--text)">${v.name} <span style="font-size:10.2px;color:var(--muted2);font-weight:400">in ${v.city}</span>${v.stake&&v.stake<1?` <span style="font-size:10.2px;color:var(--accent2)">${Math.round(v.stake*100)}% stake</span>`:''}</div>
+        <div style="font-size:10.7px;color:#fff">+$${v.income}M/Q</div>
       </div>
     </div>`).join('') : '';
   const cardsHtml = entries.map(({n,b,fx,cnt})=>{
     const badge = BIZ_BADGE[n]||'#3b8fd4';
     const info = _bizInfoOpen===n ? `<div class="bz-info" onclick="event.stopPropagation()">
-        <div style="font-size:10px;font-weight:800;color:var(--text);margin-bottom:4px">${b.icon} ${n}</div>
-        <div style="font-size:9px;color:var(--muted);line-height:1.5">City effects: <b style="color:var(--accent)">${fx.blurb||b.desc}</b> · +${fx.fulfill||0} loyalty at the host city.${cnt?`<br>You own <b style="color:var(--accent2)">${cnt}</b>.`:''}<br>Full buy $${b.cost}M (+$${b.income}M/Q) · 40% stake $${Math.max(3,Math.round(b.cost*0.45))}M (+$${Math.max(1,Math.round(b.income*0.4))}M/Q, half loyalty).</div>
-        <div style="margin-top:6px;text-align:right"><span style="font-size:9px;color:var(--accent);cursor:pointer;font-weight:800" onclick="bizToggleInfo('${esc(n)}',event)">CLOSE ✕</span></div>
+        <div style="font-size:11.3px;font-weight:800;color:var(--text);margin-bottom:4px">${b.icon} ${n}</div>
+        <div style="font-size:10.2px;color:var(--muted);line-height:1.5">City effects: <b style="color:#fff">${fx.blurb||b.desc}</b> · +${fx.fulfill||0} loyalty at the host city.${cnt?`<br>You own <b style="color:var(--accent2)">${cnt}</b>.`:''}<br>Full buy $${b.cost}M (+$${b.income}M/Q) · 40% stake $${Math.max(3,Math.round(b.cost*0.45))}M (+$${Math.max(1,Math.round(b.income*0.4))}M/Q, half loyalty).</div>
+        <div style="margin-top:6px;text-align:right"><span style="font-size:10.2px;color:#fff;cursor:pointer;font-weight:800" onclick="bizToggleInfo('${esc(n)}',event)">CLOSE ✕</span></div>
       </div>` : '';
     if (_bizView==='list') return `<div class="bz-row" onclick="bizPick('${esc(n)}')">
         <span class="bz-badge sm" style="background:${badge}">${b.icon}</span>
-        <span style="flex:1;min-width:0"><span style="font-size:11px;font-weight:800;color:var(--text)">${n}${cnt?` <span style="font-size:9px;color:var(--accent)">×${cnt}</span>`:''}</span><br><span style="font-size:9px;color:var(--muted2)">${b.desc}</span></span>
-        <span style="font-size:10px;color:var(--profit);font-family:'DM Mono';font-weight:700">$${b.income}M/Q</span>
-        <span style="font-size:10px;color:var(--accent2)">★ ${fx.fulfill||0}</span>
-        <span style="font-size:11px;font-weight:800;color:var(--accent2);font-family:'DM Mono';width:52px;text-align:right">$${b.cost}M</span>
+        <span style="flex:1;min-width:0"><span style="font-size:12.4px;font-weight:800;color:var(--text)">${n}${cnt?` <span style="font-size:10.2px;color:#fff">×${cnt}</span>`:''}</span><br><span style="font-size:10.2px;color:var(--muted2)">${b.desc}</span></span>
+        <span style="font-size:11.3px;color:var(--profit);font-family:'DM Mono';font-weight:700">$${b.income}M/Q</span>
+        <span style="font-size:11.3px;color:var(--accent2)">★ ${fx.fulfill||0}</span>
+        <span style="font-size:12.4px;font-weight:800;color:var(--accent2);font-family:'DM Mono';width:52px;text-align:right">$${b.cost}M</span>
       </div>`;
     return `<div class="bz-card" onclick="bizPick('${esc(n)}')">
       ${info}
@@ -12812,7 +12867,7 @@ function buildBiz(){
         <span class="bz-i" onclick="bizToggleInfo('${esc(n)}',event)" title="Details">i</span>
       </div>
       <div class="bz-body">
-        <div class="bz-name">${n}${cnt?` <span style="font-size:9px;color:var(--accent)">×${cnt}</span>`:''}</div>
+        <div class="bz-name">${n}${cnt?` <span style="font-size:10.2px;color:#fff">×${cnt}</span>`:''}</div>
         <div class="bz-desc">${b.desc}</div>
         <div class="bz-stats"><span class="bz-inc">$ $${b.income}M/Q</span><span class="bz-loy">★ ${fx.fulfill||0} Loyalty</span></div>
         <div class="bz-price">$${b.cost}M</div>
@@ -12822,17 +12877,17 @@ function buildBiz(){
   const sortOpts = [['profit','Profit'],['price','Price'],['loyalty','Loyalty'],['name','Name']]
     .map(([v,l])=>`<option value="${v}" ${_bizSort===v?'selected':''}>${l}</option>`).join('');
   return modalHead('🏢 BUSINESS VENTURES')+`<div class="modal-body">
-    <div style="font-size:10px;letter-spacing:2.5px;color:var(--accent);font-weight:700;margin:-6px 0 12px">INVEST WISELY. GROW YOUR EMPIRE.</div>
+    <div style="font-size:11.3px;letter-spacing:2.5px;color:#fff;font-weight:700;margin:-6px 0 12px">INVEST WISELY. GROW YOUR EMPIRE.</div>
     <div class="bz-statrow">
       <div class="bz-stat"><span class="bz-stat-ic">💼</span><span><span class="bz-stat-l">VENTURES</span><br><span class="bz-stat-v">${owned.length}</span><br><span class="bz-stat-s">Owned</span></span></div>
-      <div class="bz-stat"><span class="bz-stat-ic">📈</span><span><span class="bz-stat-l">INCOME</span><br><span class="bz-stat-v" style="color:var(--profit)">$${qIncome}M<span style="font-size:10px;color:var(--muted2)"> / Q</span></span><br><span class="bz-stat-s">Quarterly</span></span></div>
-      <div class="bz-stat"><span class="bz-stat-ic">💲</span><span><span class="bz-stat-l">CASH</span><br><span class="bz-stat-v" style="color:var(--accent)">$${STATE.cash.toFixed(0)}M</span><br><span class="bz-stat-s">Available</span></span></div>
-      <div class="bz-stat bz-tip"><span class="bz-stat-ic">💡</span><span><span class="bz-stat-l" style="color:var(--accent)">PRO TIP</span><br><span style="font-size:9.5px;color:var(--muted);line-height:1.4">Higher loyalty increases income and unlocks bonuses over time.</span></span></div>
+      <div class="bz-stat"><span class="bz-stat-ic">📈</span><span><span class="bz-stat-l">INCOME</span><br><span class="bz-stat-v" style="color:var(--profit)">$${qIncome}M<span style="font-size:11.3px;color:var(--muted2)"> / Q</span></span><br><span class="bz-stat-s">Quarterly</span></span></div>
+      <div class="bz-stat"><span class="bz-stat-ic">💲</span><span><span class="bz-stat-l">CASH</span><br><span class="bz-stat-v" style="color:#fff">$${STATE.cash.toFixed(0)}M</span><br><span class="bz-stat-s">Available</span></span></div>
+      <div class="bz-stat bz-tip"><span class="bz-stat-ic">💡</span><span><span class="bz-stat-l" style="color:#fff">PRO TIP</span><br><span style="font-size:10.7px;color:var(--muted);line-height:1.4">Higher loyalty increases income and unlocks bonuses over time.</span></span></div>
     </div>
-    ${owned.length?`<div style="font-size:9.5px;letter-spacing:1px;color:var(--muted2);margin-bottom:5px">YOUR PORTFOLIO</div>
+    ${owned.length?`<div style="font-size:10.7px;letter-spacing:1px;color:var(--muted2);margin-bottom:5px">YOUR PORTFOLIO</div>
     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;overflow:hidden;margin-bottom:14px;max-height:20vh;overflow-y:auto">${ownedHtml}</div>`:''}
     <div class="bz-toolbar">
-      <span style="font-size:10px;letter-spacing:1px;color:var(--text);font-weight:800">👉 BUY OR INVEST — TAP A VENTURE, THEN PICK ANY CITY</span>
+      <span style="font-size:11.3px;letter-spacing:1px;color:var(--text);font-weight:800">👉 BUY OR INVEST — TAP A VENTURE, THEN PICK ANY CITY</span>
       <span style="margin-left:auto;display:flex;gap:7px;align-items:center">
         <select class="bz-sort" onchange="bizSetSort(this.value)"><optgroup label="Sort by">${sortOpts}</optgroup></select>
         <span class="bz-viewbtn ${_bizView==='grid'?'active':''}" onclick="bizSetView('grid')" title="Grid view">▦</span>
@@ -12844,7 +12899,7 @@ function buildBiz(){
       <span><span class="lic" style="color:var(--profit)">📈</span><span><b>PASSIVE INCOME</b><br>Earn steady income every quarter</span></span>
       <span><span class="lic" style="color:var(--accent2)">⭐</span><span><b>LOYALTY BONUS</b><br>Higher loyalty increases passenger retention</span></span>
       <span><span class="lic" style="color:var(--profit)">📊</span><span><b>EMPIRE GROWTH</b><br>Unlock more ventures as your empire grows</span></span>
-      <span><span class="lic" style="color:var(--accent)">🛡</span><span><b>DIVERSIFY RISK</b><br>Spread investments to maximize stability</span></span>
+      <span><span class="lic" style="color:#fff">🛡</span><span><b>DIVERSIFY RISK</b><br>Spread investments to maximize stability</span></span>
     </div>
   </div>`;
 }
@@ -12868,25 +12923,25 @@ function buildBizPicker(name){
   const rows=cities.map(([city,c])=>{
     const isHub=hubs.has(city), isServed=served.has(city);
     const fc=c.fulfill>60?'var(--profit)':c.fulfill<30?'var(--loss)':'var(--warn)';
-    const tag=isHub?'<span style="color:var(--accent2)">\u2605 hub</span>':isServed?'<span style="color:var(--accent3)">served</span>':'';
+    const tag=isHub?'<span style="color:var(--accent2)">\u2605 hub</span>':isServed?'<span style="color:#fff">served</span>':'';
     return `<div style="display:flex;align-items:center;gap:8px;padding:8px 11px;border-bottom:1px solid var(--border)">
       <div style="flex:1;min-width:0">
-        <div style="font-size:11px;font-weight:700;color:var(--text)">${city} <span style="font-size:9px;color:var(--muted2);font-weight:400">${c.region}${tag?' \u00b7 ':''}</span>${tag}</div>
-        <div style="font-size:9px;color:var(--muted2)">loyalty <span style="color:${fc}">${Math.round(c.fulfill)}%</span> \u00b7 pop ${c.pop}M \u00b7 econ ${c.econ} \u00b7 tour ${c.tourism}</div>
+        <div style="font-size:12.4px;font-weight:700;color:var(--text)">${city} <span style="font-size:10.2px;color:var(--muted2);font-weight:400">${c.region}${tag?' \u00b7 ':''}</span>${tag}</div>
+        <div style="font-size:10.2px;color:var(--muted2)">loyalty <span style="color:${fc}">${Math.round(c.fulfill)}%</span> \u00b7 pop ${c.pop}M \u00b7 econ ${c.econ} \u00b7 tour ${c.tourism}</div>
       </div>
-      <button class="action-btn" style="width:auto;margin:0;padding:4px 9px;font-size:10px;background:rgba(63,214,192,0.08);border-color:rgba(63,214,192,0.3);color:var(--accent)" ${STATE.cash<stakeCost?'disabled':''} onclick="tapConfirm(this,()=>{buyBiz('${name.replace(/'/g,"\\'")}','${city.replace(/'/g,"\\'")}',0.4)},'Confirm')">Invest $${stakeCost}M</button>
-      <button class="action-btn gold" style="width:auto;margin:0;padding:4px 11px;font-size:10px" ${STATE.cash<fullCost?'disabled':''} onclick="tapConfirm(this,()=>{buyBiz('${name.replace(/'/g,"\\'")}','${city.replace(/'/g,"\\'")}',1)},'Confirm')">Buy $${fullCost}M</button>
+      <button class="action-btn" style="width:auto;margin:0;padding:4px 9px;font-size:11.3px;background:rgba(167,137,255,0.08);border-color:rgba(167,137,255,0.3);color:#fff" ${STATE.cash<stakeCost?'disabled':''} onclick="tapConfirm(this,()=>{buyBiz('${name.replace(/'/g,"\\'")}','${city.replace(/'/g,"\\'")}',0.4)},'Confirm')">Invest $${stakeCost}M</button>
+      <button class="action-btn gold" style="width:auto;margin:0;padding:4px 11px;font-size:11.3px" ${STATE.cash<fullCost?'disabled':''} onclick="tapConfirm(this,()=>{buyBiz('${name.replace(/'/g,"\\'")}','${city.replace(/'/g,"\\'")}',1)},'Confirm')">Buy $${fullCost}M</button>
     </div>`;
   }).join('');
-  const regTabs=regions.map(r=>`<button onclick="bizSetRegion('${r}')" style="padding:4px 9px;font-size:9.5px;border-radius:6px;cursor:pointer;border:1px solid ${_bizRegion===r?'var(--accent)':'var(--border)'};background:${_bizRegion===r?'rgba(63,214,192,0.15)':'var(--bg2)'};color:${_bizRegion===r?'var(--accent)':'var(--muted)'};white-space:nowrap">${r==='ALL'?'All':r}</button>`).join('');
+  const regTabs=regions.map(r=>`<button onclick="bizSetRegion('${r}')" style="padding:4px 9px;font-size:10.7px;border-radius:6px;cursor:pointer;border:1px solid ${_bizRegion===r?'var(--accent)':'var(--border)'};background:${_bizRegion===r?'rgba(167,137,255,0.15)':'var(--bg2)'};color:${_bizRegion===r?'var(--accent)':'var(--muted)'};white-space:nowrap">${r==='ALL'?'All':r}</button>`).join('');
   return modalHead('\ud83c\udfe2 PLACE VENTURE')+`<div class="modal-body">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
-      <div style="font-size:14px;font-weight:800;color:var(--text)">${b.icon} ${name}</div>
-      <button class="action-btn" style="width:auto;margin:0;padding:4px 12px;font-size:10px" onclick="document.getElementById('modal-content').innerHTML=buildBiz()">\u2190 Back</button>
+      <div style="font-size:15.8px;font-weight:800;color:var(--text)">${b.icon} ${name}</div>
+      <button class="action-btn" style="width:auto;margin:0;padding:4px 12px;font-size:11.3px" onclick="document.getElementById('modal-content').innerHTML=buildBiz()">\u2190 Back</button>
     </div>
-    <div style="font-size:9.5px;color:var(--muted);margin-bottom:6px"><b style="color:var(--accent2)">Buy</b> = full venture (+$${b.income}M/Q, +${fx.fulfill||0} loyalty). <b style="color:var(--accent)">Invest</b> = 40% stake (+$${stakeInc}M/Q, half loyalty) for $${stakeCost}M. Place it <b>anywhere</b>.</div>
+    <div style="font-size:10.7px;color:var(--muted);margin-bottom:6px"><b style="color:var(--accent2)">Buy</b> = full venture (+$${b.income}M/Q, +${fx.fulfill||0} loyalty). <b style="color:#fff">Invest</b> = 40% stake (+$${stakeInc}M/Q, half loyalty) for $${stakeCost}M. Place it <b>anywhere</b>.</div>
     <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px">${regTabs}</div>
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;overflow:hidden;max-height:44vh;overflow-y:auto">${rows||'<div style="padding:14px;font-size:10px;color:var(--muted2);text-align:center">No more cities for this venture in this region.</div>'}</div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;overflow:hidden;max-height:44vh;overflow-y:auto">${rows||'<div style="padding:14px;font-size:11.3px;color:var(--muted2);text-align:center">No more cities for this venture in this region.</div>'}</div>
   </div>`;
 }
 function buyBiz(name, city, stake){
@@ -12926,7 +12981,7 @@ function setNegRegion(r){
 }
 function buildNegotiations(){
   const REGION_COLORS = {
-    'N America':'#3fd6c0','S America':'#5fe0a0','Europe':'#9d8ee0',
+    'N America':'#a789ff','S America':'#5fe0a0','Europe':'#9d8ee0',
     'Africa':'#ffcf5a','Mid East':'#e8843a','SE Asia':'#e05c6e','Oceania':'#3b8fd4'
   };
   const REGION_FULL = {
@@ -13000,9 +13055,9 @@ function buildNegotiations(){
     return `<div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:9px 10px 10px;min-width:0">
       <div style="display:flex;align-items:center;gap:5px;margin-bottom:7px;min-width:0">
         <span style="width:20px;height:20px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;background:${color}22;border:1px solid ${color}55;color:${color}">${icon}</span>
-        <span style="font-size:7.5px;letter-spacing:.2px;color:var(--muted2);font-weight:700;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${label}</span>
+        <span style="font-size:8.5px;letter-spacing:.2px;color:var(--muted2);font-weight:700;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${label}</span>
       </div>
-      <div style="font-size:16px;font-weight:800;color:var(--text);font-family:'DM Mono';line-height:1;margin-bottom:6px">${value}</div>
+      <div style="font-size:18.1px;font-weight:800;color:var(--text);font-family:'DM Mono';line-height:1;margin-bottom:6px">${value}</div>
       <div style="height:4px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden"><div style="height:100%;width:${w}%;background:${color};border-radius:3px"></div></div>
     </div>`;
   }
@@ -13019,48 +13074,48 @@ function buildNegotiations(){
     const regionFull = REGION_FULL[ci.region] || ci.region.toUpperCase();
     const routeCount = STATE.routes.filter(r=>r.from===c||r.to===c).length;
     const negPct = neg===1?100:neg===2?60:neg===3?25:0;
-    const borderColor = neg ? 'rgba(63,214,192,0.45)' : frozen ? 'rgba(244,63,94,0.3)' : hasRoute ? 'rgba(63,214,192,0.22)' : 'var(--border)';
-    const bgColor = neg ? 'rgba(63,214,192,0.05)' : hasRoute ? 'rgba(63,214,192,0.03)' : 'var(--bg2)';
+    const borderColor = neg ? 'rgba(167,137,255,0.45)' : frozen ? 'rgba(244,63,94,0.3)' : hasRoute ? 'rgba(167,137,255,0.22)' : 'var(--border)';
+    const bgColor = neg ? 'rgba(167,137,255,0.05)' : hasRoute ? 'rgba(167,137,255,0.03)' : 'var(--bg2)';
 
     let footerBlock;
     if (neg) {
       footerBlock = `<div style="margin-top:11px">
         <div style="margin-bottom:5px;display:flex;justify-content:space-between;align-items:center">
-          <span style="font-size:9.5px;color:var(--muted2)">Negotiation progress</span>
-          <span style="font-size:10px;color:var(--accent);font-weight:700">${neg} month${neg!==1?'s':''} remaining</span>
+          <span style="font-size:10.7px;color:var(--muted2)">Negotiation progress</span>
+          <span style="font-size:11.3px;color:#fff;font-weight:700">${neg} month${neg!==1?'s':''} remaining</span>
         </div>
         <div style="height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden">
-          <div style="height:100%;width:${negPct}%;background:linear-gradient(90deg,var(--accent),rgba(63,214,192,0.6));border-radius:3px;transition:width .5s"></div>
+          <div style="height:100%;width:${negPct}%;background:linear-gradient(90deg,var(--accent),rgba(167,137,255,0.6));border-radius:3px;transition:width .5s"></div>
         </div></div>`;
     } else if (frozen) {
-      footerBlock = `<div style="margin-top:11px;font-size:10.5px;color:var(--loss);padding:5px 0">🚫 Landing slots blocked — competition or regulatory freeze</div>`;
+      footerBlock = `<div style="margin-top:11px;font-size:11.9px;color:var(--loss);padding:5px 0">🚫 Landing slots blocked — competition or regulatory freeze</div>`;
     } else if (_negPending === c) {
       footerBlock = `<div style="margin-top:11px;background:rgba(255,207,90,0.08);border:1px solid rgba(255,207,90,0.45);border-radius:10px;padding:11px 13px">
-        <div style="font-size:11.5px;font-weight:700;color:var(--accent2);margin-bottom:6px">Confirm — send a manager to ${c}?</div>
-        <div style="font-size:10px;color:var(--muted);line-height:1.7;margin-bottom:10px">
+        <div style="font-size:13px;font-weight:700;color:var(--accent2);margin-bottom:6px">Confirm — send a manager to ${c}?</div>
+        <div style="font-size:11.3px;color:var(--muted);line-height:1.7;margin-bottom:10px">
           Cost: <b style="color:var(--warn)">$${cost}M</b> (you have $${STATE.cash.toFixed(0)}M) · Duration: <b style="color:var(--text)">1–3 months</b><br>
           Effect: <b style="color:var(--accent2)">+${demandBoost}% load</b> on all your ${c} routes once the deal closes${hasRoute?'':' — open a route here to benefit immediately'}.
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <button class="action-btn success" style="padding:9px;font-size:11px" onclick="negotiate('${c}',${cost})">✓ CONFIRM — $${cost}M</button>
-          <button class="action-btn" style="padding:9px;font-size:11px" onclick="negCancel()">✕ CANCEL</button>
+          <button class="action-btn success" style="padding:9px;font-size:12.4px" onclick="negotiate('${c}',${cost})">✓ CONFIRM — $${cost}M</button>
+          <button class="action-btn" style="padding:9px;font-size:12.4px" onclick="negCancel()">✕ CANCEL</button>
         </div></div>`;
     } else {
-      footerBlock = `<button style="width:100%;margin-top:11px;padding:14px;border-radius:11px;font-family:'Plus Jakarta Sans';font-size:12.5px;font-weight:800;letter-spacing:1px;border:1px solid;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px;
+      footerBlock = `<button style="width:100%;margin-top:11px;padding:14px;border-radius:11px;font-family:'Inter';font-size:14.1px;font-weight:800;letter-spacing:1px;border:1px solid;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px;
           ${canAfford
             ? `background:linear-gradient(135deg,rgba(63,143,212,0.28),rgba(63,143,212,0.1));border-color:rgba(63,143,212,0.55);color:#86c4f5;cursor:pointer`
             : `background:rgba(255,255,255,0.03);border-color:var(--border);color:var(--muted);opacity:0.55`}"
           ${canAfford ? `onclick="negAsk('${c}')"` : 'disabled'}>
-          ${canAfford ? `🤝 Send Manager to ${c.toUpperCase()} <span style="margin-left:auto;font-size:16px">›</span>` : `Need $${(cost-STATE.cash).toFixed(0)}M more to send manager`}
+          ${canAfford ? `🤝 Send Manager to ${c.toUpperCase()} <span style="margin-left:auto;font-size:18.1px">›</span>` : `Need $${(cost-STATE.cash).toFixed(0)}M more to send manager`}
         </button>`;
     }
 
     const statusChip = frozen
-      ? `<span style="font-size:9px;background:rgba(244,63,94,0.15);color:var(--loss);padding:3px 7px;border-radius:5px;font-weight:700">🚫 FROZEN</span>`
+      ? `<span style="font-size:10.2px;background:rgba(244,63,94,0.15);color:var(--loss);padding:3px 7px;border-radius:5px;font-weight:700">🚫 FROZEN</span>`
       : neg
-      ? `<span style="font-size:9px;background:rgba(63,214,192,0.15);color:var(--accent);padding:3px 7px;border-radius:5px;font-weight:700">⏳ ACTIVE</span>`
-      : `<span style="display:inline-flex;align-items:center;gap:3px;font-size:9.5px;background:rgba(63,143,212,0.14);color:#86c4f5;padding:3px 8px;border-radius:5px;font-weight:700">✈ ${routeCount} ROUTE${routeCount!==1?'S':''}</span>`;
-    const loadBadge = `<span style="display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:800;color:var(--profit);background:rgba(78,234,170,0.12);border:1px solid rgba(78,234,170,0.3);border-radius:6px;padding:3px 8px;line-height:1">↗ +${demandBoost}% LOAD</span>`;
+      ? `<span style="font-size:10.2px;background:rgba(167,137,255,0.15);color:#fff;padding:3px 7px;border-radius:5px;font-weight:700">⏳ ACTIVE</span>`
+      : `<span style="display:inline-flex;align-items:center;gap:3px;font-size:10.7px;background:rgba(63,143,212,0.14);color:#86c4f5;padding:3px 8px;border-radius:5px;font-weight:700">✈ ${routeCount} ROUTE${routeCount!==1?'S':''}</span>`;
+    const loadBadge = `<span style="display:inline-flex;align-items:center;gap:4px;font-size:11.9px;font-weight:800;color:var(--profit);background:rgba(78,234,170,0.12);border:1px solid rgba(78,234,170,0.3);border-radius:6px;padding:3px 8px;line-height:1">↗ +${demandBoost}% LOAD</span>`;
 
     return `<div style="background:${bgColor};border:1px solid ${borderColor};border-radius:13px;margin-bottom:11px;overflow:hidden;display:grid;grid-template-columns:116px 1fr;transition:border-color .15s">
       <div style="position:relative;border-right:1px solid var(--border)">${cityTile(c, ci, rc)}
@@ -13070,18 +13125,18 @@ function buildNegotiations(){
         <div style="display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap">
           <div style="flex:1;min-width:120px">
             <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:5px">
-              <span style="font-size:17px;font-weight:800;color:var(--text);letter-spacing:.3px;line-height:1">${c.toUpperCase()}</span>
+              <span style="font-size:19.2px;font-weight:800;color:var(--text);letter-spacing:.3px;line-height:1">${c.toUpperCase()}</span>
               ${statusChip}
             </div>
-            <div style="font-size:10px;color:var(--muted2)">
+            <div style="font-size:11.3px;color:var(--muted2)">
               <span style="color:${rc};font-weight:700;letter-spacing:.3px">📍 ${regionFull}</span> · ${ci.slots} SLOTS
             </div>
           </div>
           <div style="text-align:right;flex-shrink:0">
             <div style="margin-bottom:5px">${loadBadge}</div>
-            <div style="font-size:20px;font-weight:800;color:var(--profit);font-family:'DM Mono';line-height:1">$${estRev}M</div>
-            <div style="font-size:8px;letter-spacing:.6px;color:var(--muted2);font-weight:700;margin-top:2px">EST. REVENUE / WK</div>
-            <div style="font-size:9.5px;color:var(--muted);margin-top:6px;display:flex;align-items:center;justify-content:flex-end;gap:4px">📅 1–3 MONTHS</div>
+            <div style="font-size:22.6px;font-weight:800;color:var(--profit);font-family:'DM Mono';line-height:1">$${estRev}M</div>
+            <div style="font-size:9px;letter-spacing:.6px;color:var(--muted2);font-weight:700;margin-top:2px">EST. REVENUE / WK</div>
+            <div style="font-size:10.7px;color:var(--muted);margin-top:6px;display:flex;align-items:center;justify-content:flex-end;gap:4px">📅 1–3 MONTHS</div>
           </div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px">
@@ -13095,8 +13150,8 @@ function buildNegotiations(){
   }
 
   const section = (title, items, color='var(--muted2)') => items.length
-    ? `<div style="font-size:10px;letter-spacing:2px;color:${color};text-transform:uppercase;font-weight:700;margin:14px 0 8px;display:flex;align-items:center;gap:8px">
-        ${title} <span style="font-size:9px;background:rgba(255,255,255,0.07);padding:1px 7px;border-radius:10px;color:var(--muted)">${items.length}</span>
+    ? `<div style="font-size:11.3px;letter-spacing:2px;color:${color};text-transform:uppercase;font-weight:700;margin:14px 0 8px;display:flex;align-items:center;gap:8px">
+        ${title} <span style="font-size:10.2px;background:rgba(255,255,255,0.07);padding:1px 7px;border-radius:10px;color:var(--muted)">${items.length}</span>
        </div>${items.map((item,i)=>cityCard(item,i)).join('')}`
     : '';
 
@@ -13128,7 +13183,7 @@ function buildNegotiations(){
       return false;
     }));
     const subTabsHtml = visibleSubs.length>1 ? `<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px">
-      ${[{key:null,label:'All'},...visibleSubs].map(s=>`<div class="region-tab ${s.key===activeSub?'active':''}" style="font-size:10px;padding:3px 8px" onclick="event.stopPropagation();setNegSubregion('${reg}',${s.key===null?'null':"'"+s.key+"'"})">${s.label}</div>`).join('')}
+      ${[{key:null,label:'All'},...visibleSubs].map(s=>`<div class="region-tab ${s.key===activeSub?'active':''}" style="font-size:11.3px;padding:3px 8px" onclick="event.stopPropagation();setNegSubregion('${reg}',${s.key===null?'null':"'"+s.key+"'"})">${s.label}</div>`).join('')}
     </div>` : '';
     const filteredList = activeSub ? list.filter(([cn,ci])=>{
       for(const s of subs) if(s.test(ci.lat,ci.lon,cn)) return s.key===activeSub;
@@ -13136,40 +13191,40 @@ function buildNegotiations(){
     }) : list;
     return `<div style="margin-bottom:9px;border:1px solid var(--border);border-radius:10px;overflow:hidden">
       <div onclick="negToggleRegion('${reg}',${open})" style="display:flex;align-items:center;gap:9px;padding:11px 13px;cursor:pointer;border-left:3px solid ${rc};background:${open?'rgba(255,255,255,0.03)':'transparent'}">
-        <span style="display:inline-block;transform:rotate(${open?90:0}deg);transition:transform .15s;color:${rc};font-size:15px;font-weight:700;line-height:1">\u203a</span>
-        <span style="font-size:13px;font-weight:800;color:var(--text);letter-spacing:.4px">${REGION_FULL[reg]||reg.toUpperCase()}</span>
-        ${yr?`<span style="font-size:9px;background:rgba(63,214,192,0.12);color:var(--accent);padding:1px 6px;border-radius:4px;font-weight:700">\u2708 ${yr}</span>`:''}
-        <span style="margin-left:auto;font-size:10px;color:var(--muted2);background:rgba(255,255,255,0.06);padding:2px 9px;border-radius:10px">${list.length} cit${list.length!==1?'ies':'y'}</span>
+        <span style="display:inline-block;transform:rotate(${open?90:0}deg);transition:transform .15s;color:${rc};font-size:16.9px;font-weight:700;line-height:1">\u203a</span>
+        <span style="font-size:14.7px;font-weight:800;color:var(--text);letter-spacing:.4px">${REGION_FULL[reg]||reg.toUpperCase()}</span>
+        ${yr?`<span style="font-size:10.2px;background:rgba(167,137,255,0.12);color:#fff;padding:1px 6px;border-radius:4px;font-weight:700">\u2708 ${yr}</span>`:''}
+        <span style="margin-left:auto;font-size:11.3px;color:var(--muted2);background:rgba(255,255,255,0.06);padding:2px 9px;border-radius:10px">${list.length} cit${list.length!==1?'ies':'y'}</span>
       </div>
       ${open?`<div style="padding:10px 12px 3px">${subTabsHtml}${filteredList.map((item,i)=>cityCard(item,i)).join('')}</div>`:''}
     </div>`;
   }).join('');
   return modalHead('🤝 SLOT NEGOTIATIONS') + `<div class="modal-body">
-    <div style="font-size:12px;color:var(--muted2);margin:-4px 0 14px;letter-spacing:.2px">Secure landing slots to boost load factors on your routes.</div>
+    <div style="font-size:13.6px;color:var(--muted2);margin:-4px 0 14px;letter-spacing:.2px">Secure landing slots to boost load factors on your routes.</div>
     <div style="display:flex;gap:12px;margin-bottom:16px;align-items:stretch">
-      <div style="flex:1;background:rgba(63,214,192,0.05);border:1px solid rgba(63,214,192,0.18);border-radius:11px;padding:14px 16px;font-size:12px;color:var(--muted);line-height:1.7;display:flex;align-items:center;gap:11px">
-        <span style="font-size:20px;flex-shrink:0">ℹ️</span>
-        <span>Secure landing slots to boost load factors on your routes. Each city manager takes <b style="color:var(--accent)">1\u20133 months</b> to close the deal.</span>
+      <div style="flex:1;background:rgba(167,137,255,0.05);border:1px solid rgba(167,137,255,0.18);border-radius:11px;padding:14px 16px;font-size:13.6px;color:var(--muted);line-height:1.7;display:flex;align-items:center;gap:11px">
+        <span style="font-size:22.6px;flex-shrink:0">ℹ️</span>
+        <span>Secure landing slots to boost load factors on your routes. Each city manager takes <b style="color:#fff">1\u20133 months</b> to close the deal.</span>
       </div>
       <div style="background:linear-gradient(160deg,rgba(255,207,90,0.1),rgba(255,207,90,0.03));border:1px solid rgba(255,207,90,0.3);border-radius:11px;padding:14px 22px;text-align:center;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;min-width:150px">
-        <div style="font-size:10px;color:var(--accent2);letter-spacing:1.5px;margin-bottom:4px;font-weight:700">AVAILABLE FUNDS</div>
-        <div style="font-size:30px;font-weight:800;color:${cashColor};font-family:'DM Mono';line-height:1">${STATE.cash.toFixed(0)}M</div>
-        <div style="font-size:9px;color:var(--muted2);letter-spacing:1px;margin-top:3px">USD</div>
+        <div style="font-size:11.3px;color:var(--accent2);letter-spacing:1.5px;margin-bottom:4px;font-weight:700">AVAILABLE FUNDS</div>
+        <div style="font-size:33.9px;font-weight:800;color:${cashColor};font-family:'DM Mono';line-height:1">${STATE.cash.toFixed(0)}M</div>
+        <div style="font-size:10.2px;color:var(--muted2);letter-spacing:1px;margin-top:3px">USD</div>
       </div>
     </div>
     ${_negDone ? `<div style="background:rgba(78,234,170,0.08);border:1px solid rgba(78,234,170,0.4);border-radius:8px;padding:10px 13px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:10px">
-      <div style="font-size:10.5px;color:var(--profit);line-height:1.6"><b>\u2713 Manager dispatched to ${_negDone.city}</b> \u2014 $${_negDone.cost}M paid. Negotiation closes in <b>${_negDone.months} month${_negDone.months!==1?'s':''}</b>; track it under "In Progress" below.</div>
-      <span onclick="_negDone=null;negRerender()" style="color:var(--muted);font-size:13px;flex-shrink:0;padding:0 3px">\u2715</span>
+      <div style="font-size:11.9px;color:var(--profit);line-height:1.6"><b>\u2713 Manager dispatched to ${_negDone.city}</b> \u2014 $${_negDone.cost}M paid. Negotiation closes in <b>${_negDone.months} month${_negDone.months!==1?'s':''}</b>; track it under "In Progress" below.</div>
+      <span onclick="_negDone=null;negRerender()" style="color:var(--muted);font-size:14.7px;flex-shrink:0;padding:0 3px">\u2715</span>
     </div>` : ''}
     ${section('\u23f3 In Progress', active, 'var(--accent)')}
-    ${regionOrder.length ? `<div style="display:flex;align-items:center;gap:10px;margin:18px 0 11px"><span style="font-size:12px;letter-spacing:2px;color:var(--text);text-transform:uppercase;font-weight:800">🌐 Cities by Region</span><span style="flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)"></span><span style="font-size:10px;color:var(--accent2);background:rgba(255,207,90,0.1);border:1px solid rgba(255,207,90,0.25);padding:3px 11px;border-radius:14px;font-weight:700">${avail.length} CITIES</span></div>${groupsHtml}` : ''}
-    ${!active.length && !regionOrder.length ? `<div style="color:var(--muted);font-size:11px;text-align:center;padding:20px">All non-hub cities already covered.</div>` : ''}
+    ${regionOrder.length ? `<div style="display:flex;align-items:center;gap:10px;margin:18px 0 11px"><span style="font-size:13.6px;letter-spacing:2px;color:var(--text);text-transform:uppercase;font-weight:800">🌐 Cities by Region</span><span style="flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)"></span><span style="font-size:11.3px;color:var(--accent2);background:rgba(255,207,90,0.1);border:1px solid rgba(255,207,90,0.25);padding:3px 11px;border-radius:14px;font-weight:700">${avail.length} CITIES</span></div>${groupsHtml}` : ''}
+    ${!active.length && !regionOrder.length ? `<div style="color:var(--muted);font-size:12.4px;text-align:center;padding:20px">All non-hub cities already covered.</div>` : ''}
     <div style="display:flex;align-items:center;gap:12px;justify-content:space-between;margin-top:16px;padding-top:14px;border-top:1px solid var(--border);flex-wrap:wrap">
-      <div style="display:flex;align-items:center;gap:9px;color:var(--muted);font-size:11px;line-height:1.5;flex:1;min-width:200px">
-        <span style="color:var(--accent2);font-size:14px;flex-shrink:0">⭐</span>
+      <div style="display:flex;align-items:center;gap:9px;color:var(--muted);font-size:12.4px;line-height:1.5;flex:1;min-width:200px">
+        <span style="color:var(--accent2);font-size:15.8px;flex-shrink:0">⭐</span>
         <span>Slot values fluctuate based on demand, competition, and route performance.</span>
       </div>
-      <button class="uk-btn uk-btn--secondary" style="flex-shrink:0;font-size:11px" onclick="openSlotHistory()">📊 VIEW SLOT HISTORY</button>
+      <button class="uk-btn uk-btn--secondary" style="flex-shrink:0;font-size:12.4px" onclick="openSlotHistory()">📊 VIEW SLOT HISTORY</button>
     </div>
   </div>`;
 }
@@ -13185,20 +13240,20 @@ function openSlotHistory(){
     return `<div style="display:flex;align-items:center;gap:11px;padding:11px 13px;border:1px solid var(--border);border-radius:10px;margin-bottom:8px;background:var(--bg2)">
       <span style="width:8px;height:8px;border-radius:50%;background:${color};flex-shrink:0;box-shadow:0 0 8px ${color}"></span>
       <div style="flex:1;min-width:0">
-        <div style="font-size:13px;font-weight:700;color:var(--text)">${h.city}</div>
-        <div style="font-size:10px;color:${color};font-weight:700;letter-spacing:.4px;margin-top:2px">${label}</div>
+        <div style="font-size:14.7px;font-weight:700;color:var(--text)">${h.city}</div>
+        <div style="font-size:11.3px;color:${color};font-weight:700;letter-spacing:.4px;margin-top:2px">${label}</div>
       </div>
       <div style="text-align:right;flex-shrink:0">
-        <div style="font-size:11px;color:var(--muted);font-family:'DM Mono'">${when||'—'}</div>
-        ${h.cost?`<div style="font-size:10px;color:var(--muted2);margin-top:2px">$${h.cost}M</div>`:''}
+        <div style="font-size:12.4px;color:var(--muted);font-family:'DM Mono'">${when||'—'}</div>
+        ${h.cost?`<div style="font-size:11.3px;color:var(--muted2);margin-top:2px">$${h.cost}M</div>`:''}
       </div>
     </div>`;
-  }).join('') : `<div style="text-align:center;color:var(--muted);font-size:12px;padding:40px 20px;line-height:1.7">No slot deals yet.<br><span style="font-size:11px;color:var(--muted2)">Dispatch a manager to a city and your negotiation history will appear here.</span></div>`;
+  }).join('') : `<div style="text-align:center;color:var(--muted);font-size:13.6px;padding:40px 20px;line-height:1.7">No slot deals yet.<br><span style="font-size:12.4px;color:var(--muted2)">Dispatch a manager to a city and your negotiation history will appear here.</span></div>`;
   const mc = document.getElementById('modal-content'); if (!mc) return;
   mc.innerHTML = modalHead('📊 SLOT HISTORY') + `<div class="modal-body">
     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px">
-      <button class="uk-btn uk-btn--ghost" style="font-size:12px" onclick="negRerender()">‹ Back to Negotiations</button>
-      <span style="font-size:10px;color:var(--muted2);letter-spacing:1px;font-weight:700">${hist.length} RECORD${hist.length!==1?'S':''}</span>
+      <button class="uk-btn uk-btn--ghost" style="font-size:13.6px" onclick="negRerender()">‹ Back to Negotiations</button>
+      <span style="font-size:11.3px;color:var(--muted2);letter-spacing:1px;font-weight:700">${hist.length} RECORD${hist.length!==1?'S':''}</span>
     </div>${rows}</div>`;
 }
 function negRerender(){
@@ -13260,40 +13315,40 @@ function buildBudget(){
   const rows=[{k:'repair',l:'Maintenance',d:'Slider 1 = lean baseline (free). Above 1: slows fleet wear. +$0.09M/mo per step.'},{k:'ad',l:'Advertising',d:'Slider 1 = baseline (free). Above 1: boosts demand ~4.5% per step. +$0.09M/mo per step.'},{k:'service',l:'Service',d:'Slider 1 = baseline (free). Above 1: boosts demand ~5% per step. +$0.09M/mo per step.'}];
   const bd=budgetBreakdown();
   const fmt=v=>`${v<0?'-':''}$${Math.abs(v).toFixed(1)}M`;
-  const line=(l,v,col)=>`<div style="display:flex;justify-content:space-between;padding:4px 12px;font-size:10px"><span style="color:var(--muted)">${l}</span><span style="color:${col};font-family:'DM Mono'">${fmt(v)}</span></div>`;
+  const line=(l,v,col)=>`<div style="display:flex;justify-content:space-between;padding:4px 12px;font-size:11.3px"><span style="color:var(--muted)">${l}</span><span style="color:${col};font-family:'DM Mono'">${fmt(v)}</span></div>`;
   const _cf=STATE._cashflow;
   const cfBlock = _cf ? `
     <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:9px;overflow:hidden;margin-bottom:10px">
-      <div style="font-size:9.5px;letter-spacing:1px;color:var(--accent);padding:6px 12px 3px">LAST MONTH \u00b7 ACTUAL \u00b7 ${_cf.label}</div>
-      <div style="font-size:9px;letter-spacing:1px;color:var(--profit);padding:2px 12px">INCOME</div>
+      <div style="font-size:10.7px;letter-spacing:1px;color:#fff;padding:6px 12px 3px">LAST MONTH \u00b7 ACTUAL \u00b7 ${_cf.label}</div>
+      <div style="font-size:10.2px;letter-spacing:1px;color:var(--profit);padding:2px 12px">INCOME</div>
       ${_cf.inc.map(([l,v])=>line(l,v,'var(--profit)')).join('')}
-      <div style="font-size:9px;letter-spacing:1px;color:var(--loss);padding:5px 12px 2px;border-top:1px solid var(--border)">EXPENSES</div>
+      <div style="font-size:10.2px;letter-spacing:1px;color:var(--loss);padding:5px 12px 2px;border-top:1px solid var(--border)">EXPENSES</div>
       ${_cf.exp.map(([l,v])=>line(l,-v,'var(--loss)')).join('')}
       <div style="display:flex;justify-content:space-between;padding:8px 12px;border-top:1px solid var(--border2);background:rgba(255,255,255,0.03)">
-        <span style="font-size:11px;font-weight:700;color:var(--text)">Net change to cash</span>
-        <span style="font-size:13px;font-weight:800;font-family:'DM Mono';color:${_cf.net>=0?'var(--profit)':'var(--loss)'}">${fmt(_cf.net)}</span>
+        <span style="font-size:12.4px;font-weight:700;color:var(--text)">Net change to cash</span>
+        <span style="font-size:14.7px;font-weight:800;font-family:'DM Mono';color:${_cf.net>=0?'var(--profit)':'var(--loss)'}">${fmt(_cf.net)}</span>
       </div>
-    </div>` : `<div style="font-size:10px;color:var(--muted);margin-bottom:10px;padding:9px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:9px">Play a month to see your actual cash flow itemised here \u2014 every line that moved your balance.</div>`;
+    </div>` : `<div style="font-size:11.3px;color:var(--muted);margin-bottom:10px;padding:9px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:9px">Play a month to see your actual cash flow itemised here \u2014 every line that moved your balance.</div>`;
   return modalHead('\ud83d\udcb0 BUDGET & CASH FLOW')+`<div class="modal-body">
     ${cfBlock}
-    <div style="font-size:10px;color:var(--muted);margin-bottom:10px">\u2193 Projected next month \u2014 estimate across <b>every</b> revenue & cost stream \u2014 not just routes.</div>
+    <div style="font-size:11.3px;color:var(--muted);margin-bottom:10px">\u2193 Projected next month \u2014 estimate across <b>every</b> revenue & cost stream \u2014 not just routes.</div>
     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;overflow:hidden;margin-bottom:6px">
-      <div style="font-size:9.5px;letter-spacing:1px;color:var(--profit);padding:6px 12px 3px">INCOME</div>
+      <div style="font-size:10.7px;letter-spacing:1px;color:var(--profit);padding:6px 12px 3px">INCOME</div>
       ${bd.inc.map(([l,v])=>line(l,v,'var(--profit)')).join('')}
-      <div style="display:flex;justify-content:space-between;padding:3px 12px;font-size:9.5px;border-top:1px dashed var(--border)"><span style="color:var(--muted2)">Total income</span><span style="color:var(--profit);font-family:'DM Mono';font-weight:700">${fmt(bd.incTot)}</span></div>
-      <div style="font-size:9.5px;letter-spacing:1px;color:var(--loss);padding:8px 12px 3px;border-top:1px solid var(--border)">EXPENSES</div>
+      <div style="display:flex;justify-content:space-between;padding:3px 12px;font-size:10.7px;border-top:1px dashed var(--border)"><span style="color:var(--muted2)">Total income</span><span style="color:var(--profit);font-family:'DM Mono';font-weight:700">${fmt(bd.incTot)}</span></div>
+      <div style="font-size:10.7px;letter-spacing:1px;color:var(--loss);padding:8px 12px 3px;border-top:1px solid var(--border)">EXPENSES</div>
       ${bd.exp.map(([l,v])=>line(l,-v,'var(--loss)')).join('')}
-      <div style="display:flex;justify-content:space-between;padding:3px 12px;font-size:9.5px;border-top:1px dashed var(--border)"><span style="color:var(--muted2)">Total expenses</span><span style="color:var(--loss);font-family:'DM Mono';font-weight:700">${fmt(-bd.expTot)}</span></div>
+      <div style="display:flex;justify-content:space-between;padding:3px 12px;font-size:10.7px;border-top:1px dashed var(--border)"><span style="color:var(--muted2)">Total expenses</span><span style="color:var(--loss);font-family:'DM Mono';font-weight:700">${fmt(-bd.expTot)}</span></div>
       <div style="display:flex;justify-content:space-between;padding:8px 12px;border-top:1px solid var(--border2);background:rgba(255,255,255,0.025)">
-        <span style="font-size:11px;font-weight:700;color:var(--text)">Net / month</span>
-        <span style="font-size:13px;font-weight:800;font-family:'DM Mono';color:${bd.net>=0?'var(--profit)':'var(--loss)'}">${fmt(bd.net)}</span>
+        <span style="font-size:12.4px;font-weight:700;color:var(--text)">Net / month</span>
+        <span style="font-size:14.7px;font-weight:800;font-family:'DM Mono';color:${bd.net>=0?'var(--profit)':'var(--loss)'}">${fmt(bd.net)}</span>
       </div>
     </div>
-    <div style="font-size:9px;color:var(--muted2);margin-bottom:14px">Cash $${STATE.cash.toFixed(0)}M \u00b7 includes ventures, cargo, city investments & sponsorships.</div>
-    <div style="font-size:9.5px;letter-spacing:1px;color:var(--muted2);margin-bottom:6px">DEPARTMENT SPENDING \u2014 affects performance</div>
-    ${rows.map(r=>`<div class="form-row"><label class="form-label" id="bl-${r.k}">${r.l}: <span style="color:var(--accent)">${lvls[STATE.budget[r.k]-1]}</span></label>
-    <div style="font-size:9.5px;color:var(--muted);margin-bottom:4px">${r.d}</div>
-    <input type="range" min="1" max="5" value="${STATE.budget[r.k]}" oninput="STATE.budget['${r.k}']=+this.value;document.getElementById('bl-${r.k}').innerHTML='${r.l}: <span style=color:var(--accent)>'+['LEAN','BASIC','SOLID','STRONG','MAXIMUM'][+this.value-1]+'</span>'"></div>`).join('')}
+    <div style="font-size:10.2px;color:var(--muted2);margin-bottom:14px">Cash $${STATE.cash.toFixed(0)}M \u00b7 includes ventures, cargo, city investments & sponsorships.</div>
+    <div style="font-size:10.7px;letter-spacing:1px;color:var(--muted2);margin-bottom:6px">DEPARTMENT SPENDING \u2014 affects performance</div>
+    ${rows.map(r=>`<div class="form-row"><label class="form-label" id="bl-${r.k}">${r.l}: <span style="color:#fff">${lvls[STATE.budget[r.k]-1]}</span></label>
+    <div style="font-size:10.7px;color:var(--muted);margin-bottom:4px">${r.d}</div>
+    <input type="range" min="1" max="5" value="${STATE.budget[r.k]}" oninput="STATE.budget['${r.k}']=+this.value;document.getElementById('bl-${r.k}').innerHTML='${r.l}: <span style=color:#fff>'+['LEAN','BASIC','SOLID','STRONG','MAXIMUM'][+this.value-1]+'</span>'"></div>`).join('')}
     <div style="display:flex;gap:8px">
       <button class="action-btn" style="flex:1" onclick="updateUI();document.getElementById('modal-content').innerHTML=buildBudget()">RECALC \u21bb</button>
       <button class="action-btn gold" style="flex:1" onclick="updateUI();closeModal()">DONE \u2713</button>
@@ -13320,13 +13375,13 @@ function buildHub(){
   if (!connected.length) {
     return modalHead('BUILD REGIONAL HUB') + `<div class="modal-body">
       <div style="background:rgba(255,200,0,0.07);border:1px solid var(--warn);border-radius:8px;padding:14px;text-align:center;margin-bottom:12px">
-        <div style="font-size:14px;margin-bottom:6px">No connected cities eligible</div>
-        <div style="font-size:10.5px;color:var(--muted);line-height:1.7">
+        <div style="font-size:15.8px;margin-bottom:6px">No connected cities eligible</div>
+        <div style="font-size:11.9px;color:var(--muted);line-height:1.7">
           Fly a route to a major city first, then return here to establish a hub.
           ${unconnectedCount > 0 ? `<br>${unconnectedCount} major cities available once you open routes there.` : ''}
         </div>
       </div>
-      <div style="font-size:10px;color:var(--muted2)">Current hubs: ${STATE.hubs.join(' · ')}</div>
+      <div style="font-size:11.3px;color:var(--muted2)">Current hubs: ${STATE.hubs.join(' · ')}</div>
     </div>`;
   }
   const cards = connected.map(([n,c]) => {
@@ -13343,10 +13398,10 @@ function buildHub(){
         <span class="hub-acc-cost" style="color:${canAfford?'var(--warn)':'var(--loss)'}">$${cost}M</span>
       </div>
       <div class="hub-acc-body">
-        <div style="font-size:9.5px;color:var(--muted);margin-bottom:4px">
+        <div style="font-size:10.7px;color:var(--muted);margin-bottom:4px">
           ${c.region} · Level ${c.level} · Pop ${c.pop}M · ${yourRoutes} route${yourRoutes!==1?'s':''} here · one-time cost
         </div>
-        <div style="font-size:10px;color:var(--accent);margin-bottom:9px">
+        <div style="font-size:11.3px;color:#fff;margin-bottom:9px">
           ${gates} gates · Unlocks routes from ${n} across ${c.region}
         </div>
         <button class="action-btn${canAfford?' success':' danger'}" style="width:100%;padding:8px"
@@ -13357,7 +13412,7 @@ function buildHub(){
     </div>`;
   }).join('');
   return modalHead('🏗 BUILD REGIONAL HUB') + `<div class="modal-body">
-    <div style="font-size:10.5px;color:var(--muted);margin-bottom:14px;line-height:1.7">
+    <div style="font-size:11.9px;color:var(--muted);margin-bottom:14px;line-height:1.7">
       Hubs unlock routes from that city. Only cities you already fly to are eligible.
       <br>Cash: <b style="color:var(--accent2)">$${STATE.cash.toFixed(0)}M</b>
       ${unconnectedCount ? ` · <span style="color:var(--muted2)">${unconnectedCount} more major cities need a route first</span>` : ''}
@@ -13483,29 +13538,29 @@ function buildBank(){
     return `<div style="border:1px solid ${o.first?'rgba(78,234,170,0.4)':'var(--border)'};border-radius:9px;padding:9px 11px;margin-bottom:7px;background:${o.first?'rgba(78,234,170,0.05)':'var(--bg2)'}">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
         <div style="display:flex;align-items:center;gap:7px;min-width:0">
-          <span style="font-size:15px;flex-shrink:0">${o.icon}</span>
+          <span style="font-size:16.9px;flex-shrink:0">${o.icon}</span>
           <div style="min-width:0">
-            <div style="font-size:11px;font-weight:700;color:var(--text)">${o.name}${o.first?' <span style="font-size:9px;color:var(--profit);border:1px solid rgba(78,234,170,0.4);border-radius:3px;padding:1px 4px;letter-spacing:.5px">FIRST-TIME</span>':''}</div>
-            <div style="font-size:9.5px;color:var(--muted2);line-height:1.35;margin-top:1px">${o.blurb}</div>
+            <div style="font-size:12.4px;font-weight:700;color:var(--text)">${o.name}${o.first?' <span style="font-size:10.2px;color:var(--profit);border:1px solid rgba(78,234,170,0.4);border-radius:3px;padding:1px 4px;letter-spacing:.5px">FIRST-TIME</span>':''}</div>
+            <div style="font-size:10.7px;color:var(--muted2);line-height:1.35;margin-top:1px">${o.blurb}</div>
           </div>
         </div>
         <div style="text-align:right;flex-shrink:0">
-          <div style="font-size:13px;font-weight:700;color:var(--accent2);font-family:'DM Mono'">${(o.rate*100).toFixed(2)}%<span style="font-size:9px;color:var(--muted2)">/mo</span></div>
-          <div style="font-size:9px;color:var(--muted2)">${o.apr.toFixed(1)}% APR</div>
+          <div style="font-size:14.7px;font-weight:700;color:var(--accent2);font-family:'DM Mono'">${(o.rate*100).toFixed(2)}%<span style="font-size:10.2px;color:var(--muted2)">/mo</span></div>
+          <div style="font-size:10.2px;color:var(--muted2)">${o.apr.toFixed(1)}% APR</div>
         </div>
       </div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-top:7px;gap:8px">
-        <span style="font-size:9.5px;color:var(--muted2)">avail $${o.cap}M · min $${o.minDraw}M</span>
-        <button class="action-btn ${o.first?'success':'gold'}" style="width:auto;padding:5px 16px;font-size:10px;margin:0" ${can?'':'disabled'} onclick="drawLoan('${o.id}')">DRAW</button>
+        <span style="font-size:10.7px;color:var(--muted2)">avail $${o.cap}M · min $${o.minDraw}M</span>
+        <button class="action-btn ${o.first?'success':'gold'}" style="width:auto;padding:5px 16px;font-size:11.3px;margin:0" ${can?'':'disabled'} onclick="drawLoan('${o.id}')">DRAW</button>
       </div>
     </div>`;
   };
 
   const trancheRows = STATE.loans.length ? STATE.loans.map(t=>`
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;border-bottom:1px solid var(--border);font-size:10px">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;border-bottom:1px solid var(--border);font-size:11.3px">
       <span style="color:var(--muted)">${t.icon||'•'} ${t.name}</span>
       <span style="display:flex;gap:12px;align-items:center">
-        <span style="color:var(--muted2);font-size:9.5px">${(t.rate*100).toFixed(2)}%/mo</span>
+        <span style="color:var(--muted2);font-size:10.7px">${(t.rate*100).toFixed(2)}%/mo</span>
         <span style="color:var(--warn);font-family:'DM Mono'">−$${(t.principal*t.rate).toFixed(2)}M/mo</span>
         <span style="color:var(--loss);font-family:'DM Mono';font-weight:700;min-width:54px;text-align:right">$${Math.round(t.principal)}M</span>
       </span>
@@ -13527,53 +13582,53 @@ function buildBank(){
     </div>
     <!-- Debt-to-value health bar -->
     <div style="margin-bottom:14px">
-      <div style="display:flex;justify-content:space-between;font-size:9.5px;color:var(--muted2);margin-bottom:3px">
+      <div style="display:flex;justify-content:space-between;font-size:10.7px;color:var(--muted2);margin-bottom:3px">
         <span>DEBT / COMPANY VALUE</span><span style="color:${ratioCol}">${Math.round(ratio*100)}%</span>
       </div>
       <div style="position:relative;height:6px;border-radius:3px;background:var(--border)">
         <div style="height:6px;border-radius:3px;width:${Math.min(100,Math.round(ratio*100))}%;background:${ratioCol};transition:width .3s"></div>
         <div title="Comfort ceiling 60%" style="position:absolute;top:-2px;left:60%;width:2px;height:10px;background:var(--warn);border-radius:1px"></div>
       </div>
-      <div style="font-size:9px;color:var(--muted2);margin-top:2px">amber line = 60% comfort ceiling · ${cfoCut>0?`CFO cutting interest ${Math.round(cfoCut*100)}%`:'hire a CFO to cut interest'}</div>
+      <div style="font-size:10.2px;color:var(--muted2);margin-top:2px">amber line = 60% comfort ceiling · ${cfoCut>0?`CFO cutting interest ${Math.round(cfoCut*100)}%`:'hire a CFO to cut interest'}</div>
     </div>
     <!-- Amount control -->
     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:10px 12px;margin-bottom:12px">
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-        <span style="font-size:10px;font-weight:700;color:var(--accent2);letter-spacing:1.2px">AMOUNT</span>
-        <span style="font-size:16px;font-family:'DM Mono';color:var(--text)">$<span id="loan-v">${sliderVal}</span>M</span>
+        <span style="font-size:11.3px;font-weight:700;color:var(--accent2);letter-spacing:1.2px">AMOUNT</span>
+        <span style="font-size:18.1px;font-family:'DM Mono';color:var(--text)">$<span id="loan-v">${sliderVal}</span>M</span>
       </div>
       <input type="range" id="loan-amt" min="10" max="${sliderMax}" step="10" value="${sliderVal}" style="width:100%" oninput="document.getElementById('loan-v').textContent=this.value">
       <div style="display:flex;gap:6px;margin-top:7px">
-        ${[100,250,500].map(q=>`<button class="action-btn" style="padding:4px 0;font-size:10px;margin:0;flex:1" onclick="var s=document.getElementById('loan-amt');s.value=Math.min(${q},${sliderMax});document.getElementById('loan-v').textContent=s.value">$${q}M</button>`).join('')}
-        <button class="action-btn" style="padding:4px 0;font-size:10px;margin:0;flex:1" onclick="var s=document.getElementById('loan-amt');s.value=${sliderMax};document.getElementById('loan-v').textContent=s.value">MAX</button>
+        ${[100,250,500].map(q=>`<button class="action-btn" style="padding:4px 0;font-size:11.3px;margin:0;flex:1" onclick="var s=document.getElementById('loan-amt');s.value=Math.min(${q},${sliderMax});document.getElementById('loan-v').textContent=s.value">$${q}M</button>`).join('')}
+        <button class="action-btn" style="padding:4px 0;font-size:11.3px;margin:0;flex:1" onclick="var s=document.getElementById('loan-amt');s.value=${sliderMax};document.getElementById('loan-v').textContent=s.value">MAX</button>
       </div>
     </div>
     <!-- Available facilities -->
-    <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin-bottom:7px">AVAILABLE FACILITIES</div>
-    ${head>0 ? offers.map(offerCard).join('') : `<div style="font-size:10px;color:var(--muted2);padding:8px 0 12px">Credit limit reached — repay debt to free up borrowing capacity.</div>`}
+    <div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin-bottom:7px">AVAILABLE FACILITIES</div>
+    ${head>0 ? offers.map(offerCard).join('') : `<div style="font-size:11.3px;color:var(--muted2);padding:8px 0 12px">Credit limit reached — repay debt to free up borrowing capacity.</div>`}
     <!-- Your loans -->
     ${STATE.loans.length ? `
-      <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin:14px 0 7px;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin:14px 0 7px;display:flex;justify-content:space-between;align-items:center">
         <span>YOUR LOANS</span>
-        ${STATE.loans.length>=2 ? `<button class="action-btn" style="padding:4px 12px;font-size:10px;margin:0;width:auto" onclick="consolidateLoans()">🧾 Consolidate → ${(blendedMonthlyRate()*0.9*100).toFixed(2)}%/mo</button>` : ''}
+        ${STATE.loans.length>=2 ? `<button class="action-btn" style="padding:4px 12px;font-size:11.3px;margin:0;width:auto" onclick="consolidateLoans()">🧾 Consolidate → ${(blendedMonthlyRate()*0.9*100).toFixed(2)}%/mo</button>` : ''}
       </div>
       <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;overflow:hidden;margin-bottom:12px">
         ${trancheRows}
-        <div style="display:flex;justify-content:space-between;padding:6px 10px;background:rgba(255,93,114,0.06);font-size:10px;font-weight:700">
+        <div style="display:flex;justify-content:space-between;padding:6px 10px;background:rgba(255,93,114,0.06);font-size:11.3px;font-weight:700">
           <span style="color:var(--muted)">Total</span>
           <span style="color:var(--loss);font-family:'DM Mono'">$${Math.round(tot)}M · −$${grossInt.toFixed(2)}M/mo</span>
         </div>
       </div>
-      ${STATE.loans.length>=2 ? `<div style="font-size:9px;color:var(--muted2);margin:-6px 0 12px">Consolidating merges every loan into one and shaves 10% off your blended rate (1% fee).</div>` : ''}
+      ${STATE.loans.length>=2 ? `<div style="font-size:10.2px;color:var(--muted2);margin:-6px 0 12px">Consolidating merges every loan into one and shaves 10% off your blended rate (1% fee).</div>` : ''}
       <!-- Repay -->
-      <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin-bottom:7px">REPAY (clears priciest debt first)</div>
+      <div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin-bottom:7px">REPAY (clears priciest debt first)</div>
       <div style="display:flex;gap:6px;margin-bottom:7px">
-        <button class="action-btn danger" style="flex:1;padding:6px 0;font-size:10px;margin:0" onclick="repayLoan('q25')">Pay 25%<br><span style="font-size:9px;color:var(--muted2)">$${Math.round(tot*0.25)}M</span></button>
-        <button class="action-btn danger" style="flex:1;padding:6px 0;font-size:10px;margin:0" onclick="repayLoan('q50')">Pay 50%<br><span style="font-size:9px;color:var(--muted2)">$${Math.round(tot*0.5)}M</span></button>
-        <button class="action-btn danger" style="flex:1;padding:6px 0;font-size:10px;margin:0" onclick="repayLoan('full')">Pay Off<br><span style="font-size:9px;color:var(--muted2)">$${Math.round(tot)}M</span></button>
+        <button class="action-btn danger" style="flex:1;padding:6px 0;font-size:11.3px;margin:0" onclick="repayLoan('q25')">Pay 25%<br><span style="font-size:10.2px;color:var(--muted2)">$${Math.round(tot*0.25)}M</span></button>
+        <button class="action-btn danger" style="flex:1;padding:6px 0;font-size:11.3px;margin:0" onclick="repayLoan('q50')">Pay 50%<br><span style="font-size:10.2px;color:var(--muted2)">$${Math.round(tot*0.5)}M</span></button>
+        <button class="action-btn danger" style="flex:1;padding:6px 0;font-size:11.3px;margin:0" onclick="repayLoan('full')">Pay Off<br><span style="font-size:10.2px;color:var(--muted2)">$${Math.round(tot)}M</span></button>
       </div>
-      <button class="action-btn" style="width:100%;padding:7px;font-size:10px" onclick="repayLoan('custom')">Repay slider amount ($<span>${sliderVal}</span>M)</button>
-    ` : `<div style="font-size:10px;color:var(--muted2);text-align:center;padding:10px 0">You're debt-free. 🎉 Draw a facility above when you need capital.</div>`}
+      <button class="action-btn" style="width:100%;padding:7px;font-size:11.3px" onclick="repayLoan('custom')">Repay slider amount ($<span>${sliderVal}</span>M)</button>
+    ` : `<div style="font-size:11.3px;color:var(--muted2);text-align:center;padding:10px 0">You're debt-free. 🎉 Draw a facility above when you need capital.</div>`}
   </div>`;
 }
 // ══════════════════════════════════════════════════════════════════════════
@@ -13763,21 +13818,21 @@ function charterCard(ch){
   return `<div style="border:1px solid var(--border);border-radius:9px;padding:10px 12px;margin-bottom:8px;background:var(--bg2)">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
       <div style="min-width:0">
-        <div style="font-size:12px;font-weight:700;color:var(--text)">${ch.icon} ${ch.name}</div>
-        <div style="font-size:9.5px;color:var(--muted2);margin-top:1px">${ch.region} · hub ${ch.hub} · ${ch.routes.length} routes · ${frames} aircraft</div>
+        <div style="font-size:13.6px;font-weight:700;color:var(--text)">${ch.icon} ${ch.name}</div>
+        <div style="font-size:10.7px;color:var(--muted2);margin-top:1px">${ch.region} · hub ${ch.hub} · ${ch.routes.length} routes · ${frames} aircraft</div>
       </div>
       <div style="text-align:right;flex-shrink:0">
-        <div style="font-size:9px;color:var(--muted2)">ASKING</div>
-        <div style="font-size:15px;font-weight:700;color:var(--accent2);font-family:'DM Mono'">$${ch.askPrice}M</div>
+        <div style="font-size:10.2px;color:var(--muted2)">ASKING</div>
+        <div style="font-size:16.9px;font-weight:700;color:var(--accent2);font-family:'DM Mono'">$${ch.askPrice}M</div>
       </div>
     </div>
-    <div style="display:flex;gap:10px;margin-top:7px;font-size:10px;align-items:center;flex-wrap:wrap">
+    <div style="display:flex;gap:10px;margin-top:7px;font-size:11.3px;align-items:center;flex-wrap:wrap">
       <span style="color:var(--muted2)">Profit <span style="color:${pc};font-family:'DM Mono'">${ch.monthlyProfit>=0?'+':''}$${ch.monthlyProfit.toFixed(2)}M/mo</span></span>
       <span style="color:var(--muted2)">Growth <span style="color:${growthColor(ch.growth)}">${growthLabel(ch.growth)}</span></span>
       <span style="color:var(--muted2)">${yrs}</span>
     </div>
     <div style="display:flex;justify-content:flex-end;margin-top:8px">
-      <button class="action-btn gold" style="width:auto;margin:0;padding:5px 18px;font-size:10px" onclick="selectCharter('${ch.id}')">NEGOTIATE →</button>
+      <button class="action-btn gold" style="width:auto;margin:0;padding:5px 18px;font-size:11.3px" onclick="selectCharter('${ch.id}')">NEGOTIATE →</button>
     </div>
   </div>`;
 }
@@ -13787,7 +13842,7 @@ function buildCharterDetail(ch){
   const def = Math.min(sliderMax, Math.max(sliderMin, ch.fairValue));
   const routeRows = ch.routes.map(rt=>{
     const dist=Math.round(getDistance(rt.from,rt.to));
-    return `<div style="display:flex;justify-content:space-between;padding:4px 10px;border-bottom:1px solid var(--border);font-size:9.5px">
+    return `<div style="display:flex;justify-content:space-between;padding:4px 10px;border-bottom:1px solid var(--border);font-size:10.7px">
       <span style="color:var(--muted)">${rt.from} → ${rt.to}</span>
       <span style="color:var(--muted2)">${rt.plane} · ${rt.flights}f/wk · $${rt.fare} · ${dist}mi</span></div>`;
   }).join('');
@@ -13795,8 +13850,8 @@ function buildCharterDetail(ch){
   const canAfford = STATE.cash >= ch.askPrice;
   return `
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-      <span style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.2px">🛩 NEGOTIATING · ${ch.icon} ${ch.name.toUpperCase()}</span>
-      <button class="action-btn" style="width:auto;margin:0;padding:3px 10px;font-size:10px" onclick="closeCharter()">← BACK</button>
+      <span style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.2px">🛩 NEGOTIATING · ${ch.icon} ${ch.name.toUpperCase()}</span>
+      <button class="action-btn" style="width:auto;margin:0;padding:3px 10px;font-size:11.3px" onclick="closeCharter()">← BACK</button>
     </div>
     <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px">
       ${acqStatBox('Asking','$'+ch.askPrice+'M','var(--accent2)')}
@@ -13804,23 +13859,23 @@ function buildCharterDetail(ch){
       ${acqStatBox('Profit/yr',(ch.annualProfit>=0?'+':'')+'$'+ch.annualProfit.toFixed(1)+'M', ch.annualProfit>=0?'var(--profit)':'var(--loss)')}
       ${acqStatBox('Growth',growthLabel(ch.growth),growthColor(ch.growth))}
     </div>
-    <div style="font-size:9.5px;color:var(--muted2);margin-bottom:4px">NETWORK — transfers to you on close</div>
+    <div style="font-size:10.7px;color:var(--muted2);margin-bottom:4px">NETWORK — transfers to you on close</div>
     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;overflow:hidden;margin-bottom:6px">${routeRows}</div>
-    <div style="font-size:10px;color:var(--muted2);margin-bottom:12px">Fleet included: ${fleetRows} · you also gain a hub at <b style="color:var(--text)">${ch.hub}</b></div>
-    ${ch.negotiation&&ch.negotiation.message?`<div style="background:rgba(63,214,192,0.08);border:1px solid rgba(63,214,192,0.3);border-radius:8px;padding:8px 11px;margin-bottom:12px;font-size:10px;color:var(--muted)">${ch.negotiation.message}</div>`:''}
+    <div style="font-size:11.3px;color:var(--muted2);margin-bottom:12px">Fleet included: ${fleetRows} · you also gain a hub at <b style="color:var(--text)">${ch.hub}</b></div>
+    ${ch.negotiation&&ch.negotiation.message?`<div style="background:rgba(167,137,255,0.08);border:1px solid rgba(167,137,255,0.3);border-radius:8px;padding:8px 11px;margin-bottom:12px;font-size:11.3px;color:var(--muted)">${ch.negotiation.message}</div>`:''}
     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:10px 12px;margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-        <span style="font-size:10px;font-weight:700;color:var(--accent2);letter-spacing:1.2px">YOUR OFFER</span>
-        <span style="font-size:16px;font-family:'DM Mono'">$<span id="acq-v">${def}</span>M</span>
+        <span style="font-size:11.3px;font-weight:700;color:var(--accent2);letter-spacing:1.2px">YOUR OFFER</span>
+        <span style="font-size:18.1px;font-family:'DM Mono'">$<span id="acq-v">${def}</span>M</span>
       </div>
       <input type="range" id="acq-amt" min="${sliderMin}" max="${sliderMax}" step="1" value="${def}" style="width:100%" oninput="document.getElementById('acq-v').textContent=this.value">
-      <div style="font-size:9px;color:var(--muted2);margin-top:4px">Offer at or above their (hidden) floor to close instantly. Lowballs risk them walking away.</div>
+      <div style="font-size:10.2px;color:var(--muted2);margin-top:4px">Offer at or above their (hidden) floor to close instantly. Lowballs risk them walking away.</div>
     </div>
     <div style="display:flex;gap:8px">
-      <button class="action-btn gold" style="flex:1;margin:0;padding:8px;font-size:11px" onclick="makeOffer('${ch.id}')">MAKE OFFER</button>
-      <button class="action-btn success" style="flex:1;margin:0;padding:8px;font-size:11px" ${canAfford?'':'disabled'} onclick="tapConfirm(this,()=>{acceptAsk('${ch.id}')},'Tap to confirm')">PAY ASK · $${ch.askPrice}M</button>
+      <button class="action-btn gold" style="flex:1;margin:0;padding:8px;font-size:12.4px" onclick="makeOffer('${ch.id}')">MAKE OFFER</button>
+      <button class="action-btn success" style="flex:1;margin:0;padding:8px;font-size:12.4px" ${canAfford?'':'disabled'} onclick="tapConfirm(this,()=>{acceptAsk('${ch.id}')},'Tap to confirm')">PAY ASK · $${ch.askPrice}M</button>
     </div>
-    ${!canAfford?`<div style="font-size:9.5px;color:var(--loss);text-align:center;margin-top:6px">Short on cash for the asking price — make a lower offer or raise a loan first.</div>`:''}`;
+    ${!canAfford?`<div style="font-size:10.7px;color:var(--loss);text-align:center;margin-top:6px">Short on cash for the asking price — make a lower offer or raise a loan first.</div>`:''}`;
 }
 
 
@@ -13862,14 +13917,14 @@ function buildShares(){
   let stakeLabel, stakeCol, stakeBg;
   if (ownPctExact>=75){ stakeLabel='FULL CONTROL'; stakeCol='var(--profit)'; stakeBg='rgba(95,224,160,0.15)'; }
   else if (ownPctExact>=51){ stakeLabel='MAJORITY CONTROL'; stakeCol='var(--profit)'; stakeBg='rgba(95,224,160,0.15)'; }
-  else if (ownPctExact>=25){ stakeLabel='BLOCKING STAKE'; stakeCol='var(--accent)'; stakeBg='rgba(63,214,192,0.15)'; }
+  else if (ownPctExact>=25){ stakeLabel='BLOCKING STAKE'; stakeCol='var(--accent)'; stakeBg='rgba(167,137,255,0.15)'; }
   else { stakeLabel='MINORITY HOLDER'; stakeCol='var(--accent2)'; stakeBg='rgba(255,207,90,0.15)'; }
 
   const trendChip = (tr, goodIsUp) => {
-    if (tr.dir==='flat') return `<div style="font-size:9.5px;color:var(--muted);margin-top:2px">— stable</div>`;
+    if (tr.dir==='flat') return `<div style="font-size:10.7px;color:var(--muted);margin-top:2px">— stable</div>`;
     const up = tr.dir==='up';
     const col = (up===goodIsUp) ? 'var(--profit)' : 'var(--loss)';
-    return `<div style="font-size:9.5px;color:${col};margin-top:2px">${up?'▲':'▼'} ${tr.pct>=0?'+':''}${tr.pct.toFixed(1)}%</div>`;
+    return `<div style="font-size:10.7px;color:${col};margin-top:2px">${up?'▲':'▼'} ${tr.pct>=0?'+':''}${tr.pct.toFixed(1)}%</div>`;
   };
 
   const statCard = (label, value, color, extra) => `
@@ -13880,67 +13935,67 @@ function buildShares(){
     </div>`;
 
   const companyHtml = `
-    <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin-bottom:7px">YOUR COMPANY</div>
+    <div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin-bottom:7px">YOUR COMPANY</div>
     <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px">
       ${statCard('Ownership', ownPct+'%', ownPctExact>=51?'var(--profit)':ownPctExact>=25?'var(--accent)':'var(--warn)',
-        `<div style="font-size:9.5px;color:${stakeCol};margin-top:2px">${stakeLabel.toLowerCase()}</div>`)}
+        `<div style="font-size:10.7px;color:${stakeCol};margin-top:2px">${stakeLabel.toLowerCase()}</div>`)}
       ${statCard('Share Price', '$'+s.price, 'var(--profit)', _ownSparkline(hist,'price','var(--profit)'))}
       ${statCard('Company Value', '$'+cv+'M', 'var(--purple)', trendChip(cvTrend,true))}
       ${statCard('Holdings', '$'+holdingsM.toFixed(1)+'M', 'var(--text)',
-        `<div style="font-size:9.5px;color:var(--muted);margin-top:2px">${(s.owned/1000).toFixed(0)}k shares</div>`)}
+        `<div style="font-size:10.7px;color:var(--muted);margin-top:2px">${(s.owned/1000).toFixed(0)}k shares</div>`)}
     </div>
 
     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:10px 12px;margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <span style="font-size:10px;color:var(--muted2)">Ownership stake</span>
-        <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:${stakeBg};color:${stakeCol}">${stakeLabel}</span>
+        <span style="font-size:11.3px;color:var(--muted2)">Ownership stake</span>
+        <span style="font-size:11.3px;font-weight:700;padding:2px 8px;border-radius:4px;background:${stakeBg};color:${stakeCol}">${stakeLabel}</span>
       </div>
       <div style="height:20px;border-radius:5px;overflow:hidden;display:flex;margin-bottom:6px">
-        <div id="stakeSegYou" style="height:100%;width:${Math.max(3,ownPctExact)}%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:700;color:#04342c">${ownPctExact>=8?ownPct+'%':''}</div>
-        <div id="stakeSegPub" style="height:100%;width:${100-ownPctExact}%;background:var(--surface3);display:flex;align-items:center;justify-content:center;font-size:9.5px;color:var(--muted)">Public float ${100-ownPct}%</div>
+        <div id="stakeSegYou" style="height:100%;width:${Math.max(3,ownPctExact)}%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:10.7px;font-weight:700;color:#04342c">${ownPctExact>=8?ownPct+'%':''}</div>
+        <div id="stakeSegPub" style="height:100%;width:${100-ownPctExact}%;background:var(--surface3);display:flex;align-items:center;justify-content:center;font-size:10.7px;color:var(--muted)">Public float ${100-ownPct}%</div>
       </div>
       <div style="display:flex;gap:6px;margin-top:8px">
         ${[['25%','Blocking',25],['51%','Majority',51],['75%','Full control',75]].map(([p,l,thr])=>`
           <div style="flex:1;background:var(--surface2);border:1px solid ${ownPctExact>=thr?'var(--accent)':'var(--border)'};border-radius:5px;padding:4px 6px;text-align:center">
-            <div style="font-size:10px;font-weight:700;color:${ownPctExact>=thr?'var(--accent)':'var(--muted2)'}">${p}</div>
-            <div style="font-size:9px;color:var(--muted);margin-top:1px">${l}</div>
+            <div style="font-size:11.3px;font-weight:700;color:${ownPctExact>=thr?'var(--accent)':'var(--muted2)'}">${p}</div>
+            <div style="font-size:10.2px;color:var(--muted);margin-top:1px">${l}</div>
           </div>`).join('')}
       </div>
     </div>
 
     ${ownPctExact<15 ? `<div style="background:rgba(255,93,114,0.08);border:1px solid rgba(255,93,114,0.4);border-radius:8px;padding:9px 12px;margin-bottom:10px;display:flex;gap:9px;align-items:flex-start">
-      <span style="font-size:14px;flex-shrink:0">⚠️</span>
-      <div style="font-size:10px;color:var(--loss);line-height:1.5">Takeover risk — your stake is below 15%. A rival or activist investor could move to seize control. Buy shares to defend your position.</div>
+      <span style="font-size:15.8px;flex-shrink:0">⚠️</span>
+      <div style="font-size:11.3px;color:var(--loss);line-height:1.5">Takeover risk — your stake is below 15%. A rival or activist investor could move to seize control. Buy shares to defend your position.</div>
     </div>` : ''}
 
     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:11px 13px;margin-bottom:14px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px">
         <div style="display:flex;gap:4px">
-          <button id="sh-mode-buy" class="action-btn success" style="margin:0;padding:4px 14px;font-size:10px" onclick="setShareMode('buy')">Buy</button>
-          <button id="sh-mode-sell" class="action-btn" style="margin:0;padding:4px 14px;font-size:10px;border-color:var(--border);color:var(--muted)" onclick="setShareMode('sell')">Sell</button>
+          <button id="sh-mode-buy" class="action-btn success" style="margin:0;padding:4px 14px;font-size:11.3px" onclick="setShareMode('buy')">Buy</button>
+          <button id="sh-mode-sell" class="action-btn" style="margin:0;padding:4px 14px;font-size:11.3px;border-color:var(--border);color:var(--muted)" onclick="setShareMode('sell')">Sell</button>
         </div>
-        <span style="font-size:11px;font-family:'DM Mono'"><span id="sh-v">50</span>k shares</span>
+        <span style="font-size:12.4px;font-family:'DM Mono'"><span id="sh-v">50</span>k shares</span>
       </div>
-      ${ownPct>=100 ? `<div style="font-size:10px;color:var(--muted2);margin-bottom:8px">You own 100% — sell shares to raise cash, or grow via acquisitions below.</div>` : ''}
+      ${ownPct>=100 ? `<div style="font-size:11.3px;color:var(--muted2);margin-bottom:8px">You own 100% — sell shares to raise cash, or grow via acquisitions below.</div>` : ''}
       <input type="range" id="sh-amt" min="10" max="200" step="10" value="50" style="width:100%" oninput="updateShareTrade()">
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin:10px 0">
         <div style="background:var(--surface2);border-radius:6px;padding:7px 9px">
-          <div style="font-size:9px;color:var(--muted2);letter-spacing:0.3px" id="sh-cost-lbl">COST</div>
-          <div style="font-size:13px;font-weight:700;font-family:'DM Mono'" id="sh-cost-val">$37M</div>
-          <div style="font-size:9px;color:var(--muted);margin-top:1px">@ $${s.price}/share</div>
+          <div style="font-size:10.2px;color:var(--muted2);letter-spacing:0.3px" id="sh-cost-lbl">COST</div>
+          <div style="font-size:14.7px;font-weight:700;font-family:'DM Mono'" id="sh-cost-val">$37M</div>
+          <div style="font-size:10.2px;color:var(--muted);margin-top:1px">@ $${s.price}/share</div>
         </div>
         <div style="background:var(--surface2);border-radius:6px;padding:7px 9px">
-          <div style="font-size:9px;color:var(--muted2);letter-spacing:0.3px">NEW STAKE</div>
-          <div style="font-size:13px;font-weight:700;font-family:'DM Mono'" id="sh-newown">13.0%</div>
-          <div style="font-size:9px;margin-top:1px" id="sh-owndelta">+0.0%</div>
+          <div style="font-size:10.2px;color:var(--muted2);letter-spacing:0.3px">NEW STAKE</div>
+          <div style="font-size:14.7px;font-weight:700;font-family:'DM Mono'" id="sh-newown">13.0%</div>
+          <div style="font-size:10.2px;margin-top:1px" id="sh-owndelta">+0.0%</div>
         </div>
         <div style="background:var(--surface2);border-radius:6px;padding:7px 9px">
-          <div style="font-size:9px;color:var(--muted2);letter-spacing:0.3px">CASH AFTER</div>
-          <div style="font-size:13px;font-weight:700;font-family:'DM Mono'" id="sh-cashafter">$0M</div>
-          <div style="font-size:9px;color:var(--muted);margin-top:1px">from $${STATE.cash.toFixed(0)}M</div>
+          <div style="font-size:10.2px;color:var(--muted2);letter-spacing:0.3px">CASH AFTER</div>
+          <div style="font-size:14.7px;font-weight:700;font-family:'DM Mono'" id="sh-cashafter">$0M</div>
+          <div style="font-size:10.2px;color:var(--muted);margin-top:1px">from $${STATE.cash.toFixed(0)}M</div>
         </div>
       </div>
-      <button id="sh-exec" class="action-btn success" style="width:100%;margin:0;padding:9px;font-size:11px" onclick="execShareTrade()">BUY 50K SHARES — $37M</button>
+      <button id="sh-exec" class="action-btn success" style="width:100%;margin:0;padding:9px;font-size:12.4px" onclick="execShareTrade()">BUY 50K SHARES — $37M</button>
     </div>`;
 
   let acqHtml;
@@ -13949,15 +14004,15 @@ function buildShares(){
   } else {
     const list = STATE.charters.length ? STATE.charters.map(charterCard).join('') :
       `<div style="background:var(--bg2);border:1px dashed var(--border);border-radius:9px;padding:14px;text-align:center">
-         <div style="font-size:18px;color:var(--muted2);margin-bottom:5px">🛩</div>
-         <div style="font-size:11px;color:var(--muted);margin-bottom:4px">No carriers on the market right now</div>
-         <div style="font-size:10px;color:var(--muted2);line-height:1.6;margin-bottom:10px">Small carriers come up for sale over time. Buy one to instantly absorb its routes, fleet and hub.</div>
+         <div style="font-size:20.3px;color:var(--muted2);margin-bottom:5px">🛩</div>
+         <div style="font-size:12.4px;color:var(--muted);margin-bottom:4px">No carriers on the market right now</div>
+         <div style="font-size:11.3px;color:var(--muted2);line-height:1.6;margin-bottom:10px">Small carriers come up for sale over time. Buy one to instantly absorb its routes, fleet and hub.</div>
          <div style="display:flex;align-items:center;gap:9px">
            <div style="flex:1;height:3px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden"><div style="height:3px;width:${_charterProgress()}%;background:var(--accent);border-radius:2px"></div></div>
-           <div style="font-size:10px;color:var(--muted2);min-width:96px;text-align:right">${_charterEta()}</div>
+           <div style="font-size:11.3px;color:var(--muted2);min-width:96px;text-align:right">${_charterEta()}</div>
          </div>
        </div>`;
-    acqHtml = `<div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin-bottom:7px;display:flex;justify-content:space-between">
+    acqHtml = `<div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.5px;margin-bottom:7px;display:flex;justify-content:space-between">
         <span>🛩 CHARTER ACQUISITIONS</span>${STATE.charters.length?`<span style="color:var(--accent2)">${STATE.charters.length} on market</span>`:''}
       </div>${list}`;
   }
@@ -13972,11 +14027,11 @@ function setShareMode(m){
   const buyBtn=document.getElementById('sh-mode-buy'), sellBtn=document.getElementById('sh-mode-sell');
   if(buyBtn&&sellBtn){
     if(m==='buy'){
-      buyBtn.className='action-btn success'; buyBtn.style.cssText='margin:0;padding:4px 14px;font-size:10px';
-      sellBtn.className='action-btn'; sellBtn.style.cssText='margin:0;padding:4px 14px;font-size:10px;border-color:var(--border);color:var(--muted)';
+      buyBtn.className='action-btn success'; buyBtn.style.cssText='margin:0;padding:4px 14px;font-size:11.3px';
+      sellBtn.className='action-btn'; sellBtn.style.cssText='margin:0;padding:4px 14px;font-size:11.3px;border-color:var(--border);color:var(--muted)';
     } else {
-      sellBtn.className='action-btn danger'; sellBtn.style.cssText='margin:0;padding:4px 14px;font-size:10px';
-      buyBtn.className='action-btn'; buyBtn.style.cssText='margin:0;padding:4px 14px;font-size:10px;border-color:var(--border);color:var(--muted)';
+      sellBtn.className='action-btn danger'; sellBtn.style.cssText='margin:0;padding:4px 14px;font-size:11.3px';
+      buyBtn.className='action-btn'; buyBtn.style.cssText='margin:0;padding:4px 14px;font-size:11.3px;border-color:var(--border);color:var(--muted)';
     }
   }
   updateShareTrade();
@@ -14015,7 +14070,7 @@ function updateShareTrade(){
   if(exec){
     exec.textContent=(_shareMode==='buy'?'BUY ':'SELL ')+(amt/1000)+'K SHARES — $'+proceeds.toFixed(1)+'M';
     exec.className='action-btn '+(_shareMode==='buy'?'success':'danger');
-    exec.style.cssText='width:100%;margin:0;padding:9px;font-size:11px';
+    exec.style.cssText='width:100%;margin:0;padding:9px;font-size:12.4px';
   }
 }
 function execShareTrade(){
@@ -14099,7 +14154,7 @@ function buildCampaign(){
   const camps=activeCampaignsList();
   const hasAgency=hasVenture('Travel Agency');
   const tabs=Object.keys(AD_TYPES);
-  const tabHtml=tabs.map(t=>`<button onclick="adSetTab('${t}')" style="flex:1;padding:7px 4px;font-size:9.5px;font-weight:700;border-radius:7px;cursor:pointer;border:1px solid ${_adTab===t?'var(--accent)':'var(--border)'};background:${_adTab===t?'rgba(63,214,192,0.15)':'var(--bg2)'};color:${_adTab===t?'var(--accent)':'var(--muted)'}">${AD_TYPES[t].label}</button>`).join('');
+  const tabHtml=tabs.map(t=>`<button onclick="adSetTab('${t}')" style="flex:1;padding:7px 4px;font-size:10.7px;font-weight:700;border-radius:7px;cursor:pointer;border:1px solid ${_adTab===t?'var(--accent)':'var(--border)'};background:${_adTab===t?'rgba(167,137,255,0.15)':'var(--bg2)'};color:${_adTab===t?'var(--accent)':'var(--muted)'}">${AD_TYPES[t].label}</button>`).join('');
   const a=AD_TYPES[_adTab], cost=adCost(_adTab);
   // build target list per tab
   let targets=[];
@@ -14118,22 +14173,22 @@ function buildCampaign(){
     targets=ventureList().map(v=>{ const key=ventureKey(v.name,v.city); return {label:`${v.icon} ${v.name}`, sub:`in ${v.city} \u00b7 +$${v.income}M/Q`,
       active:camps.some(c=>c.type==='venture'&&c.ventureKey===key), launch:`launchAd('venture',{ventureKey:'${key.replace(/'/g,"\\'")}'},'${(v.name+' \u00b7 '+v.city).replace(/'/g,"\\'")}')`};});
   }
-  const activeHtml = camps.length ? `<div style="font-size:9.5px;letter-spacing:1px;color:var(--muted2);margin-bottom:5px">RUNNING NOW</div>
-    <div style="background:rgba(63,214,192,0.06);border:1px solid rgba(63,214,192,0.25);border-radius:8px;padding:5px 0;margin-bottom:13px">
-    ${camps.map(c=>`<div style="display:flex;justify-content:space-between;padding:4px 11px;font-size:9.5px"><span style="color:var(--accent)">\u2708 ${AD_TYPES[c.type].label}: <b>${c.label}</b></span><span style="color:var(--muted2)">${c.monthsLeft}mo left</span></div>`).join('')}
+  const activeHtml = camps.length ? `<div style="font-size:10.7px;letter-spacing:1px;color:var(--muted2);margin-bottom:5px">RUNNING NOW</div>
+    <div style="background:rgba(167,137,255,0.06);border:1px solid rgba(167,137,255,0.25);border-radius:8px;padding:5px 0;margin-bottom:13px">
+    ${camps.map(c=>`<div style="display:flex;justify-content:space-between;padding:4px 11px;font-size:10.7px"><span style="color:#fff">\u2708 ${AD_TYPES[c.type].label}: <b>${c.label}</b></span><span style="color:var(--muted2)">${c.monthsLeft}mo left</span></div>`).join('')}
     </div>` : '';
   const rows = targets.length ? targets.map(t=>`
     <div style="display:flex;align-items:center;justify-content:space-between;gap:9px;padding:8px 11px;border-bottom:1px solid var(--border)">
-      <div style="min-width:0"><div style="font-size:11px;font-weight:700;color:var(--text)">${t.label}</div><div style="font-size:9.5px;color:var(--muted2)">${t.sub||''}</div></div>
-      ${t.active ? `<span style="font-size:10px;font-weight:700;color:var(--accent)">ACTIVE</span>`
-        : `<button class="action-btn gold" style="width:auto;margin:0;padding:5px 12px;font-size:10px" ${STATE.cash<cost?'disabled':''} onclick="${t.launch}">Launch $${cost}M</button>`}
+      <div style="min-width:0"><div style="font-size:12.4px;font-weight:700;color:var(--text)">${t.label}</div><div style="font-size:10.7px;color:var(--muted2)">${t.sub||''}</div></div>
+      ${t.active ? `<span style="font-size:11.3px;font-weight:700;color:#fff">ACTIVE</span>`
+        : `<button class="action-btn gold" style="width:auto;margin:0;padding:5px 12px;font-size:11.3px" ${STATE.cash<cost?'disabled':''} onclick="${t.launch}">Launch $${cost}M</button>`}
     </div>`).join('')
-    : `<div style="padding:16px;text-align:center;font-size:10px;color:var(--muted2)">${_adTab==='venture'?'No ventures yet \u2014 buy one in Business Ventures.':'Open a route first to advertise here.'}</div>`;
+    : `<div style="padding:16px;text-align:center;font-size:11.3px;color:var(--muted2)">${_adTab==='venture'?'No ventures yet \u2014 buy one in Business Ventures.':'Open a route first to advertise here.'}</div>`;
   return modalHead('\ud83d\udce3 ADVERTISING')+`<div class="modal-body">
-    <div style="font-size:10px;color:var(--muted);margin-bottom:10px">Target your ad spend precisely. ${hasAgency?'<span style="color:var(--profit)">Travel Agency \u2014 20% off!</span>':'<span style="color:var(--muted2)">Own a Travel Agency for 20% off.</span>'}</div>
+    <div style="font-size:11.3px;color:var(--muted);margin-bottom:10px">Target your ad spend precisely. ${hasAgency?'<span style="color:var(--profit)">Travel Agency \u2014 20% off!</span>':'<span style="color:var(--muted2)">Own a Travel Agency for 20% off.</span>'}</div>
     ${activeHtml}
     <div style="display:flex;gap:6px;margin-bottom:8px">${tabHtml}</div>
-    <div style="font-size:10px;color:var(--accent2);margin-bottom:9px">${a.blurb} \u00b7 ${a.months} months \u00b7 base $${a.cost}M</div>
+    <div style="font-size:11.3px;color:var(--accent2);margin-bottom:9px">${a.blurb} \u00b7 ${a.months} months \u00b7 base $${a.cost}M</div>
     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;overflow:hidden;max-height:46vh;overflow-y:auto">${rows}</div>
   </div>`;
 }
@@ -14171,16 +14226,16 @@ function showBoardMeeting(){
     const header = cur ? `
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
         <div>
-          <div style="font-size:12.5px;font-weight:700;color:var(--text)">${e.name}</div>
-          <div style="font-size:9.5px;color:var(--muted2)">${cur.title} · $${salaryEff}M/mo</div>
+          <div style="font-size:14.1px;font-weight:700;color:var(--text)">${e.name}</div>
+          <div style="font-size:10.7px;color:var(--muted2)">${cur.title} · $${salaryEff}M/mo</div>
         </div>
-        <button class="action-btn" style="padding:3px 10px;font-size:10px;background:rgba(244,63,94,0.1);border-color:rgba(244,63,94,0.3);color:var(--loss)" onclick="fireExec('${role}')">Dismiss</button>
+        <button class="action-btn" style="padding:3px 10px;font-size:11.3px;background:rgba(244,63,94,0.1);border-color:rgba(244,63,94,0.3);color:var(--loss)" onclick="fireExec('${role}')">Dismiss</button>
       </div>
-      ${pers.label ? `<div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:5px;padding:3px 8px;font-size:9.5px;color:var(--muted);margin-bottom:7px" title="${pers.blurb}">${pers.icon} <b style="color:var(--text)">${pers.label}</b> <span style="color:var(--muted2)">· ${pers.effectMult>1?'+'+Math.round((pers.effectMult-1)*100)+'% effect':pers.effectMult<1?'-'+Math.round((1-pers.effectMult)*100)+'% effect':'baseline'}</span></div>` : ''}
-      <div style="font-size:10px;color:var(--profit);background:rgba(78,234,170,0.06);border-radius:5px;padding:6px 9px;margin-bottom:9px">✓ ${def.effect(cur)} <span style="color:var(--muted2);font-size:9px">${pers.effectMult!==1?'(×'+pers.effectMult.toFixed(2)+' personality)':''}</span></div>
+      ${pers.label ? `<div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:5px;padding:3px 8px;font-size:10.7px;color:var(--muted);margin-bottom:7px" title="${pers.blurb}">${pers.icon} <b style="color:var(--text)">${pers.label}</b> <span style="color:var(--muted2)">· ${pers.effectMult>1?'+'+Math.round((pers.effectMult-1)*100)+'% effect':pers.effectMult<1?'-'+Math.round((1-pers.effectMult)*100)+'% effect':'baseline'}</span></div>` : ''}
+      <div style="font-size:11.3px;color:var(--profit);background:rgba(78,234,170,0.06);border-radius:5px;padding:6px 9px;margin-bottom:9px">✓ ${def.effect(cur)} <span style="color:var(--muted2);font-size:10.2px">${pers.effectMult!==1?'(×'+pers.effectMult.toFixed(2)+' personality)':''}</span></div>
     ` : `
-      <div style="font-size:11px;color:var(--muted);margin-bottom:9px">${def.blurb}</div>
-      <div style="font-size:9.5px;color:var(--muted2);margin-bottom:9px">Personality assigned on hire — each exec has a unique working style that scales their effect and salary.</div>
+      <div style="font-size:12.4px;color:var(--muted);margin-bottom:9px">${def.blurb}</div>
+      <div style="font-size:10.7px;color:var(--muted2);margin-bottom:9px">Personality assigned on hire — each exec has a unique working style that scales their effect and salary.</div>
     `;
     const tierBtns = def.tiers.map(t => {
       const isCurrent = cur && cur.tier === t.tier;
@@ -14188,26 +14243,26 @@ function showBoardMeeting(){
       const afford = STATE.cash >= t.hire;
       const label = isCurrent ? 'CURRENT' : (cur && t.tier>cur.tier ? 'PROMOTE' : cur ? 'SET' : 'HIRE');
       return `<button class="action-btn"
-        style="flex:1;padding:7px 4px;font-size:10px;line-height:1.3;${isCurrent?'background:rgba(63,214,192,0.18);border-color:var(--accent)':''};${(!afford&&!isCurrent)?'opacity:.45':''}"
+        style="flex:1;padding:7px 4px;font-size:11.3px;line-height:1.3;${isCurrent?'background:rgba(167,137,255,0.18);border-color:var(--accent)':''};${(!afford&&!isCurrent)?'opacity:.45':''}"
         ${(isCurrent||(!afford))?'disabled':''}
         onclick="hireExec('${role}',${t.tier})">
         <div style="font-weight:700">${t.title.split(' ')[0]}</div>
-        <div style="color:var(--accent2);font-size:9.5px">${def.effect(t)}</div>
-        <div style="color:var(--muted2);font-size:9px;margin-top:2px">$${t.hire}M sign · $${t.salary}M/mo</div>
-        <div style="font-size:9px;margin-top:1px">${label}</div>
+        <div style="color:var(--accent2);font-size:10.7px">${def.effect(t)}</div>
+        <div style="color:var(--muted2);font-size:10.2px;margin-top:2px">$${t.hire}M sign · $${t.salary}M/mo</div>
+        <div style="font-size:10.2px;margin-top:1px">${label}</div>
       </button>`;
     }).join('');
     return `<div style="background:rgba(0,0,0,0.22);border:1px solid var(--border);border-radius:9px;padding:13px 15px;margin-bottom:11px">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:9px">
-        <span class="qb-role-badge ${def.cls}" style="font-size:10px">${def.icon} ${def.short}</span>
-        <span style="font-size:11px;color:var(--muted2)">${def.name}</span>
+        <span class="qb-role-badge ${def.cls}" style="font-size:11.3px">${def.icon} ${def.short}</span>
+        <span style="font-size:12.4px;color:var(--muted2)">${def.name}</span>
       </div>
       ${header}
       <div style="display:flex;gap:6px">${tierBtns}</div>
     </div>`;
   };
   document.getElementById('modal-content').innerHTML = modalHead('🏛 BOARD OF DIRECTORS') + `<div class="modal-body">
-    <div style="display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted);margin-bottom:12px">
+    <div style="display:flex;justify-content:space-between;align-items:center;font-size:11.3px;color:var(--muted);margin-bottom:12px">
       <span>Hire executives for permanent, passive advantages. They have your back every single month.</span>
     </div>
     <div style="display:flex;gap:8px;margin-bottom:14px">
@@ -14341,12 +14396,12 @@ function openAllianceModal() {
   document.getElementById('modal-overlay').classList.add('open');
   document.getElementById('modal-content').innerHTML = modalHead('✈ AIRLINE ALLIANCES') +
     `<div class="modal-body">
-      <div style="font-size:10px;color:var(--muted);margin-bottom:12px;line-height:1.6">
+      <div style="font-size:11.3px;color:var(--muted);margin-bottom:12px;line-height:1.6">
         Form a codeshare alliance with a rival. They stop competing on your routes and share demand,
-        giving you <b style="color:var(--accent)">+15% load factor</b> on overlapping routes.
+        giving you <b style="color:#fff">+15% load factor</b> on overlapping routes.
         Alliance lasts <b>12 months</b>.
       </div>
-      ${!eligible.length ? '<div style="color:var(--muted);font-size:11px">No rivals available for alliance.</div>' :
+      ${!eligible.length ? '<div style="color:var(--muted);font-size:12.4px">No rivals available for alliance.</div>' :
         eligible.map((c,i) => {
           const fee = Math.round(c.pax * 0.0003 + 20);
           const initials = c.name.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
@@ -14355,10 +14410,10 @@ function openAllianceModal() {
           ).length;
           return `<div class="fleet-item" style="margin-bottom:8px">
             <div style="display:flex;align-items:center;gap:10px">
-              <div style="width:28px;height:28px;border-radius:50%;background:${c.color};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0">${initials}</div>
+              <div style="width:28px;height:28px;border-radius:50%;background:${c.color};display:flex;align-items:center;justify-content:center;font-size:12.4px;font-weight:700;color:#fff;flex-shrink:0">${initials}</div>
               <div>
                 <div style="color:${c.color};font-weight:700">${c.name}</div>
-                <div style="font-size:10px;color:var(--muted)">${c.routes} routes · ${c.regionsEntered.length} regions · ${sharedRoutes} shared with you</div>
+                <div style="font-size:11.3px;color:var(--muted)">${c.routes} routes · ${c.regionsEntered.length} regions · ${sharedRoutes} shared with you</div>
               </div>
             </div>
             <button class="action-btn" style="padding:6px 12px;white-space:nowrap" onclick="formAlliance(${STATE.competitors.indexOf(c)},${fee})">
@@ -14440,28 +14495,28 @@ function openCargoModal() {
     .map(([n,p]) => `<option value="${n}">${n} (${p.seats}s capacity)</option>`).join('');
   document.getElementById('modal-content').innerHTML = modalHead('📦 CARGO ROUTES') +
     `<div class="modal-body">
-      <div style="font-size:10px;color:var(--muted);margin-bottom:12px;line-height:1.6">
+      <div style="font-size:11.3px;color:var(--muted);margin-bottom:12px;line-height:1.6">
         Cargo routes run on economic corridors — high-econ city pairs. Revenue scales with city GDP,
         not tourism. Use your spare aircraft capacity.
       </div>
       ${myCargoRoutes.length ? `
-        <div style="font-size:10px;letter-spacing:1px;color:var(--muted);margin-bottom:8px">ACTIVE CARGO ROUTES</div>
+        <div style="font-size:11.3px;letter-spacing:1px;color:var(--muted);margin-bottom:8px">ACTIVE CARGO ROUTES</div>
         ${myCargoRoutes.map((cr,idx) => {
           const cf = CITIES[cr.from], ct = CITIES[cr.to];
           const monthlyRev = cf && ct ? Math.round((cf.econ+ct.econ)*cr.flights*0.8) / 10 : 0;
           return `<div class="fleet-item" style="margin-bottom:6px">
             <div>
               <div style="font-weight:600;color:var(--accent2)">📦 ${cr.from} → ${cr.to}</div>
-              <div style="font-size:10px;color:var(--muted)">${cr.plane} · ${cr.flights}f/wk · $${monthlyRev.toFixed(1)}M/mo</div>
+              <div style="font-size:11.3px;color:var(--muted)">${cr.plane} · ${cr.flights}f/wk · $${monthlyRev.toFixed(1)}M/mo</div>
             </div>
             <button class="action-btn danger" style="padding:5px 10px" onclick="closeCargoRoute(${idx})">CLOSE</button>
           </div>`;
         }).join('')}
         <hr style="border-color:var(--border);margin:12px 0">` : ''}
-      <div style="font-size:10px;letter-spacing:1px;color:var(--muted);margin-bottom:8px">OPEN NEW CARGO ROUTE</div>
+      <div style="font-size:11.3px;letter-spacing:1px;color:var(--muted);margin-bottom:8px">OPEN NEW CARGO ROUTE</div>
       ${!freighters ? `<div style="background:rgba(255,200,0,0.07);border:1px solid var(--warn);border-radius:6px;padding:10px 12px;text-align:center">
-        <div style="color:var(--warn);font-size:10.5px;margin-bottom:8px">⚠ No free aircraft — buy or free up a plane first.</div>
-        <button class="action-btn" style="width:100%;border-color:var(--accent);color:var(--accent)" onclick="closeModal();openModal('buy-planes')">✈ Buy Aircraft</button>
+        <div style="color:var(--warn);font-size:11.9px;margin-bottom:8px">⚠ No free aircraft — buy or free up a plane first.</div>
+        <button class="action-btn" style="width:100%;border-color:var(--accent);color:#fff" onclick="closeModal();openModal('buy-planes')">✈ Buy Aircraft</button>
       </div>` : `
         <div class="form-row"><label class="form-label">From (Hub)</label>
           <select id="cg-from">${STATE.hubs.map(h=>`<option value="${h}">${h}</option>`).join('')}</select></div>
@@ -14590,14 +14645,14 @@ function buildSettings() {
       <div style="display:flex;align-items:center;gap:8px">
         <div style="flex:1;min-width:0">
           ${m ? `
-            <div style="font-size:11px;font-weight:700;color:var(--text)">${m.co} · ${m.month} ${m.year}</div>
-            <div style="font-size:10px;color:var(--muted);margin-top:2px">$${m.cash}M · ${m.routes} routes · ${m.ts}</div>
-          ` : `<div style="font-size:11px;color:var(--muted2)">— Empty slot ${n} —</div>`}
+            <div style="font-size:12.4px;font-weight:700;color:var(--text)">${m.co} · ${m.month} ${m.year}</div>
+            <div style="font-size:11.3px;color:var(--muted);margin-top:2px">$${m.cash}M · ${m.routes} routes · ${m.ts}</div>
+          ` : `<div style="font-size:12.4px;color:var(--muted2)">— Empty slot ${n} —</div>`}
         </div>
         <div style="display:flex;gap:5px;flex-shrink:0">
-          <button class="action-btn success" style="padding:6px 10px;font-size:10px" onclick="saveToSlot(${n})">💾</button>
-          ${m ? `<button class="action-btn" style="padding:6px 10px;font-size:10px" onclick="loadFromSlot(${n})">▶</button>` : ''}
-          ${m ? `<button class="action-btn danger" style="padding:6px 8px;font-size:10px" onclick="deleteSlot(${n})">✕</button>` : ''}
+          <button class="action-btn success" style="padding:6px 10px;font-size:11.3px" onclick="saveToSlot(${n})">💾</button>
+          ${m ? `<button class="action-btn" style="padding:6px 10px;font-size:11.3px" onclick="loadFromSlot(${n})">▶</button>` : ''}
+          ${m ? `<button class="action-btn danger" style="padding:6px 8px;font-size:11.3px" onclick="deleteSlot(${n})">✕</button>` : ''}
         </div>
       </div>
     </div>`;
@@ -14612,29 +14667,29 @@ function buildSettings() {
   const revertHtml = revertSlots.length ? revertSlots.map(r =>
     `<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:7px;margin-bottom:5px">
       <div style="flex:1;min-width:0">
-        <div style="font-size:10px;font-weight:600;color:var(--text)">${r.co} · ${r.label}</div>
-        <div style="font-size:9.5px;color:var(--muted)">$${r.cash}M · ${r.routes} routes · ${r.ts}</div>
+        <div style="font-size:11.3px;font-weight:600;color:var(--text)">${r.co} · ${r.label}</div>
+        <div style="font-size:10.7px;color:var(--muted)">$${r.cash}M · ${r.routes} routes · ${r.ts}</div>
       </div>
-      <button class="action-btn" style="padding:5px 10px;font-size:10px;border-color:var(--warn);color:var(--warn)" onclick="revertTo('${r.key}')">↩ Revert</button>
+      <button class="action-btn" style="padding:5px 10px;font-size:11.3px;border-color:var(--warn);color:var(--warn)" onclick="revertTo('${r.key}')">↩ Revert</button>
     </div>`
-  ).join('') : `<div style="font-size:10px;color:var(--muted2);padding:8px 0">No revert points yet — they're created automatically each turn.</div>`;
+  ).join('') : `<div style="font-size:11.3px;color:var(--muted2);padding:8px 0">No revert points yet — they're created automatically each turn.</div>`;
   const qs = slotMeta('q');
-  const qsRow = `<div style="background:rgba(63,214,192,0.05);border:1px solid rgba(63,214,192,0.3);border-radius:8px;padding:10px 12px;margin-bottom:6px">
+  const qsRow = `<div style="background:rgba(167,137,255,0.05);border:1px solid rgba(167,137,255,0.3);border-radius:8px;padding:10px 12px;margin-bottom:6px">
       <div style="display:flex;align-items:center;gap:8px">
         <div style="flex:1;min-width:0">
           ${qs ? `
-            <div style="font-size:11px;font-weight:700;color:var(--accent)">⚡ Quicksave · ${qs.co} · ${qs.month} ${qs.year}</div>
-            <div style="font-size:10px;color:var(--muted);margin-top:2px">$${qs.cash}M · ${qs.routes} routes · ${qs.ts} · hotkeys Q / L</div>
-          ` : `<div style="font-size:11px;color:var(--muted2)">⚡ Quicksave — press <b style="color:var(--accent)">Q</b> in game (load with <b style="color:var(--accent)">L</b>)</div>`}
+            <div style="font-size:12.4px;font-weight:700;color:#fff">⚡ Quicksave · ${qs.co} · ${qs.month} ${qs.year}</div>
+            <div style="font-size:11.3px;color:var(--muted);margin-top:2px">$${qs.cash}M · ${qs.routes} routes · ${qs.ts} · hotkeys Q / L</div>
+          ` : `<div style="font-size:12.4px;color:var(--muted2)">⚡ Quicksave — press <b style="color:#fff">Q</b> in game (load with <b style="color:#fff">L</b>)</div>`}
         </div>
         <div style="display:flex;gap:5px;flex-shrink:0">
-          <button class="action-btn success" style="padding:6px 10px;font-size:10px" onclick="qsave();document.getElementById('modal-content').innerHTML=buildSettings()">💾</button>
-          ${qs ? `<button class="action-btn" style="padding:6px 10px;font-size:10px" onclick="loadFromSlot('q')">▶</button>` : ''}
-          ${qs ? `<button class="action-btn danger" style="padding:6px 8px;font-size:10px" onclick="deleteSlot('q')">✕</button>` : ''}
+          <button class="action-btn success" style="padding:6px 10px;font-size:11.3px" onclick="qsave();document.getElementById('modal-content').innerHTML=buildSettings()">💾</button>
+          ${qs ? `<button class="action-btn" style="padding:6px 10px;font-size:11.3px" onclick="loadFromSlot('q')">▶</button>` : ''}
+          ${qs ? `<button class="action-btn danger" style="padding:6px 8px;font-size:11.3px" onclick="deleteSlot('q')">✕</button>` : ''}
         </div>
       </div>
     </div>`;
-  const section = (label, first) => `<div style="display:flex;align-items:center;gap:9px;margin:${first?'0':'20px'} 0 11px"><span style="font-size:9.5px;font-weight:700;letter-spacing:1.5px;color:var(--accent2);white-space:nowrap">${label}</span><div style="flex:1;height:1px;background:var(--border)"></div></div>`;
+  const section = (label, first) => `<div style="display:flex;align-items:center;gap:9px;margin:${first?'0':'20px'} 0 11px"><span style="font-size:10.7px;font-weight:700;letter-spacing:1.5px;color:var(--accent2);white-space:nowrap">${label}</span><div style="flex:1;height:1px;background:var(--border)"></div></div>`;
   return modalHead('⚙ MENU') + `<div class="modal-body">
     ${section('💾 SAVE &amp; LOAD', true)}
     ${qsRow}
@@ -14644,14 +14699,14 @@ function buildSettings() {
       <button class="action-btn" style="flex:1" onclick="document.getElementById('import-file').click()">⬆ Import file</button>
       <input type="file" id="import-file" accept=".json,application/json" style="display:none" onchange="importSave(this)">
     </div>
-    ${auto ? `<div style="font-size:10px;color:var(--muted2)">Autosave: ${auto.co} · ${auto.month} ${auto.year} · $${auto.cash}M</div>` : ''}
+    ${auto ? `<div style="font-size:11.3px;color:var(--muted2)">Autosave: ${auto.co} · ${auto.month} ${auto.year} · $${auto.cash}M</div>` : ''}
     ${section('↩ CHECKPOINTS')}
     ${revertHtml}
     ${section('⏱ GAMEPLAY')}
-    <div style="font-size:10px;color:var(--muted);margin-bottom:7px">Turn timer — how long each month runs before it auto-advances.</div>
+    <div style="font-size:11.3px;color:var(--muted);margin-bottom:7px">Turn timer — how long each month runs before it auto-advances.</div>
     <div style="display:flex;gap:6px">
       ${modes.map(([k,n,d])=>`<button class="action-btn ${STATE.timerMode===k?'success':''}" style="padding:9px 4px;flex:1" onclick="setTimerMode('${k}')">
-        <div style="font-weight:700">${n}</div><div style="font-size:10px;color:var(--muted)">${d}</div></button>`).join('')}
+        <div style="font-weight:700">${n}</div><div style="font-size:11.3px;color:var(--muted)">${d}</div></button>`).join('')}
     </div>
     ${section('⚠ DANGER ZONE')}
     <button class="action-btn danger" style="width:100%" onclick="closeModal();location.reload();">⏏ End Game &amp; Return to Menu</button>
@@ -14757,21 +14812,21 @@ function openContinueMenu(){
   const rows = entries.slice(0, 7).map(e => `
     <div style="display:flex;align-items:center;gap:10px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:11px 13px;margin-bottom:7px">
       <div style="flex:1;min-width:0">
-        <div style="font-size:12px;font-weight:700;color:var(--text)">${e.m.label} <span style="color:var(--muted2);font-weight:400">— ${e.m.co}</span></div>
-        <div style="font-size:9.5px;color:var(--muted);margin-top:2px">${e.m.month} ${e.m.year} · $${e.m.cash}M · ${e.m.routes} routes · ${e.m.ts}</div>
+        <div style="font-size:13.6px;font-weight:700;color:var(--text)">${e.m.label} <span style="color:var(--muted2);font-weight:400">— ${e.m.co}</span></div>
+        <div style="font-size:10.7px;color:var(--muted);margin-top:2px">${e.m.month} ${e.m.year} · $${e.m.cash}M · ${e.m.routes} routes · ${e.m.ts}</div>
       </div>
-      <button class="action-btn success" style="padding:8px 18px;font-size:11px;flex-shrink:0" onclick="contLoad('${e.n}')">▶ LOAD</button>
+      <button class="action-btn success" style="padding:8px 18px;font-size:12.4px;flex-shrink:0" onclick="contLoad('${e.n}')">▶ LOAD</button>
     </div>`).join('');
   ovl = document.createElement('div');
   ovl.id = 'cont-ovl';
   ovl.style.cssText = 'position:fixed;inset:0;z-index:9995;background:rgba(0,0,0,0.78);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:24px';
   ovl.innerHTML = `<div style="background:var(--surface);border:1px solid var(--border2);border-radius:12px;max-width:520px;width:100%;max-height:80vh;display:flex;flex-direction:column;padding:22px 24px;box-shadow:var(--shadow)" onclick="event.stopPropagation()">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-shrink:0">
-      <div style="font-family:'Bebas Neue';font-size:22px;letter-spacing:3px;color:var(--accent)">↻ CONTINUE</div>
+      <div style="font-family:'Bebas Neue';font-size:24.9px;letter-spacing:3px;color:#fff">↻ CONTINUE</div>
       <button class="action-btn" style="padding:5px 14px" onclick="document.getElementById('cont-ovl').remove()">✕ Close</button>
     </div>
     <div style="overflow-y:auto;min-height:0">
-      ${rows || '<div style="color:var(--muted);font-size:11px;text-align:center;padding:18px 0">No saved games yet.</div>'}
+      ${rows || '<div style="color:var(--muted);font-size:12.4px;text-align:center;padding:18px 0">No saved games yet.</div>'}
     </div>
     <div style="border-top:1px solid var(--border);margin-top:10px;padding-top:12px;flex-shrink:0">
       <button class="action-btn" style="width:100%;padding:10px" onclick="document.getElementById('intro-import-file').click()">⤓ Import a game save from file</button>
@@ -14852,21 +14907,21 @@ function buildLedger(){
   const sgn = v => (v>=0?'+':'') + (Math.round(v*10)/10);
   const pc  = v => v>=0 ? 'var(--profit)' : 'var(--loss)';
   const cols = '1.1fr .9fr .9fr .9fr .8fr .8fr .7fr';
-  const head = `<div style="display:grid;grid-template-columns:${cols};gap:2px;padding:7px 11px;font-size:9px;color:var(--muted2);letter-spacing:.5px;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)">
+  const head = `<div style="display:grid;grid-template-columns:${cols};gap:2px;padding:7px 11px;font-size:10.2px;color:var(--muted2);letter-spacing:.5px;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)">
       <span>MONTH</span><span style="text-align:right">INCOME</span><span style="text-align:right">EXPENSE</span><span style="text-align:right">PROFIT</span><span style="text-align:right">CASH</span><span style="text-align:right">VALUE</span><span style="text-align:right">LOAN</span></div>`;
   const rows = [...log].reverse().map(e=>`
     <div style="display:grid;grid-template-columns:${cols};gap:2px;padding:6px 11px;border-bottom:1px solid rgba(255,255,255,0.04)">
-      <span style="font-size:10.5px;color:var(--text)">${e.label}</span>
-      <span style="text-align:right;font-family:'DM Mono';font-size:10.5px">${Math.round(e.income*10)/10}</span>
-      <span style="text-align:right;font-family:'DM Mono';font-size:10.5px">${Math.round(e.expenses*10)/10}</span>
-      <span style="text-align:right;font-family:'DM Mono';font-size:10.5px;color:${pc(e.profit)}">${sgn(e.profit)}</span>
-      <span style="text-align:right;font-family:'DM Mono';font-size:10.5px;color:${e.cash>=0?'var(--text)':'var(--loss)'}">${Math.round(e.cash)}</span>
-      <span style="text-align:right;font-family:'DM Mono';font-size:10.5px">${Math.round(e.value)}</span>
-      <span style="text-align:right;font-family:'DM Mono';font-size:10.5px;color:${e.loan>0?'var(--loss)':'var(--muted2)'}">${Math.round(e.loan)}</span>
+      <span style="font-size:11.9px;color:var(--text)">${e.label}</span>
+      <span style="text-align:right;font-family:'DM Mono';font-size:11.9px">${Math.round(e.income*10)/10}</span>
+      <span style="text-align:right;font-family:'DM Mono';font-size:11.9px">${Math.round(e.expenses*10)/10}</span>
+      <span style="text-align:right;font-family:'DM Mono';font-size:11.9px;color:${pc(e.profit)}">${sgn(e.profit)}</span>
+      <span style="text-align:right;font-family:'DM Mono';font-size:11.9px;color:${e.cash>=0?'var(--text)':'var(--loss)'}">${Math.round(e.cash)}</span>
+      <span style="text-align:right;font-family:'DM Mono';font-size:11.9px">${Math.round(e.value)}</span>
+      <span style="text-align:right;font-family:'DM Mono';font-size:11.9px;color:${e.loan>0?'var(--loss)':'var(--muted2)'}">${Math.round(e.loan)}</span>
     </div>`).join('');
   const table = log.length
     ? `<div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:10px">${head}<div style="max-height:260px;overflow-y:auto">${rows}</div></div>`
-    : `<div style="color:var(--muted);font-size:11px;padding:18px 0;text-align:center">No finance data yet — advance at least one month to start the log.</div>`;
+    : `<div style="color:var(--muted);font-size:12.4px;padding:18px 0;text-align:center">No finance data yet — advance at least one month to start the log.</div>`;
   return modalHead(`📒 FINANCIAL LOG — ${MONTHS[STATE.month]} ${STATE.year}`) +
   `<div class="modal-body">
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px">
@@ -14876,15 +14931,87 @@ function buildLedger(){
       <div class="city-stat-box"><div class="csb-l">Months</div><div class="csb-v">${log.length}</div></div>
     </div>
     ${table}
-    <div style="font-size:10px;color:var(--muted2);margin-bottom:12px">Figures in $M. Exports include route revenue, business, cargo, fuel, crew, handling, lease, and passengers for every month.</div>
+    <div style="font-size:11.3px;color:var(--muted2);margin-bottom:12px">Figures in $M. Exports include route revenue, business, cargo, fuel, crew, handling, lease, and passengers for every month.</div>
     <div style="display:flex;gap:7px;flex-wrap:wrap">
-      <button class="action-btn" style="flex:1;min-width:128px;padding:8px;font-size:10px" onclick="exportFinanceCSV()">⬇ Finances CSV</button>
-      <button class="action-btn" style="flex:1;min-width:128px;padding:8px;font-size:10px" onclick="exportFinanceJSON()">⬇ Finances JSON</button>
-      <button class="action-btn" style="flex:1;min-width:128px;padding:8px;font-size:10px" onclick="exportEventLogCSV()">⬇ Event Log CSV</button>
-      <button class="action-btn" style="flex:1;min-width:128px;padding:8px;font-size:10px" onclick="exportEventLogJSON()">⬇ Event Log JSON</button>
+      <button class="action-btn" style="flex:1;min-width:128px;padding:8px;font-size:11.3px" onclick="exportFinanceCSV()">⬇ Finances CSV</button>
+      <button class="action-btn" style="flex:1;min-width:128px;padding:8px;font-size:11.3px" onclick="exportFinanceJSON()">⬇ Finances JSON</button>
+      <button class="action-btn" style="flex:1;min-width:128px;padding:8px;font-size:11.3px" onclick="exportEventLogCSV()">⬇ Event Log CSV</button>
+      <button class="action-btn" style="flex:1;min-width:128px;padding:8px;font-size:11.3px" onclick="exportEventLogJSON()">⬇ Event Log JSON</button>
     </div>
     <div style="text-align:center;margin-top:14px"><button class="action-btn" onclick="closeModal()" style="padding:8px 28px">Close</button></div>
   </div>`;
+}
+function buildLogViewer(){
+  const finBtns = `<div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:10px">
+      <button class="action-btn" style="flex:1;min-width:128px;padding:8px;font-size:11.3px" onclick="exportFinanceCSV()">\u2b07 Finances CSV</button>
+      <button class="action-btn" style="flex:1;min-width:128px;padding:8px;font-size:11.3px" onclick="exportFinanceJSON()">\u2b07 Finances JSON</button>
+      <button class="action-btn" style="flex:1;min-width:128px;padding:8px;font-size:11.3px" onclick="exportEventLogCSV()">\u2b07 Event Log CSV</button>
+      <button class="action-btn" style="flex:1;min-width:128px;padding:8px;font-size:11.3px" onclick="exportEventLogJSON()">\u2b07 Event Log JSON</button>
+    </div>`;
+  return modalHead(`\ud83d\uddc2 GAME LOGS \u2014 ${MONTHS[STATE.month]} ${STATE.year}`) +
+  `<div class="modal-body">
+    <div style="display:flex;gap:6px;margin-bottom:10px">
+      <button class="action-btn lv-tab" id="lv-tab-fin" onclick="lvShow('fin')" style="flex:1;padding:8px;font-size:11.9px;letter-spacing:.08em">\ud83d\udcb0 FINANCES</button>
+      <button class="action-btn lv-tab" id="lv-tab-ev" onclick="lvShow('ev')" style="flex:1;padding:8px;font-size:11.9px;letter-spacing:.08em;opacity:.55">\ud83d\udce3 EVENTS</button>
+    </div>
+    <div id="lv-pane-fin">${lvFinanceHTML()}</div>
+    <div id="lv-pane-ev" style="display:none">${lvEventsWrapHTML()}</div>
+    ${finBtns}
+    <div style="text-align:center;margin-top:14px"><button class="action-btn" onclick="closeModal()" style="padding:8px 28px">Close</button></div>
+  </div>`;
+}
+function lvShow(which){
+  const fin = which==='fin';
+  const pf=document.getElementById('lv-pane-fin'), pe=document.getElementById('lv-pane-ev');
+  const tf=document.getElementById('lv-tab-fin'), te=document.getElementById('lv-tab-ev');
+  if(pf) pf.style.display = fin?'':'none';
+  if(pe) pe.style.display = fin?'none':'';
+  if(tf) tf.style.opacity = fin?'1':'.55';
+  if(te) te.style.opacity = fin?'.55':'1';
+}
+function lvFinanceHTML(){
+  const log = STATE.financeLog || [];
+  if(!log.length) return `<div style="color:var(--muted);font-size:12.4px;padding:18px 0;text-align:center">No finance data yet \u2014 advance at least one month to start the log.</div>`;
+  const cols=[['label','MONTH','left'],['income','INCOME','right'],['expenses','EXPENSES','right'],['profit','PROFIT','right'],['routeRev','ROUTE REV','right'],['biz','BIZ','right'],['cargo','CARGO','right'],['fuel','FUEL','right'],['crew','CREW','right'],['handling','HANDLING','right'],['lease','LEASE','right'],['cash','CASH','right'],['value','VALUE','right'],['loan','LOAN','right'],['pax','PAX','right']];
+  const grid = `minmax(84px,1.2fr) repeat(${cols.length-1},minmax(62px,1fr))`;
+  const head = `<div style="display:grid;grid-template-columns:${grid};gap:2px;padding:7px 11px;font-size:9.6px;color:var(--muted2);letter-spacing:.5px;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02);min-width:1020px">` +
+    cols.map(c=>`<span style="text-align:${c[2]}">${c[1]}</span>`).join('') + `</div>`;
+  const sgn = v => (v>=0?'+':'') + (Math.round(v*10)/10);
+  const rows = [...log].reverse().map(e=>{
+    return `<div style="display:grid;grid-template-columns:${grid};gap:2px;padding:6px 11px;border-bottom:1px solid rgba(255,255,255,0.04);min-width:1020px">` + cols.map(c=>{
+      const k=c[0]; let v=e[k];
+      if(k==='label') return `<span style="font-size:11.3px;color:var(--text)">${v}</span>`;
+      if(k==='profit') return `<span style="text-align:right;font-family:'DM Mono';font-size:11.3px;color:${v>=0?'var(--profit)':'var(--loss)'}">${sgn(v||0)}</span>`;
+      if(k==='pax'||k==='value') return `<span style="text-align:right;font-family:'DM Mono';font-size:11.3px">${Math.round(v||0)}</span>`;
+      const neg = (k==='loan'&&v>0)||((k==='cash')&&v<0);
+      return `<span style="text-align:right;font-family:'DM Mono';font-size:11.3px;color:${neg?'var(--loss)':'inherit'}">${Math.round((v||0)*10)/10}</span>`;
+    }).join('') + `</div>`;
+  }).join('');
+  return `<div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:auto;max-height:340px">${head}${rows}</div>
+    <div style="font-size:11.3px;color:var(--muted2);margin-top:7px">All figures in $M \u00b7 every column from the CSV export, per month \u00b7 scroll sideways for more. INCOME = ROUTE REV + BIZ + CARGO \u00b7 PROFIT = INCOME \u2212 EXPENSES \u00b7 FUEL/CREW/HANDLING/LEASE are the route-cost components inside EXPENSES.</div>`;
+}
+function lvEventsWrapHTML(){
+  const chips=['all','good','bad','warn','rival'];
+  const chip = t => `<button class="action-btn lv-evf" data-f="${t}" onclick="lvFilterEvents('${t}')" style="flex:0 0 auto;width:auto;padding:5px 12px;font-size:10.7px;letter-spacing:.08em;${t==='all'?'':'opacity:.55'}">${t.toUpperCase()}</button>`;
+  return `<div style="display:flex;gap:5px;margin-bottom:8px;flex-wrap:wrap">${chips.map(chip).join('')}</div>
+    <div id="lv-ev-list">${lvEventsHTML('all')}</div>`;
+}
+function lvEventsHTML(filter){
+  const L = (STATE.eventLog && STATE.eventLog.length ? STATE.eventLog : (STATE.events||[]));
+  const list = [...L].reverse().filter(e=>filter==='all'||e.type===filter);
+  if(!list.length) return `<div style="color:var(--muted);font-size:12.4px;padding:18px 0;text-align:center">No events${filter==='all'?'':' of this type'} yet.</div>`;
+  const col={good:'var(--profit)',bad:'var(--loss)',warn:'var(--accent2)',rival:'var(--purple)'};
+  const rows=list.map(e=>`<div style="display:grid;grid-template-columns:74px 52px 1fr;gap:8px;padding:5px 11px;border-bottom:1px solid rgba(255,255,255,0.04);align-items:baseline">
+      <span style="font-family:'DM Mono';font-size:10.7px;color:var(--muted2)">${e.time||''}</span>
+      <span style="font-size:9.6px;font-weight:700;letter-spacing:.06em;color:${col[e.type]||'var(--muted)'}">${(e.type||'').toUpperCase()}</span>
+      <span style="font-size:11.9px;color:var(--text)">${e.text||''}</span>
+    </div>`).join('');
+  return `<div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow-y:auto;max-height:340px">${rows}</div>
+    <div style="font-size:11.3px;color:var(--muted2);margin-top:7px">${list.length} entr${list.length===1?'y':'ies'} \u00b7 full history (news feed shows only the latest 60).</div>`;
+}
+function lvFilterEvents(t){
+  const el=document.getElementById('lv-ev-list'); if(el) el.innerHTML=lvEventsHTML(t);
+  document.querySelectorAll('.lv-evf').forEach(b=>{ b.style.opacity = (b.dataset.f===t)?'1':'.55'; });
 }
 function _csvCell(v){ v = (v===undefined||v===null) ? '' : String(v); return /[",\n]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v; }
 function financeCSV(){
@@ -15806,7 +15933,7 @@ function planeShower(){
 function fireworksBurst(color, originX, originY){
   const cx = originX != null ? originX : window.innerWidth  * (0.22 + Math.random()*0.56);
   const cy = originY != null ? originY : window.innerHeight * (0.16 + Math.random()*0.30);
-  const palette = [color || '#3fd6c0', '#ffd86b', '#ffffff', '#ff7eb6'];
+  const palette = [color || '#a789ff', '#ffd86b', '#ffffff', '#ff7eb6'];
   const N = 20;
   for(let i=0;i<N;i++){
     const p=document.createElement('div'); p.className='fw-particle';
@@ -15822,7 +15949,7 @@ function fireworksBurst(color, originX, originY){
 }
 function maidenFlight(from, to){
   if (document.getElementById('maiden-overlay')) return;
-  const livery = STATE.livery || '#3fd6c0';
+  const livery = STATE.livery || '#a789ff';
   const ov = document.createElement('div');
   ov.id = 'maiden-overlay';
   ov.innerHTML = `
@@ -15844,7 +15971,7 @@ function maidenFlight(from, to){
   ov._t = setTimeout(close, 3400);
 }
 function maidenFirstMonth(){
-  const livery = STATE.livery || '#3fd6c0';
+  const livery = STATE.livery || '#a789ff';
   // a quick burst of fireworks over the map + a celebratory flash, no full takeover
   fireworksBurst(livery, window.innerWidth*0.5, window.innerHeight*0.28);
   setTimeout(()=>fireworksBurst('#ffd86b', window.innerWidth*0.62, window.innerHeight*0.22), 300);
@@ -15868,3 +15995,389 @@ function konamiUnlock(){
   flashIntro('✈  SECRET CLEARANCE — +$500M starting capital on launch!');
 }
 showIntro();
+/* ===== MOCKUP DASHBOARD LAYER (2024-dash) — rides on top of existing systems ===== */
+function _mockIcon(name){
+  const I={
+    mi:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="2.2"/><path d="M12 4.5a7.5 7.5 0 0 1 7.5 7.5M12 8a4 4 0 0 1 4 4M4.5 12A7.5 7.5 0 0 1 12 4.5"/><path d="M12 12l5.5 5.5"/></svg>',
+    projects:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.5 5 5.5.8-4 3.9.9 5.5L12 16.1 7.1 18.7l.9-5.5-4-3.9 5.5-.8z"/></svg>'
+  };
+  return I[name]||'';
+}
+function _mockDashSetup(){
+  try{
+    /* header: tagline */
+    const lock=document.querySelector('#header .ae-lock');
+    if(lock && !document.getElementById('ae-tagline')){
+      const t=document.createElement('div'); t.id='ae-tagline'; t.textContent='BUILD. CONNECT. DOMINATE.';
+      lock.appendChild(t);
+    }
+    /* header: relabel stat tiles + hide fuel */
+    document.querySelectorAll('#header .hdr-stat .label').forEach(l=>{
+      const tx=l.textContent.trim();
+      if(tx==='Cash') l.textContent='Cash Balance';
+      else if(tx==='Weekly Profit') l.textContent='Daily Profit';
+      else if(tx==='Passengers') l.textContent='Fleet Value';
+      else if(tx==='Fuel Price'){ const tile=l.closest('.hdr-stat'); if(tile) tile.style.display='none'; }
+    });
+    /* header: move END TURN button up beside the date */
+    const et=document.getElementById('end-turn-btn'), hdr=document.getElementById('header');
+    if(et && hdr && et.parentElement && et.parentElement.id!=='header'){ hdr.appendChild(et); et.classList.add('hdr-endturn'); et.innerHTML='END TURN <span class="et-arrow">\u2192</span>'; }
+    /* sidebar: grouped rows */
+    const nav=document.getElementById('ae-nav');
+    if(nav && !nav.dataset.mock2){ nav.dataset.mock2='1';
+      const icon={}; nav.querySelectorAll('.ae-nav-item').forEach(n=>{ const m=(n.getAttribute('onclick')||'').match(/'([a-z]+)'/); const sv=n.querySelector('svg'); if(m&&sv) icon[m[1]]=sv.outerHTML; });
+      const SUB={dash:'Command & Overview',routes:'Network & Route Map',fleet:'Hangar & Aircraft',airports:'Network & Hubs',cargo:'Logistics & Freight',maintenance:'Repairs & Service',finance:'Budget & Expenses',hr:'Recruitment & Staff',reports:'Analytics & Performance',alliances:'Partners & Codeshares',logs:'Finance & Event History',mi:'Forecasts & Rivals',marketing:'Campaigns & Ads',projects:'Research & Upgrades'};
+      const BDG={routes:'mnb-routes',fleet:'mnb-fleet',airports:'mnb-airports',maintenance:'mnb-maint',reports:'mnb-reports'};
+      const row=(k,label,ic)=>`<div class="ae-nav-item${k==='dash'?' active':''}" onclick="navGo(this,'${k}')">${ic||icon[k]||''}<span class="mn-two"><span class="mn-l">${label}</span><span class="mn-s">${SUB[k]||''}</span></span>${BDG[k]?`<span class="mns-badge" id="${BDG[k]}"></span>`:''}</div>`;
+      const sec=t=>`<div class="mock-nav-sec"><span class="mns-dot"></span>${t}</div>`;
+      nav.innerHTML =
+        sec('Overview')+row('dash','Dashboard')+
+        sec('Operations')+row('routes','Routes')+row('fleet','Fleet')+row('airports','Airports')+row('cargo','Cargo')+row('maintenance','Maintenance')+
+        sec('Company')+row('finance','Finance')+row('hr','Human Resources')+row('reports','Reports')+row('alliances','Alliances')+row('logs','Logs')+
+        sec('Growth')+row('mi','Market Intelligence',_mockIcon('mi'))+row('marketing','Marketing')+row('projects','Special Projects',_mockIcon('projects'));
+    }
+    /* sidebar: CEO card pinned at the bottom */
+    const lp=document.getElementById('left-panel');
+    if(lp && !document.getElementById('mock-ceo-card')){
+      const c=document.createElement('div'); c.id='mock-ceo-card';
+      c.innerHTML='<div class="mcc-top"><div class="mcc-av" id="mcc-av">A</div><div class="mcc-meta"><div class="mcc-name" id="mcc-name">Airline</div><div class="mcc-role">Chief Executive Officer</div></div><button class="mcc-gear" onclick="openModal(\'settings\')" title="Settings">\u2699</button></div><div class="mcc-cashrow"><span class="mcc-cl">CASH BALANCE</span><span class="mcc-cv" id="mcc-cash">\u2014</span></div>';
+      lp.appendChild(c);
+    }
+    /* wider rail default; clear stale narrow saved width */
+    try{
+      const w=JSON.parse(localStorage.getItem('aePanelWidths')||'{}');
+      if(w.left && w.left<170){ delete w.left; localStorage.setItem('aePanelWidths', JSON.stringify(w)); }
+      if(!w.left) document.documentElement.style.setProperty('--ae-rail-w','232px');
+    }catch(e){ document.documentElement.style.setProperty('--ae-rail-w','232px'); }
+    /* map legend */
+    const mc=document.getElementById('map-container');
+    if(mc && !document.getElementById('map-legend')){
+      const lg=document.createElement('div'); lg.id='map-legend';
+      lg.innerHTML='<div class="ml-title">LEGEND</div>'+
+        '<div class="ml-row"><span class="ml-sw ml-hub"></span>Hub</div>'+
+        '<div class="ml-row"><span class="ml-sw ml-focus"></span>Focus City</div>'+
+        '<div class="ml-row"><span class="ml-sw ml-city"></span>City</div>'+
+        '<div class="ml-row"><span class="ml-line"></span>Active Route</div>'+
+        '<div class="ml-row"><span class="ml-line ml-dash"></span>Planned Route</div>';
+      mc.appendChild(lg);
+    }
+    /* stat strip under the map */
+    if(mc && !document.getElementById('mock-mapstats')){
+      const st=document.createElement('div'); st.id='mock-mapstats';
+      const cell=(id,label)=>`<div class="mms-cell"><span class="mms-l">${label}</span><span class="mms-v" id="${id}">\u2014</span></div>`;
+      st.innerHTML = cell('mms-cities','Cities')+cell('mms-routes','Routes')+cell('mms-regions','Regions')+cell('mms-pax','Passengers Today')+cell('mms-otp','On-Time Performance')+
+        '<button class="mms-btn" onclick="openRouteManager()">Route Map \u2197</button>';
+      mc.insertAdjacentElement('afterend', st);
+    }
+    /* right panel: Operations Center header + View All + Quick Actions */
+    const ocT=document.querySelector('#ops-center .oc-title'); if(ocT) ocT.textContent='OPERATIONS CENTER';
+    const ocH=document.querySelector('#ops-center .oc-head');
+    if(ocH && !document.getElementById('oc-viewall')){
+      const va=document.createElement('span'); va.id='oc-viewall'; va.textContent='View All'; va.onclick=()=>openModal('logviewer'); ocH.appendChild(va);
+    }
+    const ocS=document.querySelector('#ops-center .oc-sub'); if(ocS) ocS.textContent='Real-time overview of your airline.';
+    const rps=document.querySelector('#right-panel .panel-scroll');
+    if(rps && !document.getElementById('mock-quick')){
+      const q=document.createElement('div'); q.id='mock-quick';
+      const act=(ic,label,fn)=>`<div class="mq-row" onclick="${fn}"><span class="mq-ic">${ic}</span><span>${label}</span></div>`;
+      q.innerHTML='<div class="mq-title">QUICK ACTIONS</div>'+
+        act('\u2708','Add Route',"openModal('new-route')")+
+        act('\u2708','Purchase Aircraft',"openModal('buy-planes')")+
+        act('\ud83d\udce3','New Campaign',"openModal('campaign')")+
+        act('\ud83d\udcc4','View Reports',"openModal('ledger')");
+      rps.appendChild(q);
+    }
+    /* bottom alert bar */
+    const strip=document.getElementById('dash-strip');
+    if(strip && !document.getElementById('mock-alerts')){
+      const a=document.createElement('div'); a.id='mock-alerts'; strip.insertAdjacentElement('afterend', a);
+    }
+    /* label the existing turn-speed cluster so it reads as the time control */
+    const sc=document.getElementById('speed-ctrl');
+    if(sc && !document.getElementById('ts-label')){
+      const l=document.createElement('span'); l.id='ts-label'; l.className='hdr-timescale-label'; l.textContent='Time Scale';
+      sc.parentElement.insertBefore(l, sc);
+    }
+    try{ dnSetup(); }catch(e){}
+    /* live status tiles above the map (monthly-proxy flavor) */
+    const mc2=document.getElementById('map-container');
+    if(mc2 && !document.getElementById('mock-livetiles')){
+      const lt=document.createElement('div'); lt.id='mock-livetiles';
+      const tile=(id,label)=>`<div class="mlt"><div class="mlt-l">${label}</div><div class="mlt-v" id="${id}">\u2014</div><div class="mlt-s" id="${id}-s"></div></div>`;
+      lt.innerHTML=tile('mlt-air','Aircraft In Air')+tile('mlt-otp','On-Time Performance')+tile('mlt-rev','Daily Revenue')+tile('mlt-dem','Demand Index')+tile('mlt-fuel','Fuel Price')+tile('mlt-wx','Weather Impact');
+      mc2.insertAdjacentElement('beforebegin', lt);
+    }
+    /* Active Alerts panel in the right column */
+    const rps2=document.querySelector('#right-panel .panel-scroll');
+    if(rps2 && !document.getElementById('mock-alertspanel')){
+      const ap=document.createElement('div'); ap.id='mock-alertspanel';
+      ap.innerHTML='<div class="map-head"><span class="map-title">ACTIVE ALERTS <span id="map-count"></span></span><span class="map-viewall" onclick="mockOpenAlerts()">View All</span></div><div id="map-list"></div><button class="map-allbtn" onclick="mockOpenAlerts()">\u26a0 VIEW ALL ALERTS</button>';
+      const q=document.getElementById('mock-quick');
+      if(q) rps2.insertBefore(ap,q); else rps2.appendChild(ap);
+    }
+    /* Top Routes: View All button */
+    const tr=document.getElementById('ds-toproutes');
+    if(tr && !document.getElementById('mock-viewroutes')){
+      const b=document.createElement('button'); b.id='mock-viewroutes'; b.className='mms-btn'; b.style.cssText='width:100%;margin-top:7px';
+      b.textContent='View All Routes'; b.onclick=()=>openRouteManager(); tr.insertAdjacentElement('afterend', b);
+    }
+  }catch(e){ console.warn('mock dash setup', e); }
+}
+function _mockDashSync(){
+  if(typeof STATE==='undefined' || !STATE || !STATE.routes) return;
+  const $=id=>document.getElementById(id);
+  const money=v=>'$'+(Math.abs(v)>=1000?(v/1000).toFixed(2)+'B':(Math.round(v*10)/10)+'M');
+  try{
+    /* header tiles */
+    const net=(STATE._finHist&&STATE._finHist.length?STATE._finHist[STATE._finHist.length-1].net:0)||0;
+    const dp=$('h-wprofit'); if(dp) dp.textContent=(net<0?'-':'')+money(Math.abs(net)/30).replace('$','$');
+    const dpd=$('h-wprofit-d'); if(dpd) dpd.textContent='per day \u00b7 monthly proxy';
+    let fv=0; Object.entries(STATE.planes||{}).forEach(([t,p])=>{ const ac=(typeof AIRCRAFT!=='undefined'&&AIRCRAFT[t])||{}; fv+=(p.owned||0)*(ac.cost||ac.price||40); });
+    const fvEl=$('h-paxm'); if(fvEl) fvEl.textContent=money(fv);
+    const fvd=$('h-paxm-d'); if(fvd) fvd.textContent='';
+    const rep=Math.round((STATE.repScore!=null?STATE.repScore:(STATE.reputation!=null?STATE.reputation:0))||0);
+    const word=rep>=80?'Great':rep>=60?'Good':rep>=40?'Fair':'Poor';
+    const repEl=$('h-rep'); if(repEl) repEl.innerHTML = rep>0 ? rep+' <span class="rep-word">'+word+'</span>' : '\u2014';
+    /* map strip */
+    const served=new Set(); (STATE.routes||[]).forEach(r=>{served.add(r.from);served.add(r.to);}); (STATE.hubs||[]).forEach(h=>served.add(h));
+    const regions=new Set(); served.forEach(c=>{ if(typeof CITIES!=='undefined'&&CITIES[c]) regions.add(CITIES[c].region); });
+    const pax=(STATE.routes||[]).reduce((s,r)=>s+(r.pax||0),0);
+    if($('mms-cities')) $('mms-cities').textContent=served.size;
+    if($('mms-routes')) $('mms-routes').textContent=(STATE.routes||[]).length;
+    if($('mms-regions')) $('mms-regions').textContent=regions.size;
+    if($('mms-pax')) $('mms-pax').textContent=Math.round(pax/30).toLocaleString();
+    let inc=0, grounded=0;
+    Object.keys(STATE.planes||{}).forEach(n=>{ try{ if(typeof maintIsGrounded==='function'&&maintIsGrounded(n)) grounded++; }catch(e){} });
+    inc=(STATE.maintIncidents||[]).filter(i=>!i.resolved).length;
+    const otp=Math.max(72, Math.min(98, 96 - inc*2 - grounded*3));
+    if($('mms-otp')) $('mms-otp').textContent=((STATE.routes||[]).length? otp+'%' : '\u2014');
+    /* CEO card */
+    const nm=STATE.coName||'Airline';
+    if($('mcc-name')) $('mcc-name').textContent=nm.toUpperCase();
+    if($('mcc-av')) $('mcc-av').textContent=(nm[0]||'A').toUpperCase();
+    /* financial overview headline */
+    const fin=document.getElementById('ds-financial');
+    if(fin){
+      let head=document.getElementById('mock-finhead');
+      if(!head){ head=document.createElement('div'); head.id='mock-finhead'; fin.insertAdjacentElement('beforebegin', head); }
+      const h=STATE._finHist||[]; const last=h.length?h[h.length-1].net:0; const prev=h.length>1?h[h.length-2].net:0;
+      const pct=prev? Math.round(((last-prev)/Math.abs(prev))*1000)/10 : 0;
+      head.innerHTML='<span class="mfh-l">Profit & Loss</span><span class="mfh-v" style="color:'+(last>=0?'var(--profit)':'var(--loss)')+'">'+(last<0?'-':'')+money(Math.abs(last))+'</span>'+
+        (h.length>1?'<span class="mfh-d" style="color:'+(pct>=0?'var(--profit)':'var(--loss)')+'">'+(pct>=0?'+':'')+pct+'%</span>':'');
+    }
+    /* coverage under network overview */
+    const netP=document.getElementById('ds-network');
+    if(netP){
+      let cov=document.getElementById('mock-coverage');
+      if(!cov){ cov=document.createElement('div'); cov.id='mock-coverage'; netP.insertAdjacentElement('afterend', cov); }
+      const total=(typeof CITIES!=='undefined')?Object.keys(CITIES).length:0;
+      const p=total?Math.round(served.size/total*100):0;
+      cov.innerHTML='<div class="mc-bar"><div class="mc-fill" style="width:'+p+'%"></div></div><div class="mc-txt">Coverage '+p+'% \u00b7 Expand your network to increase market share.</div>';
+    }
+    /* sidebar badges + CEO cash */
+    const setB=(id,v,cls)=>{const e=$(id); if(!e) return; if(v>0){e.textContent=v; e.className='mns-badge show'+(cls?' '+cls:'');} else {e.textContent=''; e.className='mns-badge';}};
+    const totalOwned=Object.values(STATE.planes||{}).reduce((s,p)=>s+(p.owned||0),0);
+    const attention=grounded+inc;
+    setB('mnb-routes',(STATE.routes||[]).length);
+    setB('mnb-fleet',totalOwned, grounded>0?'bad':'');
+    setB('mnb-airports',served.size);
+    setB('mnb-maint',attention,'bad');
+    setB('mnb-reports',(STATE.financeLog||[]).length);
+    if($('mcc-cash')) $('mcc-cash').textContent=money(STATE.cash||0);
+    /* live tiles (frozen per month via seed) */
+    const seed=(STATE._absMonth||0)*7919;
+    const jit=n=>Math.abs((seed>>(n%13))%7);
+    const routesN=(STATE.routes||[]).length;
+    const inAir=routesN?Math.min(totalOwned||routesN, Math.max(1, Math.round(routesN*0.62)+jit(1)%3)):0;
+    const setT=(id,v,s,col)=>{const e=$(id); if(e){e.textContent=v; if(col)e.style.color=col;} const se=$(id+'-s'); if(se) se.innerHTML=s||'';};
+    setT('mlt-air', inAir+' / '+(totalOwned||'\u2014'), 'this month \u00b7 proxy');
+    setT('mlt-otp', (routesN?otp+'%':'\u2014'), '');
+    const h2=STATE._finHist||[]; const lastInc=h2.length?h2[h2.length-1].income:0; const prevInc=h2.length>1?h2[h2.length-2].income:0;
+    const rpct=prevInc?Math.round((lastInc-prevInc)/Math.abs(prevInc)*1000)/10:0;
+    setT('mlt-rev', money(lastInc/30), h2.length>1?('<span style="color:'+(rpct>=0?'var(--profit)':'var(--loss)')+'">'+(rpct>=0?'+':'')+rpct+'%</span>'):'');
+    const avgLoad=routesN?(STATE.routes.reduce((s,r)=>s+(r.load||0),0)/routesN):0;
+    const dem=routesN?Math.round(avgLoad/65*100)/100:0;
+    setT('mlt-dem', routesN?dem.toFixed(2)+'x':'\u2014', routesN?('<span style="color:'+(dem>1.1?'var(--accent2)':'#fff')+'">'+(dem>1.1?'High':dem>0.9?'Moderate':'Low')+'</span>'):'');
+    const fuelMult2=((STATE.fuelMod!=null?STATE.fuelMod:1)*(typeof timedFuelMod==='function'?timedFuelMod():1))||1;
+    const fuelP=2.40*fuelMult2; const fd2=(STATE._fuelPrev!=null)?(fuelP-STATE._fuelPrev):0;
+    setT('mlt-fuel','$'+fuelP.toFixed(2), fd2?('<span style="color:'+(fd2<=0?'var(--profit)':'var(--loss)')+'">'+(fd2>0?'+':'')+fd2.toFixed(2)+'</span>'):'');
+    const fx=(STATE.timedEffects||[]).length;
+    setT('mlt-wx', fx===0?'None':fx<=2?'Low':fx<=4?'Moderate':'High', fx? fx+' active event'+(fx>1?'s':'') : 'clear skies', fx>=3?'var(--accent2)':undefined);
+    /* legend: airline colors (player + rivals) */
+    const lg=document.getElementById('map-legend');
+    if(lg){
+      const comps=(STATE.competitors||[]).slice(0,4);
+      lg.innerHTML='<div class="ml-title">LEGEND</div>'+
+        '<div class="ml-row"><span class="ml-line" style="border-top-color:'+(STATE.livery||'#a789ff')+'"></span>'+(STATE.coName||'You')+'</div>'+
+        comps.map(c=>'<div class="ml-row"><span class="ml-line" style="border-top-color:'+(c.color||'#8fb7ff')+';opacity:.8"></span>'+c.name+'</div>').join('')+
+        '<div class="ml-row"><span class="ml-sw ml-hub"></span>Hub</div>'+
+        '<div class="ml-row"><span class="ml-sw ml-city"></span>City</div>';
+    }
+    /* Active Alerts panel */
+    const apl=document.getElementById('map-list');
+    if(apl){
+      const rows=[];
+      const arow=(sev,title,sub,fn)=>rows.push('<div class="map-row '+sev+'" onclick="'+(fn||'')+'"><span class="map-ic">'+(sev==='bad'?'\ud83d\udd34':sev==='warn'?'\u26a0':'\u2139')+'</span><span class="map-txt"><b>'+title+'</b><span>'+sub+'</span></span></div>');
+      if(attention>0) arow('warn','Maintenance Due', attention+' aircraft require attention \u00b7 check schedule',"openHangarModal()");
+      if(grounded>0) arow('bad','Aircraft Grounded', grounded+' grounded for repairs',"openHangarModal()");
+      const losers=(STATE.routes||[]).filter(r=>(r.profit||0)<0);
+      if(losers.length) arow('bad','Losing Routes', losers.length+' route'+(losers.length>1?'s':'')+' below breakeven',"openRouteManager()");
+      const sieged=(STATE.routes||[]).filter(r=>r.siege||r.contested).length;
+      if(sieged) arow('warn','Routes Under Siege', sieged+' contested by rivals',"openRouteManager()");
+      ((STATE.events||[]).filter(e=>e.type==='bad'||e.type==='warn').slice(0,3)).forEach(e=>arow(e.type==='bad'?'bad':'warn', e.text.replace(/<[^>]*>/g,'').slice(0,46), e.time,"mockOpenAlerts()"));
+      const n=rows.length;
+      const cnt=document.getElementById('map-count'); if(cnt) cnt.textContent='('+n+')';
+      apl.innerHTML = n?rows.slice(0,5).join(''):'<div class="map-empty">All clear \u2014 no active alerts.</div>';
+    }
+    /* bottom ticker */
+    const al=document.getElementById('mock-alerts');
+    if(al){
+      const latest=((STATE.events||[])[0]||{}).text||'No network news yet.';
+      let stake=''; try{ const s=(typeof stakesList==='function')?stakesList():[]; if(s.length) stake=s[0].text; }catch(e){}
+      al.innerHTML=
+        '<span class="mt-seg"><span class="mt-k">\ud83d\udce1 NETWORK NEWS</span><span class="mt-v">'+String(latest).replace(/<[^>]*>/g,'').slice(0,80)+'</span></span>'+
+        '<span class="mt-seg"><span class="mt-k">\u26fd FUEL PRICE</span><span class="mt-v">Jet fuel $'+fuelP.toFixed(2)+'/gal <span style="color:'+(fd2<=0?'var(--profit)':'var(--loss)')+'">'+(fd2>0?'+':'')+fd2.toFixed(2)+'</span></span></span>'+
+        (stake?'<span class="mt-seg"><span class="mt-k">\u2757 AT STAKE</span><span class="mt-v">'+String(stake).replace(/<[^>]*>/g,'').slice(0,70)+'</span></span>':'');
+    }
+  }catch(e){}
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',_mockDashSetup); else _mockDashSetup();
+try{
+  const _updateUI_orig_mock = updateUI;
+  updateUI = function(){ const r=_updateUI_orig_mock.apply(this,arguments); try{ _mockDashSetup(); _mockDashSync(); }catch(e){} return r; };
+}catch(e){}
+
+function mockOpenAlerts(){ try{ openModal('logviewer'); setTimeout(()=>{ if(typeof lvShow==='function') lvShow('ev'); }, 60); }catch(e){} }
+function _mockRivalRoutes(){
+  try{
+    if(typeof STATE==='undefined'||!STATE||!STATE.competitors) return;
+    const svg=document.getElementById('world-map'); if(!svg) return;
+    document.querySelectorAll('.mock-rival-routes').forEach(el=>el.remove());
+    let out='';
+    let n=0;
+    (STATE.competitors||[]).forEach(c=>{
+      (c.routeList||[]).forEach(r=>{
+        if(n>=70) return;
+        const a=CITIES[r.from], b=CITIES[r.to]; if(!a||!b) return;
+        let x1=a.x, x2=b.x;
+        if(x2-x1>MAP_W/2) x2-=MAP_W; else if(x1-x2>MAP_W/2) x2+=MAP_W;
+        const arc=(a.region!==b.region)?0.18:0.12;
+        const mx=(x1+x2)/2, my=(a.y+b.y)/2 - Math.abs(x1-x2)*arc;
+        out+='<path d="M'+x1.toFixed(1)+','+a.y.toFixed(1)+' Q'+mx.toFixed(1)+','+my.toFixed(1)+' '+x2.toFixed(1)+','+b.y.toFixed(1)+'" fill="none" stroke="'+(c.color||'#8fb7ff')+'" stroke-width="1" stroke-opacity="0.34" vector-effect="non-scaling-stroke"/>';
+        n++;
+      });
+    });
+    if(out){
+      svg.querySelectorAll('.routes').forEach(rg=>{
+        const parent=rg.parentNode; if(!parent) return;
+        const gEl=document.createElementNS('http://www.w3.org/2000/svg','g');
+        gEl.setAttribute('class','mock-rival-routes'); gEl.setAttribute('pointer-events','none'); gEl.innerHTML=out;
+        parent.insertBefore(gEl, rg);
+      });
+    }
+  }catch(e){}
+}
+try{
+  const _renderMap_orig_mock = renderMap;
+  renderMap = function(){ const r=_renderMap_orig_mock.apply(this,arguments); try{ _mockRivalRoutes(); }catch(e){} return r; };
+}catch(e){}
+
+/* ===== DAY / NIGHT CYCLE =====================================================
+   The engine is monthly turn-based, so there is no wall clock. The terminator
+   is driven by TURN PROGRESS instead: one full day sweep per month. In MANUAL
+   mode (no timer) it drifts slowly so the map still breathes; paused freezes it.
+   Sun declination comes from the in-game month, so seasons tilt the terminator. */
+function dnMode(){ try{ return localStorage.getItem('aeDayNight')||'auto'; }catch(e){ return 'auto'; } }
+function dnApplyMode(){
+  const mc=document.getElementById('map-container'); if(!mc) return;
+  const m=dnMode();
+  mc.classList.remove('dn-auto','dn-day','dn-night','night');
+  mc.classList.add('dn-'+m);
+  if(m!=='day') mc.classList.add('night');
+  const b=document.getElementById('dn-toggle');
+  if(b) b.innerHTML = m==='auto' ? '\u25d1 Day / Night' : (m==='day' ? '\u2600 Day' : '\u263e Night');
+  document.querySelectorAll('.daynight-layer').forEach(g=>{ g.style.display = (m==='auto') ? '' : 'none'; });
+}
+function dnCycle(){
+  const order=['auto','day','night'], m=dnMode();
+  const next=order[(order.indexOf(m)+1)%order.length];
+  try{ localStorage.setItem('aeDayNight', next); }catch(e){}
+  dnApplyMode(); dnUpdate();
+  if(typeof showFlash==='function') showFlash(next==='auto'?'Map: day/night cycle':(next==='day'?'Map: always day':'Map: always night'));
+}
+function dnSubLon(){
+  try{
+    if(typeof STATE==='undefined'||!STATE) return 0;
+    if(STATE.paused && STATE._dnLast!=null) return STATE._dnLast;
+    let lon;
+    if(STATE.timerMode && STATE.timerMode!=='off' && STATE.timerMax){
+      const prog=Math.max(0,Math.min(1, 1-((STATE.timerSecs||0)/STATE.timerMax)));  // one sweep per turn
+      lon = 180 - prog*360;
+    } else {
+      lon = 180 - ((performance.now()/180000)%1)*360;   // manual: ~3 min per sweep
+    }
+    STATE._dnLast=lon; return lon;
+  }catch(e){ return 0; }
+}
+function dnDeclination(){
+  try{ const m=(STATE&&STATE.month!=null)?STATE.month:5; return 23.44*Math.sin(2*Math.PI*((m+0.5-2.72)/12)); }
+  catch(e){ return 15; }
+}
+function dnNightPath(subLon, dec){
+  const N=72, t=Math.tan(dec*Math.PI/180) || 1e-6, pts=[];
+  for(let i=0;i<=N;i++){
+    const x=i/N*MAP_W, lon=x/MAP_W*360-180;
+    const H=(lon-subLon)*Math.PI/180;
+    const lat=Math.atan(-Math.cos(H)/t)*180/Math.PI;
+    pts.push(x.toFixed(1)+','+projY(lat).toFixed(1));
+  }
+  const south = dec>0;   // sun north of equator => night runs to the south pole
+  return 'M'+pts.join(' L')+(south?(' L'+MAP_W+','+MAP_H+' L0,'+MAP_H+' Z'):(' L'+MAP_W+',0 L0,0 Z'));
+}
+function dnEnsureLayer(){
+  const svg=document.getElementById('world-map'); if(!svg) return null;
+  const groups=svg.querySelectorAll('.routes');   // map repeats horizontally: one per wrap copy
+  let first=true, any=null;
+  groups.forEach(rg=>{
+    const parent=rg.parentNode; if(!parent) return;
+    let gEl=null;
+    for(const ch of parent.children){ if(ch.classList && ch.classList.contains('daynight-layer')) { gEl=ch; break; } }
+    if(!gEl){
+      gEl=document.createElementNS('http://www.w3.org/2000/svg','g');
+      gEl.setAttribute('class','daynight-layer'); gEl.setAttribute('pointer-events','none');
+      gEl.innerHTML=(first?'<defs><filter id="dnBlur" x="-25%" y="-25%" width="150%" height="150%"><feGaussianBlur stdDeviation="16"/></filter></defs>':'')+
+        '<path class="dn-night" fill="#03071a" opacity="0.62" filter="url(#dnBlur)"/>'+
+        '<path class="dn-dusk" fill="#3a2168" opacity="0.24" filter="url(#dnBlur)"/>';
+      parent.insertBefore(gEl, rg);
+    }
+    if(dnMode()!=='auto') gEl.style.display='none'; else gEl.style.display='';
+    first=false; any=any||gEl;
+  });
+  return any;
+}
+function dnUpdate(){
+  try{
+    if(typeof STATE==='undefined'||!STATE||document.hidden) return;
+    const svg=document.getElementById('world-map'); if(!svg) return;
+    if(dnMode()!=='auto'){ svg.querySelectorAll('.daynight-layer').forEach(g=>g.style.display='none'); return; }
+    dnEnsureLayer();
+    const dec=dnDeclination(), lon=dnSubLon();
+    const dNight=dnNightPath(lon, dec), dDusk=dnNightPath(lon-18, dec);
+    svg.querySelectorAll('.dn-night').forEach(el=>el.setAttribute('d', dNight));
+    svg.querySelectorAll('.dn-dusk').forEach(el=>el.setAttribute('d', dDusk));
+  }catch(e){}
+}
+function dnSetup(){
+  const mc=document.getElementById('map-container'); if(!mc) return;
+  if(!document.getElementById('dn-toggle')){
+    const b=document.createElement('div'); b.id='dn-toggle'; b.title='Cycle map lighting: day/night cycle, always day, always night';
+    b.onclick=dnCycle; mc.appendChild(b);
+  }
+  dnApplyMode(); dnEnsureLayer(); dnUpdate();
+  if(!window._dnTimer) window._dnTimer=setInterval(dnUpdate, 500);
+}
+try{
+  const _renderMap_dn = renderMap;
+  renderMap = function(){ const r=_renderMap_dn.apply(this,arguments); try{ dnEnsureLayer(); dnUpdate(); }catch(e){} return r; };
+}catch(e){}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',dnSetup); else dnSetup();
