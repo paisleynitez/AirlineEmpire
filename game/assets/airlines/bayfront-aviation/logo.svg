@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Bayfront Aviation sail logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#061517"/>
+  <path d="M252 57v167" stroke="#E1EFF0" stroke-width="12" stroke-linecap="round"/>
+  <path d="m242 75-112 136h112z" fill="#12626A" stroke="#E1EFF0" stroke-width="8" stroke-linejoin="round"/>
+  <path d="m265 94 117 117H265z" fill="#D19A49"/>
+  <path d="M78 238c60-22 119-22 178 0 59-22 118-22 178 0" fill="none" stroke="#E1EFF0" stroke-width="13" stroke-linecap="round"/>
+</svg>

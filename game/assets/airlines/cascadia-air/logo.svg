@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Cascadia Air evergreen mountain logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#061510"/>
+  <path d="m75 238 119-155 54 68 43-55 146 142z" fill="#17604E" stroke="#DCEBE5" stroke-width="8" stroke-linejoin="round"/>
+  <path d="m158 130 36-47 36 45-21-8-15 24-15-24z" fill="#DCEBE5"/>
+  <path d="M75 238c86-33 166-29 240 11 37 20 76 18 122-11" fill="none" stroke="#55A98C" stroke-width="18" stroke-linecap="round"/>
+  <path d="m118 222 24-58 24 58zm245 0 19-47 20 47z" fill="#DCEBE5"/>
+</svg>

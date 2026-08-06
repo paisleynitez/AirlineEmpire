@@ -214,7 +214,6 @@ const CITIES = {
   'Guayaquil'   :{x:561.8, y:517.3,lat:-2.19,lon:-79.88,abbr:'GYE',region:'S America',pop:2.0,econ:42,tourism:40,slots:50, major:false,level:2,fulfill:50},
   'Quito'       :{x:569.5, y:506.2,lat:-0.22,lon:-78.51,abbr:'UIO',region:'S America',pop:1.5,econ:44,tourism:55,slots:50, major:false,level:2,fulfill:50},
   'Montevideo'  :{x:694.6, y:700.4,lat:-34.82,lon:-56.21,abbr:'MVD',region:'S America',pop:1.0,econ:58,tourism:50,slots:45, major:false,level:2,fulfill:50},
-  'Asunción'    :{x:686.6, y:646.9,lat:-25.29,lon:-57.64,abbr:'ASU',region:'S America',pop:1.2,econ:40,tourism:38,slots:45, major:false,level:2,fulfill:50},
   'La Paz'      :{x:627.4, y:597.7,lat:-16.52,lon:-68.19,abbr:'LPB',region:'S America',pop:1.1,econ:38,tourism:52,slots:40, major:false,level:2,fulfill:50},
   'Recife'      :{x:814.3, y:550.2,lat:-8.06, lon:-34.88,abbr:'REC',region:'S America',pop:2.0,econ:42,tourism:50,slots:50, major:false,level:2,fulfill:50},
   'Fortaleza'   :{x:793.7, y:525.9,lat:-3.72, lon:-38.54,abbr:'FOR',region:'S America',pop:1.8,econ:40,tourism:55,slots:50, major:false,level:2,fulfill:50},
@@ -1712,7 +1711,7 @@ function wzRenderPage3() {
       const title = String(logo.name || logo.id).replace(/"/g,'&quot;');
       return `<button class="logo-pick logo-card image-logo-card ${selected?'selected':''}" onclick="pickLogo('${logo.id}')"
         data-logo-id="${logo.id}" data-peek-icon="✈" data-peek-title="${title}" data-peek-body="${groupName}" title="${title}">
-          <span class="logo-card-image-wrap">${window.airlineLogoImg ? window.airlineLogoImg(logo.id, 'logo-card-image', logo.name) : '✈'}<span class="logo-card-image-label">${logo.name}</span></span>
+          <span class="logo-card-image-wrap">${window.airlineLogoImg ? window.airlineLogoImg(logo.id, 'logo-card-image', logo.name) : '✈'}</span>
           <span class="logo-card-name">${logo.name}</span>
         </button>`;
     }).join('');
@@ -16057,18 +16056,7 @@ function _mockDashSetup(){
       if(w.left && w.left<170){ delete w.left; localStorage.setItem('aePanelWidths', JSON.stringify(w)); }
       if(!w.left) document.documentElement.style.setProperty('--ae-rail-w','232px');
     }catch(e){ document.documentElement.style.setProperty('--ae-rail-w','232px'); }
-    /* map legend */
     const mc=document.getElementById('map-container');
-    if(mc && !document.getElementById('map-legend')){
-      const lg=document.createElement('div'); lg.id='map-legend';
-      lg.innerHTML='<div class="ml-title">LEGEND</div>'+
-        '<div class="ml-row"><span class="ml-sw ml-hub"></span>Hub</div>'+
-        '<div class="ml-row"><span class="ml-sw ml-focus"></span>Focus City</div>'+
-        '<div class="ml-row"><span class="ml-sw ml-city"></span>City</div>'+
-        '<div class="ml-row"><span class="ml-line"></span>Active Route</div>'+
-        '<div class="ml-row"><span class="ml-line ml-dash"></span>Planned Route</div>';
-      mc.appendChild(lg);
-    }
     /* stat strip under the map */
     if(mc && !document.getElementById('mock-mapstats')){
       const st=document.createElement('div'); st.id='mock-mapstats';
@@ -16094,11 +16082,6 @@ function _mockDashSetup(){
         act('\ud83d\udce3','New Campaign',"openModal('campaign')")+
         act('\ud83d\udcc4','View Reports',"openModal('ledger')");
       rps.appendChild(q);
-    }
-    /* bottom alert bar */
-    const strip=document.getElementById('dash-strip');
-    if(strip && !document.getElementById('mock-alerts')){
-      const a=document.createElement('div'); a.id='mock-alerts'; strip.insertAdjacentElement('afterend', a);
     }
     /* label the existing turn-speed cluster so it reads as the time control */
     const sc=document.getElementById('speed-ctrl');
@@ -16211,16 +16194,6 @@ function _mockDashSync(){
     setT('mlt-fuel','$'+fuelP.toFixed(2), fd2?('<span style="color:'+(fd2<=0?'var(--profit)':'var(--loss)')+'">'+(fd2>0?'+':'')+fd2.toFixed(2)+'</span>'):'');
     const fx=(STATE.timedEffects||[]).length;
     setT('mlt-wx', fx===0?'None':fx<=2?'Low':fx<=4?'Moderate':'High', fx? fx+' active event'+(fx>1?'s':'') : 'clear skies', fx>=3?'var(--accent2)':undefined);
-    /* legend: airline colors (player + rivals) */
-    const lg=document.getElementById('map-legend');
-    if(lg){
-      const comps=(STATE.competitors||[]).slice(0,4);
-      lg.innerHTML='<div class="ml-title">LEGEND</div>'+
-        '<div class="ml-row"><span class="ml-line" style="border-top-color:'+(STATE.livery||'#a789ff')+'"></span>'+(STATE.coName||'You')+'</div>'+
-        comps.map(c=>'<div class="ml-row"><span class="ml-line" style="border-top-color:'+(c.color||'#8fb7ff')+';opacity:.8"></span>'+c.name+'</div>').join('')+
-        '<div class="ml-row"><span class="ml-sw ml-hub"></span>Hub</div>'+
-        '<div class="ml-row"><span class="ml-sw ml-city"></span>City</div>';
-    }
     /* Active Alerts panel */
     const apl=document.getElementById('map-list');
     if(apl){
@@ -16236,16 +16209,6 @@ function _mockDashSync(){
       const n=rows.length;
       const cnt=document.getElementById('map-count'); if(cnt) cnt.textContent='('+n+')';
       apl.innerHTML = n?rows.slice(0,5).join(''):'<div class="map-empty">All clear \u2014 no active alerts.</div>';
-    }
-    /* bottom ticker */
-    const al=document.getElementById('mock-alerts');
-    if(al){
-      const latest=((STATE.events||[])[0]||{}).text||'No network news yet.';
-      let stake=''; try{ const s=(typeof stakesList==='function')?stakesList():[]; if(s.length) stake=s[0].text; }catch(e){}
-      al.innerHTML=
-        '<span class="mt-seg"><span class="mt-k">\ud83d\udce1 NETWORK NEWS</span><span class="mt-v">'+String(latest).replace(/<[^>]*>/g,'').slice(0,80)+'</span></span>'+
-        '<span class="mt-seg"><span class="mt-k">\u26fd FUEL PRICE</span><span class="mt-v">Jet fuel $'+fuelP.toFixed(2)+'/gal <span style="color:'+(fd2<=0?'var(--profit)':'var(--loss)')+'">'+(fd2>0?'+':'')+fd2.toFixed(2)+'</span></span></span>'+
-        (stake?'<span class="mt-seg"><span class="mt-k">\u2757 AT STAKE</span><span class="mt-v">'+String(stake).replace(/<[^>]*>/g,'').slice(0,70)+'</span></span>':'');
     }
   }catch(e){}
 }
@@ -16302,16 +16265,7 @@ function dnApplyMode(){
   mc.classList.remove('dn-auto','dn-day','dn-night','night');
   mc.classList.add('dn-'+m);
   if(m!=='day') mc.classList.add('night');
-  const b=document.getElementById('dn-toggle');
-  if(b) b.innerHTML = m==='auto' ? '\u25d1 Day / Night' : (m==='day' ? '\u2600 Day' : '\u263e Night');
   document.querySelectorAll('.daynight-layer').forEach(g=>{ g.style.display = (m==='auto') ? '' : 'none'; });
-}
-function dnCycle(){
-  const order=['auto','day','night'], m=dnMode();
-  const next=order[(order.indexOf(m)+1)%order.length];
-  try{ localStorage.setItem('aeDayNight', next); }catch(e){}
-  dnApplyMode(); dnUpdate();
-  if(typeof showFlash==='function') showFlash(next==='auto'?'Map: day/night cycle':(next==='day'?'Map: always day':'Map: always night'));
 }
 function dnSubLon(){
   try{
@@ -16377,10 +16331,6 @@ function dnUpdate(){
 }
 function dnSetup(){
   const mc=document.getElementById('map-container'); if(!mc) return;
-  if(!document.getElementById('dn-toggle')){
-    const b=document.createElement('div'); b.id='dn-toggle'; b.title='Cycle map lighting: day/night cycle, always day, always night';
-    b.onclick=dnCycle; mc.appendChild(b);
-  }
   dnApplyMode(); dnEnsureLayer(); dnUpdate();
   if(!window._dnTimer) window._dnTimer=setInterval(dnUpdate, 500);
 }

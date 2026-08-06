@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Redrock Express mesa arrow logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#180C08"/>
+  <path d="M79 231h354l-47-49h-78l-20-98h-90l-22 98h-51z" fill="#8F3527" stroke="#F1DDC5" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M69 159h205l-32-39 125 40-125 40 32-38H69z" fill="#D7793C"/>
+  <path d="M99 239h313" stroke="#F1DDC5" stroke-width="9" stroke-linecap="round"/>
+</svg>

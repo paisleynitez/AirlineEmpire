@@ -510,10 +510,6 @@
     "iata": "MVD",
     "src": "assets/city-skylines/mvd.webp"
   },
-  "Asunción": {
-    "iata": "ASU",
-    "src": "assets/city-skylines/asu.webp"
-  },
   "La Paz": {
     "iata": "LPB",
     "src": "assets/city-skylines/lpb.webp"

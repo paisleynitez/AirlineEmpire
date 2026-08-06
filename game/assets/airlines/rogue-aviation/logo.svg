@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Rogue Aviation broken compass logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#0D1010"/>
+  <path d="M256 52a108 108 0 0 1 92 51M403 160a147 147 0 0 1-52 112M256 268a108 108 0 0 1-92-51M109 160a147 147 0 0 1 52-112" fill="none" stroke="#E9F0E6" stroke-width="14" stroke-linecap="round"/>
+  <path d="m256 67 28 65 66 28-66 28-28 65-28-65-66-28 66-28z" fill="#252B2A" stroke="#79C849" stroke-width="9"/>
+  <path d="m256 91 15 69-15 69-15-69z" fill="#79C849"/>
+  <path d="M367 70 334 104" stroke="#79C849" stroke-width="18" stroke-linecap="round"/>
+</svg>

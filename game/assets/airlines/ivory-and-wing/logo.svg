@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Ivory and Wing feather logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#11100F"/>
+  <path d="M96 249C135 97 233 44 425 73c-56 28-101 70-137 126-37 57-94 76-171 57z" fill="#F3EEDF" stroke="#C6B28A" stroke-width="9"/>
+  <path d="M110 249c87-70 164-122 231-155" fill="none" stroke="#292724" stroke-width="14" stroke-linecap="round"/>
+  <path d="M155 216h97M196 177h99M242 137h91" stroke="#C6B28A" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="393" cy="92" r="17" fill="#292724"/>
+</svg>

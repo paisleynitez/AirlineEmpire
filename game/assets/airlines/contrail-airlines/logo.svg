@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Contrail Airlines crossed trail logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#100B19"/>
+  <path d="M61 240C155 71 264 44 451 90" fill="none" stroke="#3F2A67" stroke-width="30" stroke-linecap="round"/>
+  <path d="M67 79c143 26 248 87 377 176" fill="none" stroke="#27B7B0" stroke-width="19" stroke-linecap="round" stroke-dasharray="3 31"/>
+  <path d="m398 70 54 20-48 32zM395 230l49 25-54 24z" fill="#EDE9F6"/>
+</svg>

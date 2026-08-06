@@ -5758,17 +5758,6 @@ button,input,select,textarea{font:inherit}
 #mock-ceo-card .mcc-gear{ margin-left:auto; background:none; border:1px solid rgba(255,255,255,.18); color:#fff; border-radius:9px; width:26px; height:26px; cursor:pointer; }
 #left-panel{ display:flex; flex-direction:column; }
 #left-panel .panel-scroll{ overflow-y:auto !important; }
-/* map legend */
-#map-legend{ position:absolute; left:12px; bottom:52px; z-index:40; background:rgba(6,8,20,.82); border:1px solid rgba(167,137,255,.22);
-  border-radius:12px; padding:9px 12px 10px; backdrop-filter:blur(8px); pointer-events:none; }
-#map-legend .ml-title{ font-size:9px; font-weight:800; letter-spacing:.2em; color:#fff; margin-bottom:6px; }
-#map-legend .ml-row{ display:flex; align-items:center; gap:8px; font-size:10px; color:#fff; padding:1.5px 0; }
-.ml-sw{ width:10px; height:10px; border-radius:50%; }
-.ml-hub{ background:#39c2ff; box-shadow:0 0 8px #39c2ff; }
-.ml-focus{ background:#ff8a3d; box-shadow:0 0 8px #ff8a3d; }
-.ml-city{ background:#fff; }
-.ml-line{ width:16px; height:0; border-top:2px solid #dfe6ff; border-radius:2px; }
-.ml-dash{ border-top-style:dashed; border-top-color:var(--accent2); }
 /* stat strip under map */
 #mock-mapstats{ display:flex; align-items:center; gap:4px; margin:8px 12px 0; padding:9px 14px;
   background:rgba(255,255,255,.03); border:1px solid rgba(167,137,255,.16); border-radius:13px; }
@@ -5798,9 +5787,6 @@ button,input,select,textarea{font:inherit}
 #mock-coverage .mc-bar{ height:5px; border-radius:4px; background:rgba(255,255,255,.09); overflow:hidden; }
 #mock-coverage .mc-fill{ height:100%; background:linear-gradient(90deg,#39c2ff,#8a63ff); border-radius:4px; }
 #mock-coverage .mc-txt{ font-size:9.5px; color:rgba(255,255,255,.6); margin-top:4px; }
-/* alert bar */
-#mock-alerts{ display:flex; gap:8px; flex-wrap:wrap; margin:8px 12px 10px; }
-#mock-alerts:empty{ display:none; }
 .ma-chip{ display:inline-flex; align-items:center; gap:8px; font-size:10.5px; color:#fff; padding:6px 10px;
   background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); border-radius:999px; }
 .ma-chip.warn{ border-color:rgba(255,193,74,.4); }
@@ -5848,13 +5834,6 @@ button,input,select,textarea{font:inherit}
 #mock-alertspanel .map-allbtn{ width:100%; margin-top:2px; background:rgba(255,93,114,.12); border:1px solid rgba(255,93,114,.4);
   color:#ffb3bd; border-radius:10px; padding:8px; font-size:10.5px; font-weight:800; letter-spacing:.06em; cursor:pointer; }
 #mock-alertspanel .map-allbtn:hover{ background:rgba(255,93,114,.22); }
-/* ticker */
-#mock-alerts{ display:flex; gap:8px; margin:8px 12px 10px; flex-wrap:nowrap; overflow:hidden; }
-.mt-seg{ display:inline-flex; align-items:center; gap:9px; padding:8px 13px; border-radius:12px; flex:1; min-width:0;
-  background:rgba(255,255,255,.03); border:1px solid rgba(167,137,255,.15); }
-.mt-k{ font-size:9px; font-weight:800; letter-spacing:.12em; color:#fff; white-space:nowrap; }
-.mt-v{ font-size:10.5px; color:rgba(255,255,255,.78); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-
 /* ===== day / night earth (mockup) — must beat earlier !important rules ===== */
 #map-container.dn-auto .sat-img,
 #map-container.dn-night .sat-img{ filter:brightness(.60) saturate(.78) contrast(1.06)!important; }
@@ -5868,10 +5847,6 @@ button,input,select,textarea{font:inherit}
 #world-map .city-label{ fill:#fff; }
 #world-map .route-line{ filter:drop-shadow(0 0 3px rgba(167,137,255,.55)); }
 .mock-rival-routes path{ filter:drop-shadow(0 0 2px rgba(0,0,0,.6)); }
-/* day/night control + time scale label */
-#dn-toggle{ position:absolute; left:12px; top:150px; z-index:42; display:flex; align-items:center; gap:6px;
-  padding:7px 12px; border-radius:11px; cursor:pointer; font-size:11px; font-weight:700; color:#fff;
-  background:rgba(6,10,24,.78); border:1px solid rgba(167,137,255,.30); backdrop-filter:blur(6px); user-select:none; }
-#dn-toggle:hover{ border-color:rgba(167,137,255,.6); background:rgba(20,14,42,.85); }
+/* time scale label */
 .hdr-timescale-label{ font-size:8.5px; font-weight:800; letter-spacing:.16em; color:rgba(255,255,255,.55);
   text-transform:uppercase; margin-right:6px; white-space:nowrap; }

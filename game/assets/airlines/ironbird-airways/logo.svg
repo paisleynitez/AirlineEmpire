@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Ironbird Airways forged bird logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#0E1114"/>
+  <path d="M63 189 206 77l49 61 57-61 137 66-108 28 57 72-138-52-63 65-38-65z" fill="#303840" stroke="#E7EAEC" stroke-width="8" stroke-linejoin="round"/>
+  <path d="m206 77 54 114 52-114 19 84-71 30-73-38z" fill="#D96A2B"/>
+  <path d="m341 171 62-44 46 16z" fill="#E7EAEC"/>
+  <circle cx="359" cy="136" r="8" fill="#303840"/>
+</svg>

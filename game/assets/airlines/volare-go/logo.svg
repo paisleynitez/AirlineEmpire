@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Volare Go bright wing logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#101313"/>
+  <path d="M67 184c88-87 195-119 378-83-84 12-145 40-191 85l-48 47z" fill="#30373B" stroke="#EAF6CF" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M110 190c104-49 200-61 289-37-67 10-124 35-172 77z" fill="#9BD13B"/>
+  <path d="m223 178 29 27 70-76" fill="none" stroke="#EAF6CF" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

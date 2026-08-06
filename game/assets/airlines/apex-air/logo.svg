@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Apex Air angular peak logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#101218"/>
+  <path d="m256 53 175 213H81z" fill="#343A46" stroke="#F7E8DE" stroke-width="9" stroke-linejoin="round"/>
+  <path d="m256 87 65 164h-54l-11-54-12 54h-54z" fill="#E8662C"/>
+  <path d="m256 87 175 179H321z" fill="#F7E8DE" opacity=".16"/>
+  <path d="M110 266h292" stroke="#E8662C" stroke-width="12" stroke-linecap="round"/>
+</svg>

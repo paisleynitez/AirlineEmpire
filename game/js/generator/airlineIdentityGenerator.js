@@ -93,10 +93,10 @@
     const name=makeName(), palette=pick(PALETTES), shape=pick(SHAPES), symbol=pick(SYMBOLS);
     return {id:'proc_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7),name,group:'procedural',source:'procedural',image:'',palette,shape,symbol,type:pick(TYPES),trait:pick(TRAITS)};
   }
-  function createCuratedIdentity(){
+  function createCuratedIdentity(source){
     const pool=curatedPool();
     if(!pool.length) return createProceduralIdentity();
-    const source=weightedPick(pool);
+    source=source||weightedPick(pool);
     const palette=Array.isArray(source.palette)&&source.palette.length>=2 ? source.palette.slice(0,3) : pick(PALETTES);
     const shape=source.shape||pick(SHAPES), symbol=source.symbol||pick(SYMBOLS);
     return {
@@ -106,12 +106,12 @@
       type:source.category||pick(TYPES), trait:[source.region,source.style].filter(Boolean).join(' · ')||pick(TRAITS)
     };
   }
-  function createIdentity(){ return createContactIdentity(); }
+  function createIdentity(){ return createCuratedIdentity(); }
   function ensureImage(identity){ if(!identity.image) identity.image=dataUri(identity); return identity; }
   function register(identity){
     ensureImage(identity);
     const list=window.AIRLINE_LOGOS || (window.AIRLINE_LOGOS=[]);
-    if(identity.source==='contact' && !list.some(x=>x.id===identity.id)) list.unshift(identity);
+    if(!list.some(x=>x.id===identity.id)) list.unshift(identity);
     window.AIRLINE_LOGO_GROUPS=window.AIRLINE_LOGO_GROUPS||{};
     window.AIRLINE_LOGO_GROUPS.procedural='Airline Logo';
     return identity;
@@ -136,10 +136,10 @@
   }
   function shuffleContactLogos(count=9){
     const list=window.AIRLINE_LOGOS || (window.AIRLINE_LOGOS=[]);
-    list.splice(0,list.length); // v1.1.2: remove generic/default logos from the visible picker
-    const pool=CONTACT_SHEET_LOGOS.slice();
+    list.splice(0,list.length);
+    const pool=curatedPool().slice();
     for(let i=pool.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [pool[i],pool[j]]=[pool[j],pool[i]]; }
-    pool.slice(0,Math.min(count,pool.length)).reverse().forEach(item=>register(createContactIdentity(item)));
+    pool.slice(0,Math.min(count,pool.length)).reverse().forEach(item=>register(createCuratedIdentity(item)));
     if(typeof window.wzRenderPage3==='function') window.wzRenderPage3();
     else if(typeof window.renderLogoPicker==='function') window.renderLogoPicker();
     return list.slice();

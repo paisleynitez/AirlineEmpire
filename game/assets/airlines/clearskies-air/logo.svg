@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">ClearSkies Air cloud and sun logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#07151C"/>
+  <circle cx="332" cy="108" r="58" fill="#72C7DF"/>
+  <g stroke="#72C7DF" stroke-width="10" stroke-linecap="round"><path d="M332 35v20M332 161v20M259 108h20M385 108h20M281 57l14 14M369 145l14 14M383 57l-14 14"/></g>
+  <path d="M101 229c-31-72 35-117 93-87 31-78 139-63 150 23 75-3 91 101 18 101H126c-20 0-34-15-25-37z" fill="#1677A1" stroke="#E7F4FA" stroke-width="9"/>
+</svg>

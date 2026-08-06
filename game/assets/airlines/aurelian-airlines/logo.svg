@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Aurelian Airlines golden crown logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#150A16"/>
+  <circle cx="256" cy="152" r="105" fill="#4C244F" stroke="#D1A64A" stroke-width="10"/>
+  <path d="m127 124 72 42 57-91 57 91 72-42-27 119H154z" fill="#D1A64A" stroke="#F5E9D0" stroke-width="8" stroke-linejoin="round"/>
+  <circle cx="127" cy="124" r="12" fill="#F5E9D0"/><circle cx="256" cy="75" r="12" fill="#F5E9D0"/><circle cx="385" cy="124" r="12" fill="#F5E9D0"/>
+  <path d="M168 213h176" stroke="#4C244F" stroke-width="12" stroke-linecap="round"/>
+</svg>

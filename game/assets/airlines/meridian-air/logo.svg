@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Meridian Air compass logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#071423"/>
+  <circle cx="256" cy="160" r="104" fill="#0E2D52" stroke="#6EB6C8" stroke-width="10"/>
+  <circle cx="256" cy="160" r="70" fill="none" stroke="#D9E2EA" stroke-width="4" opacity=".65"/>
+  <path d="m256 66 26 68 68 26-68 26-26 68-26-68-68-26 68-26z" fill="#6EB6C8"/>
+  <path d="m256 86 13 61 61 13-61 13-13 61-13-61-61-13 61-13z" fill="#F5F8FA"/>
+  <circle cx="256" cy="160" r="13" fill="#0E2D52"/>
+</svg>

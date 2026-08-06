@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Prairie Air wheat logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#0B151B"/>
+  <path d="M256 260V65" stroke="#EFE5C9" stroke-width="11" stroke-linecap="round"/>
+  <g fill="#C99A3C">
+    <ellipse cx="222" cy="96" rx="17" ry="32" transform="rotate(-45 222 96)"/><ellipse cx="290" cy="96" rx="17" ry="32" transform="rotate(45 290 96)"/>
+    <ellipse cx="218" cy="145" rx="17" ry="32" transform="rotate(-52 218 145)"/><ellipse cx="294" cy="145" rx="17" ry="32" transform="rotate(52 294 145)"/>
+    <ellipse cx="216" cy="195" rx="17" ry="32" transform="rotate(-58 216 195)"/><ellipse cx="296" cy="195" rx="17" ry="32" transform="rotate(58 296 195)"/>
+  </g>
+  <path d="M72 251c82-27 156-28 222-3 56 22 105 23 146 3" fill="none" stroke="#315E75" stroke-width="16" stroke-linecap="round"/>
+</svg>

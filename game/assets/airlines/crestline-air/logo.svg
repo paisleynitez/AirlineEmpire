@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Crestline Air alpine crest logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#0A1117"/>
+  <path d="M256 49 374 92v72c0 70-43 112-118 139-75-27-118-69-118-139V92z" fill="#27445C" stroke="#A9BBC7" stroke-width="10"/>
+  <path d="m159 211 74-103 35 48 28-37 66 92z" fill="#ECEFF1"/>
+  <path d="m210 140 23-32 23 31-14-6-9 13-9-13z" fill="#27445C"/>
+  <path d="M167 227h178" stroke="#A9BBC7" stroke-width="10" stroke-linecap="round"/>
+</svg>

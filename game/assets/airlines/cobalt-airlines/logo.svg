@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Cobalt Airlines orbital circle logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#07101D"/>
+  <circle cx="256" cy="160" r="94" fill="#163A72" stroke="#E9EDF4" stroke-width="8"/>
+  <ellipse cx="256" cy="160" rx="177" ry="62" fill="none" stroke="#63A2D8" stroke-width="15" transform="rotate(-18 256 160)"/>
+  <circle cx="410" cy="108" r="18" fill="#E9EDF4"/>
+  <path d="M203 160a53 53 0 1 0 106 0 53 53 0 1 0-106 0" fill="#63A2D8"/>
+</svg>

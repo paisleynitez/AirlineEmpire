@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">BudgetWing price-tag wing logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#101416"/>
+  <path d="m71 167 130-92h136l104 84-104 86H201z" fill="#263238" stroke="#FFF4C2" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M106 160c84-8 149-31 195-70-19 45-43 72-72 83 47 0 94-10 141-31-64 62-151 83-264 64z" fill="#F2C230"/>
+  <circle cx="366" cy="159" r="18" fill="#FFF4C2"/>
+</svg>

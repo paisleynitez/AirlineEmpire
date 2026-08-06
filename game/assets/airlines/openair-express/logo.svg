@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">OpenAir Express open horizon logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#07150E"/>
+  <path d="M106 244V87h109v157M297 244V87h109v157" fill="none" stroke="#26734D" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M65 222c92-58 176-58 252 0 39 30 82 30 130 0" fill="none" stroke="#A4C95A" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="256" cy="128" r="46" fill="#E7F2E9"/>
+  <path d="m256 88 14 26 29 5-21 21 5 29-27-14-27 14 5-29-21-21 29-5z" fill="#26734D"/>
+</svg>

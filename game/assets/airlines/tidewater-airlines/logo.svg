@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Tidewater Airlines tide logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#06141B"/>
+  <path d="M63 148c43-59 100-79 170-59 54 16 89 51 107 106-35-26-72-35-111-27-48 9-73 37-75 83-64-10-94-44-91-103z" fill="#124B69" stroke="#DAEEF0" stroke-width="8"/>
+  <path d="M84 224c60-40 119-40 178 0 59 40 115 39 168-4" fill="none" stroke="#36A0A8" stroke-width="18" stroke-linecap="round"/>
+  <path d="M119 252c49-25 93-25 132 0 42 27 87 26 136-3" fill="none" stroke="#DAEEF0" stroke-width="8" stroke-linecap="round"/>
+</svg>

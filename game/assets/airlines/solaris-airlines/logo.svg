@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Solaris Airlines rising sun logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#1A0D08"/>
+  <g stroke="#F2A93B" stroke-width="13" stroke-linecap="round">
+    <path d="M256 48v32M166 73l17 27M346 73l-17 27M99 140l34 7M413 140l-34 7"/>
+  </g>
+  <path d="M126 214a130 130 0 0 1 260 0z" fill="#9B3A20" stroke="#F2A93B" stroke-width="11"/>
+  <circle cx="256" cy="214" r="82" fill="#F2A93B"/>
+  <path d="M82 230c75-23 124-22 174 0 50-22 99-23 174 0" fill="none" stroke="#FFF2D5" stroke-width="13" stroke-linecap="round"/>
+</svg>

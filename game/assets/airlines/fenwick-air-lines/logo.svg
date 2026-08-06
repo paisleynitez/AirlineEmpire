@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Fenwick Air Lines tailored monogram logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#071511"/>
+  <path d="M170 243V77h125" fill="none" stroke="#E7ECE4" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M170 155h102" stroke="#8DAA91" stroke-width="20" stroke-linecap="round"/>
+  <path d="M318 81c73 22 81 102 10 144-15-62-22-95-10-144z" fill="#16483B" stroke="#8DAA91" stroke-width="9"/>
+  <path d="M326 107c-5 47-21 83-51 111" fill="none" stroke="#E7ECE4" stroke-width="8" stroke-linecap="round"/>
+</svg>

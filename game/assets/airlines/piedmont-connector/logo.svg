@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Piedmont Connector route network logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#0D1216"/>
+  <path d="M105 218 204 101l89 118 111-126" fill="none" stroke="#B47A4F" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M105 218 293 219M204 101l200-8" stroke="#3E5263" stroke-width="9"/>
+  <g fill="#E8E1D6" stroke="#3E5263" stroke-width="8">
+    <circle cx="105" cy="218" r="22"/><circle cx="204" cy="101" r="22"/><circle cx="293" cy="219" r="22"/><circle cx="404" cy="93" r="22"/>
+  </g>
+</svg>

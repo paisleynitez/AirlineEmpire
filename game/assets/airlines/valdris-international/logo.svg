@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Valdris International wing logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#160B12"/>
+  <path d="M77 170c77-75 157-101 290-83-53 13-92 35-126 67l-46 44z" fill="#591F35" stroke="#C6A15B" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M130 181c89-49 171-64 305-43-69 6-123 24-179 65l-54 40z" fill="#C6A15B"/>
+  <path d="M174 194c78-22 140-25 227-8-68 7-125 22-181 51z" fill="#F0E6D2"/>
+</svg>

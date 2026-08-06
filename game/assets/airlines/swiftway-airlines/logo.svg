@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Swiftway Airlines forward arrow logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#16090C"/>
+  <path d="M72 97h220l-51 49h109l85 14-85 14H241l51 49H72l67-63z" fill="#A52B36" stroke="#F4E9E8" stroke-width="8" stroke-linejoin="round"/>
+  <path d="m293 97 142 63-142 63 59-63z" fill="#344B5E"/>
+  <path d="M89 255h268" stroke="#A52B36" stroke-width="13" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Caledonian Airways saltire badge logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#081220"/>
+  <circle cx="256" cy="160" r="105" fill="#183E73" stroke="#F2F4F6" stroke-width="10"/>
+  <path d="M190 94 322 226M322 94 190 226" stroke="#F2F4F6" stroke-width="30" stroke-linecap="round"/>
+  <path d="M198 102 314 218M314 102 198 218" stroke="#C7463D" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="256" cy="160" r="25" fill="#183E73" stroke="#F2F4F6" stroke-width="6"/>
+</svg>

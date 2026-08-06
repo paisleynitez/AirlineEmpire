@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Marcello Air ribbon logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#17090C"/>
+  <path d="M83 228C153 73 252 63 302 155c28 51 72 69 132 53-66 72-139 74-187 4-30-44-70-34-119 31z" fill="#7B2531" stroke="#F6E8DF" stroke-width="8"/>
+  <path d="M94 224c88-107 152-125 193-54 35 60 81 68 139 26" fill="none" stroke="#D8905D" stroke-width="22" stroke-linecap="round"/>
+</svg>

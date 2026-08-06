@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Lakeshore Airlines wave logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#06131A"/>
+  <circle cx="256" cy="142" r="75" fill="#176187" stroke="#E0F0F4" stroke-width="9"/>
+  <path d="M65 187c62-53 123-56 184-8 63 49 129 45 198-13-27 78-84 115-167 103-49-7-77-41-119-46-32-4-64 5-96 29z" fill="#75B9C8"/>
+  <path d="M83 205c67-42 119-41 172 2 56 46 112 40 174-17" fill="none" stroke="#E0F0F4" stroke-width="10" stroke-linecap="round"/>
+</svg>

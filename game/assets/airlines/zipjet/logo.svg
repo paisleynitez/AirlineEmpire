@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">ZipJet electric bolt logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#100A18"/>
+  <path d="M106 91h192l-77 76h157L205 267l51-74H106l79-74h-79z" fill="#5A2A82" stroke="#F2EAF7" stroke-width="8" stroke-linejoin="round"/>
+  <path d="m277 61-38 92h68l-82 116 28-94h-61z" fill="#E8D33F"/>
+</svg>

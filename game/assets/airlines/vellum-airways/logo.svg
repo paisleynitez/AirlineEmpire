@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="320" viewBox="0 0 512 320" role="img" aria-labelledby="title">
+  <title id="title">Vellum Airways folded feather logo</title>
+  <rect x="16" y="16" width="480" height="288" rx="48" fill="#15110E"/>
+  <path d="M99 242C132 111 218 55 416 73c-51 37-92 82-126 133-33 50-86 66-159 46z" fill="#F3EDDF" stroke="#B99869" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M118 243c85-67 158-116 219-148" fill="none" stroke="#51483F" stroke-width="13" stroke-linecap="round"/>
+  <path d="M170 205h91M210 166h93M254 127h85" stroke="#B99869" stroke-width="9" stroke-linecap="round"/>
+</svg>
