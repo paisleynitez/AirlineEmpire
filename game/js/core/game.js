@@ -1,8 +1,9 @@
+const PLAYER_STARTING_CASH = 1500;
 const LEVELS = [
-  { id:1, name:'Easy',   blurb:'Generous capital, timid rivals',  regions:3, cashMult:1.4,  rivalAgg:0.6, rivals:2 },
-  { id:2, name:'Normal', blurb:'Balanced economy & competition',  regions:4, cashMult:1.0,  rivalAgg:1.0, rivals:3 },
-  { id:3, name:'Hard',   blurb:'Tight cash, aggressive rivals',   regions:5, cashMult:0.75, rivalAgg:1.3, rivals:3 },
-  { id:4, name:'Expert', blurb:'Scarce capital, ruthless rivals', regions:6, cashMult:0.55, rivalAgg:1.7, rivals:4 },
+  { id:1, name:'Easy',   blurb:'Fewer regions, timid rivals',          regions:3, rivalAgg:0.6, rivals:2 },
+  { id:2, name:'Normal', blurb:'Balanced economy & competition',      regions:4, rivalAgg:1.0, rivals:3 },
+  { id:3, name:'Hard',   blurb:'More regions, aggressive rivals',     regions:5, rivalAgg:1.3, rivals:3 },
+  { id:4, name:'Expert', blurb:'Maximum reach, ruthless rivals',      regions:6, rivalAgg:1.7, rivals:4 },
 ];
 const GAME_TYPES = [
   { id:'scenario',   name:'Scenario',        icon:'🗺', blurb:'Classic campaign. Choose your scenario and grow the world\'s #1 airline.' },
@@ -1460,7 +1461,7 @@ function defaultState() {
     scenario: SCENARIOS[0], level: LEVELS[1],
     coName: 'SKYLINE', homeBase: 'Chicago', logo: '✈', logoId: (window.DEFAULT_AIRLINE_LOGO_ID || 'nova_airlines'), livery: '#a789ff',
     month: 3, year: 1970, startYear: 1970,
-    cash: 850, loan: 600, maxLoan: 3000,
+    cash: PLAYER_STARTING_CASH, loan: 600, maxLoan: 3000,
     shares: { owned: 125000, total: 1000000, price: 1, dividend: 0 },
     companyValue: 1,
     totalPaxYear: 0, paxThisYear: 0, lastYearPax: 0,
@@ -1499,6 +1500,7 @@ function defaultState() {
     // ── Regional capital projects (mid/late-game money sink) ────────
     regionProjects: {},          // region -> { active:[{id,turnsLeft,cost}], completed:[id...] }
     projectSlots: 2,             // concurrent in-progress projects allowed
+    researchPoints: 2450,        // presentation balance for the Research command center
   };
 }
 let setupChoice = { type: 'scenario', scenario: SCENARIOS[0], level: LEVELS[1], hub: 'Chicago' };
@@ -1534,7 +1536,7 @@ function wzStep(page) {
     if (step2Line) step2Line.style.display = show ? '' : 'none';
     if (step2LineAfter) step2LineAfter.style.display = show ? '' : 'none';
   }
-  for (let i=1; i<=4; i++) {
+  for (let i=1; i<=3; i++) {
     const el = document.getElementById(`wz-step-${i}`);
     if (!el) continue;
     el.classList.remove('active','done');
@@ -1544,7 +1546,6 @@ function wzStep(page) {
   if (page === 1) wzRenderPage1();
   else if (page === 2) wzRenderPage2();
   else if (page === 3) wzRenderPage3();
-  else if (page === 4) aeRenderPreview();
   // Re-trigger flap animation on every page change
   const wzFlap = document.getElementById('wz-flap-title');
   if (wzFlap) setTimeout(() => splitFlap(wzFlap, 'AIRLINE EMPIRE'), 80);
@@ -1593,7 +1594,7 @@ function wzRenderPage1() {
   if (dp) dp.style.display = (t==='mystery') ? 'none' : '';
   const dg = document.getElementById('wz-diff-grid');
   if (dg) dg.innerHTML = LEVELS.filter(l=>l.id!==1).map(l => {
-    const startCash = Math.round((setupChoice.scenario?.cash||800) * l.cashMult);
+    const startCash = PLAYER_STARTING_CASH;
     const diffIcon = l.id===2?'🎯':l.id===3?'⚔️':'💀';
     const peekBody = `${l.blurb}. Start $${startCash}M · ${l.regions} regions · ${l.rivals} rivals.`;
     return `<div class="diff-card ${l.id===setupChoice.level?.id?'selected':''}" data-diff="${l.id}" onclick="pickLevel(${l.id})"
@@ -1610,14 +1611,15 @@ function wzRenderPage1() {
       : 'Next — Found Airline ›';
   }
 }
-let _scDetails = {};   // per-scenario DETAILS open state (default open)
+let _scDetails = {};   // accordion state: at most one scenario is expanded
 const SC_PREVIEW_ARCS = {   // per-scenario preview route (city pair)
   1: ['Chicago','New York'], 2: ['Chicago','Dallas'], 3: ['New York','Singapore'],
   4: ['Chicago','Miami'], 5: ['Seattle','San Francisco'], 6: ['Chicago','Denver'],
 };
 function scToggleDetails(id, ev) {
   if (ev) ev.stopPropagation();
-  _scDetails[id] = !_scDetails[id];
+  const shouldOpen = _scDetails[id] !== true;
+  _scDetails = shouldOpen ? { [id]: true } : {};
   wzRenderPage2();
 }
 function scPreviewSVG() {
@@ -1645,7 +1647,7 @@ function wzRenderPage2() {
   sg.innerHTML = SCENARIOS.map(s => {
     const tagline = SCENARIO_TAGLINES[s.id] || '';
     const accent  = SCENARIO_ACCENT[s.id] || 'var(--accent)';
-    const startCash = Math.round((s.cash||800) * (lvl.cashMult||1));
+    const startCash = PLAYER_STARTING_CASH;
     const hubs = 1;                       // all scenarios start from a single home hub
     const rivals = lvl.rivals;            // rivals come from chosen difficulty
     const diffName = lvl.name;            // difficulty chosen on page 1
@@ -1664,11 +1666,12 @@ function wzRenderPage2() {
       <div class="sc-card-name">${s.name}</div>
       ${tagline?`<div class="sc-card-tag" style="color:${accent}">${tagline}</div>`:''}
       <div class="sc-card-desc">${s.desc}</div>
-      <div class="sc-details-head ${open?'':'closed'}" onclick="scToggleDetails(${s.id},event)"
+      <button type="button" class="sc-details-head ${open?'':'closed'}" onclick="scToggleDetails(${s.id},event)"
+           aria-expanded="${open}" aria-label="${open?'Hide':'Show'} ${s.name.replace(/"/g,'&quot;')} details"
            data-peek-icon="💰" data-peek-title="${s.name.replace(/"/g,'&quot;')} — Details"
            data-peek-body="${detailsPeek.replace(/"/g,'&quot;')}">
-        <span>DETAILS</span><span class="chev">⌄</span>
-      </div>
+        <span>DETAILS</span><span class="chev" aria-hidden="true">⌄</span>
+      </button>
       ${open?`<div class="sc-card-stats">
         ${statRow('Start Cash', '$'+startCash+'M', accent)}
         ${statRow('Starting Hubs', hubs)}
@@ -1774,18 +1777,8 @@ function wzRenderPage3() {
       </div>`;
     }).join('');
   }
-  const lg = document.getElementById('ae4-legend');
-  if (lg) {
-    lg.innerHTML = [
-      ['👥','Population','City population'],
-      ['📶','Demand','Market demand'],
-      ['🎯','Competition','Existing airlines'],
-      ['🛫','Starting Gates','Available gates'],
-    ].map(([ic,t,d]) => `<div class="ae4-legend-item"><span class="ic">${ic}</span><span><span class="tt">${t}</span><br><span class="dd">${d}</span></span></div>`).join('');
-  }
   const ld = document.getElementById('nh-logo-display');
   if (ld) { ld.innerHTML = window.airlineLogoImg ? window.airlineLogoImg(_selectedLogo, 'nh-selected-logo', 'Selected airline logo') : '✈'; ld.style.color = _selectedLivery; ld.style.textShadow = 'none'; }
-  aeRenderPreview();
   aeNameCheck();
 }
 const AE4_REGION_LABEL = { 'N America':'North America', 'S America':'South America' };
@@ -1842,35 +1835,6 @@ function aePlaneSVG(w, h) {
     <path d="M158 33 L172 24 L176 26 L166 34 Z" fill="${s}"/>
   </svg>`;
 }
-function aeRenderPreview() {
-  const pv = document.getElementById('ae4-preview');
-  if (!pv) return;
-  const nameEl = document.getElementById('nh-name-input');
-  const nm = ((nameEl && nameEl.value) || 'SKYLINE').toUpperCase();
-  const hub = setupChoice.hub, hc = CITIES[hub] || {};
-  const apt = AE4_AIRPORTS[hub] || `${hc.abbr||''} Intl`;
-  const sc = setupChoice.scenario, lv = setupChoice.level || LEVELS[1];
-  const baseCash = setupChoice.type === 'scenario' && sc ? sc.cash : (sc ? sc.cash : 800);
-  const cash = Math.round(baseCash * (lv.cashMult || 1));
-  const typeName = (GAME_TYPES.find(g=>g.id===setupChoice.type)||{}).name || 'Scenario';
-  const lead = (k,v)=>`<span class="row"><span class="k">${k}</span><span class="lead"></span><span class="v">${v}</span></span>`;
-  pv.innerHTML = `
-    <div class="ae4-pv-title">YOUR AIRLINE PREVIEW</div>
-    <div class="ae4-pv-id">
-      <div class="ae4-pv-badge image-logo-preview" style="color:${_selectedLivery}">${window.airlineLogoImg ? window.airlineLogoImg(_selectedLogo, 'preview-airline-logo', nm + ' logo') : '✈'}</div>
-      <div style="min-width:0;flex:1">
-        <div class="ae4-pv-name">${nm}</div>
-        <div class="ae4-pv-hub">${apt}${hc.abbr?` (${hc.abbr})`:''}</div>
-        <div class="ae4-pv-stats">
-          ${lead('Starting Cash', '$'+cash.toLocaleString()+'M')}
-          ${lead('Starting Fleet', '3 Aircraft')}
-          ${lead('Difficulty', lv.name||'Normal')}
-          ${lead('Game Mode', typeName)}
-        </div>
-      </div>
-    </div>
-    <div class="ae4-pv-plane">${aePlaneSVG(340, 132)}</div>`;
-}
 function aeNameCheck() {
   const nameEl = document.getElementById('nh-name-input');
   const msg = document.getElementById('ae4-namemsg');
@@ -1880,7 +1844,6 @@ function aeNameCheck() {
   if (!v) { msg.textContent = 'Enter an airline name'; msg.className = 'warn'; chk.classList.remove('ok'); }
   else if (v.length < 3) { msg.textContent = 'A bit short — use 3+ characters'; msg.className = 'warn'; chk.classList.remove('ok'); }
   else { msg.textContent = '✨ Great name! Memorable and professional.'; msg.className = ''; chk.classList.add('ok'); }
-  aeRenderPreview();
 }
 const AE4_NAMES = ['SKYLINE','AURORA','ZEPHYR','NIMBUS','MERIDIAN','HORIZON','POLARIS','CIRRUS','STRATUS','VELOCITY','EQUINOX','SOLSTICE','ATLAS AIR','VANTAGE','PACIFIC JET','APEX AIR','NOVA WINGS','PAISLEY AIR'];
 function aeRandomName() {
@@ -1890,9 +1853,17 @@ function aeRandomName() {
   nameEl.value = pool[Math.floor(Math.random() * pool.length)];
   aeNameCheck();
 }
+window.getSetupLogoRegion = function() {
+  const hub = setupChoice.hub;
+  return _hubRegion || (hub && CITIES[hub] ? CITIES[hub].region : null) || REGIONS[0];
+};
 function hubSetRegion(r) {
   _hubRegion = r;
-  wzRenderPage3();
+  if (window.AirlineIdentityGenerator && typeof window.AirlineIdentityGenerator.setRegion === 'function') {
+    window.AirlineIdentityGenerator.setRegion(r, 9);
+  } else {
+    wzRenderPage3();
+  }
 }
 function aeToggleHubCard(n, ev) {
   if (ev) { ev.stopPropagation(); ev.preventDefault(); }
@@ -1909,7 +1880,6 @@ function renderSetup() {
   if (_wzPage === 1) wzRenderPage1();
   else if (_wzPage === 2) wzRenderPage2();
   else if (_wzPage === 3) wzRenderPage3();
-  else if (_wzPage === 4) aeRenderPreview();
 }
 function pickType(id) { setupChoice.type = id; wzRenderPage1(); }
 function pickScenario(id) { setupChoice.scenario = SCENARIOS.find(s=>s.id===id)||SCENARIOS[0]; if(_wzPage===1) wzRenderPage1(); else wzRenderPage2(); }
@@ -3296,6 +3266,28 @@ function pickLogo(e) {
   _selectedLogo = e;
   wzRenderPage3();
 }
+let _aeLaunchTransitionActive = false;
+function aeFlyToOperationsCenter(ev) {
+  if (_aeLaunchTransitionActive) return;
+  _aeLaunchTransitionActive = true;
+  const source = ev && ev.currentTarget ? ev.currentTarget : null;
+  if (source) {
+    source.disabled = true;
+    source.classList.add('is-departing');
+  }
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.setTimeout(() => {
+    try {
+      launchFromNameHub();
+    } finally {
+      if (source) {
+        source.disabled = false;
+        source.classList.remove('is-departing');
+      }
+      _aeLaunchTransitionActive = false;
+    }
+  }, reduceMotion ? 0 : 760);
+}
 function launchFromNameHub() {
   const nameEl = document.getElementById('nh-name-input');
   setupChoice._name = (nameEl ? nameEl.value : 'SKYLINE') || 'SKYLINE';
@@ -3330,7 +3322,7 @@ function startGame(from) {
   STATE.year = STATE.scenario.year;
   STATE.startYear = STATE.scenario.year;
   STATE.month = 3; // April
-  STATE.cash = Math.round(STATE.scenario.cash * STATE.level.cashMult);
+  STATE.cash = PLAYER_STARTING_CASH;
   if (window.__cheatBonus){ STATE.cash += window.__cheatBonus; STATE._bonus = window.__cheatBonus; }
   STATE.loan = 0;                                   // start debt-free
   STATE.maxLoan = Math.max(2000, STATE.scenario.loan * 3); // scenario sets available credit line
@@ -3531,6 +3523,10 @@ function setRegion(r){
   }
   renderMap();
 }
+let _mapWheelBlockedUntil = 0;
+function blockMapWheel(ms = 900) {
+  _mapWheelBlockedUntil = Math.max(_mapWheelBlockedUntil, performance.now() + ms);
+}
 function centerOnRegion(region){
   const cs = Object.values(CITIES).filter(c=>c.region===region);
   if(!cs.length) return;
@@ -3580,21 +3576,13 @@ function applyPan(){
   const marks = document.querySelectorAll('#pan .cmark');
   for(let i=0;i<marks.length;i++) marks[i].setAttribute('transform', `scale(${inv})`);
 }
-let _cityClickTimer = null;
 function onCityClick(e, name) {
   if (_mapDragged) return;
   e.stopPropagation();
-  const sx = e.clientX, sy = e.clientY;
-  if (e.detail >= 2 || _cityClickTimer) {   // double-click → city info & improvements
-    clearTimeout(_cityClickTimer);
-    _cityClickTimer = null;
-    openCityModal(name);
-    return;
-  }
-  _cityClickTimer = setTimeout(() => {
-    _cityClickTimer = null;
-    handleCitySingleClick(name, sx, sy);
-  }, 300);
+  // The first click owns the city interaction. Route creation remains available
+  // from the city card so the map never requires a hidden double-click gesture.
+  if (e.detail > 1) return;
+  openCityModal(name);
 }
 function handleCitySingleClick(name, sx, sy) {
   if (STATE.routeFrom && STATE.routeFrom !== name) {
@@ -4308,6 +4296,9 @@ function openCityModal(name) {
     return html;
   })();
   document.getElementById('modal-overlay').classList.add('open');
+  const modal = document.getElementById('modal-content');
+  modal.classList.remove('modal-wide','modal-new-route','modal-negotiations','modal-route-manager','modal-projects','modal-budget');
+  modal.classList.add('modal-city');
   const hub_badge = isHome
     ? `<span class="cm-badge home">HOME HUB</span>`
     : isHub ? `<span class="cm-badge hub">HUB</span>` : '';
@@ -4335,16 +4326,12 @@ function openCityModal(name) {
         ${eBar(c.fulfill,100,fillColor2)}
       </div>
     </div>
-    <div class="cm-section" style="margin-top:10px">
-      <div class="cm-section-title">📈 Growth Status</div>
-      <div style="font-size:11.9px;color:var(--muted);line-height:1.7;padding:4px 0">
-        ${c.fulfill>75
-          ? `<span style="display:inline-block;background:rgba(95,224,160,0.15);color:var(--profit);border:1px solid rgba(95,224,160,0.4);border-radius:4px;font-size:10.7px;font-weight:700;padding:1px 7px;letter-spacing:.6px;margin-bottom:4px">● GROWING</span><br>Passengers well served. Keep load factors above 60% to level up the city.`
-          : c.fulfill>40
-          ? `<span style="display:inline-block;background:rgba(255,207,90,0.12);color:var(--warn);border:1px solid rgba(255,207,90,0.4);border-radius:4px;font-size:10.7px;font-weight:700;padding:1px 7px;letter-spacing:.6px;margin-bottom:4px">◑ DEVELOPING</span><br>Maintain routes with healthy loads to push fulfillment above 75%.`
-          : `<span style="display:inline-block;background:rgba(255,93,114,0.12);color:var(--loss);border:1px solid rgba(255,93,114,0.4);border-radius:4px;font-size:10.7px;font-weight:700;padding:1px 7px;letter-spacing:.6px;margin-bottom:4px">⚠ UNDERSERVED</span><br>Low fulfillment slows city growth. Add flights or improve aircraft utilization.`}
-        <br>Higher economy and tourism attract more passengers on routes here. Invest in city infrastructure to boost both.
-      </div>
+    <div class="cm-growth-strip">
+      ${c.fulfill>75
+        ? `<span class="cm-growth-badge growing">● GROWING</span><span>Strong service is driving growth. Keep route loads above 60%.</span>`
+        : c.fulfill>40
+        ? `<span class="cm-growth-badge developing">◑ DEVELOPING</span><span>Healthy route loads will move service fulfillment toward 75%.</span>`
+        : `<span class="cm-growth-badge underserved">⚠ UNDERSERVED</span><span>Add flights or improve aircraft utilization to restore growth.</span>`}
     </div>`;
   const routesTab = `
     ${myRoutes.length ? `
@@ -4446,8 +4433,10 @@ function openCityModal(name) {
     return html;
   })();
   const demandTab = buildInvestimatesTab(name);
-  document.getElementById('modal-content').innerHTML =
-    `<div class="cm-header">
+  modal.innerHTML =
+    `<div class="cm-header cm-hero-header">
+      <div class="cm-hero-media">${aeCityThumbSVG(name, c.region)}</div>
+      <div class="cm-hero-shade"></div>
       <div class="cm-header-left">
         <div class="cm-city-name">${name} ${hub_badge}</div>
         <div class="cm-city-sub">${c.abbr} · ${c.region} · ${c.pop}M pop</div>
@@ -4554,6 +4543,9 @@ function initMapPan(){
   let _zoomRenderTimer = null;
   svg.addEventListener('wheel',e=>{
     e.preventDefault();
+    // A scrollable modal can still emit inertial wheel events for a moment after
+    // it closes. Do not let that carried-over momentum zoom the map underneath.
+    if (performance.now() < _mapWheelBlockedUntil) return;
     const z0=STATE.mapZoom||1;
     const z1=Math.max(ZOOM_MIN,Math.min(ZOOM_MAX, z0*Math.exp(-e.deltaY*0.0015)));
     if(z1===z0) return;
@@ -4801,10 +4793,28 @@ function renderMap() {
     `<g id="weather-layer"></g>`;
 
   if (svg.dataset.baseBuilt) {
-    // Fast path: swap only the dynamic pan children, no flash
+    // Fast path: preserve the three decoded satellite rasters and patch only
+    // the vector/detail layers. Replacing #pan forces large raster textures to
+    // be discarded and rebuilt, which causes tiled artifacts on some GPUs.
     const pan = document.getElementById('pan');
     if (pan) {
-      pan.innerHTML = panContent;
+      const fresh = document.createElementNS('http://www.w3.org/2000/svg','g');
+      fresh.innerHTML = panContent;
+      const existingCopies = Array.from(pan.children).filter(el=>el.id!=='weather-layer');
+      const freshCopies = Array.from(fresh.children).filter(el=>el.id!=='weather-layer');
+      const dynamicSelectors = ['.demand-overlay','.routes','.route-click-overlays','.planes','.cities','.conquest'];
+      if (existingCopies.length===3 && freshCopies.length===3) {
+        existingCopies.forEach((copy,index)=>{
+          const nextCopy=freshCopies[index];
+          dynamicSelectors.forEach(selector=>{
+            const currentLayer=copy.querySelector(selector);
+            const nextLayer=nextCopy.querySelector(selector);
+            if(currentLayer&&nextLayer) currentLayer.innerHTML=nextLayer.innerHTML;
+          });
+        });
+      } else {
+        pan.innerHTML = panContent;
+      }
       // Also refresh the route motion-path defs so new/removed routes animate correctly.
       // These are small <path> elements inside <defs> — update by id, no full rebuild needed.
       const defsEl = svg.querySelector('defs');
@@ -8361,6 +8371,8 @@ function endTurn() {
   try { evalFirstMoves(monthProfit); } catch(e){}
   try { labTick(); } catch(e){}
   try { resetActions(); } catch(e){}
+  pushRevertPoint();   // monthly checkpoint ring for recovery from a bad turn
+  autoSave();          // persist every completed month, not only game start/year-end
   updateUI(); renderMap(); renderRankings(); renderRoutesList(); renderFleet(); renderRivals(); renderGoalProgress();
   pulseDateAdvance(endedMonthLabel);
   showFlash(`✓ ${endedMonthLabel} complete — now ${MONTHS[STATE.month]} ${STATE.year}`);
@@ -9255,8 +9267,6 @@ function handleYearEnd() {
     if (Math.round(ownAge) === 12) addEvent('warn', `⚙ ${n} fleet has been flying for you 12 years — wear surcharge climbing.`);
     if (Math.round(ownAge) === 20) addEvent('warn', `⛔ ${n} fleet is heavily worn (${Math.round(ownAge)}yr owned) — sell & re-buy fresh airframes to reset the clock.`);
   });
-  pushRevertPoint();   // checkpoint ring — enables Revert in menu
-  autoSave();
   if (st.timed) {
     if (STATE.yearsElapsed >= STATE.objective.years) { endGame(true, null, true); return; }
   } else if (st.done) {
@@ -9969,7 +9979,7 @@ function navGo(el, key){
       case 'airports': openModal('negotiations'); break;
       case 'cargo': openCargoModal(); break;
       case 'finance': openModal('budget'); break;
-      case 'research': openModal('projects'); break;
+      case 'research': openModal('research-hub'); break;
       case 'marketing': openModal('campaign'); break;
       case 'hr': openModal('hr'); break;
       case 'maintenance': openHangarModal(); break;
@@ -10913,9 +10923,151 @@ function startProject(region, projId){
   if(document.getElementById('modal-content')) renderProjectsModal();
 }
 
-let _rpOpenRegions = {};
+const RESEARCH_HUB_CARDS = [
+  {id:'fuel', icon:'&#127807;', name:'Fuel Efficiency', level:2, color:'#9be34a', cost:1200, progress:40,
+    benefits:['Reduce fuel consumption by 6%','Lower operating costs']},
+  {id:'pricing', icon:'&#127991;', name:'Advanced Pricing', level:3, color:'#c77cff', cost:1500, progress:60,
+    benefits:['Increase ticket revenue by 8%','Improve dynamic pricing accuracy']},
+  {id:'routes', icon:'&#128205;', name:'Route Optimization', level:2, color:'#5da8ff', cost:1200, progress:40,
+    benefits:['Improve route profitability by 7%','Reduce flight time by up to 3%']},
+  {id:'cabin', icon:'&#128186;', name:'Cabin Comfort', level:3, color:'#ffb733', cost:1500, progress:60,
+    benefits:['Increase passenger satisfaction','Boost reputation gain']},
+  {id:'maintenance', icon:'&#128736;', name:'Aircraft Maintenance', level:2, color:'#35d5e5', cost:1200, progress:40,
+    benefits:['Reduce maintenance costs by 6%','Decrease unexpected failures']},
+  {id:'brand', icon:'&#9733;', name:'Brand Reputation', level:3, color:'#ffbd32', cost:1500, progress:60,
+    benefits:['Increase reputation gain by 10%','Attract more high-value passengers']},
+  {id:'digital', icon:'&#128227;', name:'Digital Marketing', level:2, color:'#36d6df', cost:1200, progress:40,
+    benefits:['Increase booking conversions by 6%','Improve market reach']},
+  {id:'sustainable', icon:'&#127807;', name:'Sustainable Aviation', level:1, color:'#a8e63f', cost:1000, progress:20,
+    benefits:['Reduce emissions by 5%','Unlock green partnership bonuses']},
+];
+
+function researchHubAction(id){
+  closeModal();
+  window.setTimeout(()=>{
+    if(id==='fuel' || id==='maintenance') openHangarModal();
+    else if(id==='pricing') openModal('budget');
+    else if(id==='routes') openRouteManager();
+    else if(id==='cabin') openModal('hr');
+    else if(id==='brand' || id==='digital') openModal('campaign');
+    else if(id==='sustainable') openFleetPage();
+  }, 0);
+}
+
+function researchHubHistory(){
+  closeModal();
+  window.setTimeout(()=>openModal('projects'), 0);
+}
+
+function researchHubCommand(key){
+  closeModal();
+  window.setTimeout(()=>{
+    if(key==='world') return;
+    if(key==='operations') openModal('new-route');
+    else if(key==='finance') openModal('budget');
+    else if(key==='intel' && typeof openMarketIntel==='function') openMarketIntel('routes');
+    else if(key==='airport') openModal('negotiations');
+    else if(key==='competitors') switchTab('rivals');
+    else if(key==='mail') switchTab('events');
+  }, 0);
+}
+
+function researchHubNav(key){
+  if(key==='research') return;
+  closeModal();
+  window.setTimeout(()=>key==='settings' ? openModal('settings') : navGo(null, key), 0);
+}
+
+function researchHubUtility(key){
+  closeModal();
+  window.setTimeout(()=>{
+    if(key==='news') switchTab('events');
+    else if(key==='achievements') openRecords();
+    else if(key==='tutorial') openGuideModal('first');
+    else if(key==='exit') saveAndQuit();
+  }, 0);
+}
+
+function buildResearchHub(){
+  const points = Number.isFinite(STATE.researchPoints) ? STATE.researchPoints : 2450;
+  const profit = Number(STATE._lastMonthProfit != null ? STATE._lastMonthProfit : (STATE.routes||[]).reduce((sum, route)=>sum+(route.profit||0), 0));
+  const weekly = profit / 4.345;
+  const passengers = Number(STATE.totalPaxYear||STATE.paxThisYear||0);
+  const fuel = 2.40 * (Number(STATE.fuelMod)||1) * (typeof timedFuelMod==='function' ? timedFuelMod() : 1);
+  const cards = RESEARCH_HUB_CARDS.map(card=>`<article class="rh-card" style="--rh-accent:${card.color}">
+    <div class="rh-card-head"><span class="rh-card-icon">${card.icon}</span><div><div class="rh-card-name">${card.name}</div><div class="rh-card-level">Level ${card.level} / 5</div></div></div>
+    <div class="rh-progress"><i style="width:${card.progress}%"></i></div>
+    <div class="rh-benefit-title">NEXT LEVEL BENEFITS</div>
+    <ul>${card.benefits.map(b=>`<li>${b}</li>`).join('')}</ul>
+    <button class="rh-research-btn" onclick="researchHubAction('${card.id}')"><span>RESEARCH</span><b>&#9878; ${card.cost.toLocaleString()}</b></button>
+  </article>`).join('');
+  const absTurn = Math.max(1, (STATE._absMonth||0) + 1);
+  return `<div class="rh-shell">
+    <header class="rh-topbar">
+      <div class="rh-brand"><svg viewBox="0 0 64 54" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M31.8 49 17 39 5 9l26.8 15.5V49Z"/><path d="M32.2 49 47 39 59 9 32.2 24.5V49Z"/><path d="m10 15 18 14-11 3.5M54 15 36 29l11 3.5M18 38l13.8 5M46 38l-13.8 5"/></svg><div><b>AIRLINE<br>EMPIRE</b><small>BUILD. CONNECT. CONQUER.</small></div></div>
+      <section class="rh-kpis" aria-label="Airline performance">
+        <div><small>CASH</small><strong class="lime">$${(STATE.cash||0).toFixed(1)}M</strong><em class="lime">${weekly>=0?'+':'&#8722;'}$${Math.abs(weekly).toFixed(2)}M /WK</em></div>
+        <div><small>WEEKLY PROFIT</small><strong class="lime">${weekly>=0?'$':'&#8722;$'}${Math.abs(weekly).toFixed(2)}M</strong><em class="lime">&#8961; rising</em></div>
+        <div><small>PASSENGERS</small><strong>${passengers.toLocaleString()}</strong><em>&mdash;</em></div>
+        <div><small>REPUTATION</small><strong class="gold rh-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</strong><em>&mdash;</em></div>
+        <div><small>FUEL PRICE</small><strong class="purple">&#9675; $${fuel.toFixed(2)}<i>/GAL</i></strong><em>&mdash;</em></div>
+      </section>
+      <nav class="rh-utilities" aria-label="Game utilities">
+        <button onclick="researchHubUtility('news')"><span>&#128240;</span>NEWS</button>
+        <button onclick="researchHubUtility('achievements')"><span>&#127942;</span>ACHIEVEMENTS</button>
+        <button onclick="researchHubUtility('tutorial')"><span>&#127891;</span>TUTORIAL</button>
+        <button onclick="researchHubUtility('exit')"><span>&#9211;</span>EXIT GAME</button>
+      </nav>
+    </header>
+    <div class="rh-stage">
+      <aside class="rh-sidebar">
+        <nav aria-label="Primary navigation">
+          <button onclick="researchHubNav('dash')"><span>&#9638;</span>DASHBOARD</button>
+          <button onclick="researchHubNav('routes')"><span>&#9992;</span>ROUTES</button>
+          <button onclick="researchHubNav('fleet')"><span>&#9992;</span>FLEET</button>
+          <button onclick="researchHubNav('airports')"><span>&#9814;</span>AIRPORTS</button>
+          <button onclick="researchHubNav('finance')"><span>&#9673;</span>FINANCE</button>
+          <button class="active" onclick="researchHubNav('research')"><span>&#9878;</span>RESEARCH</button>
+          <button onclick="researchHubNav('marketing')"><span>&#128227;</span>MARKETING</button>
+          <button onclick="researchHubNav('hr')"><span>&#9823;</span>STAFF</button>
+          <button onclick="researchHubNav('cargo')"><span>&#9633;</span>CARGO</button>
+        </nav>
+        <button class="rh-settings" onclick="researchHubNav('settings')">&#9881;&nbsp; SETTINGS</button>
+      </aside>
+      <main class="rh-content">
+        <header class="rh-heading">
+          <div><h2>RESEARCH</h2><p>Invest in innovation to build a more efficient, profitable, and trusted airline.</p></div>
+          <div class="rh-points"><span class="rh-flask">&#9878;</span><div><small>RESEARCH POINTS</small><strong>${points.toLocaleString()}</strong></div></div>
+          <button class="rh-history" onclick="researchHubHistory()"><span>&#8634;</span> RESEARCH HISTORY</button>
+        </header>
+        <section class="rh-grid">${cards}</section>
+        <section class="rh-status-row">
+          <div class="rh-status rh-active"><div class="rh-status-title">RESEARCH IN PROGRESS</div><div class="rh-active-row"><span class="rh-mini-icon">&#127991;</span><div class="rh-active-copy"><b>Advanced Pricing</b><span>Level 3 &#8594; 4</span><div class="rh-mini-progress"><i></i></div></div><div class="rh-time"><small>TIME REMAINING</small><b>1D 14H</b></div><button onclick="showFlash('Research acceleration is managed through active regional programs')">SPEED UP&nbsp; &#9673; 250</button></div></div>
+          <div class="rh-status rh-tier"><div class="rh-status-title">UNLOCK NEXT TIER</div><div class="rh-tier-row"><span class="rh-mini-icon">&#9878;</span><p>Reach Research Level 5 in 4 more categories<br>to unlock Advanced Technologies Tier.</p><b>4 / 8</b></div><div class="rh-tier-progress"><i></i></div></div>
+          <div class="rh-status rh-mult"><div class="rh-status-title">RESEARCH MULTIPLIER</div><div class="rh-mult-row"><div><strong>+15%</strong><p>Active from Marketing Campaigns</p></div><button onclick="closeModal();openModal('campaign')">VIEW CAMPAIGNS</button></div></div>
+        </section>
+      </main>
+    </div>
+    <footer class="rh-command-bar">
+      <div class="rh-day"><b>DAY ${absTurn}</b><span>&#9719;&nbsp; 18:45</span></div>
+      <nav aria-label="Research command navigation">
+        <button onclick="researchHubCommand('world')"><span>&#127758;</span>WORLD MAP</button>
+        <button onclick="researchHubCommand('operations')"><span>&#9992;</span>OPERATIONS</button>
+        <button onclick="researchHubCommand('finance')"><span>&#36;</span>FINANCE</button>
+        <button onclick="researchHubCommand('intel')"><span>&#9646;</span>MARKET INTEL</button>
+        <button onclick="researchHubCommand('airport')"><span>&#9814;</span>AIRPORT HUB</button>
+        <button onclick="researchHubCommand('competitors')"><span>&#9823;</span>COMPETITORS</button>
+        <button onclick="researchHubCommand('mail')"><span>&#9993;</span>MAIL</button>
+      </nav>
+      <button class="rh-end-turn" onclick="endTurn()"><span>&#9992;</span><b>END TURN<small>NEXT DAY</small></b></button>
+    </footer>
+  </div>`;
+}
+
+let _rpSelectedRegion = null;
 function openProjectsModal(){
   document.getElementById('modal-overlay').classList.add('open');
+  document.getElementById('modal-content').classList.add('modal-projects');
   renderProjectsModal();
 }
 function renderProjectsModal(){
@@ -10926,93 +11078,107 @@ function buildProjectsModal(){
   const standing = {};
   if(k){ k.led.forEach(x=>standing[x.reg]='led'); k.contested.forEach(x=>standing[x.reg]='contested'); k.absent.forEach(x=>standing[x.reg]='absent'); }
   const focusReg = k && k.focus;
-
-  // ── Slots strip ──
   const used = activeProjectCount();
   const total = STATE.projectSlots||2;
   const dots = Array.from({length:total},(_,i)=>`<span class="rp-slot-dot ${i<used?'used':''}"></span>`).join('');
   const upkeep = projectsUpkeep();
-  const slotsStrip = `<div class="rp-slots">
-    <span style="font-size:11.3px;color:var(--muted2);letter-spacing:1px">BUILD SLOTS</span>
-    <div style="display:flex;gap:5px">${dots}</div>
-    <span style="font-size:11.3px;color:var(--muted)">${used}/${total} in progress</span>
-    <span style="font-size:11.3px;color:var(--accent2);margin-left:auto">Upkeep $${upkeep.toFixed(1)}M/mo</span>
+  const selectedRegion = (_rpSelectedRegion && REGIONS.includes(_rpSelectedRegion))
+    ? _rpSelectedRegion
+    : (focusReg && REGIONS.includes(focusReg) ? focusReg : REGIONS[0]);
+  _rpSelectedRegion = selectedRegion;
+
+  const slotsStrip = `<div class="rp-console-summary">
+    <div class="rp-summary-copy">
+      <span class="rp-console-kicker">INNOVATION PROGRAM</span>
+      <strong>Choose where the airline develops its next advantage.</strong>
+    </div>
+    <div class="rp-summary-metric">
+      <span>RESEARCH SLOTS</span>
+      <strong>${used} / ${total}</strong>
+      <div class="rp-slot-dots">${dots}</div>
+    </div>
+    <div class="rp-summary-metric rp-summary-upkeep">
+      <span>UPKEEP</span>
+      <strong>$${upkeep.toFixed(1)}M/mo</strong>
+    </div>
   </div>`;
 
-  // ── In-progress strip ──
   let inProgHtml = '';
   const allActive = [];
   REGIONS.forEach(reg=>{ (_rp(reg).active||[]).forEach(a=>allActive.push({reg,...a})); });
   if(allActive.length){
     inProgHtml = `<div class="rp-inprog">
-      <div style="font-size:10.2px;font-weight:700;letter-spacing:1.5px;color:var(--muted2);margin-bottom:5px">IN PROGRESS</div>
+      <div class="rp-inprog-title">IN PROGRESS</div>
       ${allActive.map(a=>{
         const def = REGION_PROJECTS[a.id];
         const pct = Math.round((1 - (a.turnsLeft/def.turns))*100);
         return `<div class="rp-inprog-row">
-          <span>${def.icon}</span>
-          <span style="min-width:130px">${def.name} <span style="color:var(--muted2)">· ${a.reg}</span></span>
+          <span class="rp-inprog-icon">${def.icon}</span>
+          <span class="rp-inprog-name">${def.name} <small>· ${a.reg}</small></span>
           <div class="rp-prog-bar"><div class="rp-prog-fill" style="width:${pct}%"></div></div>
-          <span style="color:var(--gold,#d9b44a);min-width:54px;text-align:right">${a.turnsLeft} turn${a.turnsLeft!==1?'s':''}</span>
+          <span class="rp-inprog-turns">${a.turnsLeft} turn${a.turnsLeft!==1?'s':''}</span>
         </div>`;
       }).join('')}
     </div>`;
   }
 
-  // ── Region rows ──
   const STAND_WORD = {led:'LED',contested:'CONTESTED',absent:'OPEN'};
-  const regionsHtml = REGIONS.map(reg=>{
+  const regionRail = REGIONS.map(reg=>{
     const st = standing[reg]||'absent';
     const completed = regionCompleted(reg);
-    const active = (_rp(reg).active||[]).map(a=>a.id);
-    const open = _rpOpenRegions[reg];
     const isFocus = reg===focusReg;
-    const projList = PROJECT_ORDER.map(pid=>{
-      const def = REGION_PROJECTS[pid];
-      const isDone = completed.includes(pid);
-      const isActive = active.includes(pid);
-      const cost = projectCost(reg, pid);
-      const canAfford = STATE.cash >= cost;
-      const slotsFree = used < total;
-      const effLabel = def.demandMult?`+${Math.round(def.demandMult*100)}% demand`
-                     : def.maintCut?`−${Math.round(def.maintCut*100)}% maint`
-                     : def.rivalShield?`−${Math.round(def.rivalShield*100)}% rival loss`:'';
-      let btn;
-      if(isDone) btn = `<span class="rp-built-tag">✓ BUILT</span>`;
-      else if(isActive) btn = `<span class="rp-built-tag" style="color:var(--gold,#d9b44a)">⏳ BUILDING</span>`;
-      else btn = `<button class="rp-build-btn" ${(canAfford&&slotsFree)?`onclick="startProject('${reg}','${pid}')"`:'disabled'}
-        title="${!slotsFree?'No free build slots':!canAfford?'Not enough cash':`$${cost}M · ${def.turns} turns`}">$${cost}M</button>`;
-      return `<div class="rp-proj">
-        <span class="rp-proj-ic">${def.icon}</span>
-        <div class="rp-proj-body">
-          <div class="rp-proj-name">${def.name}</div>
-          <div class="rp-proj-blurb">${def.blurb}</div>
-          <div class="rp-proj-when">${def.when}</div>
-          <div class="rp-proj-meta">${effLabel} · +${(def.conquestPax/1000).toFixed(0)}k conquest pax · ${def.turns} turns · $${def.upkeep}M/mo upkeep</div>
-        </div>
-        <div>${btn}</div>
-      </div>`;
-    }).join('');
-    return `<div class="rp-region" ${isFocus?'style="border-color:rgba(255,207,90,0.35)"':''}>
-      <div class="rp-region-head" onclick="_rpOpenRegions['${reg}']=!_rpOpenRegions['${reg}'];renderProjectsModal()">
-        <span class="rp-region-name">${reg} ${isFocus?'<span style="font-size:10.2px;color:var(--accent2);font-weight:700">◂ FOCUS</span>':''}</span>
-        ${completed.length?`<span style="font-size:10.7px;color:var(--profit)">${completed.length} built</span>`:''}
-        <span class="rp-stand ${st}">${STAND_WORD[st]}</span>
-        <span style="color:var(--muted2);font-size:13.6px">${open?'▾':'›'}</span>
-      </div>
-      <div class="rp-region-body${open?' open':''}">${projList}</div>
-    </div>`;
+    const available = PROJECT_ORDER.filter(pid=>!regionHasProject(reg,pid)).length;
+    const detail = isFocus ? 'Strategic focus' : completed.length ? `${completed.length} completed` : st==='led' ? 'Conquest leader' : st==='contested' ? 'Active contest' : 'Open territory';
+    const statusLabel = st==='led' ? 'LED' : isFocus ? 'FOCUS' : available;
+    return `<button class="rp-region-rail${reg===selectedRegion?' selected':''}${isFocus?' focus':''}" onclick="_rpSelectedRegion='${reg}';renderProjectsModal()">
+      <span class="rp-region-rail-copy"><b>${reg}</b><small>${detail}</small></span>
+      <em class="${st}">${statusLabel}</em>
+    </button>`;
   }).join('');
 
-  return modalHead('🏛 REGIONAL CAPITAL PROJECTS') + `<div class="modal-body" style="max-height:64vh;overflow-y:auto">
-    <div style="font-size:11.9px;color:var(--muted);line-height:1.6;margin-bottom:12px">
-      Big-ticket regional builds. Each takes several turns, costs upkeep, and confers a permanent regional effect plus direct progress toward the conquest crown. Limited build slots force you to prioritize.
-    </div>
+  const selectedStanding = standing[selectedRegion]||'absent';
+  const selectedCompleted = regionCompleted(selectedRegion);
+  const selectedActive = (_rp(selectedRegion).active||[]);
+  const projectList = PROJECT_ORDER.map((pid,index)=>{
+    const def = REGION_PROJECTS[pid];
+    const isDone = selectedCompleted.includes(pid);
+    const activeBuild = selectedActive.find(a=>a.id===pid);
+    const cost = projectCost(selectedRegion,pid);
+    const canAfford = STATE.cash >= cost;
+    const slotsFree = used < total;
+    const effLabel = def.demandMult?`+${Math.round(def.demandMult*100)}% demand`
+                   : def.maintCut?`−${Math.round(def.maintCut*100)}% maintenance`
+                   : def.rivalShield?`−${Math.round(def.rivalShield*100)}% rival loss`:'';
+    let action;
+    if(isDone) action = `<span class="rp-built-tag">✓ COMPLETED</span>`;
+    else if(activeBuild) action = `<span class="rp-built-tag building">${activeBuild.turnsLeft} TURN${activeBuild.turnsLeft!==1?'S':''} LEFT</span>`;
+    else action = `<button class="rp-build-btn" ${(canAfford&&slotsFree)?`onclick="startProject('${selectedRegion}','${pid}')"`:'disabled'}
+      title="${!slotsFree?'No free build slots':!canAfford?'Not enough cash':`$${cost}M · ${def.turns} turns`}"><strong>$${cost}M</strong><span>START BUILD</span></button>`;
+    return `<article class="rp-proj${index===0?' featured':''}${isDone?' completed':''}${activeBuild?' active':''}">
+      <span class="rp-proj-ic">${def.icon}</span>
+      <div class="rp-proj-body">
+        <span class="rp-proj-kicker">${isDone?'COMPLETED':activeBuild?'IN PROGRESS':index===0?'FLAGSHIP PROJECT':'CAPITAL PROJECT'}</span>
+        <div class="rp-proj-name">${def.name}</div>
+        <div class="rp-proj-blurb">${def.blurb}</div>
+        <div class="rp-proj-when">${def.when}</div>
+        <div class="rp-proj-meta"><span>${effLabel}</span><span>+${(def.conquestPax/1000).toFixed(0)}K pax</span><span>${def.turns} turns</span><span>$${def.upkeep}M/mo</span></div>
+      </div>
+      <div class="rp-proj-action">${action}</div>
+    </article>`;
+  }).join('');
+
+  return modalHead('&#9878; RESEARCH &amp; UPGRADES') + `<div class="rp-console">
     ${slotsStrip}
     ${inProgHtml}
-    ${regionsHtml}
-    <div style="text-align:center;margin-top:14px">
-      <button class="action-btn" onclick="closeModal()" style="padding:8px 28px">Close</button>
+    <div class="rp-console-layout">
+      <nav class="rp-region-rail-list" aria-label="Project regions">${regionRail}</nav>
+      <section class="rp-project-stage">
+        <div class="rp-stage-head">
+          <div><span class="rp-console-kicker">${selectedRegion.toUpperCase()} · ${PROJECT_ORDER.length-selectedCompleted.length-selectedActive.length} AVAILABLE</span><h2>Regional research program</h2></div>
+          <span class="rp-stage-status ${selectedStanding}">${selectedRegion===focusReg?'PRIORITY REGION':STAND_WORD[selectedStanding]}</span>
+        </div>
+        <div class="rp-project-list">${projectList}</div>
+      </section>
     </div>
   </div>`;
 }
@@ -11140,21 +11306,39 @@ function switchTab(t){
 function openModal(type, arg){
   const ov=document.getElementById('modal-overlay'), c=document.getElementById('modal-content');
   ov.classList.add('open');
+  ov.classList.toggle('research-hub-mode', type==='research-hub');
+  c.classList.remove('modal-city');
   const map={'new-route':buildNewRoute,'buy-planes':buildBuyPlanes,'buy-biz':buildBiz,
     'negotiations':buildNegotiations,'budget':buildBudget,'build-hub':buildHub,
     'bank':buildBank,'ledger':buildLedger,'logviewer':buildLogViewer,'shares':buildShares,'campaign':buildCampaign,'settings':buildSettings,
     'crew':()=>buildCrewModal('roster'),'hr':()=>buildCrewModal('hr'),'guide':()=>buildGuideModal(arg),
-    'projects':buildProjectsModal,'route-manager':buildRouteManager,'fleet-page':buildFleetPage};
+    'projects':buildProjectsModal,'research-hub':buildResearchHub,'route-manager':buildRouteManager,'fleet-page':buildFleetPage};
   if(map[type]) c.innerHTML=map[type]();
-  c.classList.toggle('modal-wide', type==='new-route' || type==='buy-planes' || type==='fleet-page');
+  c.classList.toggle('modal-wide', type==='new-route' || type==='buy-planes' || type==='fleet-page' || type==='budget');
+  c.classList.toggle('modal-new-route', type==='new-route');
+  c.classList.toggle('modal-negotiations', type==='negotiations');
+  c.classList.toggle('modal-route-manager', type==='route-manager');
+  c.classList.toggle('modal-projects', type==='projects');
+  c.classList.toggle('modal-research-hub', type==='research-hub');
+  c.classList.toggle('modal-budget', type==='budget');
 }
 function openRouteCreation(from,to){
   document.getElementById('modal-overlay').classList.add('open');
   const c=document.getElementById('modal-content');
+  c.classList.remove('modal-city');
   c.innerHTML=buildNewRoute(from,to);
-  c.classList.add('modal-wide');
+  c.classList.add('modal-wide','modal-new-route');
 }
-function closeModal(){ document.getElementById('modal-overlay').classList.remove('open'); const c=document.getElementById('modal-content'); if(c) c.classList.remove('modal-wide'); STATE.routeFrom=null; STATE.selectedCity=null; hideCityPanel(); }
+function closeModal(){
+  const overlay = document.getElementById('modal-overlay');
+  const wasOpen = overlay.classList.contains('open');
+  overlay.classList.remove('open');
+  overlay.classList.remove('research-hub-mode');
+  if (wasOpen) blockMapWheel();
+  const c=document.getElementById('modal-content');
+  if(c) c.classList.remove('modal-wide','modal-new-route','modal-negotiations','modal-route-manager','modal-projects','modal-research-hub','modal-budget','modal-city');
+  STATE.routeFrom=null; STATE.selectedCity=null; hideCityPanel();
+}
 function closeModalOutside(e){ if(e.target===document.getElementById('modal-overlay'))closeModal(); }
 function modalHead(title){ return `<div class="modal-header"><div class="modal-title">${title}</div><button class="modal-close" onclick="closeModal()">×</button></div>`; }
 // ── UI KIT gallery (dev reference) — call openUIKit() from console.
@@ -11260,8 +11444,35 @@ function _rmInner(){
   const contested= rows.filter(x=>x.contested).length;
   const net      = rows.reduce((s,x)=>s+x.profit,0);
   if(!rows.length){
-    return `<div class="rm-empty">No routes yet. Open your first route to start building the network.
-      <div style="margin-top:12px"><button class="cmd-btn" onclick="closeModal();openModal('new-route')"><span class="icon">🛫</span> New Route</button></div></div>`;
+    const fallbackEntry = Object.entries(AIRCRAFT).find(([,a])=>a.era<=STATE.year) || Object.entries(AIRCRAFT)[0];
+    const emptyEntry = Object.entries(STATE.planes||{}).find(([,p])=>(p.owned||0)>0) || fallbackEntry;
+    const [emptyName,emptyAircraft] = emptyEntry;
+    const emptyIdentity = typeof acIdentity==='function' ? acIdentity(emptyName) : null;
+    const emptyPlane = typeof aircraftSVG==='function'
+      ? aircraftSVG(emptyName,emptyAircraft,emptyIdentity?.color2||STATE.livery||'#a789ff',true)
+      : `<span class="rm-empty-plane-fallback" aria-hidden="true">&#9992;</span>`;
+    const emptyHub = (STATE.hubs||[])[0] || STATE.homeBase || 'Home';
+    const emptyHubCode = CITIES[emptyHub]?.abbr || emptyHub;
+    const readyAircraft = Object.values(STATE.planes||{}).reduce((sum,p)=>sum+Math.max(0,(p.owned||0)-(p.assigned||0)),0);
+    return `<div class="rm-empty rm-empty--routes">
+      <div class="rm-empty-content">
+        <div class="rm-empty-kicker"><span></span>Network ready</div>
+        <div class="rm-empty-title">Your network starts here.</div>
+        <div class="rm-empty-text">Choose a destination from ${emptyHub} and put your available fleet to work.</div>
+        <div class="rm-empty-readiness">
+          <div><b>${emptyHubCode}</b><span>Home hub</span></div>
+          <div><b>${readyAircraft}</b><span>Aircraft ready</span></div>
+        </div>
+        <button type="button" class="rm-empty-action" onclick="closeModal();openModal('new-route')">
+          <span>Plan First Route</span><span class="rm-empty-action-arrow" aria-hidden="true">&#8594;</span>
+        </button>
+      </div>
+      <div class="rm-empty-visual">
+        <div class="rm-empty-route-line" aria-hidden="true"><span></span><span></span></div>
+        <div class="rm-empty-art">${emptyPlane}</div>
+        <div class="rm-empty-model"><span>Ready fleet</span><b>${emptyName}</b></div>
+      </div>
+    </div>`;
   }
   // KPI strip
   const kpis = `<div class="rm-kpis">
@@ -11381,8 +11592,6 @@ function nrHubRow(sel){
     return `<div class="region-tab" onclick="nrSetFrom('${nrEsc(c)}')">★ ${c}</div>`;
   }).join('');
 }
-let _nrQ = '';
-function nrCitySearch(v){ _nrQ = (v||'').toLowerCase(); const g=document.getElementById('nr-city-grid'); if(g) g.innerHTML = nrCityGrid(); }
 function nrRegionRow(){
   return REGIONS.map(r =>
     `<div class="region-tab ${r===_nrRegion?'active':''}" onclick="nrSetRegion('${r}')">${r}</div>`).join('');
@@ -11406,17 +11615,29 @@ function nrSubregionRow(fromOverride){
     `<div class="region-tab sub ${s.key===_nrSubregion?'active':''}" onclick="nrSetSubregion(${s.key===null?'null':"'"+s.key+"'"})">${s.label}</div>`
   ).join('');
 }
-function nrCityGrid(){
-  const from = val('r-from'), to = val('r-to');
-  const cities = Object.entries(CITIES)
-    .filter(([c,ci]) => c !== from && (_nrQ
-      ? (c.toLowerCase().includes(_nrQ) || (ci.abbr||'').toLowerCase().includes(_nrQ))
-      : (ci.region === _nrRegion && (_nrSubregion === null || nrSubregionKey(ci,c) === _nrSubregion))))
+function nrDestinationCities(fromOverride){
+  const from = fromOverride !== undefined ? fromOverride : val('r-from');
+  return Object.entries(CITIES)
+    .filter(([c,ci]) => c !== from && ci.region === _nrRegion
+      && (_nrSubregion === null || nrSubregionKey(ci,c) === _nrSubregion))
     .sort((a,b) => (b[1].econ + b[1].tourism + b[1].pop*4) - (a[1].econ + a[1].tourism + a[1].pop*4));
-  if (!cities.length) return `<div style="grid-column:1/-1;color:var(--muted);font-size:11.3px;padding:8px">${_nrQ?'No cities match "'+_nrQ+'"':'No destinations in this subregion'}</div>`;
+}
+function nrRecommendedDestinationEntry(fromOverride){
+  const from = fromOverride !== undefined ? fromOverride : val('r-from');
+  return nrDestinationCities(from).find(([c]) =>
+    !STATE.routes.some(r => (r.from===from&&r.to===c)||(r.from===c&&r.to===from)) && !STATE.slotFreeze?.[c]
+  ) || null;
+}
+function nrCityGrid(fromOverride, toOverride){
+  const from = fromOverride !== undefined ? fromOverride : val('r-from');
+  const to = toOverride !== undefined ? toOverride : val('r-to');
+  const cities = nrDestinationCities(from);
+  if (!cities.length) return '<div style="grid-column:1/-1;color:var(--muted);font-size:11.3px;padding:8px">No destinations in this subregion</div>';
+  const featuredCity = nrRecommendedDestinationEntry(from)?.[0];
+  const cityCards = featuredCity ? cities.filter(([c]) => c !== featuredCity) : cities;
   const score = ci => ci.econ + ci.tourism + ci.pop*4;
   const maxScore = Math.max(...cities.map(([,ci]) => score(ci)));
-  return cities.map(([c,ci]) => {
+  return cityCards.map(([c,ci]) => {
     const dupe = STATE.routes.some(r => (r.from===from&&r.to===c)||(r.from===c&&r.to===from));
     const frozen = STATE.slotFreeze?.[c];
     const isHub = STATE.hubs.includes(c);
@@ -11428,18 +11649,47 @@ function nrCityGrid(){
     const lean = ci.econ - ci.tourism;
     const tag = lean > 12 ? {t:'BIZ', c:'var(--accent2)'} : lean < -12 ? {t:'LEIS', c:'var(--accent)'} : {t:'MIX', c:'var(--muted2)'};
     const status = frozen ? '🚫' : dupe ? '✓ ROUTE' : ci.abbr;
-    return `<div onclick="${dis?'':`nrSetTo('${nrEsc(c)}')`}" style="border:1px solid ${seld?'rgba(167,137,255,0.6)':'var(--border)'};background:${seld?'rgba(167,137,255,0.13)':dis?'rgba(255,255,255,0.015)':'rgba(255,255,255,0.035)'};border-radius:7px;padding:7px 9px;${dis?'opacity:.5;':'cursor:pointer;'}transition:border-color .12s,background .12s">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:5px;margin-bottom:5px">
-        <span style="font-size:11.9px;font-weight:600;color:${seld?'var(--accent)':'var(--text)'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${isHub?'<span style="color:var(--accent2)">★</span> ':''}${ci.major?'':''}${c}</span>
-        <span style="font-size:10.2px;color:${dupe?'var(--profit)':'var(--muted2)'};flex-shrink:0;font-family:'DM Mono';font-weight:600">${status}</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:7px">
-        <div style="flex:1;height:4px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden"><div style="height:100%;width:${demPct}%;background:${demColor};border-radius:2px"></div></div>
-        <span style="font-size:10.2px;font-weight:700;letter-spacing:.5px;color:${tag.c};flex-shrink:0">${tag.t}</span>
-        ${dist!=null ? `<span style="font-size:10.2px;font-family:'DM Mono';color:var(--muted);flex-shrink:0">${(dist/1000).toFixed(dist<1000?2:1)}k mi</span>` : ''}
-      </div>
-    </div>`;
+    return `<button type="button" class="nr-city-card${seld?' is-selected':''}${dis?' is-disabled':''}" onclick="${dis?'':`nrSetTo('${nrEsc(c)}')`}" ${dis?'disabled':''}>
+      <span class="nr-city-top"><strong>${isHub?'<span class="nr-city-hub">★</span> ':''}${c}</strong><b class="${dupe?'has-route':''}">${status}</b></span>
+      <span class="nr-city-demand"><i style="--nr-demand:${demPct}%;--nr-demand-color:${demColor}"></i>${dist!=null ? `<em>${Math.round(dist).toLocaleString()} mi</em>` : ''}</span>
+      <span class="nr-city-bottom"><b style="color:${tag.c}">${tag.t}</b><small>${demPct>70?'High demand':demPct>42?'Steady demand':'Developing'}</small></span>
+    </button>`;
   }).join('');
+}
+function nrFeaturedDestination(fromOverride, toOverride){
+  const from = fromOverride !== undefined ? fromOverride : val('r-from');
+  const to = toOverride !== undefined ? toOverride : val('r-to');
+  const entry = nrRecommendedDestinationEntry(from);
+  if (!entry) return '';
+  const [city, ci] = entry;
+  const art = typeof AECitySkylineManifest !== 'undefined' ? AECitySkylineManifest.get(city) : null;
+  const media = art?.src
+    ? `<img src="${art.src}" alt="${city} skyline">`
+    : (typeof AECityRenderer !== 'undefined' ? AECityRenderer.render(city, ci.region) : '');
+  const lean = ci.econ - ci.tourism;
+  const demand = lean > 12 ? 'Strong business demand' : lean < -12 ? 'Strong leisure demand' : 'Balanced travel demand';
+  const dist = from ? getDistance(from, city) : 0;
+  return `<button type="button" class="nr-featured${city===to?' is-selected':''}" onclick="nrSetTo('${nrEsc(city)}')">
+    <span class="nr-featured-media">${media}</span><span class="nr-featured-shade"></span>
+    <span class="nr-featured-copy"><small>RECOMMENDED EXPANSION</small><strong>${city}</strong><span>${demand}${dist?` · ${Math.round(dist).toLocaleString()} miles`:''}</span></span>
+    <span class="nr-featured-code">${ci.abbr||''} <b>↗</b></span>
+  </button>`;
+}
+function nrRouteHero(fromOverride, toOverride){
+  const from = fromOverride !== undefined ? fromOverride : val('r-from');
+  const to = toOverride !== undefined ? toOverride : val('r-to');
+  const fromCity = CITIES[from], toCity = CITIES[to];
+  const distance = fromCity && toCity ? `${Math.round(getDistance(from,to)).toLocaleString()} mi` : 'Choose destination';
+  return `<div class="nr-route-place"><strong>${fromCity?.abbr||'—'}</strong><small>${from||'NO HUB'}</small></div>
+    <div class="nr-route-line"><span>✈</span><small>${distance}</small></div>
+    <div class="nr-route-place is-destination"><strong>${toCity?.abbr||'—'}</strong><small>${to||'DESTINATION'}</small></div>`;
+}
+function nrRefreshRouteChrome(){
+  const from = val('r-from'), to = val('r-to');
+  const feature = document.getElementById('nr-featured-destination'); if (feature) feature.innerHTML = nrFeaturedDestination(from,to);
+  const hero = document.getElementById('nr-route-hero'); if (hero) hero.innerHTML = nrRouteHero(from,to);
+  const title = document.getElementById('nr-plan-title'); if (title) title.textContent = to ? `${to} route plan` : 'Build the flight';
+  const count = document.getElementById('nr-destination-count'); if (count) count.textContent = `${nrDestinationCities(from).length} cities`;
 }
 function nrPlaneList(){
   const entries = Object.entries(STATE.planes);
@@ -11462,9 +11712,16 @@ function nrPlaneList(){
     const canInc = !outRange && avail > 0 && totalFlights < 14;
     const canDec = used > 0;
     const rec = _i === recIdx;
-    return `<div class="nr-plane-row${used>0?' sel':''}${dim?' dim':''}">
+    const identity = typeof acIdentity === 'function' ? acIdentity(n) : null;
+    const heroImage = typeof AC_HERO !== 'undefined' ? AC_HERO[n] : null;
+    const planeArt = heroImage
+      ? `<img src="${heroImage}" alt="${n}">`
+      : typeof aircraftSVG === 'function'
+        ? aircraftSVG(n, p, identity?.color2 || '#00d8f0', true)
+        : '✈';
+    return `<div class="nr-plane-row${used>0?' sel':''}${dim?' dim':''}${rec?' rec':''}">
       ${rec?'<span class="nr-rec-pill">★ RECOMMENDED</span>':''}
-      <div class="nr-plane-art">${typeof aePlaneSVG==='function'?aePlaneSVG(58,23):'✈'}</div>
+      <div class="nr-plane-art">${planeArt}</div>
       <div style="min-width:0;flex:1">
         <div style="color:${used>0?'var(--accent)':'var(--text)'};font-weight:700;font-size:12.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${n}${outRange?' <span style="color:var(--danger);font-weight:600;font-size:10.2px">⚠ OUT OF RANGE</span>':''}</div>
         <div style="color:var(--muted2);font-size:10.7px;margin-top:1px">${p.seats}s · ${p.range.toLocaleString()}mi · <span style="color:${free>0?'var(--profit)':'var(--muted)'}">${free} free / ${p.owned} owned</span></div>
@@ -11520,6 +11777,7 @@ function nrSetFrom(c){
   _nrSubregion = null;
   const srow = document.getElementById('nr-subregion-row'); if (srow) srow.innerHTML = nrSubregionRow();
   const grid = document.getElementById('nr-city-grid'); if (grid) grid.innerHTML = nrCityGrid();
+  nrRefreshRouteChrome();
   nrRefreshPlanes();
 }
 function nrSetRegion(r){
@@ -11528,15 +11786,18 @@ function nrSetRegion(r){
   const row = document.getElementById('nr-region-row'); if (row) row.innerHTML = nrRegionRow();
   const srow = document.getElementById('nr-subregion-row'); if (srow) srow.innerHTML = nrSubregionRow();
   const grid = document.getElementById('nr-city-grid'); if (grid) grid.innerHTML = nrCityGrid();
+  nrRefreshRouteChrome();
 }
 function nrSetSubregion(k){
   _nrSubregion = k;
   const row = document.getElementById('nr-subregion-row'); if (row) row.innerHTML = nrSubregionRow();
   const grid = document.getElementById('nr-city-grid'); if (grid) grid.innerHTML = nrCityGrid();
+  nrRefreshRouteChrome();
 }
 function nrSetTo(c){
   const el = document.getElementById('r-to'); if (el) el.value = c;
   const grid = document.getElementById('nr-city-grid'); if (grid) grid.innerHTML = nrCityGrid();
+  nrRefreshRouteChrome();
   nrRefreshPlanes();   // range gating depends on destination
 }
 function buildNewRoute(preFrom, preTo){
@@ -11551,66 +11812,61 @@ function buildNewRoute(preFrom, preTo){
   // fresh selection each time the dialog opens; pre-seed 1 flight of the first free type (if in range)
   _nrPlanes = {};
   _nrSubregion = null;
-  _nrQ = '';
   if (firstFree) {
     const dist = (fromHub && toCity) ? getDistance(fromHub, toCity) : 0;
     if (dist === 0 || firstFree[1].range >= dist) _nrPlanes[firstFree[0]] = 1;
   }
-  const html = modalHead('✈ NEW ROUTE') + `<div class="modal-body">
-    <div class="nr-headsub">Design a profitable route to grow your network.</div>
+  const initialCityCount = nrDestinationCities(fromHub).length;
+  const fromCode = CITIES[fromHub]?.abbr || '—';
+  const html = modalHead('✈ NEW ROUTE') + `<div class="nr-progress" aria-hidden="true"><span class="is-done"></span><span class="is-active"></span><span></span></div><div class="modal-body" style="--nr-airline-accent:${_liv}">
     <input type="hidden" id="r-from" value="${fromHub}">
     <input type="hidden" id="r-to" value="${toCity}">
     <div class="nr-grid">
-      <div class="nr-pane">
-        <div class="nr-preview-label">From — Hub</div>
-        <div id="nr-hub-row" style="display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px">${nrHubRow(fromHub)}</div>
-        <div class="nr-preview-label">Destination</div>
-        <div class="nr-sub">Continent, then a city</div>
-        <div id="nr-region-row" style="display:flex;flex-wrap:wrap;gap:5px;margin:0 0 7px">${nrRegionRow()}</div>
-        <div id="nr-subregion-row" style="display:flex;flex-wrap:wrap;gap:5px;margin:1px 0 9px">${nrSubregionRow(fromHub)}</div>
-        <div class="nr-search">🔍 <input id="nr-city-search" placeholder="Search city..." oninput="nrCitySearch(this.value)"><span class="nr-pop">POPULAR ROUTES 🔥</span></div>
-        <div id="nr-city-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:5px;max-height:220px;overflow-y:auto;padding:2px">${nrCityGrid()}</div>
-      </div>
-      <div class="nr-pane">
-        <div class="nr-preview-label">Aircraft</div>
-        <div class="nr-sub">Flights/wk per type · 1 flight = 1 airframe</div>
+      <section class="nr-pane nr-destination-pane">
+        <div class="nr-pane-heading"><div><span>01 · CHOOSE DESTINATION</span><strong>Where do you want to fly?</strong></div><b id="nr-destination-count">${initialCityCount} cities</b></div>
+        <div class="nr-origin-label">DEPARTING FROM</div>
+        <div id="nr-hub-row" class="nr-hub-row">${nrHubRow(fromHub)}</div>
+        <div id="nr-region-row" class="nr-region-row">${nrRegionRow()}</div>
+        <div id="nr-subregion-row" class="nr-subregion-row">${nrSubregionRow(fromHub)}</div>
+        <div id="nr-featured-destination">${nrFeaturedDestination(fromHub,toCity)}</div>
+        <div id="nr-city-grid" class="nr-city-grid">${nrCityGrid(fromHub,toCity)}</div>
+      </section>
+      <section class="nr-pane nr-plan-pane">
+        <div class="nr-pane-heading"><div><span>02 · BUILD THE FLIGHT</span><strong id="nr-plan-title">${toCity?`${toCity} route plan`:'Build the flight'}</strong></div></div>
+        <div id="nr-route-hero" class="nr-route-hero">${nrRouteHero(fromHub,toCity)}</div>
+        <div class="nr-card-label">AIRCRAFT <span>Flights per week · one aircraft each</span></div>
         ${hasFree
-          ? `<div id="nr-plane-list" style="max-height:172px;overflow-y:auto">${nrPlaneList()}</div>
-              <div id="nr-plane-summary" style="margin-top:7px;padding-top:7px;border-top:1px solid var(--border)">${nrPlaneSummary()}</div>
+          ? `<div id="nr-plane-list" class="nr-plane-list">${nrPlaneList()}</div>
+              <div id="nr-plane-summary" class="nr-plane-summary">${nrPlaneSummary()}</div>
               <button class="nr-buy-link" onclick="openBuyPlanesForRoute(document.getElementById('r-from')?.value||'', document.getElementById('r-to')?.value||'')">＋ Buy or change aircraft type…</button>`
-          : `<div style="background:rgba(255,93,114,0.08);border:1px solid rgba(255,93,114,0.5);border-radius:7px;padding:11px 13px">
+          : `<div class="nr-empty-aircraft">
               <div style="color:var(--danger);font-size:12.4px;font-weight:600;margin-bottom:8px">⚠ No free aircraft — buy a plane or close a route first.</div>
               ${nrPlaneList() ? `<div style="margin-bottom:9px">${nrPlaneList()}</div>` : ''}
               <button class="action-btn" style="width:100%;border-color:var(--accent);color:#fff"
                 onclick="openBuyPlanesForRoute(document.getElementById('r-from')?.value||'', document.getElementById('r-to')?.value||'')">✈ Buy Aircraft</button>
             </div>`}
-        <div class="nr-preview-label" style="margin-top:18px">Fare</div>
-        <div class="nr-sub">Set your average one-way fare</div>
-        <div style="display:flex;align-items:flex-start;gap:14px">
-          <div class="nr-fare-box">
-            <div class="nr-fare-big">$<span id="rfa-v">200</span></div>
-            <div class="nr-fare-cap">AVG ONE-WAY</div>
-          </div>
-          <div style="flex:1;min-width:0">
-            <input type="range" id="r-fare" min="50" max="900" step="10" value="200" style="width:100%" oninput="document.getElementById('rfa-v').textContent=this.value;updateRoutePreview()">
-            <div class="nr-fare-marks">
-              <span>LOW<br><b>$<span id="nr-f-low">120</span></b></span>
-              <span style="text-align:center">MARKET AVG<br><b style="color:#fff">$<span id="nr-f-avg">200</span></b></span>
-              <span style="text-align:right">HIGH<br><b>$<span id="nr-f-high">350</span></b></span>
-            </div>
+        <div class="nr-fare-section">
+          <div class="nr-fare-heading"><span>AVERAGE ONE-WAY FARE</span><strong>$<span id="rfa-v">200</span></strong></div>
+          <input type="range" id="r-fare" min="50" max="900" step="10" value="200" oninput="document.getElementById('rfa-v').textContent=this.value;updateRoutePreview()">
+          <div class="nr-fare-marks">
+            <span>LOW<br><b>$<span id="nr-f-low">120</span></b></span>
+            <span style="text-align:center">MARKET<br><b>$<span id="nr-f-avg">200</span></b></span>
+            <span style="text-align:right">HIGH<br><b>$<span id="nr-f-high">350</span></b></span>
           </div>
         </div>
-        <div class="nr-tip"><span class="nr-tip-ic">📈</span><span><b style="color:#fff">Tip:</b> <b>$<span id="nr-tip-avg">200</span></b> is the average fare for this route. Adjust to compete or maximize profit.</span></div>
-      </div>
+        <div id="route-preview"></div>
+        <div class="nr-tip"><span class="nr-tip-ic">✦</span><span>Market fare is <b>$<span id="nr-tip-avg">200</span></b>. Adjust pricing to balance demand and yield.</span></div>
+      </section>
     </div>
+  </div>
     <div class="nr-footer">
-      <div id="route-preview"><div class="nr-sub" style="margin:0 0 10px">Select a destination and assign at least one aircraft.</div></div>
-      <div style="display:grid;grid-template-columns:1fr auto;gap:8px">
-        <button class="nr-open-btn" id="r-confirm" onclick="confirmRoute(false)" ${hasFree?'':'disabled'} style="border-color:${_liv};color:#04201c;background:linear-gradient(180deg,${_liv},${_liv}bb);box-shadow:0 6px 20px ${_liv}44;font-weight:800;letter-spacing:2.5px">✈ OPEN ROUTE</button>
+      <div class="nr-footer-summary"><span>✦</span><div><small id="nr-footer-label">ROUTE SETUP</small><strong id="nr-footer-pair">${fromCode} → ${CITIES[toCity]?.abbr||'—'} · ${nrTotalFlights()} flight/week</strong></div></div>
+      <div class="nr-footer-actions">
         <button class="nr-add-btn" id="r-confirm-add" onclick="confirmRoute(true)" ${hasFree?'':'disabled'} title="Open this route, then keep the dialog open to add the next one">+ add another</button>
+        <button class="nr-open-btn" id="r-confirm" onclick="confirmRoute(false)" ${hasFree?'':'disabled'}>✈ OPEN ROUTE <span id="nr-open-cost"></span></button>
       </div>
     </div>
-  </div>`;
+  `;
   setTimeout(updateRoutePreview, 0);
   return html;
 }
@@ -11624,21 +11880,22 @@ function updateRoutePreview(){
   const fare = +val('r-fare') || 200;
   const el = document.getElementById('route-preview');
   if (!el) return;  // modal closed before deferred preview ran
+  nrRefreshRouteChrome();
   const btn = document.getElementById('r-confirm');
   const btnA = document.getElementById('r-confirm-add');
+  const footerLabel = document.getElementById('nr-footer-label');
+  const footerPair = document.getElementById('nr-footer-pair');
+  const openCostEl = document.getElementById('nr-open-cost');
   const sel = Object.keys(_nrPlanes).filter(n => _nrPlanes[n] > 0);
   const flights = nrTotalFlights();
+  const fromCode = CITIES[from]?.abbr || '—', toCode = CITIES[to]?.abbr || '—';
+  if (footerLabel) footerLabel.textContent = from && to && flights ? 'READY TO OPEN' : 'ROUTE SETUP';
+  if (footerPair) footerPair.textContent = `${fromCode} → ${toCode} · ${flights} flight${flights===1?'':'s'}/week`;
   if (!from || !to || from === to || flights === 0) {
-    const msg = !to ? 'Pick a destination on the left to preview route details and demand.'
-      : flights===0 ? 'Assign at least one aircraft — tap + on a type.' : 'Select a destination and assign an aircraft.';
-    el.innerHTML = `<div class="nr-sketch-wrap"><div class="nr-sub" style="margin:0 0 8px">${msg}</div>
-      <svg viewBox="0 0 560 34" class="nr-sketch"><circle cx="14" cy="24" r="5" fill="#a789ff" opacity=".8"/>
-      <path d="M24 24 Q280 -8 536 24" fill="none" stroke="#2aa8bf" stroke-width="1.6" stroke-dasharray="6 6" opacity=".55"/>
-      <text x="272" y="15" font-size="15" text-anchor="middle" fill="#9fb6c6">✈</text>
-      <circle cx="546" cy="24" r="5" fill="#a789ff" opacity=".35"/></svg></div>`;
+    el.innerHTML = '';
     if(btn) btn.disabled = true;
     if(btnA) btnA.disabled = true;
-    const _rf = 0;
+    if(openCostEl) openCostEl.textContent = '';
     return;
   }
   const dist = getDistance(from, to);
@@ -11654,7 +11911,6 @@ function updateRoutePreview(){
   const canFly = outRangeTypes.length === 0;
   const isDupe = STATE.routes.some(r => (r.from===from&&r.to===to)||(r.from===to&&r.to===from));
   const isSlotFrozen = STATE.slotFreeze && STATE.slotFreeze[to];
-  const interR = CITIES[from]?.region !== CITIES[to]?.region;
   const openCost = Math.round(dist * 0.025 + 5);
   const cf = CITIES[from], ct = CITIES[to];
   let estDemand = 0;
@@ -11676,6 +11932,7 @@ function updateRoutePreview(){
   const canOpen = canFly && !isDupe && !isSlotFrozen && STATE.cash >= openCost;
   if(btn) btn.disabled = !canOpen;
   if(btnA) btnA.disabled = !canOpen;
+  if(openCostEl) openCostEl.textContent = `· $${openCost}M`;
   const estPax = canFly ? Math.round(Math.min(cap, estDemand)).toLocaleString() : '—';
   // collect warnings (only the active ones)
   const warns = [];
@@ -11688,40 +11945,48 @@ function updateRoutePreview(){
   // ── EST. DEMAND / LOAD FACTOR / REVENUE-PER-WK block (mockup) ──
   // Demand band from load potential (demand vs capacity at this fare)
   const demandRatio = cap > 0 ? estDemand / cap : 0;
-  let dLabel='Low', dColor='var(--loss)', dDesc='Limited demand on this route';
-  if (demandRatio >= 0.85)      { dLabel='High';   dColor='var(--profit)'; dDesc='Very strong demand on this route'; }
-  else if (demandRatio >= 0.55) { dLabel='Medium'; dColor='var(--warn)';   dDesc='Moderate demand on this route'; }
+  let dLabel='Low', dColor='var(--loss)';
+  if (demandRatio >= 0.85)      { dLabel='High';   dColor='var(--profit)'; }
+  else if (demandRatio >= 0.55) { dLabel='Medium'; dColor='var(--warn)'; }
   const weeklyRev = canFly ? Math.round(Math.min(cap, estDemand) * fare / E.weeksPerMonth) : 0;
   const wkRevStr = canFly ? '$' + weeklyRev.toLocaleString() : '—';
   el.innerHTML = `
     <div class="nr-est3">
       <div class="nr-est">
-        <div class="nr-est-k">Est. Demand</div>
-        <div class="nr-est-row"><span class="nr-est-ic">👥</span><span class="nr-est-v" style="color:${canFly?dColor:'var(--muted2)'}">${canFly?dLabel:'—'}</span></div>
-        <div class="nr-est-d">${canFly?dDesc:'Pick a reachable destination'}</div>
+        <div class="nr-est-k">Expected Load</div>
+        <div class="nr-est-v" style="color:${canFly?loadColor:'var(--muted2)'}">${canFly?estLoad+'%':'—'}</div>
+        <div class="nr-est-d">${canFly?dLabel+' demand':'Unavailable'}</div>
       </div>
       <div class="nr-est">
-        <div class="nr-est-k">Est. Load Factor</div>
-        <div class="nr-est-row"><span class="nr-est-ic">💺</span><span class="nr-est-v" style="color:${canFly?loadColor:'var(--muted2)'}">${canFly?estLoad+'%':'—'}</span></div>
-        <div class="nr-est-d">Average expected load factor</div>
+        <div class="nr-est-k">Passengers / mo</div>
+        <div class="nr-est-v" style="color:${canFly?'var(--text)':'var(--muted2)'}">${estPax}</div>
+        <div class="nr-est-d">Projected traffic</div>
       </div>
       <div class="nr-est">
         <div class="nr-est-k">Est. Revenue / wk</div>
-        <div class="nr-est-row"><span class="nr-est-ic">$</span><span class="nr-est-v" style="color:${canFly?'var(--profit)':'var(--muted2)'};font-size:19.2px">${wkRevStr}</span></div>
-        <div class="nr-est-d">Estimated revenue per week</div>
+        <div class="nr-est-v" style="color:${canFly?'var(--profit)':'var(--muted2)'}">${wkRevStr}</div>
+        <div class="nr-est-d">Projected weekly sales</div>
       </div>
     </div>
-    <div class="nr-metrics" style="margin-top:10px">
-      <div class="nr-metric"><span class="k">Distance</span><span class="v" style="color:${canFly?'var(--text)':'var(--danger)'}">${dist.toLocaleString()}<span style="font-size:11.3px;color:var(--muted2)"> mi</span></span></div>
-      <div class="nr-metric"><span class="k">Pass / mo</span><span class="v">${estPax}</span></div>
-      <div class="nr-metric"><span class="k">Open Cost</span><span class="v" style="color:var(--warn)">$${openCost}M</span></div>
-      <div class="nr-metric"><span class="k">${interR?'Intl':'Regional'}</span><span class="v" style="font-size:12.4px;color:var(--muted)">ref $${Math.round(refFare2)}</span></div>
-    </div>
-    ${warns.length ? `<div style="font-size:11.3px;line-height:1.6;display:flex;flex-wrap:wrap;gap:4px 12px;margin:9px 0 0">${warns.join('')}</div>` : ''}`;
+    <div class="nr-preview-meta"><span>${dist.toLocaleString()} mi</span><span style="color:${dColor}">${dLabel} demand</span><span>$${openCost}M to open</span></div>
+    ${warns.length ? `<div class="nr-warnings">${warns.join('')}</div>` : ''}`;
 }
 function confirmRoute(addAnother){
   const from=val('r-from'), to=val('r-to');
   const fare=+val('r-fare')||200;
+  const mapViewBeforeRoute={
+    zoom:STATE.mapZoom,
+    tx:STATE.mapTX,
+    ty:STATE.mapTY,
+    region:STATE.viewRegion
+  };
+  const restoreMapView=()=>{
+    STATE.mapZoom=mapViewBeforeRoute.zoom;
+    STATE.mapTX=mapViewBeforeRoute.tx;
+    STATE.mapTY=mapViewBeforeRoute.ty;
+    STATE.viewRegion=mapViewBeforeRoute.region;
+    renderRegionTabs();
+  };
   if(!from||!to||from===to) return showFlash('Invalid route');
   const sel = Object.keys(_nrPlanes).filter(n => _nrPlanes[n] > 0);
   if(!sel.length) return showFlash('No aircraft assigned');
@@ -11762,27 +12027,18 @@ function confirmRoute(addAnother){
   guideStep(4);
   updateUI(); renderRoutesList(); renderFleet();
   if (addAnother) {
+    restoreMapView();
+    applyPan();
     document.getElementById('modal-content').innerHTML = buildNewRoute(from, '');
     if (_isMaiden) setTimeout(()=>maidenFlight(from, to), 350);
     return;
   }
   closeModal();
-  const fromCity = CITIES[from], toCity = CITIES[to];
-  if (fromCity) {
-    STATE.viewRegion = fromCity.region;
-    renderRegionTabs();
-    // preserve current zoom — only centre on the new route, don't reset zoom level
-    let mx = fromCity.x;
-    if (toCity) {
-      let x2 = toCity.x;
-      if (x2 - fromCity.x > MAP_W/2) x2 -= MAP_W;
-      else if (fromCity.x - x2 > MAP_W/2) x2 += MAP_W;
-      mx = (fromCity.x + x2) / 2;
-    }
-    const my = toCity ? (fromCity.y + toCity.y) / 2 : fromCity.y;
-    centerOnXY(mx, my);
-  }
+  // Route creation may trigger guide, modal, and fleet refresh hooks. Restore
+  // the exact pre-route camera before drawing so none can recenter or zoom it.
+  restoreMapView();
   renderMap();
+  applyPan();
   if (_isMaiden) setTimeout(()=>maidenFlight(from, to), 650);
 }
 function openBuyPlanesForRoute(from, to) {
@@ -12152,21 +12408,10 @@ function fleetApplyFilters(){
 }
 function fleetMyFleetTable(owned){
   if(!owned.length) return `<div class="flp-stub"><div class="flp-stub-ic">✈</div><div class="flp-stub-t">No aircraft yet</div><div class="flp-stub-d">Acquire your first aircraft to start building routes.</div><button class="flp-acquire" style="margin-top:16px;max-width:240px" onclick="openModal('buy-planes')">+ Acquire Aircraft</button></div>`;
-  const opt = (v,l,cur)=>`<option value="${v}" ${cur===v?'selected':''}>${l}</option>`;
+  _flpQ = '';
+  _flpType = 'all';
+  _flpStatus = 'all';
   const html = `
-    <div class="flp-toolbar">
-      <div class="flp-search">🔍 <input placeholder="Search aircraft, class..." value="${_flpQ.replace(/"/g,'&quot;')}" oninput="fleetFilter(this.value)"></div>
-      <div class="flp-filterpill">⚲ Filters <span class="flp-fcount" id="flp-filter-count" style="display:none">0</span></div>
-      <select class="flp-select" onchange="fleetSetType(this.value)">
-        ${opt('all','All Types',_flpType)}${opt('Narrowbody','Narrowbody',_flpType)}${opt('Widebody','Widebody',_flpType)}${opt('Jumbo','Jumbo',_flpType)}${opt('Regional','Regional',_flpType)}${opt('Supersonic','Supersonic',_flpType)}
-      </select>
-      <select class="flp-select" onchange="fleetSetStatus(this.value)">
-        ${opt('all','All Status',_flpStatus)}${opt('active','Active',_flpStatus)}${opt('service','Service',_flpStatus)}${opt('grounded','Grounded',_flpStatus)}
-      </select>
-      <select class="flp-select" onchange="fleetSetSortBy(this.value)">
-        ${opt('type','Sort by: Type',_flpSortBy)}${opt('count','Sort by: Fleet size',_flpSortBy)}${opt('age','Sort by: Age',_flpSortBy)}${opt('profit','Sort by: Profit',_flpSortBy)}${opt('util','Sort by: Utilization',_flpSortBy)}
-      </select>
-    </div>
     <div class="flp-table">
       <div class="flp-thead">
         <div class="flp-c flp-c-ac">Aircraft</div><div class="flp-c flp-c-type">Type</div>
@@ -12425,7 +12670,8 @@ function buildBpFleetView(ownedFleet) {
 }
 function bpToggle(id) {
   const el = document.getElementById(`bpc-${id}`);
-  if (el) el.classList.toggle('open');
+  const card = el && el.closest('.bp-card');
+  if (card) card.classList.toggle('open');
 }
 function bpSetQty(cardId, planeName, qty) {
   _bpQty[planeName] = qty;
@@ -12451,10 +12697,9 @@ function acSell(name){
 // entry falls back to a procedurally generated side-profile silhouette,
 // tinted with the player's livery. Add images over time; no code changes.
 // ═══════════════════════════════════════════════════════════════════════════
-const AC_HERO = {
-  // model → data-URI (WebP). Add entries as hero images are generated; anything
-  // missing falls back to the procedural silhouette in its brand colors.
-};
+const AC_HERO = Object.fromEntries(
+  Object.entries(globalThis.AEAircraftImageManifest?.byModel || {}).map(([model, entry]) => [model, entry.path])
+);
 // Per-aircraft silhouette config: e=engines, m=mount(wing|rear|tri|delta),
 // tt=T-tail, hump=747 upper deck, deck:2=full double deck,
 // banjo=fin-mounted #2 (DC-10), droop=droop nose (Concorde)
@@ -12484,7 +12729,7 @@ function acShade(hex,amt){
   const f=v=>Math.max(0,Math.min(255,v+amt));
   return '#'+[f(n>>16&255),f(n>>8&255),f(n&255)].map(v=>v.toString(16).padStart(2,'0')).join('');
 }
-function aircraftSVG(name, ac, livery){
+function aircraftSVG(name, ac, livery, compact){
   livery = livery || '#00d8f0';
   const art = AC_ART[name] || {e:2,m:'wing'};
   const uid = 'fus_'+name.replace(/[^a-z0-9]/gi,'');
@@ -12580,7 +12825,8 @@ function aircraftSVG(name, ac, livery){
   const ck = isDelta ? nx + h*3.2 : nx + h*1.1;
   g.push(`<path d="M ${ck},${top+h*0.16} l ${h*0.5},0 l ${h*0.14},${h*0.16} l -${h*0.56},0 Z"
     fill="#2b3540"/>`);
-  return `<svg viewBox="0 0 640 226" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${name}"
+  const viewBox = compact ? '60 18 520 170' : '0 0 640 226';
+  return `<svg viewBox="${viewBox}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${name}"
     style="display:block;width:100%;height:auto">
     <defs><linearGradient id="${uid}" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#f3f6f9"/><stop offset="70%" stop-color="#d7dee6"/>
@@ -13012,43 +13258,9 @@ function buildNegotiations(){
   const withRoute = all.filter(([c]) => !STATE.negotiating[c] && STATE.routes.some(r=>r.from===c||r.to===c));
   const rest      = all.filter(([c]) => !STATE.negotiating[c] && !STATE.routes.some(r=>r.from===c||r.to===c));
 
-  // Procedural "city at dusk" thumbnail — deterministic per city, zero external assets.
-  function cityTile(c, ci, rc) {
-    const uid = 'ct_' + c.replace(/[^a-z0-9]/gi,'').toLowerCase();
-    let h = 0; for (let i=0;i<c.length;i++){ h = (h*31 + c.charCodeAt(i)) >>> 0; }
-    const rnd = () => { h = (h*1664525 + 1013904223) >>> 0; return h/4294967296; };
-    const W=120, H=240, ground=178;
-    let blds='', wins='', x=4;
-    while (x < W-4) {
-      const bw = 11 + Math.floor(rnd()*15);
-      const bh = 34 + Math.floor(rnd()*112);
-      const by = ground - bh;
-      blds += `<rect x="${x}" y="${by.toFixed(1)}" width="${bw}" height="${bh}" rx="1" fill="url(#${(rnd()<0.5?'bldA_':'bldB_')+uid})"/>`;
-      const cols = Math.max(1, Math.floor(bw/6)), rows = Math.floor(bh/9);
-      for (let r=0;r<rows;r++) for (let cc=0;cc<cols;cc++) {
-        if (rnd() < 0.33) wins += `<rect x="${(x+3+cc*5).toFixed(1)}" y="${(by+6+r*9).toFixed(1)}" width="2.1" height="3" fill="#ffd98a" opacity="${(0.3+rnd()*0.55).toFixed(2)}"/>`;
-      }
-      x += bw + 2 + Math.floor(rnd()*4);
-    }
-    const moonX = 18 + (h % 64);
-    return `<svg viewBox="0 0 ${W} ${H}" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" style="display:block;height:100%">
-      <defs>
-        <linearGradient id="sky_${uid}" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="${rc}" stop-opacity="0.34"/>
-          <stop offset="0.4" stop-color="#3a2a4e" stop-opacity="0.55"/>
-          <stop offset="1" stop-color="#0a1320"/>
-        </linearGradient>
-        <linearGradient id="bldA_${uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#172230"/><stop offset="1" stop-color="#0b121c"/></linearGradient>
-        <linearGradient id="bldB_${uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1828"/><stop offset="1" stop-color="#0c1018"/></linearGradient>
-        <linearGradient id="water_${uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${rc}" stop-opacity="0.2"/><stop offset="1" stop-color="#060c14"/></linearGradient>
-      </defs>
-      <rect width="${W}" height="${H}" fill="url(#sky_${uid})"/>
-      <circle cx="${moonX}" cy="38" r="12" fill="#ffe9b0" opacity="0.2"/>
-      ${blds}${wins}
-      <rect x="0" y="${ground}" width="${W}" height="${H-ground}" fill="url(#water_${uid})"/>
-      <g opacity="0.14" transform="translate(0,${ground*2}) scale(1,-1)">${blds}</g>
-      <rect x="0" y="${ground}" width="${W}" height="${H-ground}" fill="#060c14" opacity="0.3"/>
-    </svg>`;
+  // Reuse the authoritative city-card artwork used by the setup hub cards.
+  function cityTile(c, ci) {
+    return `<div class="neg-city-card-image">${aeCityThumbSVG(c, ci.region)}</div>`;
   }
 
   const ICN = {
@@ -13124,9 +13336,9 @@ function buildNegotiations(){
       : `<span style="display:inline-flex;align-items:center;gap:3px;font-size:10.7px;background:rgba(63,143,212,0.14);color:#86c4f5;padding:3px 8px;border-radius:5px;font-weight:700">✈ ${routeCount} ROUTE${routeCount!==1?'S':''}</span>`;
     const loadBadge = `<span style="display:inline-flex;align-items:center;gap:4px;font-size:11.9px;font-weight:800;color:var(--profit);background:rgba(78,234,170,0.12);border:1px solid rgba(78,234,170,0.3);border-radius:6px;padding:3px 8px;line-height:1">↗ +${demandBoost}% LOAD</span>`;
 
-    return `<div style="background:${bgColor};border:1px solid ${borderColor};border-radius:13px;margin-bottom:11px;overflow:hidden;display:grid;grid-template-columns:116px 1fr;transition:border-color .15s">
-      <div style="position:relative;border-right:1px solid var(--border)">${cityTile(c, ci, rc)}
-        <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 58%,${bgColor})"></div>
+    return `<div style="background:${bgColor};border:1px solid ${borderColor};border-radius:13px;margin-bottom:11px;overflow:hidden;transition:border-color .15s">
+      <div style="position:relative;height:136px;border-bottom:1px solid var(--border)">${cityTile(c, ci)}
+        <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 48%,${bgColor})"></div>
       </div>
       <div style="padding:13px 15px;min-width:0">
         <div style="display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap">
@@ -13146,12 +13358,19 @@ function buildNegotiations(){
             <div style="font-size:10.7px;color:var(--muted);margin-top:6px;display:flex;align-items:center;justify-content:flex-end;gap:4px">📅 1–3 MONTHS</div>
           </div>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px">
-          ${statPill(ICN.econ, '#e8b04a', 'Economy', Math.round(ci.econ), ci.econ/100)}
-          ${statPill(ICN.tour, 'var(--purple)', 'Tourism', Math.round(ci.tourism), ci.tourism/100)}
-          ${statPill(ICN.pop, 'var(--profit)', 'Population', ci.pop+'M', ci.pop/20)}
-        </div>
-        ${footerBlock}
+        <details class="neg-city-extras">
+          <summary aria-label="Toggle ${c} negotiation details">
+            <span class="neg-city-extras-chevron" aria-hidden="true">&#8250;</span>
+          </summary>
+          <div class="neg-city-extras-content">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+              ${statPill(ICN.econ, '#e8b04a', 'Economy', Math.round(ci.econ), ci.econ/100)}
+              ${statPill(ICN.tour, 'var(--purple)', 'Tourism', Math.round(ci.tourism), ci.tourism/100)}
+              ${statPill(ICN.pop, 'var(--profit)', 'Population', ci.pop+'M', ci.pop/20)}
+            </div>
+            ${footerBlock}
+          </div>
+        </details>
       </div>
     </div>`;
   }
@@ -13207,16 +13426,14 @@ function buildNegotiations(){
     </div>`;
   }).join('');
   return modalHead('🤝 SLOT NEGOTIATIONS') + `<div class="modal-body">
-    <div style="font-size:13.6px;color:var(--muted2);margin:-4px 0 14px;letter-spacing:.2px">Secure landing slots to boost load factors on your routes.</div>
-    <div style="display:flex;gap:12px;margin-bottom:16px;align-items:stretch">
+    <div style="display:flex;gap:10px;margin:0 0 16px;align-items:stretch">
       <div style="flex:1;background:rgba(167,137,255,0.05);border:1px solid rgba(167,137,255,0.18);border-radius:11px;padding:14px 16px;font-size:13.6px;color:var(--muted);line-height:1.7;display:flex;align-items:center;gap:11px">
         <span style="font-size:22.6px;flex-shrink:0">ℹ️</span>
         <span>Secure landing slots to boost load factors on your routes. Each city manager takes <b style="color:#fff">1\u20133 months</b> to close the deal.</span>
       </div>
-      <div style="background:linear-gradient(160deg,rgba(255,207,90,0.1),rgba(255,207,90,0.03));border:1px solid rgba(255,207,90,0.3);border-radius:11px;padding:14px 22px;text-align:center;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;min-width:150px">
-        <div style="font-size:11.3px;color:var(--accent2);letter-spacing:1.5px;margin-bottom:4px;font-weight:700">AVAILABLE FUNDS</div>
-        <div style="font-size:33.9px;font-weight:800;color:${cashColor};font-family:'DM Mono';line-height:1">${STATE.cash.toFixed(0)}M</div>
-        <div style="font-size:10.2px;color:var(--muted2);letter-spacing:1px;margin-top:3px">USD</div>
+      <div style="background:linear-gradient(160deg,rgba(255,207,90,0.1),rgba(255,207,90,0.03));border:1px solid rgba(255,207,90,0.3);border-radius:11px;padding:14px 20px;text-align:center;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;min-width:140px">
+        <div style="font-size:11.3px;color:var(--accent2);letter-spacing:1.5px;margin-bottom:6px;font-weight:700">AVAILABLE FUNDS</div>
+        <div style="font-size:24.9px;font-weight:800;color:${cashColor};font-family:'DM Mono';line-height:1">${STATE.cash.toFixed(0)}M</div>
       </div>
     </div>
     ${_negDone ? `<div style="background:rgba(78,234,170,0.08);border:1px solid rgba(78,234,170,0.4);border-radius:8px;padding:10px 13px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:10px">
@@ -13317,7 +13534,7 @@ function budgetBreakdown(){
   const incTot=inc.reduce((s,x)=>s+x[1],0), expTot=exp.reduce((s,x)=>s+x[1],0);
   return {inc, exp, incTot, expTot, net:incTot-expTot};
 }
-function buildBudget(){
+function buildBudgetLegacy(){
   const lvls=['LEAN','BASIC','SOLID','STRONG','MAXIMUM'];
   const rows=[{k:'repair',l:'Maintenance',d:'Slider 1 = lean baseline (free). Above 1: slows fleet wear. +$0.09M/mo per step.'},{k:'ad',l:'Advertising',d:'Slider 1 = baseline (free). Above 1: boosts demand ~4.5% per step. +$0.09M/mo per step.'},{k:'service',l:'Service',d:'Slider 1 = baseline (free). Above 1: boosts demand ~5% per step. +$0.09M/mo per step.'}];
   const bd=budgetBreakdown();
@@ -13359,6 +13576,69 @@ function buildBudget(){
     <div style="display:flex;gap:8px">
       <button class="action-btn" style="flex:1" onclick="updateUI();document.getElementById('modal-content').innerHTML=buildBudget()">RECALC \u21bb</button>
       <button class="action-btn gold" style="flex:1" onclick="updateUI();closeModal()">DONE \u2713</button>
+    </div></div>`;
+}
+
+function buildBudget(){
+  const lvls=['LEAN','BASIC','SOLID','STRONG','MAXIMUM'];
+  const rows=[
+    {k:'repair',l:'Maintenance',tag:'Fleet reliability',glyph:'⚙',d:'Slows fleet wear and reduces maintenance pressure.'},
+    {k:'ad',l:'Advertising',tag:'Market demand',glyph:'⌁',d:'Builds awareness and raises route demand by about 4.5% per step.'},
+    {k:'service',l:'Service',tag:'Passenger experience',glyph:'✦',d:'Improves passenger appeal and raises demand by about 5% per step.'}
+  ];
+  const bd=budgetBreakdown();
+  const fmt=v=>`${v<0?'-':''}$${Math.abs(v).toFixed(1)}M`;
+  const ledgerLine=(l,v,tone)=>`<div class="bf-ledger-row"><span>${l}</span><b class="${tone}">${fmt(v)}</b></div>`;
+  const _cf=STATE._cashflow;
+  const deptSpend=((STATE.budget.repair-1)+(STATE.budget.ad-1)+(STATE.budget.service-1))*0.09;
+  const netTone=bd.net>=0?'positive':'negative';
+  const actualBlock=_cf ? `
+    <div class="bf-ledger-group income"><div class="bf-ledger-label">Income</div>${_cf.inc.map(([l,v])=>ledgerLine(l,v,'positive')).join('')||ledgerLine('No income recorded',0,'muted')}</div>
+    <div class="bf-ledger-group expense"><div class="bf-ledger-label">Expenses</div>${_cf.exp.map(([l,v])=>ledgerLine(l,-v,'negative')).join('')||ledgerLine('No expenses recorded',0,'muted')}</div>
+    <div class="bf-ledger-total"><span>Net cash movement</span><b class="${_cf.net>=0?'positive':'negative'}">${fmt(_cf.net)}</b></div>` : `
+    <div class="bf-empty-state"><span class="bf-empty-glyph">◷</span><b>First statement pending</b><p>Complete one month to generate an itemised operational cashflow statement.</p></div>`;
+  const projectedIncome=bd.inc.map(([l,v])=>ledgerLine(l,v,'positive')).join('')||ledgerLine('No active revenue streams',0,'muted');
+  const projectedExpense=bd.exp.map(([l,v])=>ledgerLine(l,-v,'negative')).join('')||ledgerLine('No active expenses',0,'muted');
+  return modalHead('FINANCE COMMAND · BUDGET & CASHFLOW')+`<div class="bf-shell"><div class="modal-body bf-body">
+    <div class="bf-hero">
+      <div><div class="bf-eyebrow">FINANCIAL OPERATIONS</div><div class="bf-hero-title">Capital control center</div><div class="bf-hero-sub">Monitor monthly movement, projected exposure, and department allocations.</div></div>
+      <div class="bf-reserve"><span>Available cash</span><b>$${STATE.cash.toFixed(0)}M</b><small>LIQUID RESERVE</small></div>
+    </div>
+    <div class="bf-kpi-grid">
+      <div class="bf-kpi"><span>Projected income</span><b class="positive">${fmt(bd.incTot)}</b><small>ALL REVENUE STREAMS</small></div>
+      <div class="bf-kpi"><span>Operating outflow</span><b class="negative">${fmt(-bd.expTot)}</b><small>NEXT MONTH</small></div>
+      <div class="bf-kpi emphasis ${netTone}"><span>Net position</span><b>${fmt(bd.net)}</b><small>${bd.net>=0?'POSITIVE CASHFLOW':'CASH BURN'}</small></div>
+      <div class="bf-kpi"><span>Department spend</span><b>${fmt(-deptSpend)}</b><small>MONTHLY ALLOCATION</small></div>
+    </div>
+    <div class="bf-ledger-grid">
+      <section class="bf-panel">
+        <div class="bf-panel-head"><div><span>ACTUAL STATEMENT</span><b>${_cf?_cf.label:'AWAITING CLOSE'}</b></div><i class="${_cf&&_cf.net>=0?'positive':_cf?'negative':'muted'}">${_cf?(_cf.net>=0?'▲ CLOSED POSITIVE':'▼ CLOSED NEGATIVE'):'● NO DATA'}</i></div>
+        <div class="bf-panel-body">${actualBlock}</div>
+      </section>
+      <section class="bf-panel">
+        <div class="bf-panel-head"><div><span>PROJECTED CASHFLOW</span><b>NEXT MONTH</b></div><i class="${netTone}">${bd.net>=0?'▲ SURPLUS':'▼ DEFICIT'}</i></div>
+        <div class="bf-panel-body">
+          <div class="bf-ledger-group income"><div class="bf-ledger-label">Income</div>${projectedIncome}<div class="bf-ledger-subtotal"><span>Total income</span><b class="positive">${fmt(bd.incTot)}</b></div></div>
+          <div class="bf-ledger-group expense"><div class="bf-ledger-label">Expenses</div>${projectedExpense}<div class="bf-ledger-subtotal"><span>Total expenses</span><b class="negative">${fmt(-bd.expTot)}</b></div></div>
+          <div class="bf-ledger-total"><span>Net / month</span><b class="${netTone}">${fmt(bd.net)}</b></div>
+        </div>
+      </section>
+    </div>
+    <section class="bf-department-panel">
+      <div class="bf-section-head"><div><span>DEPARTMENT ALLOCATION</span><b>Performance controls</b></div><small>Each step above Lean costs $0.09M / month</small></div>
+      <div class="bf-department-grid">
+        ${rows.map(r=>{const val=STATE.budget[r.k];return `<div class="bf-dept-card">
+          <div class="bf-dept-head"><span class="bf-dept-glyph">${r.glyph}</span><div><b>${r.l}</b><small>${r.tag}</small></div><span class="bf-tier" id="bl-${r.k}">${lvls[val-1]}</span></div>
+          <p>${r.d}</p>
+          <input aria-label="${r.l} budget" type="range" min="1" max="5" value="${val}" oninput="STATE.budget['${r.k}']=+this.value;document.getElementById('bl-${r.k}').textContent=['LEAN','BASIC','SOLID','STRONG','MAXIMUM'][+this.value-1]">
+          <div class="bf-range-scale"><span>LEAN</span><span>MAXIMUM</span></div>
+        </div>`;}).join('')}
+      </div>
+    </section>
+    </div><div class="bf-actions">
+      <span>Adjust allocations, then recalculate to update the projection.</span>
+      <button class="uk-btn uk-btn--secondary" onclick="updateUI();document.getElementById('modal-content').innerHTML=buildBudget()">↻ RECALCULATE</button>
+      <button class="uk-btn uk-btn--solid" onclick="updateUI();closeModal()">CONFIRM BUDGET ✓</button>
     </div></div>`;
 }
 
@@ -16033,15 +16313,15 @@ function _mockDashSetup(){
     const nav=document.getElementById('ae-nav');
     if(nav && !nav.dataset.mock2){ nav.dataset.mock2='1';
       const icon={}; nav.querySelectorAll('.ae-nav-item').forEach(n=>{ const m=(n.getAttribute('onclick')||'').match(/'([a-z]+)'/); const sv=n.querySelector('svg'); if(m&&sv) icon[m[1]]=sv.outerHTML; });
-      const SUB={dash:'Command & Overview',routes:'Network & Route Map',fleet:'Hangar & Aircraft',airports:'Network & Hubs',cargo:'Logistics & Freight',maintenance:'Repairs & Service',finance:'Budget & Expenses',hr:'Recruitment & Staff',reports:'Analytics & Performance',alliances:'Partners & Codeshares',logs:'Finance & Event History',mi:'Forecasts & Rivals',marketing:'Campaigns & Ads',projects:'Research & Upgrades'};
+      const SUB={dash:'Command & Overview',routes:'Network & Route Map',fleet:'Hangar & Aircraft',airports:'Network & Hubs',cargo:'Logistics & Freight',maintenance:'Repairs & Service',finance:'Budget & Expenses',research:'Research & Upgrades',hr:'Recruitment & Staff',reports:'Analytics & Performance',alliances:'Partners & Codeshares',logs:'Finance & Event History',mi:'Forecasts & Rivals',marketing:'Campaigns & Ads'};
       const BDG={routes:'mnb-routes',fleet:'mnb-fleet',airports:'mnb-airports',maintenance:'mnb-maint',reports:'mnb-reports'};
       const row=(k,label,ic)=>`<div class="ae-nav-item${k==='dash'?' active':''}" onclick="navGo(this,'${k}')">${ic||icon[k]||''}<span class="mn-two"><span class="mn-l">${label}</span><span class="mn-s">${SUB[k]||''}</span></span>${BDG[k]?`<span class="mns-badge" id="${BDG[k]}"></span>`:''}</div>`;
       const sec=t=>`<div class="mock-nav-sec"><span class="mns-dot"></span>${t}</div>`;
       nav.innerHTML =
         sec('Overview')+row('dash','Dashboard')+
         sec('Operations')+row('routes','Routes')+row('fleet','Fleet')+row('airports','Airports')+row('cargo','Cargo')+row('maintenance','Maintenance')+
-        sec('Company')+row('finance','Finance')+row('hr','Human Resources')+row('reports','Reports')+row('alliances','Alliances')+row('logs','Logs')+
-        sec('Growth')+row('mi','Market Intelligence',_mockIcon('mi'))+row('marketing','Marketing')+row('projects','Special Projects',_mockIcon('projects'));
+        sec('Company')+row('finance','Finance')+row('research','Research')+row('hr','Human Resources')+row('reports','Reports')+row('alliances','Alliances')+row('logs','Logs')+
+        sec('Growth')+row('mi','Market Intelligence',_mockIcon('mi'))+row('marketing','Marketing');
     }
     /* sidebar: CEO card pinned at the bottom */
     const lp=document.getElementById('left-panel');
@@ -16056,15 +16336,6 @@ function _mockDashSetup(){
       if(w.left && w.left<170){ delete w.left; localStorage.setItem('aePanelWidths', JSON.stringify(w)); }
       if(!w.left) document.documentElement.style.setProperty('--ae-rail-w','232px');
     }catch(e){ document.documentElement.style.setProperty('--ae-rail-w','232px'); }
-    const mc=document.getElementById('map-container');
-    /* stat strip under the map */
-    if(mc && !document.getElementById('mock-mapstats')){
-      const st=document.createElement('div'); st.id='mock-mapstats';
-      const cell=(id,label)=>`<div class="mms-cell"><span class="mms-l">${label}</span><span class="mms-v" id="${id}">\u2014</span></div>`;
-      st.innerHTML = cell('mms-cities','Cities')+cell('mms-routes','Routes')+cell('mms-regions','Regions')+cell('mms-pax','Passengers Today')+cell('mms-otp','On-Time Performance')+
-        '<button class="mms-btn" onclick="openRouteManager()">Route Map \u2197</button>';
-      mc.insertAdjacentElement('afterend', st);
-    }
     /* right panel: Operations Center header + View All + Quick Actions */
     const ocT=document.querySelector('#ops-center .oc-title'); if(ocT) ocT.textContent='OPERATIONS CENTER';
     const ocH=document.querySelector('#ops-center .oc-head');
@@ -16089,7 +16360,6 @@ function _mockDashSetup(){
       const l=document.createElement('span'); l.id='ts-label'; l.className='hdr-timescale-label'; l.textContent='Time Scale';
       sc.parentElement.insertBefore(l, sc);
     }
-    try{ dnSetup(); }catch(e){}
     /* live status tiles above the map (monthly-proxy flavor) */
     const mc2=document.getElementById('map-container');
     if(mc2 && !document.getElementById('mock-livetiles')){
@@ -16105,12 +16375,6 @@ function _mockDashSetup(){
       ap.innerHTML='<div class="map-head"><span class="map-title">ACTIVE ALERTS <span id="map-count"></span></span><span class="map-viewall" onclick="mockOpenAlerts()">View All</span></div><div id="map-list"></div><button class="map-allbtn" onclick="mockOpenAlerts()">\u26a0 VIEW ALL ALERTS</button>';
       const q=document.getElementById('mock-quick');
       if(q) rps2.insertBefore(ap,q); else rps2.appendChild(ap);
-    }
-    /* Top Routes: View All button */
-    const tr=document.getElementById('ds-toproutes');
-    if(tr && !document.getElementById('mock-viewroutes')){
-      const b=document.createElement('button'); b.id='mock-viewroutes'; b.className='mms-btn'; b.style.cssText='width:100%;margin-top:7px';
-      b.textContent='View All Routes'; b.onclick=()=>openRouteManager(); tr.insertAdjacentElement('afterend', b);
     }
   }catch(e){ console.warn('mock dash setup', e); }
 }
@@ -16129,42 +16393,15 @@ function _mockDashSync(){
     const rep=Math.round((STATE.repScore!=null?STATE.repScore:(STATE.reputation!=null?STATE.reputation:0))||0);
     const word=rep>=80?'Great':rep>=60?'Good':rep>=40?'Fair':'Poor';
     const repEl=$('h-rep'); if(repEl) repEl.innerHTML = rep>0 ? rep+' <span class="rep-word">'+word+'</span>' : '\u2014';
-    /* map strip */
     const served=new Set(); (STATE.routes||[]).forEach(r=>{served.add(r.from);served.add(r.to);}); (STATE.hubs||[]).forEach(h=>served.add(h));
-    const regions=new Set(); served.forEach(c=>{ if(typeof CITIES!=='undefined'&&CITIES[c]) regions.add(CITIES[c].region); });
-    const pax=(STATE.routes||[]).reduce((s,r)=>s+(r.pax||0),0);
-    if($('mms-cities')) $('mms-cities').textContent=served.size;
-    if($('mms-routes')) $('mms-routes').textContent=(STATE.routes||[]).length;
-    if($('mms-regions')) $('mms-regions').textContent=regions.size;
-    if($('mms-pax')) $('mms-pax').textContent=Math.round(pax/30).toLocaleString();
     let inc=0, grounded=0;
     Object.keys(STATE.planes||{}).forEach(n=>{ try{ if(typeof maintIsGrounded==='function'&&maintIsGrounded(n)) grounded++; }catch(e){} });
     inc=(STATE.maintIncidents||[]).filter(i=>!i.resolved).length;
     const otp=Math.max(72, Math.min(98, 96 - inc*2 - grounded*3));
-    if($('mms-otp')) $('mms-otp').textContent=((STATE.routes||[]).length? otp+'%' : '\u2014');
     /* CEO card */
     const nm=STATE.coName||'Airline';
     if($('mcc-name')) $('mcc-name').textContent=nm.toUpperCase();
     if($('mcc-av')) $('mcc-av').textContent=(nm[0]||'A').toUpperCase();
-    /* financial overview headline */
-    const fin=document.getElementById('ds-financial');
-    if(fin){
-      let head=document.getElementById('mock-finhead');
-      if(!head){ head=document.createElement('div'); head.id='mock-finhead'; fin.insertAdjacentElement('beforebegin', head); }
-      const h=STATE._finHist||[]; const last=h.length?h[h.length-1].net:0; const prev=h.length>1?h[h.length-2].net:0;
-      const pct=prev? Math.round(((last-prev)/Math.abs(prev))*1000)/10 : 0;
-      head.innerHTML='<span class="mfh-l">Profit & Loss</span><span class="mfh-v" style="color:'+(last>=0?'var(--profit)':'var(--loss)')+'">'+(last<0?'-':'')+money(Math.abs(last))+'</span>'+
-        (h.length>1?'<span class="mfh-d" style="color:'+(pct>=0?'var(--profit)':'var(--loss)')+'">'+(pct>=0?'+':'')+pct+'%</span>':'');
-    }
-    /* coverage under network overview */
-    const netP=document.getElementById('ds-network');
-    if(netP){
-      let cov=document.getElementById('mock-coverage');
-      if(!cov){ cov=document.createElement('div'); cov.id='mock-coverage'; netP.insertAdjacentElement('afterend', cov); }
-      const total=(typeof CITIES!=='undefined')?Object.keys(CITIES).length:0;
-      const p=total?Math.round(served.size/total*100):0;
-      cov.innerHTML='<div class="mc-bar"><div class="mc-fill" style="width:'+p+'%"></div></div><div class="mc-txt">Coverage '+p+'% \u00b7 Expand your network to increase market share.</div>';
-    }
     /* sidebar badges + CEO cash */
     const setB=(id,v,cls)=>{const e=$(id); if(!e) return; if(v>0){e.textContent=v; e.className='mns-badge show'+(cls?' '+cls:'');} else {e.textContent=''; e.className='mns-badge';}};
     const totalOwned=Object.values(STATE.planes||{}).reduce((s,p)=>s+(p.owned||0),0);
@@ -16217,7 +16454,6 @@ try{
   const _updateUI_orig_mock = updateUI;
   updateUI = function(){ const r=_updateUI_orig_mock.apply(this,arguments); try{ _mockDashSetup(); _mockDashSync(); }catch(e){} return r; };
 }catch(e){}
-
 function mockOpenAlerts(){ try{ openModal('logviewer'); setTimeout(()=>{ if(typeof lvShow==='function') lvShow('ev'); }, 60); }catch(e){} }
 function _mockRivalRoutes(){
   try{
@@ -16252,90 +16488,4 @@ try{
   const _renderMap_orig_mock = renderMap;
   renderMap = function(){ const r=_renderMap_orig_mock.apply(this,arguments); try{ _mockRivalRoutes(); }catch(e){} return r; };
 }catch(e){}
-
-/* ===== DAY / NIGHT CYCLE =====================================================
-   The engine is monthly turn-based, so there is no wall clock. The terminator
-   is driven by TURN PROGRESS instead: one full day sweep per month. In MANUAL
-   mode (no timer) it drifts slowly so the map still breathes; paused freezes it.
-   Sun declination comes from the in-game month, so seasons tilt the terminator. */
-function dnMode(){ try{ return localStorage.getItem('aeDayNight')||'auto'; }catch(e){ return 'auto'; } }
-function dnApplyMode(){
-  const mc=document.getElementById('map-container'); if(!mc) return;
-  const m=dnMode();
-  mc.classList.remove('dn-auto','dn-day','dn-night','night');
-  mc.classList.add('dn-'+m);
-  if(m!=='day') mc.classList.add('night');
-  document.querySelectorAll('.daynight-layer').forEach(g=>{ g.style.display = (m==='auto') ? '' : 'none'; });
-}
-function dnSubLon(){
-  try{
-    if(typeof STATE==='undefined'||!STATE) return 0;
-    if(STATE.paused && STATE._dnLast!=null) return STATE._dnLast;
-    let lon;
-    if(STATE.timerMode && STATE.timerMode!=='off' && STATE.timerMax){
-      const prog=Math.max(0,Math.min(1, 1-((STATE.timerSecs||0)/STATE.timerMax)));  // one sweep per turn
-      lon = 180 - prog*360;
-    } else {
-      lon = 180 - ((performance.now()/180000)%1)*360;   // manual: ~3 min per sweep
-    }
-    STATE._dnLast=lon; return lon;
-  }catch(e){ return 0; }
-}
-function dnDeclination(){
-  try{ const m=(STATE&&STATE.month!=null)?STATE.month:5; return 23.44*Math.sin(2*Math.PI*((m+0.5-2.72)/12)); }
-  catch(e){ return 15; }
-}
-function dnNightPath(subLon, dec){
-  const N=72, t=Math.tan(dec*Math.PI/180) || 1e-6, pts=[];
-  for(let i=0;i<=N;i++){
-    const x=i/N*MAP_W, lon=x/MAP_W*360-180;
-    const H=(lon-subLon)*Math.PI/180;
-    const lat=Math.atan(-Math.cos(H)/t)*180/Math.PI;
-    pts.push(x.toFixed(1)+','+projY(lat).toFixed(1));
-  }
-  const south = dec>0;   // sun north of equator => night runs to the south pole
-  return 'M'+pts.join(' L')+(south?(' L'+MAP_W+','+MAP_H+' L0,'+MAP_H+' Z'):(' L'+MAP_W+',0 L0,0 Z'));
-}
-function dnEnsureLayer(){
-  const svg=document.getElementById('world-map'); if(!svg) return null;
-  const groups=svg.querySelectorAll('.routes');   // map repeats horizontally: one per wrap copy
-  let first=true, any=null;
-  groups.forEach(rg=>{
-    const parent=rg.parentNode; if(!parent) return;
-    let gEl=null;
-    for(const ch of parent.children){ if(ch.classList && ch.classList.contains('daynight-layer')) { gEl=ch; break; } }
-    if(!gEl){
-      gEl=document.createElementNS('http://www.w3.org/2000/svg','g');
-      gEl.setAttribute('class','daynight-layer'); gEl.setAttribute('pointer-events','none');
-      gEl.innerHTML=(first?'<defs><filter id="dnBlur" x="-25%" y="-25%" width="150%" height="150%"><feGaussianBlur stdDeviation="16"/></filter></defs>':'')+
-        '<path class="dn-night" fill="#03071a" opacity="0.62" filter="url(#dnBlur)"/>'+
-        '<path class="dn-dusk" fill="#3a2168" opacity="0.24" filter="url(#dnBlur)"/>';
-      parent.insertBefore(gEl, rg);
-    }
-    if(dnMode()!=='auto') gEl.style.display='none'; else gEl.style.display='';
-    first=false; any=any||gEl;
-  });
-  return any;
-}
-function dnUpdate(){
-  try{
-    if(typeof STATE==='undefined'||!STATE||document.hidden) return;
-    const svg=document.getElementById('world-map'); if(!svg) return;
-    if(dnMode()!=='auto'){ svg.querySelectorAll('.daynight-layer').forEach(g=>g.style.display='none'); return; }
-    dnEnsureLayer();
-    const dec=dnDeclination(), lon=dnSubLon();
-    const dNight=dnNightPath(lon, dec), dDusk=dnNightPath(lon-18, dec);
-    svg.querySelectorAll('.dn-night').forEach(el=>el.setAttribute('d', dNight));
-    svg.querySelectorAll('.dn-dusk').forEach(el=>el.setAttribute('d', dDusk));
-  }catch(e){}
-}
-function dnSetup(){
-  const mc=document.getElementById('map-container'); if(!mc) return;
-  dnApplyMode(); dnEnsureLayer(); dnUpdate();
-  if(!window._dnTimer) window._dnTimer=setInterval(dnUpdate, 500);
-}
-try{
-  const _renderMap_dn = renderMap;
-  renderMap = function(){ const r=_renderMap_dn.apply(this,arguments); try{ dnEnsureLayer(); dnUpdate(); }catch(e){} return r; };
-}catch(e){}
-if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',dnSetup); else dnSetup();
+/* The moving day/night terminator is intentionally omitted from the map. */

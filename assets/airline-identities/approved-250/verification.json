@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "identities": 250,
+  "groups": 10,
+  "marks": 250,
+  "runtimeLogos": 250,
+  "presentationLogos": 250,
+  "cards": 250,
+  "previews": 23,
+  "duplicateNames": 0,
+  "duplicateIds": 0,
+  "plainWhiteFailures": 0,
+  "regionalProfiles": 25,
+  "packageCatalog": "catalog.js",
+  "replacementGroup10": {
+    "first": "Aurelius Air",
+    "last": "Sanctum Air",
+    "count": 25
+  },
+  "obsoleteGroup10NamesPresent": 0
+}

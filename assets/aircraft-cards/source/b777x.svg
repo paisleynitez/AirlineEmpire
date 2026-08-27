@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#050914"/><stop offset="0.58" stop-color="#020617"/><stop offset="1" stop-color="#02040a"/></linearGradient>
+    <radialGradient id="glow" cx="50%" cy="38%" r="70%"><stop stop-color="#DC2626" stop-opacity="0.40"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff" stop-opacity="0.15"/><stop offset="1" stop-color="#ffffff" stop-opacity="0.055"/></linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#fff" stroke-opacity="0.035"/></pattern>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity="0.55"/></filter>
+  </defs>
+  <rect width="1600" height="900" rx="34" fill="url(#bg)"/>
+  <rect width="1600" height="900" rx="34" fill="url(#glow)"/>
+  <rect width="1600" height="900" rx="34" fill="url(#grid)"/>
+  <rect x="52" y="48" width="1496" height="804" rx="28" fill="none" stroke="#fff" stroke-opacity="0.17" stroke-width="2"/>
+  <text x="92" y="110" font-family="Arial, Helvetica, sans-serif" font-size="29" fill="#22D3EE" font-weight="700" letter-spacing="5">TTX-426</text>
+  <text x="92" y="151" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#d6e3ef" fill-opacity="0.76" letter-spacing="3">NEXT-GEN HEAVY FLAGSHIP</text>
+  <rect x="678" y="77" width="244" height="72" rx="19" fill="#050912" fill-opacity="0.64" stroke="#22D3EE" stroke-opacity="0.62"/>
+  <text x="800" y="121" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#22D3EE" font-weight="700" text-anchor="middle" letter-spacing="2">MODERN FLEET</text>
+  <g filter="url(#shadow)"><svg x="70" y="105" width="1460" height="515" viewBox="0 0 640 226" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="B777X"
+    style="display:block">
+    <defs><linearGradient id="fus_B777X" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f3f6f9"/><stop offset="70%" stop-color="#d7dee6"/>
+      <stop offset="100%" stop-color="#b9c3cd"/></linearGradient></defs>
+    <ellipse cx="320" cy="208" rx="215.9304" ry="7" fill="rgba(0,0,0,0.35)"/>
+    <path d="M 299.4352,122.6 L 386.8356,122.6
+      L 458.8124,170.9 L 410.74218,170.9 Z"
+      fill="url(#fus_B777X)" stroke="#7c8a94" stroke-width="0.7"/>
+<g><rect x="269.74477" y="153.88" width="53.9826" height="28.52" rx="11.883333333333333"
+      fill="url(#fus_B777X)" stroke="#7c8a94" stroke-width="0.7"/>
+    <rect x="277.30233400000003" y="153.88" width="8.637216" height="28.52" fill="#DC2626" opacity="0.9"/>
+    <ellipse cx="271.24477" cy="168.14" rx="4.858434" ry="12.4" fill="#39424b"/></g>
+<path d="M 497.37139999999994,98 L 541.0715999999999,23.700000000000003
+    L 577.06,23.700000000000003 L 578.06,99 Z"
+    fill="#DC2626" stroke="#b90303" stroke-width="0.8"/>
+<path d="M 515.3656,97 L 554.9528399999999,43.664
+    L 565.2352399999999,43.664 L 525.6479999999999,97 Z"
+    fill="rgba(255,255,255,0.55)"/>
+<path d="M 520.5067999999999,102 L 587.3424,89
+      L 595.0541999999999,94 L 548.7833999999999,107 Z"
+      fill="#c9d1d9" stroke="#7c8a94" stroke-width="0.6"/>
+<path d="M 62.94,118 Q 64.94,101.44 131.94,95
+    L 499.94199999999995,95 Q 574.06,96 577.06,100
+    L 577.06,105
+    Q 530.7891999999999,139 469.09479999999996,141
+    L 118.13999999999999,141
+    Q 64.94,134.56 62.94,118 Z"
+    fill="url(#fus_B777X)" stroke="#7c8a94" stroke-width="0.8"/>
+<path d="M 412.5415999999999,141 Q 474.23599999999993,127.2 497.37139999999994,101
+      L 577.06,105 Q 530.7891999999999,139 469.09479999999996,141 Z"
+      fill="#DC2626" opacity="0.85"/>
+<line x1="150.33999999999997" y1="111.56" x2="453.67119999999994" y2="111.56"
+    stroke="#3a4854" stroke-width="2.1" stroke-dasharray="2.1 3.6" stroke-linecap="round"/>
+<path d="M 113.53999999999999,102.36 l 23,0 l 6.44,7.36 l -25.76,0 Z"
+    fill="#2b3540"/>
+  </svg></g>
+  <rect x="82" y="625" width="1436" height="188" rx="25" fill="url(#glass)" stroke="#fff" stroke-opacity="0.19"/>
+  <rect x="82" y="625" width="9" height="188" rx="5" fill="#22D3EE"/>
+  <text x="124" y="696" font-family="Arial, Helvetica, sans-serif" font-size="58" fill="#fff" font-weight="700" letter-spacing="1">Titan X 426</text>
+  <text x="126" y="744" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#b9c9d8" letter-spacing="2">MODEL B777X  •  JUMBO</text>
+  <text x="126" y="784" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#e6eef5" fill-opacity="0.86">Next-generation heavy flagship for the most profitable global routes.</text>
+  <g transform="translate(1125 667)">
+    <rect width="344" height="106" rx="18" fill="#02050b" fill-opacity="0.42" stroke="#fff" stroke-opacity="0.12"/>
+    <text x="48" y="49" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#fff" font-weight="700" text-anchor="middle">426</text>
+    <text x="48" y="77" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#aabccc" text-anchor="middle" letter-spacing="2">SEATS</text>
+    <text x="172" y="49" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#fff" font-weight="700" text-anchor="middle">8,200</text>
+    <text x="172" y="77" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#aabccc" text-anchor="middle" letter-spacing="2">MILES</text>
+    <text x="296" y="49" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#fff" font-weight="700" text-anchor="middle">2025</text>
+    <text x="296" y="77" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#aabccc" text-anchor="middle" letter-spacing="2">ERA</text>
+  </g>
+  </svg>

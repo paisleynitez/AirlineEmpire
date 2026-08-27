@@ -1,9 +1,0 @@
-﻿{
-    "asset_count":  88,
-    "unique_city_count":  88,
-    "unique_iata_count":  88,
-    "unique_path_count":  88,
-    "unique_sha256_count":  88,
-    "runtime_dimensions":  "360x176",
-    "copy_root":  "game/assets/city-skylines"
-}

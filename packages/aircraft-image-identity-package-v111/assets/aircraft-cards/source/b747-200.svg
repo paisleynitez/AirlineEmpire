@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#050914"/><stop offset="0.58" stop-color="#78350F"/><stop offset="1" stop-color="#02040a"/></linearGradient>
+    <radialGradient id="glow" cx="50%" cy="38%" r="70%"><stop stop-color="#F59E0B" stop-opacity="0.40"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff" stop-opacity="0.15"/><stop offset="1" stop-color="#ffffff" stop-opacity="0.055"/></linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#fff" stroke-opacity="0.035"/></pattern>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity="0.55"/></filter>
+  </defs>
+  <rect width="1600" height="900" rx="34" fill="url(#bg)"/>
+  <rect width="1600" height="900" rx="34" fill="url(#glow)"/>
+  <rect width="1600" height="900" rx="34" fill="url(#grid)"/>
+  <rect x="52" y="48" width="1496" height="804" rx="28" fill="none" stroke="#fff" stroke-opacity="0.17" stroke-width="2"/>
+  <text x="92" y="110" font-family="Arial, Helvetica, sans-serif" font-size="29" fill="#FEF3C7" font-weight="700" letter-spacing="5">CQ2-380</text>
+  <text x="92" y="151" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#d6e3ef" fill-opacity="0.76" letter-spacing="3">LONGER-RANGE JUMBO CLASSIC</text>
+  <rect x="678" y="77" width="244" height="72" rx="19" fill="#050912" fill-opacity="0.64" stroke="#FEF3C7" stroke-opacity="0.62"/>
+  <text x="800" y="121" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#FEF3C7" font-weight="700" text-anchor="middle" letter-spacing="2">VINTAGE FLEET</text>
+  <g filter="url(#shadow)"><svg x="70" y="105" width="1460" height="515" viewBox="0 0 640 226" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="B747-200"
+    style="display:block">
+    <defs><linearGradient id="fus_B747200" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f3f6f9"/><stop offset="70%" stop-color="#d7dee6"/>
+      <stop offset="100%" stop-color="#b9c3cd"/></linearGradient></defs>
+    <ellipse cx="320" cy="208" rx="203.952" ry="7" fill="rgba(0,0,0,0.35)"/>
+    <path d="M 300.576,122.6 L 383.12800000000004,122.6
+      L 451.1120000000001,170.9 L 405.70840000000004,170.9 Z"
+      fill="url(#fus_B747200)" stroke="#7c8a94" stroke-width="0.7"/>
+<g><rect x="272.5326" y="153.88" width="50.988" height="28.52" rx="11.883333333333333"
+      fill="url(#fus_B747200)" stroke="#7c8a94" stroke-width="0.7"/>
+    <rect x="279.67092" y="153.88" width="8.15808" height="28.52" fill="#F59E0B" opacity="0.9"/>
+    <ellipse cx="274.0326" cy="168.14" rx="4.58892" ry="12.4" fill="#39424b"/></g>
+<g><rect x="203.69880000000003" y="150.45759999999999" width="44.86944" height="25.668" rx="10.695"
+      fill="url(#fus_B747200)" stroke="#7c8a94" stroke-width="0.7"/>
+    <rect x="209.98052160000003" y="150.45759999999999" width="7.1791104" height="25.668" fill="#F59E0B" opacity="0.9"/>
+    <ellipse cx="205.19880000000003" cy="163.2916" rx="4.038249599999999" ry="11.16" fill="#39424b"/></g>
+<path d="M 487.5319999999999,98 L 528.808,23.700000000000003
+    L 562.8,23.700000000000003 L 563.8,99 Z"
+    fill="#F59E0B" stroke="#d27b00" stroke-width="0.8"/>
+<path d="M 504.5279999999999,97 L 541.9191999999999,43.664
+    L 551.6311999999999,43.664 L 514.2399999999999,97 Z"
+    fill="rgba(255,255,255,0.55)"/>
+<path d="M 509.38399999999996,102 L 572.512,89
+      L 579.7959999999999,94 L 536.092,107 Z"
+      fill="#c9d1d9" stroke="#7c8a94" stroke-width="0.6"/>
+<path d="M 77.19999999999999,118 Q 79.19999999999999,101.44 146.2,95
+    L 489.9599999999999,95 Q 559.8,96 562.8,100
+    L 562.8,105
+    Q 519.096,139 460.82399999999996,141
+    L 132.39999999999998,141
+    Q 79.19999999999999,134.56 77.19999999999999,118 Z"
+    fill="url(#fus_B747200)" stroke="#7c8a94" stroke-width="0.8"/>
+<path d="M 127.79999999999998,96 Q 146.2,75.68 145.184,74.76
+      L 222.88,74.76 Q 271.44,75.68 300.576,96 Z"
+      fill="url(#fus_B747200)" stroke="#7c8a94" stroke-width="0.8"/>
+<line x1="125.75999999999999" y1="87.64" x2="242.304" y2="87.64"
+    stroke="#3a4854" stroke-width="2.1" stroke-dasharray="2.1 3.6" stroke-linecap="round"/>
+<path d="M 100.19999999999999,118 L 514.24,118 L 504.52799999999996,125.36
+      L 109.39999999999998,125.36 Z" fill="#F59E0B" opacity="0.92"/>
+<path d="M 109.39999999999998,127.2 L 499.67199999999997,127.2
+      L 494.8159999999999,130.88 L 118.6,130.88 Z" fill="#d27b00" opacity="0.85"/>
+<line x1="164.59999999999997" y1="111.56" x2="446.256" y2="111.56"
+    stroke="#3a4854" stroke-width="2.1" stroke-dasharray="2.1 3.6" stroke-linecap="round"/>
+<path d="M 127.79999999999998,102.36 l 23,0 l 6.44,7.36 l -25.76,0 Z"
+    fill="#2b3540"/>
+  </svg></g>
+  <rect x="82" y="625" width="1436" height="188" rx="25" fill="url(#glass)" stroke="#fff" stroke-opacity="0.19"/>
+  <rect x="82" y="625" width="9" height="188" rx="5" fill="#FEF3C7"/>
+  <text x="124" y="696" font-family="Arial, Helvetica, sans-serif" font-size="58" fill="#fff" font-weight="700" letter-spacing="1">ClassicQueen 380</text>
+  <text x="126" y="744" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#b9c9d8" letter-spacing="2">MODEL B747-200  •  JUMBO</text>
+  <text x="126" y="784" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#e6eef5" fill-opacity="0.86">Stronger classic jumbo for long-range high-demand eras routes.</text>
+  <g transform="translate(1125 667)">
+    <rect width="344" height="106" rx="18" fill="#02050b" fill-opacity="0.42" stroke="#fff" stroke-opacity="0.12"/>
+    <text x="48" y="49" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#fff" font-weight="700" text-anchor="middle">380</text>
+    <text x="48" y="77" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#aabccc" text-anchor="middle" letter-spacing="2">SEATS</text>
+    <text x="172" y="49" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#fff" font-weight="700" text-anchor="middle">6,560</text>
+    <text x="172" y="77" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#aabccc" text-anchor="middle" letter-spacing="2">MILES</text>
+    <text x="296" y="49" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#fff" font-weight="700" text-anchor="middle">1971</text>
+    <text x="296" y="77" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#aabccc" text-anchor="middle" letter-spacing="2">ERA</text>
+  </g>
+  </svg>
