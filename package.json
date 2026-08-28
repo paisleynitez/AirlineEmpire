@@ -1,12 +1,13 @@
 {
   "name": "airlineempire",
-  "version": "1.0.0",
+  "version": "1.1.11",
   "description": "Airline Empire is an airline management and tycoon game by PaisleyNitez.",
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build && node scripts/copy-runtime.cjs",
+    "preview": "vite preview",
+    "test": "node --test tests/*.test.cjs"
   },
   "directories": {
     "doc": "docs",

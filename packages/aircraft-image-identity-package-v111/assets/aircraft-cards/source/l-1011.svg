@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#050914"/><stop offset="0.58" stop-color="#312E81"/><stop offset="1" stop-color="#02040a"/></linearGradient>
+    <radialGradient id="glow" cx="50%" cy="38%" r="70%"><stop stop-color="#818CF8" stop-opacity="0.40"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff" stop-opacity="0.15"/><stop offset="1" stop-color="#ffffff" stop-opacity="0.055"/></linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#fff" stroke-opacity="0.035"/></pattern>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity="0.55"/></filter>
+  </defs>
+  <rect width="1600" height="900" rx="34" fill="url(#bg)"/>
+  <rect width="1600" height="900" rx="34" fill="url(#glow)"/>
+  <rect width="1600" height="900" rx="34" fill="url(#grid)"/>
+  <rect x="52" y="48" width="1496" height="804" rx="28" fill="none" stroke="#fff" stroke-opacity="0.17" stroke-width="2"/>
+  <text x="92" y="110" font-family="Arial, Helvetica, sans-serif" font-size="29" fill="#FDE68A" font-weight="700" letter-spacing="5">STL-256</text>
+  <text x="92" y="151" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#d6e3ef" fill-opacity="0.76" letter-spacing="3">POLISHED TRI-JET SERVICE</text>
+  <rect x="678" y="77" width="244" height="72" rx="19" fill="#050912" fill-opacity="0.64" stroke="#FDE68A" stroke-opacity="0.62"/>
+  <text x="800" y="121" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#FDE68A" font-weight="700" text-anchor="middle" letter-spacing="2">VINTAGE FLEET</text>
+  <g filter="url(#shadow)"><svg x="70" y="105" width="1460" height="515" viewBox="0 0 640 226" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="L-1011"
+    style="display:block">
+    <defs><linearGradient id="fus_L1011" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f3f6f9"/><stop offset="70%" stop-color="#d7dee6"/>
+      <stop offset="100%" stop-color="#b9c3cd"/></linearGradient></defs>
+    <ellipse cx="320" cy="208" rx="171.6624" ry="7" fill="rgba(0,0,0,0.35)"/>
+    <path d="M 303.6512,121.8 L 373.1336,121.8
+      L 430.3544,161.7 L 392.13908000000004,161.7 Z"
+      fill="url(#fus_L1011)" stroke="#7c8a94" stroke-width="0.7"/>
+<g><rect x="280.04762" y="147.64" width="42.9156" height="23.56" rx="9.816666666666666"
+      fill="url(#fus_L1011)" stroke="#7c8a94" stroke-width="0.7"/>
+    <rect x="286.05580399999997" y="147.64" width="6.866496" height="23.56" fill="#818CF8" opacity="0.9"/>
+    <ellipse cx="281.54762" cy="159.42" rx="3.8624039999999997" ry="10.243478260869566" fill="#39424b"/></g>
+<g><rect x="461.0084" y="88.36" width="40.769819999999996" height="18.848" rx="7.8533333333333335"
+      fill="url(#fus_L1011)" stroke="#7c8a94" stroke-width="0.7"/>
+    <rect x="466.7161748" y="88.36" width="6.523171199999999" height="18.848" fill="#818CF8" opacity="0.9"/>
+    <ellipse cx="462.5084" cy="97.78399999999999" rx="3.6692837999999997" ry="8.194782608695652" fill="#39424b"/></g>
+<path d="M 461.0084,102 L 495.7496,32.5
+    L 524.36,32.5 L 525.36,103 Z"
+    fill="#818CF8" stroke="#5e69d5" stroke-width="0.8"/>
+<path d="M 475.3136,101 L 506.78504,51.120000000000005
+    L 514.95944,51.120000000000005 L 483.488,101 Z"
+    fill="rgba(255,255,255,0.55)"/>
+<path d="M 479.4008,106 L 532.5344,93
+      L 538.6652,98 L 501.8804,111 Z"
+      fill="#c9d1d9" stroke="#7c8a94" stroke-width="0.6"/>
+<path d="M 115.63999999999999,118 Q 117.63999999999999,104.32 172.64,99
+    L 463.052,99 Q 521.36,100 524.36,104
+    L 524.36,109
+    Q 487.5752,135 438.52880000000005,137
+    L 161.23999999999998,137
+    Q 117.63999999999999,131.68 115.63999999999999,118 Z"
+    fill="url(#fus_L1011)" stroke="#7c8a94" stroke-width="0.8"/>
+<path d="M 134.64,118 L 483.488,118 L 475.3136,124.08
+      L 142.23999999999998,124.08 Z" fill="#818CF8" opacity="0.92"/>
+<path d="M 142.23999999999998,125.6 L 471.2264,125.6
+      L 467.1392,128.64 L 149.83999999999997,128.64 Z" fill="#5e69d5" opacity="0.85"/>
+<line x1="187.83999999999997" y1="112.68" x2="426.2672" y2="112.68"
+    stroke="#3a4854" stroke-width="2.1" stroke-dasharray="2.1 3.6" stroke-linecap="round"/>
+<path d="M 157.44,105.08 l 19,0 l 5.32,6.08 l -21.28,0 Z"
+    fill="#2b3540"/>
+  </svg></g>
+  <rect x="82" y="625" width="1436" height="188" rx="25" fill="url(#glass)" stroke="#fff" stroke-opacity="0.19"/>
+  <rect x="82" y="625" width="9" height="188" rx="5" fill="#FDE68A"/>
+  <text x="124" y="696" font-family="Arial, Helvetica, sans-serif" font-size="58" fill="#fff" font-weight="700" letter-spacing="1">Starlift 256</text>
+  <text x="126" y="744" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#b9c9d8" letter-spacing="2">MODEL L-1011  •  LONG-HAUL</text>
+  <text x="126" y="784" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#e6eef5" fill-opacity="0.86">Comfort-focused vintage widebody with a prestige service feel.</text>
+  <g transform="translate(1125 667)">
+    <rect width="344" height="106" rx="18" fill="#02050b" fill-opacity="0.42" stroke="#fff" stroke-opacity="0.12"/>
+    <text x="48" y="49" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#fff" font-weight="700" text-anchor="middle">256</text>
+    <text x="48" y="77" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#aabccc" text-anchor="middle" letter-spacing="2">SEATS</text>
+    <text x="172" y="49" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#fff" font-weight="700" text-anchor="middle">4,250</text>
+    <text x="172" y="77" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#aabccc" text-anchor="middle" letter-spacing="2">MILES</text>
+    <text x="296" y="49" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#fff" font-weight="700" text-anchor="middle">1972</text>
+    <text x="296" y="77" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#aabccc" text-anchor="middle" letter-spacing="2">ERA</text>
+  </g>
+  </svg>

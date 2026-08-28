@@ -54,7 +54,7 @@ if(name && (!name.value || name.value==='SKYLINE')){
 }catch(e){}
   }
   const oldStart=window.startNewGame;
-  if(typeof oldStart==='function') window.startNewGame=function(){ const r=oldStart.apply(this,arguments); setTimeout(setDefaults,80); setTimeout(()=>{try{ if(typeof wzRenderPage3==='function') wzRenderPage3(); if(typeof aeRenderPreview==='function') aeRenderPreview(); }catch(e){}},180); return r; };
+  if(typeof oldStart==='function') window.startNewGame=function(){ const r=oldStart.apply(this,arguments); setTimeout(setDefaults,80); setTimeout(()=>{try{ if(typeof wzRenderPage3==='function') wzRenderPage3(); }catch(e){}},180); return r; };
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ const ovl=document.getElementById('cont-ovl'); if(ovl) ovl.remove(); }});
   document.addEventListener('click',e=>{ const gear=e.target.closest && e.target.closest('.home-gear'); if(!gear)return; if(document.getElementById('intro') && !document.getElementById('intro').classList.contains('hidden')){ try{e.preventDefault();e.stopPropagation();}catch(_){} if(typeof openRecords==='function') openRecords(); }}, true);
   function setVersionMark(){

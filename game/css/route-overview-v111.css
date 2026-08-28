@@ -1,0 +1,589 @@
+/* =====================================================================
+   ROUTE OVERVIEW v1.1.1
+   Compact route decision window. Detailed economics remain in the full
+   route report; route editing is grouped into focused action drawers.
+   ===================================================================== */
+.modal.modal-route-overview-v111 {
+  width: 820px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 32px);
+  margin-top: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(169, 131, 255, .34);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 82% 10%, rgba(132, 82, 224, .13), transparent 31%),
+    linear-gradient(155deg, #171027, #0d0918 76%) !important;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, .48), inset 0 1px 0 rgba(255, 255, 255, .035);
+}
+
+.modal-route-overview-v111 .rov-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 25px;
+  border-bottom: 1px solid rgba(169, 131, 255, .17);
+  background: rgba(38, 24, 63, .55);
+}
+
+.modal-route-overview-v111 .rov-title-group {
+  min-width: 0;
+  flex: 1;
+}
+
+.modal-route-overview-v111 .rov-kicker {
+  margin: 0 0 5px;
+  color: #afa3bf;
+  font-size: 13px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.modal-route-overview-v111 .rov-title {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(23px, 3vw, 30px);
+  font-weight: 800;
+  letter-spacing: .075em;
+  line-height: 1.2;
+}
+
+.modal-route-overview-v111 .rov-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex: 0 0 auto;
+  padding: 8px 12px;
+  border: 1px solid color-mix(in srgb, var(--rov-status) 42%, transparent);
+  border-radius: 999px;
+  color: var(--rov-status);
+  background: color-mix(in srgb, var(--rov-status) 9%, transparent);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.modal-route-overview-v111 .rov-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rov-status);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--rov-status) 78%, transparent);
+}
+
+.modal-route-overview-v111 .rov-close {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  place-items: center;
+  flex: 0 0 40px;
+  border: 0;
+  border-radius: 10px;
+  color: #d1c8dc;
+  background: transparent;
+  font: inherit;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.modal-route-overview-v111 .rov-close:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, .06);
+}
+
+.modal-route-overview-v111 .rov-body {
+  max-height: calc(100vh - 124px);
+  overflow-y: auto;
+  padding: 25px;
+  font-size: 16px;
+}
+
+.modal-route-overview-v111 .rov-advice {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  margin-bottom: 23px;
+  padding: 15px 17px;
+  border: 1px solid color-mix(in srgb, var(--rov-status) 28%, transparent);
+  border-radius: 13px;
+  background: color-mix(in srgb, var(--rov-status) 7%, transparent);
+}
+
+.modal-route-overview-v111 .rov-advice-icon {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  flex: 0 0 28px;
+  border-radius: 50%;
+  color: #0d1913;
+  background: var(--rov-status);
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.modal-route-overview-v111 .rov-advice strong {
+  display: block;
+  margin-bottom: 3px;
+  color: #f8f4ff;
+  font-size: 16px;
+}
+
+.modal-route-overview-v111 .rov-advice span {
+  color: #c9bfda;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.modal-route-overview-v111 .rov-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.modal-route-overview-v111 .rov-metric {
+  min-width: 0;
+  padding: 17px 18px;
+  border: 1px solid rgba(169, 131, 255, .18);
+  border-radius: 14px;
+  background: rgba(38, 25, 62, .62);
+}
+
+.modal-route-overview-v111 .rov-metric-label {
+  margin-bottom: 8px;
+  color: #a99db8;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.modal-route-overview-v111 .rov-metric-value {
+  color: #fff;
+  font-family: 'DM Mono', monospace;
+  font-size: clamp(25px, 3.2vw, 34px);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.modal-route-overview-v111 .rov-metric-value.positive { color: var(--profit); }
+.modal-route-overview-v111 .rov-metric-value.negative { color: var(--loss); }
+
+.modal-route-overview-v111 .rov-metric-context {
+  margin-top: 7px;
+  color: #c5b9d4;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.modal-route-overview-v111 .rov-load-track {
+  position: relative;
+  height: 8px;
+  margin-top: 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .1);
+}
+
+.modal-route-overview-v111 .rov-load-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #6ad6ff, var(--profit));
+}
+
+.modal-route-overview-v111 .rov-load-be {
+  position: absolute;
+  top: -4px;
+  width: 2px;
+  height: 16px;
+  border-radius: 2px;
+  background: var(--accent2);
+}
+
+.modal-route-overview-v111 .rov-load-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 7px;
+  color: #b9aec8;
+  font-size: 13px;
+}
+
+.modal-route-overview-v111 .rov-load-labels span:last-child { color: var(--accent2); }
+
+.modal-route-overview-v111 .rov-actions {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.modal-route-overview-v111 .rov-action,
+.modal-route-overview-v111 .rov-drawer-action {
+  min-height: 48px;
+  padding: 11px 15px;
+  border: 1px solid rgba(169, 131, 255, .26);
+  border-radius: 11px;
+  color: #eee8f7;
+  background: rgba(87, 57, 134, .18);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.modal-route-overview-v111 .rov-action.primary,
+.modal-route-overview-v111 .rov-drawer-action.confirm {
+  border-color: rgba(170, 139, 250, .72);
+  color: #150d25;
+  background: linear-gradient(135deg, #b79afd, #8e6edb);
+  box-shadow: 0 10px 28px rgba(129, 85, 210, .25);
+}
+
+.modal-route-overview-v111 .rov-action[aria-pressed='true'] {
+  border-color: rgba(191, 167, 255, .85);
+  color: #fff;
+  background: rgba(137, 95, 217, .28);
+  box-shadow: inset 0 0 0 1px rgba(191, 167, 255, .22);
+}
+
+.modal-route-overview-v111 .rov-report {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgba(169, 131, 255, .17);
+  border-radius: 12px;
+  color: #f7f2ff;
+  background: rgba(16, 10, 27, .55);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.modal-route-overview-v111 .rov-report-icon,
+.modal-route-overview-v111 .rov-choice-icon,
+.modal-route-overview-v111 .rov-manage-icon {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  flex: 0 0 36px;
+  border-radius: 9px;
+  color: #c9b5ff;
+  background: rgba(169, 131, 255, .11);
+  font-size: 18px;
+}
+
+.modal-route-overview-v111 .rov-report-copy,
+.modal-route-overview-v111 .rov-choice-copy,
+.modal-route-overview-v111 .rov-manage-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.modal-route-overview-v111 .rov-report-copy strong,
+.modal-route-overview-v111 .rov-choice-copy strong,
+.modal-route-overview-v111 .rov-manage-copy strong {
+  display: block;
+  margin-bottom: 2px;
+  color: #f7f2ff;
+  font-size: 15px;
+}
+
+.modal-route-overview-v111 .rov-report-copy span,
+.modal-route-overview-v111 .rov-choice-copy span,
+.modal-route-overview-v111 .rov-manage-copy span {
+  color: #aa9eb8;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.modal-route-overview-v111 .rov-report-arrow,
+.modal-route-overview-v111 .rov-manage-arrow {
+  color: #bfa7ff;
+  font-size: 22px;
+}
+
+.modal-route-overview-v111 .rov-drawer {
+  display: none;
+  margin: -4px 0 20px;
+  padding: 18px;
+  border: 1px solid rgba(169, 131, 255, .2);
+  border-radius: 13px;
+  background: #120b20;
+}
+
+.modal-route-overview-v111 .rov-drawer.open { display: block; }
+
+.modal-route-overview-v111 .rov-drawer-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.modal-route-overview-v111 .rov-drawer-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+}
+
+.modal-route-overview-v111 .rov-drawer-back {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(169, 131, 255, .26);
+  border-radius: 8px;
+  color: #e9ddfb;
+  background: rgba(71, 46, 105, .45);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal-route-overview-v111 .rov-drawer-back:hover {
+  border-color: rgba(169, 131, 255, .62);
+  background: rgba(137, 95, 217, .24);
+}
+
+.modal-route-overview-v111 .rov-drawer-head h3 {
+  margin: 0 0 4px;
+  color: #fff;
+  font-size: 20px;
+}
+
+.modal-route-overview-v111 .rov-drawer-head p {
+  margin: 0;
+  color: #b6a9c5;
+  font-size: 14px;
+}
+
+.modal-route-overview-v111 .rov-drawer-close {
+  border: 0;
+  color: #b9adca;
+  background: transparent;
+  font: inherit;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.modal-route-overview-v111 .rov-choice,
+.modal-route-overview-v111 .rov-manage-item {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+  min-height: 58px;
+  padding: 11px 13px;
+  border: 1px solid rgba(169, 131, 255, .16);
+  border-radius: 10px;
+  color: #f6f1fc;
+  background: rgba(45, 30, 71, .42);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.modal-route-overview-v111 .rov-choice + .rov-choice,
+.modal-route-overview-v111 .rov-manage-item + .rov-manage-item { margin-top: 8px; }
+
+.modal-route-overview-v111 .rov-choice.recommended {
+  border-color: rgba(114, 232, 181, .36);
+  background: rgba(61, 166, 121, .08);
+}
+
+.modal-route-overview-v111 .rov-choice-tag {
+  flex: 0 0 auto;
+  color: var(--profit);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.modal-route-overview-v111 .rov-drawer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+  margin-top: 14px;
+}
+
+.modal-route-overview-v111 .rov-drawer-action {
+  min-height: 42px;
+  padding: 9px 14px;
+  border-radius: 9px;
+}
+
+.modal-route-overview-v111 .rov-fare-control {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  align-items: center;
+  gap: 10px;
+  padding: 13px;
+  border: 1px solid rgba(169, 131, 255, .16);
+  border-radius: 11px;
+  background: rgba(45, 30, 71, .4);
+}
+
+.modal-route-overview-v111 .rov-fare-step {
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(169, 131, 255, .26);
+  border-radius: 10px;
+  color: #f5effc;
+  background: rgba(93, 61, 146, .23);
+  font: inherit;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.modal-route-overview-v111 .rov-fare-value { text-align: center; }
+
+.modal-route-overview-v111 .rov-fare-value strong {
+  display: block;
+  color: #fff;
+  font: 700 32px/1.2 'DM Mono', monospace;
+}
+
+.modal-route-overview-v111 .rov-fare-value span,
+.modal-route-overview-v111 .rov-fare-note,
+.modal-route-overview-v111 .rov-group-label {
+  color: #b6a9c5;
+  font-size: 14px;
+}
+
+.modal-route-overview-v111 .rov-fare-note { margin: 11px 0 0; }
+.modal-route-overview-v111 .rov-fare-note strong { color: var(--profit); }
+
+.modal-route-overview-v111 .rov-control-group + .rov-control-group { margin-top: 16px; }
+.modal-route-overview-v111 .rov-group-label { margin: 0 0 7px; }
+
+.modal-route-overview-v111 .rov-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.modal-route-overview-v111 .rov-option {
+  min-height: 44px;
+  padding: 9px 10px;
+  border: 1px solid rgba(169, 131, 255, .18);
+  border-radius: 9px;
+  color: #d8cfdf;
+  background: rgba(45, 30, 71, .34);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.modal-route-overview-v111 .rov-option.active {
+  border-color: rgba(169, 131, 255, .7);
+  color: #fff;
+  background: rgba(137, 95, 217, .25);
+}
+
+.modal-route-overview-v111 .rov-fleet-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(169, 131, 255, .12);
+}
+
+.modal-route-overview-v111 .rov-fleet-row:last-child { border-bottom: 0; }
+.modal-route-overview-v111 .rov-fleet-copy { min-width: 0; flex: 1; }
+.modal-route-overview-v111 .rov-fleet-copy strong { display: block; color: #fff; }
+.modal-route-overview-v111 .rov-fleet-copy span { color: #aa9eb8; font-size: 13px; }
+
+.modal-route-overview-v111 .rov-mini-action,
+.modal-route-overview-v111 .rov-select {
+  min-height: 38px;
+  padding: 7px 10px;
+  border: 1px solid rgba(169, 131, 255, .24);
+  border-radius: 8px;
+  color: #f0eaf8;
+  background: rgba(45, 30, 71, .5);
+  font: inherit;
+  font-size: 13px;
+}
+
+.modal-route-overview-v111 .rov-mini-action { cursor: pointer; }
+.modal-route-overview-v111 .rov-mini-action.danger { color: var(--loss); }
+
+.modal-route-overview-v111 button:disabled,
+.modal-route-overview-v111 .rov-mini-action:disabled {
+  opacity: .42;
+  cursor: not-allowed;
+}
+
+.modal-route-overview-v111 .rov-inline-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.modal-route-overview-v111 .rov-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(169, 131, 255, .12);
+}
+
+.modal-route-overview-v111 .rov-settings-row:last-child { border-bottom: 0; }
+.modal-route-overview-v111 .rov-settings-row strong { color: #fff; }
+.modal-route-overview-v111 .rov-settings-row span { color: #aa9eb8; font-size: 14px; }
+
+.modal.modal-route-report-v111 {
+  width: 760px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 32px);
+  margin-top: 16px;
+}
+
+.modal-route-report-v111 .rov-report-back {
+  min-height: 36px;
+  margin-right: 8px;
+  padding: 7px 12px;
+  border: 1px solid rgba(169, 131, 255, .34);
+  border-radius: 9px;
+  color: #f2ebff;
+  background: rgba(114, 76, 184, .16);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.modal-route-report-v111 .rov-report-back:hover {
+  border-color: rgba(169, 131, 255, .7);
+  background: rgba(137, 95, 217, .28);
+}
+
+@media (max-width: 650px) {
+  .modal.modal-route-overview-v111,
+  .modal.modal-route-report-v111 {
+    max-width: calc(100vw - 20px);
+    max-height: calc(100vh - 20px);
+    margin-top: 10px;
+  }
+
+  .modal-route-overview-v111 .rov-header,
+  .modal-route-overview-v111 .rov-body { padding: 18px; }
+  .modal-route-overview-v111 .rov-header { align-items: flex-start; flex-wrap: wrap; }
+  .modal-route-overview-v111 .rov-status { order: 3; }
+  .modal-route-overview-v111 .rov-metrics,
+  .modal-route-overview-v111 .rov-actions,
+  .modal-route-overview-v111 .rov-options { grid-template-columns: 1fr; }
+  .modal-route-overview-v111 .rov-drawer-actions { flex-direction: column-reverse; }
+  .modal-route-overview-v111 .rov-drawer-action { width: 100%; }
+}

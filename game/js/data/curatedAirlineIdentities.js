@@ -30,7 +30,7 @@
     ['cobalt-airlines', 'Cobalt Airlines', 'Premium / Boutique'],
     ['crestline-air', 'Crestline Air', 'Premium / Boutique'],
     ['vellum-airways', 'Vellum Airways', 'Premium / Boutique'],
-    ['aurelian-airlines', 'Aurelian Airlines', 'Premium / Boutique'],
+    ['aurelian-airlines', 'Eurpoean Air', 'Premium / Boutique'],
     ['ivory-and-wing', 'Ivory & Wing', 'Premium / Boutique'],
     ['marcello-air', 'Marcello Air', 'Premium / Boutique'],
     ['faultline-air', 'Faultline Air', 'Upstart / Edgy'],
@@ -38,6 +38,50 @@
     ['rogue-aviation', 'Rogue Aviation', 'Upstart / Edgy'],
     ['ironbird-airways', 'Ironbird Airways', 'Upstart / Edgy'],
   ];
+
+
+  const REGION_KEYS = ['N America', 'S America', 'Europe', 'Africa', 'Mid East', 'SE Asia', 'Oceania'];
+  const regionsById = {
+    'harrowgate-airlines': ['Europe', 'N America'],
+    'meridian-air': ['N America', 'Europe'],
+    'valdris-international': ['Europe', 'Mid East'],
+    'caledonian-airways': ['Europe'],
+    'solaris-airlines': ['S America', 'Africa', 'Mid East', 'Oceania'],
+    'fenwick-air-lines': ['Europe', 'N America'],
+    'northbridge-aviation': ['N America', 'Europe'],
+    'albion-airways': ['Europe'],
+    'cascadia-air': ['N America'],
+    'redrock-express': ['N America', 'Oceania', 'Africa'],
+    'lakeshore-airlines': ['N America', 'Europe'],
+    'piedmont-connector': ['N America', 'Europe'],
+    'bayfront-aviation': ['Oceania', 'SE Asia', 'N America', 'S America'],
+    'prairie-air': ['N America', 'Oceania', 'S America'],
+    'tidewater-airlines': ['Oceania', 'SE Asia', 'N America'],
+    'highpass-airways': ['S America', 'Europe', 'Mid East', 'SE Asia', 'Africa'],
+    'zipjet': ['Europe', 'N America', 'SE Asia'],
+    'flydash': ['N America', 'SE Asia', 'Oceania'],
+    'clearskies-air': ['Oceania', 'N America', 'SE Asia'],
+    'swiftway-airlines': ['Europe', 'N America', 'SE Asia'],
+    'openair-express': ['S America', 'Africa', 'SE Asia', 'Oceania'],
+    'budgetwing': ['N America', 'Europe', 'Oceania'],
+    'volare-go': ['Europe', 'S America'],
+    'apex-air': ['Europe', 'S America', 'Africa', 'Mid East'],
+    'cobalt-airlines': ['Europe', 'N America', 'SE Asia'],
+    'crestline-air': ['Europe', 'N America', 'Mid East'],
+    'vellum-airways': ['Europe', 'Mid East'],
+    'aurelian-airlines': ['Europe', 'Mid East', 'Africa'],
+    'ivory-and-wing': ['Africa', 'Mid East', 'SE Asia'],
+    'marcello-air': ['Europe', 'S America'],
+    'faultline-air': ['N America', 'Oceania', 'SE Asia', 'S America'],
+    'contrail-airlines': ['N America', 'Europe', 'SE Asia'],
+    'rogue-aviation': ['Oceania', 'N America', 'Africa'],
+    'ironbird-airways': ['Europe', 'Africa', 'Mid East'],
+  };
+
+  REGION_KEYS.forEach(region => {
+    const count = identities.filter(([id]) => (regionsById[id] || []).includes(region)).length;
+    if (count < 9) throw new Error(`Region ${region} has only ${count} curated airline identities`);
+  });
 
   const palettes = {
     'Legacy / Full-Service': ['#12304A', '#B68B40', '#E7E1D3'],
@@ -47,16 +91,21 @@
     'Upstart / Edgy': ['#1F2024', '#D63B32', '#F2E8E7'],
   };
 
-  window.CURATED_AIRLINE_IDENTITIES = identities.map(([id, name, category]) => ({
-    id,
-    name,
-    logo: `assets/airlines/${id}/logo.svg`,
-    category,
-    region: 'Fictional',
-    style: 'Curated identity',
-    weight: 1,
-    palette: palettes[category],
-    symbol: 'wing',
-    shape: 'round-square',
-  }));
+  window.CURATED_AIRLINE_IDENTITIES = identities.map(([id, name, category]) => {
+    const regions = regionsById[id];
+    if (!regions || !regions.length) throw new Error(`Missing region mapping for ${id}`);
+    return {
+      id,
+      name,
+      logo: `assets/airlines/${id}/logo.svg`,
+      category,
+      region: regions[0],
+      regions: regions.slice(),
+      style: 'Curated regional identity',
+      weight: 1,
+      palette: palettes[category],
+      symbol: 'wing',
+      shape: 'round-square',
+    };
+  });
 })();

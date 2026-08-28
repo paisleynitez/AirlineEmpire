@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#050914"/><stop offset="0.58" stop-color="#0C4A6E"/><stop offset="1" stop-color="#02040a"/></linearGradient>
+    <radialGradient id="glow" cx="50%" cy="38%" r="70%"><stop stop-color="#38BDF8" stop-opacity="0.40"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff" stop-opacity="0.15"/><stop offset="1" stop-color="#ffffff" stop-opacity="0.055"/></linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#fff" stroke-opacity="0.035"/></pattern>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity="0.55"/></filter>
+  </defs>
+  <rect width="1600" height="900" rx="34" fill="url(#bg)"/>
+  <rect width="1600" height="900" rx="34" fill="url(#glow)"/>
+  <rect width="1600" height="900" rx="34" fill="url(#grid)"/>
+  <rect x="52" y="48" width="1496" height="804" rx="28" fill="none" stroke="#fff" stroke-opacity="0.17" stroke-width="2"/>
+  <text x="92" y="110" font-family="Arial, Helvetica, sans-serif" font-size="29" fill="#C084FC" font-weight="700" letter-spacing="5">BRC-181</text>
+  <text x="92" y="151" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#d6e3ef" fill-opacity="0.76" letter-spacing="3">EARLY EFFICIENT LONG-HAUL TWIN</text>
+  <rect x="678" y="77" width="244" height="72" rx="19" fill="#050912" fill-opacity="0.64" stroke="#C084FC" stroke-opacity="0.62"/>
+  <text x="800" y="121" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#C084FC" font-weight="700" text-anchor="middle" letter-spacing="2">VINTAGE FLEET</text>
+  <g filter="url(#shadow)"><svg x="70" y="105" width="1460" height="515" viewBox="0 0 640 226" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="B767-200ER"
+    style="display:block">
+    <defs><linearGradient id="fus_B767200ER" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f3f6f9"/><stop offset="70%" stop-color="#d7dee6"/>
+      <stop offset="100%" stop-color="#b9c3cd"/></linearGradient></defs>
+    <ellipse cx="320" cy="208" rx="152.13240000000002" ry="7" fill="rgba(0,0,0,0.35)"/>
+    <path d="M 305.51120000000003,121.8 L 367.08860000000004,121.8
+      L 417.79940000000005,161.7 L 383.93183000000005,161.7 Z"
+      fill="url(#fus_B767200ER)" stroke="#7c8a94" stroke-width="0.7"/>
+<g><rect x="284.59299500000003" y="147.64" width="38.033100000000005" height="23.56" rx="9.816666666666666"
+      fill="url(#fus_B767200ER)" stroke="#7c8a94" stroke-width="0.7"/>
+    <rect x="289.91762900000003" y="147.64" width="6.0852960000000005" height="23.56" fill="#38BDF8" opacity="0.9"/>
+    <ellipse cx="286.09299500000003" cy="159.42" rx="3.422979" ry="10.243478260869566" fill="#39424b"/></g>
+<path d="M 444.96590000000003,102 L 475.75460000000004,32.5
+    L 501.11,32.5 L 502.11,103 Z"
+    fill="#38BDF8" stroke="#159ad5" stroke-width="0.8"/>
+<path d="M 457.64360000000005,101 L 485.53454000000005,51.120000000000005
+    L 492.77894000000003,51.120000000000005 L 464.88800000000003,101 Z"
+    fill="rgba(255,255,255,0.55)"/>
+<path d="M 461.2658,106 L 508.3544,93
+      L 513.7877,98 L 481.1879,111 Z"
+      fill="#c9d1d9" stroke="#7c8a94" stroke-width="0.6"/>
+<path d="M 138.89,118 Q 140.89,104.32 195.89,99
+    L 446.777,99 Q 498.11,100 501.11,104
+    L 501.11,109
+    Q 468.5102,135 425.04380000000003,137
+    L 184.48999999999998,137
+    Q 140.89,131.68 138.89,118 Z"
+    fill="url(#fus_B767200ER)" stroke="#7c8a94" stroke-width="0.8"/>
+<path d="M 157.89,118 L 464.88800000000003,118 L 457.6436,124.08
+      L 165.48999999999998,124.08 Z" fill="#38BDF8" opacity="0.92"/>
+<path d="M 165.48999999999998,125.6 L 454.0214,125.6
+      L 450.3992,128.64 L 173.08999999999997,128.64 Z" fill="#159ad5" opacity="0.85"/>
+<line x1="211.08999999999997" y1="112.68" x2="414.1772" y2="112.68"
+    stroke="#3a4854" stroke-width="2.1" stroke-dasharray="2.1 3.6" stroke-linecap="round"/>
+<path d="M 180.69,105.08 l 19,0 l 5.32,6.08 l -21.28,0 Z"
+    fill="#2b3540"/>
+  </svg></g>
+  <rect x="82" y="625" width="1436" height="188" rx="25" fill="url(#glass)" stroke="#fff" stroke-opacity="0.19"/>
+  <rect x="82" y="625" width="9" height="188" rx="5" fill="#C084FC"/>
+  <text x="124" y="696" font-family="Arial, Helvetica, sans-serif" font-size="58" fill="#fff" font-weight="700" letter-spacing="1">BridgeClassic 181</text>
+  <text x="126" y="744" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#b9c9d8" letter-spacing="2">MODEL B767-200ER  •  LONG-HAUL</text>
+  <text x="126" y="784" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#e6eef5" fill-opacity="0.86">Classic long-haul twin for early global network building.</text>
+  <g transform="translate(1125 667)">
+    <rect width="344" height="106" rx="18" fill="#02050b" fill-opacity="0.42" stroke="#fff" stroke-opacity="0.12"/>
+    <text x="48" y="49" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#fff" font-weight="700" text-anchor="middle">181</text>
+    <text x="48" y="77" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#aabccc" text-anchor="middle" letter-spacing="2">SEATS</text>
+    <text x="172" y="49" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#fff" font-weight="700" text-anchor="middle">6,385</text>
+    <text x="172" y="77" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#aabccc" text-anchor="middle" letter-spacing="2">MILES</text>
+    <text x="296" y="49" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#fff" font-weight="700" text-anchor="middle">1984</text>
+    <text x="296" y="77" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#aabccc" text-anchor="middle" letter-spacing="2">ERA</text>
+  </g>
+  </svg>
