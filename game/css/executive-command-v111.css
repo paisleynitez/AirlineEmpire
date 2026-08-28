@@ -1,0 +1,581 @@
+/* Airline Empire v1.1.11
+   Executive Command visual system
+   UI-only theme layer. Loaded after all feature styles so gameplay layout and
+   interaction code remain authoritative. */
+
+:root {
+  color-scheme: dark;
+  --bg: #05090f;
+  --bg2: #09111a;
+  --surface: #0d1823;
+  --surface2: #122230;
+  --surface3: #193044;
+  --border: #203849;
+  --border2: #36566b;
+  --accent: #6cc7d8;
+  --accent2: #e4bd70;
+  --accent3: #8bd9e5;
+  --purple: #8ba8bc;
+  --danger: #f16f7d;
+  --warn: #e4bd70;
+  --text: #f4f7f8;
+  --muted: #b7c5cc;
+  --muted2: #8195a0;
+  --profit: #68d6a7;
+  --loss: #f16f7d;
+  --shadow: 0 22px 58px rgba(0, 0, 0, .48);
+  --radius: 10px;
+  --ec-ink: #03070c;
+  --ec-panel: rgba(8, 17, 26, .90);
+  --ec-panel-strong: rgba(10, 21, 31, .96);
+  --ec-panel-soft: rgba(15, 30, 42, .74);
+  --ec-edge: rgba(123, 173, 195, .20);
+  --ec-edge-hot: rgba(108, 199, 216, .48);
+  --ec-gold: #e4bd70;
+  --ec-gold-soft: rgba(228, 189, 112, .12);
+  --ec-cyan-soft: rgba(108, 199, 216, .11);
+  --ec-highlight: rgba(255, 255, 255, .055);
+  --ec-depth: 0 20px 55px rgba(0, 0, 0, .46), inset 0 1px 0 rgba(255, 255, 255, .045);
+}
+
+html,
+body.ae-executive-command {
+  background: #03070c !important;
+}
+
+body.ae-executive-command {
+  color: var(--text);
+  text-rendering: geometricPrecision;
+  background:
+    radial-gradient(950px 560px at 52% -18%, rgba(64, 119, 145, .18), transparent 68%),
+    radial-gradient(780px 520px at 102% 38%, rgba(228, 189, 112, .055), transparent 70%),
+    linear-gradient(150deg, #060c13 0%, #03080d 58%, #050b11 100%) !important;
+}
+
+body.ae-executive-command::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .16;
+  background-image:
+    linear-gradient(rgba(133, 177, 195, .06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(133, 177, 195, .06) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, #000, transparent 72%);
+}
+
+/* Operations header */
+body.ae-executive-command #header {
+  background:
+    linear-gradient(90deg, rgba(228, 189, 112, .055), transparent 24%),
+    linear-gradient(180deg, rgba(10, 20, 29, .985), rgba(5, 12, 19, .97)) !important;
+  border-bottom: 1px solid rgba(117, 166, 188, .24) !important;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, .44), inset 0 -1px 0 rgba(228, 189, 112, .065) !important;
+}
+
+body.ae-executive-command #header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(108, 199, 216, .55) 35%, rgba(228, 189, 112, .38) 66%, transparent);
+}
+
+body.ae-executive-command #header .brand {
+  color: var(--ec-gold) !important;
+}
+
+body.ae-executive-command #header .ae-title,
+body.ae-executive-command #header .brand h1,
+body.ae-executive-command #header h1 {
+  color: #f3e7cf !important;
+  letter-spacing: 2.5px !important;
+  text-shadow: 0 0 20px rgba(228, 189, 112, .13) !important;
+}
+
+body.ae-executive-command #header .hdr-stat,
+body.ae-executive-command .hdr-stat {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .035), rgba(255, 255, 255, .012)) !important;
+  border: 1px solid rgba(123, 173, 195, .13) !important;
+  border-radius: 8px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .035) !important;
+}
+
+body.ae-executive-command #header .hdr-stat .label,
+body.ae-executive-command .hdr-dt-sub,
+body.ae-executive-command .hdr-speed-status {
+  color: #91a6b0 !important;
+}
+
+body.ae-executive-command .hdr-tbtn,
+body.ae-executive-command .speed-btn {
+  color: #b9c8ce !important;
+  background: rgba(7, 16, 24, .76) !important;
+  border-color: rgba(123, 173, 195, .22) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .035) !important;
+}
+
+body.ae-executive-command .hdr-tbtn:hover,
+body.ae-executive-command .speed-btn:hover,
+body.ae-executive-command .speed-btn.active {
+  color: #f7fbfc !important;
+  background: rgba(108, 199, 216, .12) !important;
+  border-color: rgba(108, 199, 216, .48) !important;
+}
+
+body.ae-executive-command .hdr-tbtn.primary,
+body.ae-executive-command #end-turn-btn {
+  color: #061017 !important;
+  background: linear-gradient(135deg, #f0d493, #d2a957) !important;
+  border: 1px solid rgba(255, 232, 178, .78) !important;
+  box-shadow: 0 10px 28px rgba(183, 139, 63, .23), inset 0 1px 0 rgba(255, 255, 255, .45) !important;
+}
+
+body.ae-executive-command #timer-bar {
+  background: #071019 !important;
+  border-color: rgba(123, 173, 195, .16) !important;
+}
+
+body.ae-executive-command #timer-fill {
+  background: linear-gradient(90deg, #528ea3, #76d1de, #e4bd70) !important;
+  box-shadow: 0 0 12px rgba(108, 199, 216, .34) !important;
+}
+
+/* Main command frame */
+body.ae-executive-command #main {
+  background: #03080d !important;
+}
+
+body.ae-executive-command #left-panel,
+body.ae-executive-command #right-panel {
+  background:
+    linear-gradient(180deg, rgba(13, 27, 38, .96), rgba(5, 13, 20, .97)) !important;
+  border-color: rgba(123, 173, 195, .18) !important;
+  box-shadow: 15px 0 42px rgba(0, 0, 0, .30), inset 0 1px 0 rgba(255, 255, 255, .035) !important;
+}
+
+body.ae-executive-command #right-panel {
+  box-shadow: -15px 0 42px rgba(0, 0, 0, .30), inset 0 1px 0 rgba(255, 255, 255, .035) !important;
+}
+
+body.ae-executive-command .panel-resizer:hover,
+body.ae-executive-command .panel-resizer.dragging {
+  background: rgba(108, 199, 216, .30) !important;
+}
+
+body.ae-executive-command .pinned-save-bar {
+  background: rgba(3, 9, 15, .55) !important;
+  border-bottom-color: rgba(123, 173, 195, .16) !important;
+}
+
+body.ae-executive-command .pinned-save-bar button {
+  color: #b9c8ce !important;
+  background: rgba(11, 24, 34, .76) !important;
+  border-color: rgba(123, 173, 195, .22) !important;
+  border-radius: 7px !important;
+}
+
+body.ae-executive-command .pinned-save-bar button:hover {
+  color: #fff !important;
+  background: rgba(108, 199, 216, .10) !important;
+  border-color: rgba(108, 199, 216, .42) !important;
+}
+
+body.ae-executive-command .ae-nav {
+  gap: 4px !important;
+}
+
+body.ae-executive-command .ae-nav-item {
+  color: #aebdc4 !important;
+  background: linear-gradient(90deg, rgba(255, 255, 255, .018), transparent) !important;
+  border: 1px solid transparent !important;
+  border-radius: 8px !important;
+}
+
+body.ae-executive-command .ae-nav-item:hover {
+  color: #f2f7f8 !important;
+  background: linear-gradient(90deg, rgba(108, 199, 216, .095), rgba(108, 199, 216, .015)) !important;
+  border-color: rgba(108, 199, 216, .18) !important;
+}
+
+body.ae-executive-command .ae-nav-item.active {
+  color: #fff !important;
+  background: linear-gradient(90deg, rgba(108, 199, 216, .18), rgba(108, 199, 216, .035) 70%, transparent) !important;
+  border-color: rgba(108, 199, 216, .28) !important;
+  box-shadow: inset 3px 0 0 #73cada, 0 10px 24px rgba(0, 0, 0, .16) !important;
+}
+
+body.ae-executive-command .ae-nav-item.active svg {
+  color: #8ad7e2 !important;
+  filter: drop-shadow(0 0 7px rgba(108, 199, 216, .28)) !important;
+}
+
+body.ae-executive-command .ae-nav-cnt,
+body.ae-executive-command .cmd-badge {
+  color: #d5e5ea !important;
+  background: rgba(108, 199, 216, .10) !important;
+  border-color: rgba(108, 199, 216, .22) !important;
+}
+
+body.ae-executive-command :is(.ae-sb-panel, .ae-ceo-card, .acc-group) {
+  background: linear-gradient(180deg, rgba(16, 32, 44, .72), rgba(7, 16, 24, .70)) !important;
+  border-color: rgba(123, 173, 195, .16) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .035) !important;
+}
+
+body.ae-executive-command :is(.ae-sb-title, .acc-header, .ds-title, .cm-section-title, .guide-section-title) {
+  color: #d8e4e8 !important;
+  letter-spacing: 1.5px !important;
+}
+
+body.ae-executive-command .ae-sb-title::before,
+body.ae-executive-command .cm-section-title::before {
+  color: var(--ec-gold) !important;
+}
+
+body.ae-executive-command .cmd-btn {
+  color: #b8c7cd !important;
+  background: rgba(4, 12, 19, .44) !important;
+  border-color: rgba(123, 173, 195, .14) !important;
+}
+
+body.ae-executive-command .cmd-btn:hover {
+  color: #fff !important;
+  background: rgba(108, 199, 216, .09) !important;
+  border-color: rgba(108, 199, 216, .34) !important;
+}
+
+body.ae-executive-command .tabs {
+  background: rgba(4, 11, 17, .64) !important;
+  border-bottom-color: rgba(123, 173, 195, .16) !important;
+}
+
+body.ae-executive-command .tab-btn,
+body.ae-executive-command .nf-btn {
+  color: #81959f !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+body.ae-executive-command .tab-btn:hover,
+body.ae-executive-command .tab-btn.active,
+body.ae-executive-command .nf-btn:hover,
+body.ae-executive-command .nf-btn.active {
+  color: #f4f8f9 !important;
+  background: rgba(108, 199, 216, .08) !important;
+  border-color: rgba(108, 199, 216, .32) !important;
+  box-shadow: inset 0 -2px 0 #6cc7d8 !important;
+}
+
+body.ae-executive-command :is(.route-item, .fleet-item, .rank-item, .rival-item, .event-item) {
+  background: rgba(12, 25, 35, .66) !important;
+  border-color: rgba(123, 173, 195, .13) !important;
+}
+
+body.ae-executive-command :is(.route-item, .fleet-item, .rank-item, .rival-item, .event-item):hover {
+  background: rgba(18, 37, 50, .76) !important;
+  border-color: rgba(108, 199, 216, .30) !important;
+}
+
+body.ae-executive-command #stock-ticker {
+  color: #aebfc6 !important;
+  background: linear-gradient(180deg, #09131c, #050c12) !important;
+  border-top-color: rgba(123, 173, 195, .22) !important;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, .28) !important;
+}
+
+/* Preserve the satellite/map artwork; refine only its framing and controls. */
+body.ae-executive-command #map-container {
+  background: #061019 !important;
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, .46) !important;
+}
+
+body.ae-executive-command #map-container::after {
+  opacity: .52 !important;
+  background:
+    radial-gradient(ellipse 74% 74% at 50% 46%, transparent 54%, rgba(0, 5, 10, .26) 100%),
+    linear-gradient(180deg, rgba(122, 186, 205, .025), transparent 20%, transparent 80%, rgba(0, 0, 0, .22)) !important;
+}
+
+body.ae-executive-command :is(#region-tabs, #zoom-ctrl, #demand-toggle, #event-flash, .uk-info) {
+  color: #c5d3d8 !important;
+  background: rgba(6, 15, 23, .86) !important;
+  border-color: rgba(123, 173, 195, .25) !important;
+  box-shadow: var(--ec-depth) !important;
+  backdrop-filter: blur(18px) saturate(125%) !important;
+}
+
+/* All submenu/modal surfaces */
+body.ae-executive-command #modal-overlay,
+body.ae-executive-command #lab-overlay {
+  background: rgba(1, 5, 9, .76) !important;
+  backdrop-filter: blur(13px) saturate(110%) !important;
+}
+
+body.ae-executive-command .modal,
+body.ae-executive-command .lab-card,
+body.ae-executive-command #ac-pop-card {
+  color: var(--text) !important;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .035), transparent 26%),
+    linear-gradient(180deg, rgba(13, 27, 38, .985), rgba(5, 13, 21, .985)) !important;
+  border: 1px solid rgba(123, 173, 195, .31) !important;
+  border-radius: 13px !important;
+  box-shadow: 0 32px 90px rgba(0, 0, 0, .66), inset 0 1px 0 rgba(255, 255, 255, .07) !important;
+  backdrop-filter: blur(24px) saturate(118%) !important;
+}
+
+body.ae-executive-command .modal::before,
+body.ae-executive-command .lab-card::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(108, 199, 216, .72), rgba(228, 189, 112, .50), transparent);
+}
+
+body.ae-executive-command .modal-header {
+  background: linear-gradient(180deg, rgba(17, 34, 46, .92), rgba(8, 20, 29, .84)) !important;
+  border-bottom: 1px solid rgba(123, 173, 195, .20) !important;
+  box-shadow: inset 0 -1px 0 rgba(228, 189, 112, .04) !important;
+}
+
+body.ae-executive-command .modal-title {
+  color: #edf3f5 !important;
+  font-weight: 750 !important;
+  letter-spacing: 1.7px !important;
+  text-shadow: none !important;
+}
+
+body.ae-executive-command .modal-close,
+body.ae-executive-command .modal-close-btn {
+  color: #8fa2ac !important;
+  background: rgba(255, 255, 255, .025) !important;
+  border-color: rgba(123, 173, 195, .18) !important;
+}
+
+body.ae-executive-command .modal-close:hover,
+body.ae-executive-command .modal-close-btn:hover {
+  color: #fff !important;
+  background: rgba(241, 111, 125, .11) !important;
+  border-color: rgba(241, 111, 125, .38) !important;
+}
+
+body.ae-executive-command .modal-body {
+  background:
+    radial-gradient(520px 260px at 10% 0%, rgba(108, 199, 216, .04), transparent 72%),
+    transparent !important;
+}
+
+body.ae-executive-command .modal :is(
+  .uk-info, .info-box, .city-stat-box, .cm-card, .cm-stat, .ac-card, .biz-card,
+  .bank-card, .share-card, .crew-card, .campaign-card, .setting-card, .guide-section,
+  .flp-card, .flp-c, .rm-card, .nr-pane, .nr-est, .nr-fare-section, .bf-kpi,
+  .bf-panel, .bf-department-panel, .bf-dept-card, .project-card, .neg-card
+) {
+  background: linear-gradient(180deg, rgba(18, 36, 49, .70), rgba(8, 18, 27, .66)) !important;
+  border-color: rgba(123, 173, 195, .18) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .035) !important;
+}
+
+body.ae-executive-command .modal :is(
+  .uk-info, .info-box, .city-stat-box, .cm-card, .ac-card, .biz-card, .bank-card,
+  .share-card, .crew-card, .campaign-card, .setting-card, .flp-card, .flp-c,
+  .rm-card, .project-card, .neg-card
+):hover {
+  border-color: rgba(108, 199, 216, .34) !important;
+}
+
+body.ae-executive-command .modal :is(
+  .cm-section-title, .guide-section-title, .uk-info-title, .ac-name, .biz-name,
+  .bank-title, .crew-name, .flp-title, .rm-title, .bf-panel-title, .bf-section-title,
+  .nr-pane-heading strong
+) {
+  color: #e2ebee !important;
+}
+
+body.ae-executive-command .modal :is(input, select, textarea) {
+  color: #eef5f7 !important;
+  background: rgba(3, 10, 16, .72) !important;
+  border-color: rgba(123, 173, 195, .28) !important;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, .34) !important;
+}
+
+body.ae-executive-command .modal :is(input, select, textarea):focus {
+  border-color: rgba(108, 199, 216, .62) !important;
+  box-shadow: 0 0 0 3px rgba(108, 199, 216, .10), inset 0 1px 4px rgba(0, 0, 0, .34) !important;
+}
+
+body.ae-executive-command :is(.action-btn, .uk-btn, .nr-add-btn, .rm-action, .flp-btn) {
+  color: #dbe6e9 !important;
+  background: linear-gradient(180deg, rgba(23, 45, 59, .86), rgba(9, 23, 33, .88)) !important;
+  border-color: rgba(123, 173, 195, .32) !important;
+  border-radius: 8px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .055) !important;
+}
+
+body.ae-executive-command :is(.action-btn, .uk-btn, .nr-add-btn, .rm-action, .flp-btn):hover:not(:disabled) {
+  color: #fff !important;
+  background: linear-gradient(180deg, rgba(42, 78, 95, .90), rgba(16, 38, 51, .94)) !important;
+  border-color: rgba(108, 199, 216, .58) !important;
+  box-shadow: 0 9px 24px rgba(0, 0, 0, .22), inset 0 1px 0 rgba(255, 255, 255, .075) !important;
+}
+
+body.ae-executive-command :is(.action-btn.success, .uk-btn--solid, .nr-open-btn) {
+  color: #061218 !important;
+  background: linear-gradient(135deg, #8edbc8, #5fc5ad) !important;
+  border-color: rgba(181, 243, 224, .72) !important;
+  box-shadow: 0 10px 25px rgba(72, 177, 151, .20), inset 0 1px 0 rgba(255, 255, 255, .36) !important;
+}
+
+body.ae-executive-command :is(.action-btn.gold, .uk-btn--secondary) {
+  color: #0a1115 !important;
+  background: linear-gradient(135deg, #edd08f, #cf9f4e) !important;
+  border-color: rgba(255, 229, 171, .75) !important;
+}
+
+body.ae-executive-command :is(.action-btn.danger, .uk-btn--danger) {
+  color: #ffdfe2 !important;
+  background: rgba(241, 111, 125, .10) !important;
+  border-color: rgba(241, 111, 125, .38) !important;
+}
+
+body.ae-executive-command .modal table,
+body.ae-executive-command .modal :is(.data-table, .ledger-table, .flp-table) {
+  background: rgba(4, 12, 18, .42) !important;
+  border-color: rgba(123, 173, 195, .16) !important;
+}
+
+body.ae-executive-command .modal :is(th, .table-head, .flp-th) {
+  color: #a9bbc3 !important;
+  background: rgba(14, 29, 40, .78) !important;
+  border-color: rgba(123, 173, 195, .17) !important;
+}
+
+body.ae-executive-command .modal :is(td, .table-row, .flp-row) {
+  border-color: rgba(123, 173, 195, .10) !important;
+}
+
+body.ae-executive-command .modal :is(tr:hover td, .table-row:hover, .flp-row:hover) {
+  background: rgba(108, 199, 216, .055) !important;
+}
+
+/* New Route command screen */
+body.ae-executive-command .modal.modal-new-route {
+  background:
+    radial-gradient(600px 340px at 16% 0%, rgba(108, 199, 216, .075), transparent 72%),
+    linear-gradient(180deg, rgba(12, 26, 37, .99), rgba(4, 12, 19, .99)) !important;
+  border-color: rgba(123, 173, 195, .34) !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-progress span {
+  background: rgba(123, 173, 195, .14) !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-progress .is-active {
+  background: linear-gradient(90deg, #63b8ca, #8bd9e5) !important;
+  box-shadow: 0 0 10px rgba(108, 199, 216, .32) !important;
+}
+
+body.ae-executive-command .modal-new-route :is(.nr-pane, .nr-fare-section, .nr-est, .nr-route-hero) {
+  background: rgba(9, 21, 30, .72) !important;
+  border-color: rgba(123, 173, 195, .19) !important;
+}
+
+body.ae-executive-command .modal-new-route :is(.region-tab, .nr-city-card, .nr-plane-row) {
+  color: #b8c8ce !important;
+  background: rgba(7, 17, 25, .68) !important;
+  border-color: rgba(123, 173, 195, .16) !important;
+}
+
+body.ae-executive-command .modal-new-route :is(.region-tab:hover, .nr-city-card:hover, .nr-plane-row:hover) {
+  color: #fff !important;
+  background: rgba(108, 199, 216, .085) !important;
+  border-color: rgba(108, 199, 216, .36) !important;
+}
+
+body.ae-executive-command .modal-new-route :is(.region-tab.active, .nr-city-card.is-selected, .nr-plane-row.sel) {
+  color: #fff !important;
+  background: linear-gradient(90deg, rgba(108, 199, 216, .18), rgba(108, 199, 216, .055)) !important;
+  border-color: rgba(108, 199, 216, .55) !important;
+  box-shadow: inset 3px 0 #6cc7d8 !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-hub-banner {
+  background: linear-gradient(100deg, rgba(108, 199, 216, .14), rgba(228, 189, 112, .055)) !important;
+  border-color: rgba(108, 199, 216, .28) !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-route-line > span {
+  background: #09151e !important;
+  color: #84d4df !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-footer {
+  background: rgba(5, 14, 21, .96) !important;
+  border-top-color: rgba(123, 173, 195, .20) !important;
+}
+
+/* Route Manager, Fleet, Finance, City, Projects and other wide submenus */
+body.ae-executive-command .modal-route-manager :is(.rm-toolbar, .rm-summary, .rm-empty, .rm-empty-readiness, .rm-empty-visual),
+body.ae-executive-command .modal-budget :is(.bf-hero, .bf-kpi, .bf-panel, .bf-department-panel, .bf-dept-card),
+body.ae-executive-command .modal-projects :is(.projects-head, .project-card),
+body.ae-executive-command .modal-city :is(.cm-hero-header, .cm-tabs, .cm-card, .city-stat-box) {
+  background: linear-gradient(180deg, rgba(15, 31, 43, .78), rgba(6, 16, 24, .74)) !important;
+  border-color: rgba(123, 173, 195, .18) !important;
+}
+
+body.ae-executive-command .modal-route-manager .rm-empty-action,
+body.ae-executive-command .modal-budget .bf-actions button {
+  color: #061117 !important;
+  background: linear-gradient(135deg, #edd18f, #cfa354) !important;
+  border-color: rgba(255, 229, 171, .72) !important;
+  box-shadow: 0 11px 26px rgba(184, 139, 61, .20) !important;
+}
+
+body.ae-executive-command .modal-budget .bf-body::-webkit-scrollbar-thumb,
+body.ae-executive-command *::-webkit-scrollbar-thumb {
+  background: rgba(108, 199, 216, .30) !important;
+  border: 2px solid rgba(4, 12, 18, .86) !important;
+}
+
+body.ae-executive-command *::-webkit-scrollbar-thumb:hover {
+  background: rgba(108, 199, 216, .50) !important;
+}
+
+body.ae-executive-command ::selection {
+  color: #fff;
+  background: rgba(108, 199, 216, .36);
+}
+
+body.ae-executive-command :focus-visible {
+  outline: 2px solid rgba(108, 199, 216, .88) !important;
+  outline-offset: 2px !important;
+}
+
+@media (max-width: 900px) {
+  body.ae-executive-command .modal,
+  body.ae-executive-command .lab-card {
+    border-radius: 10px !important;
+  }
+
+  body.ae-executive-command #header {
+    background: rgba(6, 14, 21, .98) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.ae-executive-command *,
+  body.ae-executive-command *::before,
+  body.ae-executive-command *::after {
+    scroll-behavior: auto !important;
+  }
+}

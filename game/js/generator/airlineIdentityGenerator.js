@@ -23,8 +23,29 @@
     id:`contact_${String(i+1).padStart(3,'0')}`,
     logo:`assets/airline-identities/contact-sheet-01/logo_${String(i+1).padStart(3,'0')}.webp`
   }));
+  const APPROVED_CATALOG=Array.isArray(window.AIRLINE_LOGOS)
+    ? window.AIRLINE_LOGOS.filter(x=>x&&x.id&&x.name&&x.image).map(x=>({...x}))
+    : [];
   let current=null;
   let mode='contact';
+  let activeRegion=null;
+  const REGION_KEYS=['N America','S America','Europe','Africa','Mid East','SE Asia','Oceania'];
+  function resolveRegion(region){
+    if(REGION_KEYS.includes(region)) return region;
+    const setupRegion=typeof window.getSetupLogoRegion==='function' ? window.getSetupLogoRegion() : null;
+    return REGION_KEYS.includes(setupRegion) ? setupRegion : 'N America';
+  }
+  function regionPool(region){
+    const target=resolveRegion(region);
+    const pool=curatedPool();
+    const filtered=pool.filter(item=>Array.isArray(item.regions)&&item.regions.includes(target));
+    return filtered.length ? filtered : pool;
+  }
+  function approvedPool(){ return APPROVED_CATALOG.slice(); }
+  function shuffle(items){
+    for(let i=items.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [items[i],items[j]]=[items[j],items[i]]; }
+    return items;
+  }
 
   function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
   function esc(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -93,8 +114,9 @@
     const name=makeName(), palette=pick(PALETTES), shape=pick(SHAPES), symbol=pick(SYMBOLS);
     return {id:'proc_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7),name,group:'procedural',source:'procedural',image:'',palette,shape,symbol,type:pick(TYPES),trait:pick(TRAITS)};
   }
-  function createCuratedIdentity(source){
-    const pool=curatedPool();
+  function createCuratedIdentity(source,region){
+    const selectedRegion=resolveRegion(region);
+    const pool=regionPool(selectedRegion);
     if(!pool.length) return createProceduralIdentity();
     source=source||weightedPick(pool);
     const palette=Array.isArray(source.palette)&&source.palette.length>=2 ? source.palette.slice(0,3) : pick(PALETTES);
@@ -103,10 +125,11 @@
       id:'curated_runtime_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7),
       curatedId:source.id||'', name:String(source.name).slice(0,32), group:'procedural', source:'curated',
       image:normalizePath(source.logo||''), palette, shape, symbol,
-      type:source.category||pick(TYPES), trait:[source.region,source.style].filter(Boolean).join(' · ')||pick(TRAITS)
+      region:selectedRegion, regions:Array.isArray(source.regions)?source.regions.slice():[selectedRegion], regionFilter:selectedRegion,
+      type:source.category||pick(TYPES), trait:[selectedRegion,source.style].filter(Boolean).join(' · ')||pick(TRAITS)
     };
   }
-  function createIdentity(){ return createCuratedIdentity(); }
+  function createIdentity(){ const region=resolveRegion(activeRegion); return createCuratedIdentity(null,region); }
   function ensureImage(identity){ if(!identity.image) identity.image=dataUri(identity); return identity; }
   function register(identity){
     ensureImage(identity);
@@ -134,21 +157,31 @@
     if(typeof window.pickLogo==='function') window.pickLogo(current.id); else window._selectedLogo=current.id;
     current=createIdentity();
   }
-  function shuffleContactLogos(count=9){
+  function shuffleContactLogos(count=9,region){
+    const target=resolveRegion(region||activeRegion);
+    activeRegion=target;
     const list=window.AIRLINE_LOGOS || (window.AIRLINE_LOGOS=[]);
     list.splice(0,list.length);
-    const pool=curatedPool().slice();
-    for(let i=pool.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [pool[i],pool[j]]=[pool[j],pool[i]]; }
-    pool.slice(0,Math.min(count,pool.length)).reverse().forEach(item=>register(createCuratedIdentity(item)));
-    if(typeof window.wzRenderPage3==='function') window.wzRenderPage3();
+    const regional=shuffle(regionPool(target).slice());
+    const approved=shuffle(approvedPool());
+    const regionalCount=Math.min(regional.length, count>2 ? 3 : 1);
+    const approvedCount=Math.min(approved.length, Math.max(0,count-regionalCount));
+    const picks=approved.slice(0,approvedCount)
+      .concat(regional.slice(0,count-approvedCount).map(item=>createCuratedIdentity(item,target)));
+    shuffle(picks).reverse().forEach(item=>register(item));
+    current=list[0]||null;
+    if(current && typeof window.pickLogo==='function') window.pickLogo(current.id);
+    else if(typeof window.wzRenderPage3==='function') window.wzRenderPage3();
     else if(typeof window.renderLogoPicker==='function') window.renderLogoPicker();
     return list.slice();
   }
+  function setRegion(region,count=9){ return shuffleContactLogos(count,resolveRegion(region)); }
+  function getRegion(){ return resolveRegion(activeRegion); }
   function installPanel(){
     const logoPanel=document.querySelector('.ae4-logo-panel');
     if(!logoPanel || logoPanel.dataset.aeLogoLibraryReady==='1') return;
     logoPanel.dataset.aeLogoLibraryReady='1';
-    shuffleContactLogos(9);
+    shuffleContactLogos(9,resolveRegion());
   }
   const legacyLogos=new Map((window.AIRLINE_LOGOS||[]).map(x=>[x.id,x]));
   const oldGet=window.getAirlineLogo, oldImg=window.airlineLogoImg;
@@ -158,7 +191,7 @@
     if(logo && logo.group==='procedural') return `<img class="ae-airline-logo-img ${esc(className||'')}" src="${esc(logo.image)}" alt="${esc(alt||logo.name)}">`;
     return oldImg ? oldImg(id,className,alt) : '<span class="ae-logo-fallback">✈</span>';
   };
-  window.AirlineIdentityGenerator={generate,useIdentity,setMode,shuffleContactLogos,createIdentity,createContactIdentity,createCuratedIdentity,createProceduralIdentity,register,svg};
+  window.AirlineIdentityGenerator={generate,useIdentity,setMode,setRegion,getRegion,shuffleContactLogos,createIdentity,createContactIdentity,createCuratedIdentity,createProceduralIdentity,register,svg,approvedCount:APPROVED_CATALOG.length};
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',installPanel); else installPanel();
   new MutationObserver(installPanel).observe(document.documentElement,{childList:true,subtree:true});
 })();

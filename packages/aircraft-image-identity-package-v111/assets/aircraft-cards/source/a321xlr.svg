@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#050914"/><stop offset="0.58" stop-color="#172554"/><stop offset="1" stop-color="#02040a"/></linearGradient>
+    <radialGradient id="glow" cx="50%" cy="38%" r="70%"><stop stop-color="#2563EB" stop-opacity="0.40"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff" stop-opacity="0.15"/><stop offset="1" stop-color="#ffffff" stop-opacity="0.055"/></linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#fff" stroke-opacity="0.035"/></pattern>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity="0.55"/></filter>
+  </defs>
+  <rect width="1600" height="900" rx="34" fill="url(#bg)"/>
+  <rect width="1600" height="900" rx="34" fill="url(#glow)"/>
+  <rect width="1600" height="900" rx="34" fill="url(#grid)"/>
+  <rect x="52" y="48" width="1496" height="804" rx="28" fill="none" stroke="#fff" stroke-opacity="0.17" stroke-width="2"/>
+  <text x="92" y="110" font-family="Arial, Helvetica, sans-serif" font-size="29" fill="#F97316" font-weight="700" letter-spacing="5">HLX-220</text>
+  <text x="92" y="151" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#d6e3ef" fill-opacity="0.76" letter-spacing="3">LONG-REACH NARROWBODY</text>
+  <rect x="678" y="77" width="244" height="72" rx="19" fill="#050912" fill-opacity="0.64" stroke="#F97316" stroke-opacity="0.62"/>
+  <text x="800" y="121" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#F97316" font-weight="700" text-anchor="middle" letter-spacing="2">MODERN FLEET</text>
+  <g filter="url(#shadow)"><svg x="70" y="105" width="1460" height="515" viewBox="0 0 640 226" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A321XLR"
+    style="display:block">
+    <defs><linearGradient id="fus_A321XLR" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f3f6f9"/><stop offset="70%" stop-color="#d7dee6"/>
+      <stop offset="100%" stop-color="#b9c3cd"/></linearGradient></defs>
+    <ellipse cx="320" cy="208" rx="162.28799999999998" ry="7" fill="rgba(0,0,0,0.35)"/>
+    <path d="M 304.544,121.2 L 370.23199999999997,121.2
+      L 424.328,154.8 L 388.1996,154.8 Z"
+      fill="url(#fus_A321XLR)" stroke="#7c8a94" stroke-width="0.7"/>
+<g><rect x="282.2294" y="142.96" width="40.571999999999996" height="19.84" rx="8.266666666666667"
+      fill="url(#fus_A321XLR)" stroke="#7c8a94" stroke-width="0.7"/>
+    <rect x="287.90948" y="142.96" width="6.4915199999999995" height="19.84" fill="#2563EB" opacity="0.9"/>
+    <ellipse cx="283.7294" cy="152.88" rx="3.6514799999999994" ry="8.626086956521739" fill="#39424b"/></g>
+<path d="M 453.30800000000005,105 L 486.15200000000004,46
+    L 513.2,46 L 514.2,106 Z"
+    fill="#2563EB" stroke="#0240c8" stroke-width="0.8"/>
+<path d="M 466.83200000000005,104 L 496.58480000000003,61.68
+    L 504.31280000000004,61.68 L 474.56000000000006,104 Z"
+    fill="rgba(255,255,255,0.55)"/>
+<path d="M 470.696,109 L 520.928,96
+      L 526.724,101 L 491.94800000000004,114 Z"
+      fill="#c9d1d9" stroke="#7c8a94" stroke-width="0.6"/>
+<path d="M 126.80000000000001,118 Q 128.8,106.48 174.8,102
+    L 455.24000000000007,102 Q 510.20000000000005,103 513.2,107
+    L 513.2,112
+    Q 478.42400000000004,132 432.05600000000004,134
+    L 165.20000000000002,134
+    Q 128.8,129.52 126.80000000000001,118 Z"
+    fill="url(#fus_A321XLR)" stroke="#7c8a94" stroke-width="0.8"/>
+<path d="M 389.552,134 Q 435.9200000000001,124.4 453.30800000000005,108
+      L 513.2,112 Q 478.42400000000004,132 432.05600000000004,134 Z"
+      fill="#2563EB" opacity="0.85"/>
+<line x1="187.60000000000002" y1="113.52" x2="420.46400000000006" y2="113.52"
+    stroke="#3a4854" stroke-width="2.1" stroke-dasharray="2.1 3.6" stroke-linecap="round"/>
+<path d="M 162,107.12 l 16,0 l 4.48,5.12 l -17.92,0 Z"
+    fill="#2b3540"/>
+  </svg></g>
+  <rect x="82" y="625" width="1436" height="188" rx="25" fill="url(#glass)" stroke="#fff" stroke-opacity="0.19"/>
+  <rect x="82" y="625" width="9" height="188" rx="5" fill="#F97316"/>
+  <text x="124" y="696" font-family="Arial, Helvetica, sans-serif" font-size="58" fill="#fff" font-weight="700" letter-spacing="1">Horizon XLR 220</text>
+  <text x="126" y="744" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#b9c9d8" letter-spacing="2">MODEL A321XLR  •  MEDIUM-HAUL</text>
+  <text x="126" y="784" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#e6eef5" fill-opacity="0.86">Opens long thin routes without committing widebody capital.</text>
+  <g transform="translate(1125 667)">
+    <rect width="344" height="106" rx="18" fill="#02050b" fill-opacity="0.42" stroke="#fff" stroke-opacity="0.12"/>
+    <text x="48" y="49" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#fff" font-weight="700" text-anchor="middle">220</text>
+    <text x="48" y="77" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#aabccc" text-anchor="middle" letter-spacing="2">SEATS</text>
+    <text x="172" y="49" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#fff" font-weight="700" text-anchor="middle">5,400</text>
+    <text x="172" y="77" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#aabccc" text-anchor="middle" letter-spacing="2">MILES</text>
+    <text x="296" y="49" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#fff" font-weight="700" text-anchor="middle">2024</text>
+    <text x="296" y="77" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#aabccc" text-anchor="middle" letter-spacing="2">ERA</text>
+  </g>
+  </svg>

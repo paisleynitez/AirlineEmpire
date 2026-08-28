@@ -1,0 +1,1260 @@
+/* Airline Empire v1.1.11
+   Compact command density layer.
+   Layout-only overrides for the live Operations Center and research console. */
+
+/* Header, date, simulation controls, and End Turn */
+body.ae-executive-command #game-ui #header {
+  min-height: 40px !important;
+  padding: 4px 8px !important;
+  gap: 8px !important;
+}
+
+body.ae-executive-command #game-ui #header .brand {
+  gap: 8px !important;
+}
+
+body.ae-executive-command #game-ui #header .ae-wings {
+  width: 26px !important;
+  height: 24px !important;
+}
+
+body.ae-executive-command #game-ui #header .ae-title {
+  font-size: 16.5px !important;
+  line-height: 1 !important;
+  letter-spacing: 2px !important;
+}
+
+body.ae-executive-command #game-ui #header #brand-sky {
+  height: 9px !important;
+  min-width: 96px !important;
+}
+
+body.ae-executive-command #game-ui #header #brand-sky-title {
+  font-size: 8.2px !important;
+  line-height: 1 !important;
+  letter-spacing: 2px !important;
+}
+
+body.ae-executive-command #ae-tagline {
+  margin-top: 1px !important;
+  font-size: 7.5px !important;
+  line-height: 1 !important;
+  letter-spacing: .18em !important;
+}
+
+body.ae-executive-command #game-ui #header .hdr-datetime {
+  padding: 4px 8px !important;
+  border-radius: 8px !important;
+}
+
+body.ae-executive-command #game-ui #header .hdr-dt-main {
+  font-size: 13px !important;
+  line-height: 1 !important;
+}
+
+body.ae-executive-command #game-ui #header .hdr-transport {
+  gap: 4px !important;
+  margin-left: 4px !important;
+}
+
+body.ae-executive-command #game-ui #header .hdr-tbtn {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 8px !important;
+}
+
+body.ae-executive-command #game-ui #header .hdr-tbtn svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+body.ae-executive-command #game-ui #header .hdr-speed-ctrl {
+  gap: 1px !important;
+  padding: 2px !important;
+}
+
+body.ae-executive-command #game-ui #header .hdr-speed-ctrl .speed-btn {
+  min-width: 28px !important;
+  padding: 4px 5px !important;
+  font-size: 10px !important;
+  line-height: 1 !important;
+}
+
+body.ae-executive-command #game-ui #header .hdr-timescale-label {
+  font-size: 7.5px !important;
+  line-height: 1 !important;
+}
+
+body.ae-executive-command #game-ui #header .hdr-speed-status {
+  min-width: 32px !important;
+  font-size: 8.5px !important;
+  line-height: 1 !important;
+}
+
+body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn {
+  min-height: 30px !important;
+  margin-left: 6px !important;
+  padding: 6px 11px !important;
+  border-radius: 8px !important;
+  gap: 3px !important;
+  font-size: 10.2px !important;
+  line-height: 1 !important;
+}
+
+body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn .et-arrow {
+  margin-left: 4px !important;
+}
+
+body.ae-executive-command #timer-bar {
+  top: 40px !important;
+}
+
+/* Live KPI strip above the map */
+body.ae-executive-command #mock-livetiles {
+  gap: 5px !important;
+  margin: 5px 8px 0 !important;
+}
+
+body.ae-executive-command #mock-livetiles .mlt {
+  min-height: 0 !important;
+  padding: 6px 8px 5px !important;
+  border-radius: 9px !important;
+}
+
+body.ae-executive-command #mock-livetiles .mlt-l {
+  font-size: 7.8px !important;
+  line-height: 1.15 !important;
+}
+
+body.ae-executive-command #mock-livetiles .mlt-v {
+  margin-top: 2px !important;
+  font-size: 15px !important;
+  line-height: 1.1 !important;
+}
+
+body.ae-executive-command #mock-livetiles .mlt-s {
+  min-height: 9px !important;
+  margin-top: 1px !important;
+  font-size: 8.2px !important;
+  line-height: 1.1 !important;
+}
+
+body.ae-executive-command #map-container {
+  margin: 6px 8px 0 !important;
+}
+
+/* Current command navigation and lower quick-action region */
+body.ae-executive-command #left-panel .ae-nav {
+  gap: 2px !important;
+  padding: 6px 8px !important;
+}
+
+body.ae-executive-command #left-panel .ae-nav-item {
+  min-height: 34px !important;
+  margin: 1px 4px !important;
+  padding: 6px 9px !important;
+  gap: 8px !important;
+  border-radius: 8px !important;
+}
+
+body.ae-executive-command #left-panel .ae-nav-item svg {
+  width: 15px !important;
+  height: 15px !important;
+}
+
+body.ae-executive-command #left-panel .mn-two {
+  gap: 0 !important;
+}
+
+body.ae-executive-command #left-panel .mn-l {
+  font-size: 11px !important;
+  line-height: 1.1 !important;
+}
+
+body.ae-executive-command #left-panel .mn-s {
+  font-size: 8.2px !important;
+  line-height: 1.1 !important;
+}
+
+body.ae-executive-command #left-panel .mock-nav-sec {
+  margin: 7px 3px 2px !important;
+  font-size: 8px !important;
+  line-height: 1 !important;
+}
+
+body.ae-executive-command #mock-quick {
+  margin-top: 6px !important;
+  padding: 8px 9px 6px !important;
+  border-radius: 10px !important;
+}
+
+body.ae-executive-command #mock-quick .mq-title {
+  margin-bottom: 5px !important;
+  font-size: 9px !important;
+}
+
+body.ae-executive-command #mock-quick .mq-row {
+  min-height: 30px !important;
+  margin-bottom: 4px !important;
+  padding: 6px 8px !important;
+  gap: 8px !important;
+  border-radius: 8px !important;
+  font-size: 10.5px !important;
+  line-height: 1.15 !important;
+}
+
+/* Regional Capital Projects is the current research/action surface. */
+body.ae-executive-command .modal.modal-projects {
+  width: min(1180px, calc(100vw - 32px)) !important;
+  max-width: calc(100vw - 32px) !important;
+  height: calc(100vh - 16px) !important;
+  max-height: calc(100vh - 16px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+body.ae-executive-command .modal-projects .modal-header {
+  flex: 0 0 auto !important;
+  min-height: 44px !important;
+  padding: 9px 14px !important;
+}
+
+body.ae-executive-command .modal-projects .modal-title {
+  font-size: 15px !important;
+  line-height: 1 !important;
+}
+
+body.ae-executive-command .modal-projects .modal-close {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+body.ae-executive-command .rp-console {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+}
+
+body.ae-executive-command .rp-console-summary {
+  gap: 18px !important;
+  padding: 10px 14px !important;
+}
+
+body.ae-executive-command .rp-summary-copy {
+  gap: 2px !important;
+}
+
+body.ae-executive-command .rp-summary-copy strong {
+  font-size: 14px !important;
+  line-height: 1.2 !important;
+}
+
+body.ae-executive-command .rp-console-kicker {
+  font-size: 8.8px !important;
+  line-height: 1.1 !important;
+  letter-spacing: 1.2px !important;
+}
+
+body.ae-executive-command .rp-summary-metric {
+  gap: 2px 8px !important;
+  min-width: 104px !important;
+  padding-left: 14px !important;
+}
+
+body.ae-executive-command .rp-summary-metric > span {
+  font-size: 8.4px !important;
+  line-height: 1.1 !important;
+}
+
+body.ae-executive-command .rp-summary-metric > strong {
+  font-size: 14px !important;
+  line-height: 1.1 !important;
+}
+
+body.ae-executive-command .rp-region-rail-list {
+  padding: 8px !important;
+}
+
+body.ae-executive-command .rp-console-layout {
+  grid-template-columns: 180px minmax(0, 1fr) !important;
+}
+
+body.ae-executive-command .rp-region-rail {
+  min-height: 43px !important;
+  margin-bottom: 4px !important;
+  padding: 7px 8px !important;
+  gap: 7px !important;
+  border-radius: 7px !important;
+}
+
+body.ae-executive-command .rp-region-rail-copy b {
+  font-size: 11.5px !important;
+  line-height: 1.1 !important;
+}
+
+body.ae-executive-command .rp-region-rail-copy small,
+body.ae-executive-command .rp-region-rail em {
+  font-size: 8.3px !important;
+  line-height: 1.1 !important;
+}
+
+body.ae-executive-command .rp-project-stage {
+  padding: 12px 14px 16px !important;
+}
+
+body.ae-executive-command .rp-stage-head {
+  gap: 12px !important;
+  margin-bottom: 8px !important;
+}
+
+body.ae-executive-command .rp-stage-head h2 {
+  margin-top: 2px !important;
+  font-size: 18px !important;
+  line-height: 1.1 !important;
+}
+
+body.ae-executive-command .rp-stage-status {
+  padding: 4px 7px !important;
+  font-size: 8px !important;
+  line-height: 1 !important;
+}
+
+body.ae-executive-command .rp-project-list {
+  gap: 6px !important;
+}
+
+body.ae-executive-command .rp-proj {
+  grid-template-columns: 34px minmax(0, 1fr) 94px !important;
+  gap: 9px !important;
+  padding: 10px !important;
+  border-radius: 8px !important;
+}
+
+body.ae-executive-command .rp-proj-ic {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 7px !important;
+  font-size: 17px !important;
+}
+
+body.ae-executive-command .rp-proj-kicker {
+  margin-bottom: 1px !important;
+  font-size: 7.8px !important;
+  line-height: 1.1 !important;
+}
+
+body.ae-executive-command .rp-proj-name {
+  font-size: 13px !important;
+  line-height: 1.15 !important;
+}
+
+body.ae-executive-command .rp-proj-blurb {
+  margin-top: 2px !important;
+  font-size: 10.5px !important;
+  line-height: 1.3 !important;
+}
+
+body.ae-executive-command .rp-proj-when {
+  margin-top: 2px !important;
+  font-size: 9px !important;
+  line-height: 1.25 !important;
+}
+
+body.ae-executive-command .rp-proj-meta {
+  gap: 3px 9px !important;
+  margin-top: 5px !important;
+  font-size: 8.5px !important;
+  line-height: 1.15 !important;
+}
+
+body.ae-executive-command .rp-build-btn {
+  width: 92px !important;
+  min-height: 40px !important;
+  padding: 5px 7px !important;
+}
+
+body.ae-executive-command .rp-build-btn strong {
+  font-size: 13px !important;
+}
+
+body.ae-executive-command .rp-build-btn span {
+  margin-top: 2px !important;
+  font-size: 7.3px !important;
+}
+
+/* Screenshot-matched Research command center. The live header and command rail
+   remain visible while this view replaces the map and operations feed. */
+body.ae-executive-command #modal-overlay.research-hub-mode {
+  top: 43px !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: var(--ae-rail-w, 232px) !important;
+  padding: 8px 10px 10px !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  background:
+    linear-gradient(90deg, rgba(2, 14, 23, .95), rgba(2, 14, 23, .91)),
+    url('../assets/city-skylines/jfk.webp') center / cover no-repeat !important;
+  backdrop-filter: none !important;
+}
+
+body.ae-executive-command .modal.modal-research-hub {
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  max-height: none !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(41, 142, 170, .30) !important;
+  border-radius: 13px !important;
+  background: rgba(2, 15, 24, .94) !important;
+  box-shadow: 0 22px 64px rgba(0, 0, 0, .48), inset 0 1px 0 rgba(255, 255, 255, .025) !important;
+}
+
+body.ae-executive-command .rh-shell {
+  --rh-cyan: #24d6e3;
+  --rh-edge: rgba(64, 151, 176, .25);
+  --rh-panel: rgba(6, 27, 40, .88);
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 68px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  color: #eaf5f8;
+}
+
+body.ae-executive-command .rh-content {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  min-height: 0;
+  padding: 14px 16px 10px;
+  overflow: hidden;
+}
+
+body.ae-executive-command .rh-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 24px;
+  min-height: 54px;
+}
+
+body.ae-executive-command .rh-heading h2 {
+  margin: 0;
+  color: var(--rh-cyan);
+  font: 700 22px/1 'Inter', sans-serif;
+  letter-spacing: .035em;
+}
+
+body.ae-executive-command .rh-heading p {
+  margin: 7px 0 0;
+  color: #d9e8ec;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+body.ae-executive-command .rh-points {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: #ca76ed;
+}
+
+body.ae-executive-command .rh-flask {
+  font-size: 34px;
+  line-height: 1;
+}
+
+body.ae-executive-command .rh-points small,
+body.ae-executive-command .rh-points strong {
+  display: block;
+}
+
+body.ae-executive-command .rh-points small {
+  font-size: 9px;
+  letter-spacing: .09em;
+}
+
+body.ae-executive-command .rh-points strong {
+  margin-top: 2px;
+  font: 500 27px/1 'DM Mono', monospace;
+}
+
+body.ae-executive-command .rh-history {
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid rgba(65, 154, 180, .30);
+  border-radius: 7px;
+  background: rgba(10, 42, 57, .64);
+  color: #eaf6f8;
+  font: 700 10px/1 'Inter', sans-serif;
+  letter-spacing: .035em;
+}
+
+body.ae-executive-command .rh-history span {
+  margin-right: 7px;
+  font-size: 17px;
+  vertical-align: -1px;
+}
+
+body.ae-executive-command .rh-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  min-height: 0;
+}
+
+body.ae-executive-command .rh-card {
+  display: grid;
+  grid-template-rows: auto 5px auto minmax(28px, 1fr) 38px;
+  gap: 8px;
+  min-width: 0;
+  min-height: 0;
+  padding: 12px;
+  overflow: hidden;
+  border: 1px solid var(--rh-edge);
+  border-radius: 9px;
+  background: linear-gradient(180deg, rgba(8, 35, 49, .92), rgba(4, 24, 36, .94));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .025);
+}
+
+body.ae-executive-command .rh-card-head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+}
+
+body.ae-executive-command .rh-card-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 45px;
+  width: 45px;
+  height: 45px;
+  border: 1px solid color-mix(in srgb, var(--rh-accent) 62%, transparent);
+  border-radius: 50%;
+  color: var(--rh-accent);
+  background: color-mix(in srgb, var(--rh-accent) 8%, transparent);
+  font-size: 22px;
+}
+
+body.ae-executive-command .rh-card-name {
+  overflow: hidden;
+  color: var(--rh-accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .025em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+body.ae-executive-command .rh-card-level {
+  margin-top: 4px;
+  color: var(--rh-accent);
+  font-size: 11px;
+}
+
+body.ae-executive-command .rh-progress,
+body.ae-executive-command .rh-mini-progress,
+body.ae-executive-command .rh-tier-progress {
+  overflow: hidden;
+  border: 1px solid rgba(72, 153, 176, .34);
+  border-radius: 2px;
+  background: rgba(0, 8, 14, .74);
+}
+
+body.ae-executive-command .rh-progress i {
+  display: block;
+  height: 100%;
+  background: var(--rh-accent);
+  box-shadow: 0 0 11px var(--rh-accent);
+}
+
+body.ae-executive-command .rh-benefit-title {
+  color: #9eb6bd;
+  font-size: 8.5px;
+  letter-spacing: .06em;
+}
+
+body.ae-executive-command .rh-card ul {
+  margin: 0;
+  padding-left: 15px;
+  color: #d8e6e9;
+  font-size: 9.5px;
+  line-height: 1.45;
+}
+
+body.ae-executive-command .rh-card li::marker {
+  color: var(--rh-accent);
+}
+
+body.ae-executive-command .rh-research-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid color-mix(in srgb, var(--rh-accent) 55%, #16445a);
+  border-radius: 6px;
+  background: rgba(7, 39, 55, .88);
+  color: #f4fbfc;
+  font-size: 10.5px;
+  letter-spacing: .035em;
+}
+
+body.ae-executive-command .rh-research-btn:hover {
+  background: color-mix(in srgb, var(--rh-accent) 14%, rgba(7, 39, 55, .88));
+}
+
+body.ae-executive-command .rh-research-btn b {
+  color: #e6a6ff;
+  font: 600 10px/1 'DM Mono', monospace;
+}
+
+body.ae-executive-command .rh-status-row {
+  display: grid;
+  grid-template-columns: 1.15fr 1.15fr 1fr;
+  gap: 10px;
+  min-height: 108px;
+}
+
+body.ae-executive-command .rh-status {
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--rh-edge);
+  border-radius: 8px;
+  background: rgba(5, 28, 41, .91);
+}
+
+body.ae-executive-command .rh-status-title {
+  margin-bottom: 8px;
+  color: var(--rh-cyan);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: .055em;
+}
+
+body.ae-executive-command .rh-active-row,
+body.ae-executive-command .rh-tier-row,
+body.ae-executive-command .rh-mult-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+body.ae-executive-command .rh-mini-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(202, 118, 237, .38);
+  border-radius: 7px;
+  color: #c978eb;
+  font-size: 19px;
+}
+
+body.ae-executive-command .rh-active-copy {
+  min-width: 110px;
+}
+
+body.ae-executive-command .rh-active-copy b,
+body.ae-executive-command .rh-active-copy span {
+  display: block;
+  font-size: 9.5px;
+}
+
+body.ae-executive-command .rh-active-copy span {
+  margin-top: 2px;
+  color: #cc75ed;
+}
+
+body.ae-executive-command .rh-mini-progress {
+  width: 110px;
+  height: 6px;
+  margin-top: 6px;
+}
+
+body.ae-executive-command .rh-mini-progress i {
+  display: block;
+  width: 60%;
+  height: 100%;
+  background: #5da8ff;
+}
+
+body.ae-executive-command .rh-time {
+  margin-left: auto;
+  color: var(--rh-cyan);
+  line-height: 1.05;
+}
+
+body.ae-executive-command .rh-time small,
+body.ae-executive-command .rh-time b {
+  display: block;
+  font-size: 7.5px;
+}
+
+body.ae-executive-command .rh-active-row > button,
+body.ae-executive-command .rh-mult-row button {
+  min-height: 34px;
+  padding: 0 11px;
+  border: 1px solid rgba(29, 151, 184, .52);
+  border-radius: 6px;
+  background: rgba(8, 61, 79, .76);
+  color: #fff;
+  font-size: 8.5px;
+  white-space: nowrap;
+}
+
+body.ae-executive-command .rh-active-row > button {
+  border-color: rgba(232, 175, 52, .55);
+  background: rgba(159, 104, 12, .82);
+}
+
+body.ae-executive-command .rh-tier-row p,
+body.ae-executive-command .rh-mult-row p {
+  margin: 0;
+  color: #d2e0e4;
+  font-size: 8.8px;
+  line-height: 1.4;
+}
+
+body.ae-executive-command .rh-tier-row b {
+  margin-left: auto;
+  font: 600 10px/1 'DM Mono', monospace;
+}
+
+body.ae-executive-command .rh-tier-progress {
+  height: 6px;
+  margin: 8px 0 0 48px;
+}
+
+body.ae-executive-command .rh-tier-progress i {
+  display: block;
+  width: 50%;
+  height: 100%;
+  background: #35d5e5;
+  box-shadow: 0 0 8px rgba(53, 213, 229, .45);
+}
+
+body.ae-executive-command .rh-mult-row {
+  justify-content: space-between;
+}
+
+body.ae-executive-command .rh-mult-row strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #a8e63f;
+  font: 500 22px/1 'DM Mono', monospace;
+}
+
+body.ae-executive-command .rh-command-bar {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr) 205px;
+  min-height: 68px;
+  border-top: 1px solid rgba(57, 151, 177, .28);
+  background: rgba(1, 14, 22, .96);
+}
+
+body.ae-executive-command .rh-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border-right: 1px solid rgba(57, 151, 177, .22);
+  font-size: 10.5px;
+}
+
+body.ae-executive-command .rh-day span {
+  color: #a9c0c7;
+}
+
+body.ae-executive-command .rh-command-bar nav {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+body.ae-executive-command .rh-command-bar nav button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 0;
+  border: 0;
+  border-right: 1px solid rgba(57, 151, 177, .18);
+  background: transparent;
+  color: #eef7f9;
+  font-size: 8px;
+  white-space: nowrap;
+}
+
+body.ae-executive-command .rh-command-bar nav button span {
+  color: #b9d0d6;
+  font-size: 19px;
+  line-height: 1;
+}
+
+body.ae-executive-command .rh-command-bar nav button:hover {
+  background: rgba(30, 149, 180, .10);
+}
+
+body.ae-executive-command .rh-end-turn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  border: 1px solid rgba(35, 205, 226, .66);
+  background: linear-gradient(135deg, rgba(9, 93, 119, .92), rgba(5, 58, 78, .95));
+  color: #fff;
+}
+
+body.ae-executive-command .rh-end-turn > span {
+  font-size: 27px;
+}
+
+body.ae-executive-command .rh-end-turn b {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+body.ae-executive-command .rh-end-turn small {
+  display: block;
+  margin-top: 5px;
+  color: #9ec5ce;
+  font-size: 8px;
+  font-weight: 500;
+}
+
+@media (max-width: 1200px) {
+  body.ae-executive-command #modal-overlay.research-hub-mode {
+    left: 80px !important;
+  }
+
+  body.ae-executive-command .rh-content {
+    overflow-y: auto;
+  }
+
+  body.ae-executive-command .rh-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+  }
+
+  body.ae-executive-command .rh-command-bar {
+    grid-template-columns: 150px minmax(0, 1fr) 170px;
+  }
+
+  body.ae-executive-command .rh-status-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  body.ae-executive-command #modal-overlay.research-hub-mode {
+    top: 42px !important;
+    left: 0 !important;
+    padding: 4px !important;
+  }
+
+  body.ae-executive-command .rh-heading {
+    grid-template-columns: 1fr auto;
+  }
+
+  body.ae-executive-command .rh-history {
+    grid-column: 1 / -1;
+  }
+
+  body.ae-executive-command .rh-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body.ae-executive-command .rh-command-bar {
+    grid-template-columns: 1fr 150px;
+  }
+
+  body.ae-executive-command .rh-day {
+    display: none;
+  }
+
+  body.ae-executive-command .rh-command-bar nav {
+    overflow-x: auto;
+  }
+
+  body.ae-executive-command #game-ui #header #brand-sky,
+  body.ae-executive-command #ae-tagline,
+  body.ae-executive-command #game-ui #header .hdr-timescale-label,
+  body.ae-executive-command #game-ui #header .hdr-speed-status {
+    display: none !important;
+  }
+
+  body.ae-executive-command .rp-proj {
+    grid-template-columns: 32px minmax(0, 1fr) !important;
+  }
+
+  body.ae-executive-command .rp-proj-action {
+    grid-column: 1 / -1 !important;
+  }
+
+  body.ae-executive-command .rp-build-btn {
+    width: 100% !important;
+  }
+}
+
+/* Full-frame Research view: reproduces the supplied command-center composition
+   without changing the loader or any gameplay systems. */
+body.ae-executive-command #modal-overlay.research-hub-mode {
+  inset: 0 !important;
+  padding: 0 !important;
+  z-index: 8500 !important;
+  background:
+    linear-gradient(90deg, rgba(1, 14, 23, .77), rgba(2, 14, 23, .89) 20%, rgba(2, 14, 23, .92)),
+    url('../assets/city-skylines/jfk.webp') center / cover no-repeat !important;
+}
+
+body.ae-executive-command .modal.modal-research-hub {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.ae-executive-command .rh-shell {
+  grid-template-rows: 59px minmax(0, 1fr) 59px;
+  background: linear-gradient(90deg, rgba(1, 14, 23, .30), rgba(1, 14, 23, .76) 17%, rgba(1, 14, 23, .86));
+}
+
+body.ae-executive-command .rh-topbar {
+  display: grid;
+  grid-template-columns: 320px minmax(600px, 1fr) 450px;
+  align-items: stretch;
+  min-width: 0;
+  border-bottom: 1px solid rgba(67, 147, 170, .28);
+  background: rgba(1, 13, 21, .94);
+}
+
+body.ae-executive-command .rh-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 28px;
+  border-right: 1px solid rgba(67, 147, 170, .22);
+  color: #27dcec;
+}
+
+body.ae-executive-command .rh-brand svg {
+  width: 33px;
+  height: 33px;
+  filter: drop-shadow(0 0 8px rgba(39, 220, 236, .28));
+}
+
+body.ae-executive-command .rh-brand b {
+  display: block;
+  color: #f4f8fa;
+  font: 700 17px/.94 'Inter', sans-serif;
+  letter-spacing: .14em;
+}
+
+body.ae-executive-command .rh-brand small {
+  display: block;
+  margin-top: 4px;
+  color: #1ed9e9;
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  white-space: nowrap;
+}
+
+body.ae-executive-command .rh-kpis {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  min-width: 0;
+  width: min(calc(100% - 20px), 800px);
+  margin: 5px 10px;
+  overflow: hidden;
+  border: 1px solid rgba(67, 147, 170, .25);
+  border-radius: 10px;
+  background: rgba(1, 15, 24, .70);
+}
+
+body.ae-executive-command .rh-kpis > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: 0 13px;
+  border-right: 1px solid rgba(67, 147, 170, .20);
+}
+
+body.ae-executive-command .rh-kpis > div:last-child { border-right: 0; }
+body.ae-executive-command .rh-kpis small {
+  color: #e6eff2;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+body.ae-executive-command .rh-kpis strong {
+  overflow: hidden;
+  margin-top: 3px;
+  color: #f7fbfc;
+  font: 500 14px/1 'DM Mono', monospace;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body.ae-executive-command .rh-kpis strong.lime,
+body.ae-executive-command .rh-kpis em.lime { color: #8ee93e; }
+body.ae-executive-command .rh-kpis strong.gold { color: #ffb41f; }
+body.ae-executive-command .rh-kpis strong.purple { color: #d17bea; }
+body.ae-executive-command .rh-kpis strong i { color: #d8e3e6; font: 500 6px/1 'Inter', sans-serif; }
+body.ae-executive-command .rh-kpis .rh-stars { font-size: 13px; letter-spacing: .03em; }
+body.ae-executive-command .rh-kpis em {
+  min-height: 7px;
+  margin-top: 4px;
+  color: #86a5ad;
+  font-size: 6px;
+  font-style: normal;
+}
+
+body.ae-executive-command .rh-utilities {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  align-items: center;
+  padding: 5px 16px 5px 6px;
+}
+
+body.ae-executive-command .rh-utilities button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 49px;
+  border: 1px solid rgba(67, 147, 170, .28);
+  border-radius: 9px;
+  background: rgba(3, 20, 30, .80);
+  color: #f3f8fa;
+  font-size: 7px;
+}
+
+body.ae-executive-command .rh-utilities button span {
+  color: #e6f2f4;
+  font-size: 17px;
+  line-height: 1;
+}
+
+body.ae-executive-command .rh-utilities button:nth-child(2) span { color: #ffb624; }
+body.ae-executive-command .rh-utilities button:nth-child(3) span { color: #49c7f2; }
+body.ae-executive-command .rh-utilities button:nth-child(4) span { color: #ff4c47; }
+
+body.ae-executive-command .rh-stage {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  min-height: 0;
+}
+
+body.ae-executive-command .rh-sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  margin: 10px 0 10px 16px;
+  overflow: hidden;
+  border: 1px solid rgba(67, 147, 170, .28);
+  border-radius: 11px;
+  background: rgba(1, 16, 25, .88);
+}
+
+body.ae-executive-command .rh-sidebar nav {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+body.ae-executive-command .rh-sidebar button {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 52px;
+  padding: 0 28px;
+  border: 0;
+  border-left: 3px solid transparent;
+  background: transparent;
+  color: #eff5f7;
+  font-size: 14px;
+  text-align: left;
+}
+
+body.ae-executive-command .rh-sidebar button span {
+  width: 20px;
+  color: #b7cad0;
+  font-size: 21px;
+  text-align: center;
+}
+
+body.ae-executive-command .rh-sidebar button:hover { background: rgba(25, 126, 153, .12); }
+body.ae-executive-command .rh-sidebar button.active {
+  border-left-color: #27dcec;
+  background: linear-gradient(90deg, rgba(24, 186, 207, .24), rgba(15, 121, 146, .13));
+  color: #fff;
+}
+body.ae-executive-command .rh-sidebar button.active span { color: #7eeaf2; }
+body.ae-executive-command .rh-sidebar .rh-settings {
+  min-height: 50px;
+  margin: 10px 14px 14px;
+  border: 1px solid rgba(67, 147, 170, .28);
+  border-radius: 8px;
+  padding: 0 16px;
+}
+
+body.ae-executive-command .rh-content {
+  grid-template-rows: auto auto auto;
+  align-content: start;
+  gap: 8px;
+  padding: 10px 16px 8px;
+  background: rgba(1, 14, 23, .73);
+}
+
+body.ae-executive-command .rh-heading { min-height: 52px; gap: 18px; }
+body.ae-executive-command .rh-heading h2 { font-size: 17px; }
+body.ae-executive-command .rh-heading p { margin-top: 5px; font-size: 11px; }
+body.ae-executive-command .rh-flask { font-size: 26px; }
+body.ae-executive-command .rh-points { gap: 8px; }
+body.ae-executive-command .rh-points small { font-size: 9px; }
+body.ae-executive-command .rh-points strong { font-size: 23px; }
+body.ae-executive-command .rh-history { height: 38px; padding: 0 15px; font-size: 10px; }
+body.ae-executive-command .rh-history span { font-size: 15px; }
+body.ae-executive-command .rh-grid { gap: 8px; max-height: 410px; align-self: start; }
+body.ae-executive-command .rh-card {
+  grid-template-rows: auto 5px auto minmax(26px, 1fr) 36px;
+  gap: 7px;
+  padding: 10px 11px;
+  border-color: rgba(69, 139, 159, .19);
+  background: linear-gradient(180deg, rgba(8, 31, 43, .82), rgba(5, 24, 35, .84));
+  box-shadow: none;
+}
+body.ae-executive-command .rh-card-icon {
+  flex-basis: 40px;
+  width: 40px;
+  height: 40px;
+  border-color: color-mix(in srgb, var(--rh-accent) 40%, transparent);
+  background: color-mix(in srgb, var(--rh-accent) 5%, transparent);
+  font-size: 19px;
+  opacity: .9;
+}
+body.ae-executive-command .rh-card-head { gap: 9px; }
+body.ae-executive-command .rh-card-name {
+  color: color-mix(in srgb, var(--rh-accent) 68%, #d2e0e3);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+body.ae-executive-command .rh-card-level {
+  margin-top: 4px;
+  color: color-mix(in srgb, var(--rh-accent) 62%, #aebfc4);
+  font-size: 10px;
+}
+body.ae-executive-command .rh-benefit-title { font-size: 8px; }
+body.ae-executive-command .rh-card ul { padding-left: 14px; color: #b9cbd0; font-size: 9px; line-height: 1.45; }
+body.ae-executive-command .rh-progress i { opacity: .78; box-shadow: none; }
+body.ae-executive-command .rh-research-btn {
+  min-height: 36px;
+  padding: 0 12px;
+  border-color: color-mix(in srgb, var(--rh-accent) 28%, #315766);
+  background: rgba(7, 31, 42, .72);
+  color: #d7e5e8;
+  font-size: 10px;
+  letter-spacing: .02em;
+}
+body.ae-executive-command .rh-research-btn:hover {
+  background: color-mix(in srgb, var(--rh-accent) 8%, rgba(7, 31, 42, .78));
+}
+body.ae-executive-command .rh-research-btn b { color: #cfa9db; font-size: 9.5px; }
+body.ae-executive-command .rh-status-row { min-height: 90px; gap: 8px; }
+body.ae-executive-command .rh-status { padding: 8px 10px; }
+body.ae-executive-command .rh-status { border-color: rgba(69, 139, 159, .19); background: rgba(6, 27, 39, .84); }
+body.ae-executive-command .rh-status-title { margin-bottom: 6px; font-size: 8px; }
+body.ae-executive-command .rh-active-copy b,
+body.ae-executive-command .rh-active-copy span { font-size: 9px; }
+body.ae-executive-command .rh-tier-row p,
+body.ae-executive-command .rh-mult-row p { font-size: 8.5px; }
+body.ae-executive-command .rh-mult-row strong { font-size: 20px; }
+body.ae-executive-command .rh-mini-icon { flex-basis: 32px; width: 32px; height: 32px; font-size: 16px; }
+body.ae-executive-command .rh-active-row,
+body.ae-executive-command .rh-tier-row,
+body.ae-executive-command .rh-mult-row { gap: 8px; }
+body.ae-executive-command .rh-active-row > button,
+body.ae-executive-command .rh-mult-row button { min-height: 30px; padding: 0 9px; font-size: 7.5px; }
+body.ae-executive-command .rh-tier-progress { margin-top: 6px; margin-left: 40px; }
+
+body.ae-executive-command .rh-command-bar {
+  grid-template-columns: 260px minmax(0, 1fr) 245px;
+  min-height: 59px;
+  background: rgba(1, 13, 21, .96);
+}
+
+body.ae-executive-command .rh-day { gap: 12px; font-size: 9px; }
+body.ae-executive-command .rh-command-bar nav button { gap: 3px; font-size: 7px; }
+body.ae-executive-command .rh-command-bar nav button span { font-size: 17px; }
+body.ae-executive-command .rh-end-turn { gap: 10px; }
+body.ae-executive-command .rh-end-turn > span { font-size: 20px; }
+body.ae-executive-command .rh-end-turn b { font-size: 11px; }
+body.ae-executive-command .rh-end-turn small { margin-top: 3px; font-size: 6px; }
+
+@media (max-width: 1200px) {
+  body.ae-executive-command #modal-overlay.research-hub-mode { inset: 0 !important; }
+  body.ae-executive-command .rh-shell { grid-template-rows: 48px minmax(0, 1fr) 51px; }
+  body.ae-executive-command .rh-topbar { grid-template-columns: 190px minmax(420px, 1fr) 260px; }
+  body.ae-executive-command .rh-brand { padding: 0 13px; }
+  body.ae-executive-command .rh-brand svg { width: 29px; height: 29px; }
+  body.ae-executive-command .rh-brand b { font-size: 14px; }
+  body.ae-executive-command .rh-brand small { font-size: 5px; }
+  body.ae-executive-command .rh-kpis { margin: 4px 7px; }
+  body.ae-executive-command .rh-kpis > div { padding: 0 7px; }
+  body.ae-executive-command .rh-kpis strong { font-size: 11px; }
+  body.ae-executive-command .rh-utilities { gap: 4px; padding: 4px 8px 4px 3px; }
+  body.ae-executive-command .rh-utilities button { height: 40px; font-size: 5.5px; }
+  body.ae-executive-command .rh-stage { grid-template-columns: 180px minmax(0, 1fr); }
+  body.ae-executive-command .rh-sidebar { margin-left: 8px; }
+  body.ae-executive-command .rh-sidebar button { padding: 0 15px; gap: 12px; }
+  body.ae-executive-command .rh-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; grid-auto-rows: 210px; max-height: none; }
+  body.ae-executive-command .rh-status-row { grid-template-columns: 1fr; }
+  body.ae-executive-command .rh-content { overflow-y: auto; }
+  body.ae-executive-command .rh-command-bar { grid-template-columns: 180px minmax(0, 1fr) 190px; }
+  body.ae-executive-command .rh-day { display: flex; }
+}
+
+@media (max-width: 900px) {
+  body.ae-executive-command #modal-overlay.research-hub-mode { inset: 0 !important; padding: 0 !important; }
+  body.ae-executive-command .rh-shell { grid-template-rows: 41px minmax(0, 1fr) 45px; }
+  body.ae-executive-command .rh-topbar { grid-template-columns: 132px minmax(0, 1fr); }
+  body.ae-executive-command .rh-brand { gap: 7px; padding: 0 8px; }
+  body.ae-executive-command .rh-brand svg { width: 28px; height: 28px; }
+  body.ae-executive-command .rh-brand b { font-size: 12px; }
+  body.ae-executive-command .rh-brand small { display: none; }
+  body.ae-executive-command .rh-kpis > div:nth-child(n+4) { display: none; }
+  body.ae-executive-command .rh-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  body.ae-executive-command .rh-kpis strong { font-size: 11px; }
+  body.ae-executive-command .rh-kpis small, body.ae-executive-command .rh-kpis em { font-size: 6px; }
+  body.ae-executive-command .rh-utilities { display: none; }
+  body.ae-executive-command .rh-stage { grid-template-columns: 58px minmax(0, 1fr); }
+  body.ae-executive-command .rh-sidebar { margin: 5px 0 5px 4px; }
+  body.ae-executive-command .rh-sidebar button { justify-content: center; min-height: 35px; padding: 0; font-size: 0; }
+  body.ae-executive-command .rh-sidebar button span { font-size: 14px; }
+  body.ae-executive-command .rh-sidebar .rh-settings { margin: 5px; font-size: 0; }
+  body.ae-executive-command .rh-content { display: block; padding: 7px; overflow-y: auto; }
+  body.ae-executive-command .rh-heading { grid-template-columns: 1fr auto; }
+  body.ae-executive-command .rh-history { grid-column: auto; }
+  body.ae-executive-command .rh-heading p { display: none; }
+  body.ae-executive-command .rh-grid { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-rows: 205px; margin-top: 8px; }
+  body.ae-executive-command .rh-status-row { grid-template-columns: 1fr; }
+  body.ae-executive-command .rh-status-row { margin-top: 8px; }
+  body.ae-executive-command .rh-command-bar { grid-template-columns: minmax(0, 1fr) 140px; }
+  body.ae-executive-command .rh-day { display: none; }
+}

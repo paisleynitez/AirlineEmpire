@@ -1,0 +1,613 @@
+{
+  "package": "aircraft-image-identity-package-v111",
+  "version": "v1.1.11",
+  "generatedOn": "2026-08-08",
+  "fileCount": 121,
+  "files": [
+    {
+      "path": "COPY_INSTRUCTIONS.txt",
+      "bytes": 681,
+      "sha256": "8970c53066e0a1fedce7e3151b40c626aa023e9a6f2b5c611d09c5739d496fb4"
+    },
+    {
+      "path": "assets/aircraft-cards/aircraft-card-contact-sheet.webp",
+      "bytes": 217754,
+      "sha256": "ad796265294944b7ef4dcc56baf7a2ad4d487aaca6b4397a81864042900b4fd2"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/a220-100.webp",
+      "bytes": 61058,
+      "sha256": "ca91efa49310bfbff55372eebc98b53348d07e2d017c37c4e63ead9a248acb20"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/a220-300.webp",
+      "bytes": 62806,
+      "sha256": "ced833b5a05b7b6916f30121543bcdcbaf8b9562eed76f3aeba0a3b761102669"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/a300b4.webp",
+      "bytes": 64002,
+      "sha256": "2251c3871380f5f2e774a11d1cffea526110f20ceff9b407f79f89f85f75f4f9"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/a319.webp",
+      "bytes": 61144,
+      "sha256": "6c45b819bd60c2665726a37aaa9d3a852ba0f070197b97b7be3a548a5ce67282"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/a320.webp",
+      "bytes": 53640,
+      "sha256": "2604f09583247008f2830d834eb6adbc59fa0fe030bc216786816f692e90085e"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/a320neo.webp",
+      "bytes": 59484,
+      "sha256": "0b4ae44b791a8c79d05e7d1bc2c6da0352460ac2e445678bea0d1bafbb0ab1ed"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/a321xlr.webp",
+      "bytes": 59738,
+      "sha256": "7477e46ea61fc026e7976b941267c339ac70b16a4f14f30d2e57754d47853211"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/a330-300.webp",
+      "bytes": 66004,
+      "sha256": "cc4d5cf942d949ed4866dc2b7b64e9873d067fd7c65e733494b07149a5e8aa7b"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/a330neo.webp",
+      "bytes": 63238,
+      "sha256": "1bf8c7e9996ee4843a24528d669a1a9fe9e5de564dd8b1cebc95cfbaf69f9085"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/a350-1000.webp",
+      "bytes": 64958,
+      "sha256": "0e88adce5049ed6fa4f8ed040c663afe5313268c09b1bc230da306780613ab1a"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/a350-900.webp",
+      "bytes": 63820,
+      "sha256": "14cf29b59810f49006a3dc2e7a4e1ebac4a8883ec9715426553254b9cc3a0656"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/a380-800.webp",
+      "bytes": 65940,
+      "sha256": "dff369f805280c73f460b8d3d2a8ac0a9df44122903353246604e82f4e0b0165"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b707-320b.webp",
+      "bytes": 52920,
+      "sha256": "7dc98a3310d4024a7a4423932670d5df3687a63b6795cc4ee7edd6ee9c5a6633"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b727-200.webp",
+      "bytes": 57972,
+      "sha256": "d07e7b5baf4bc2697eb1e62152338aaaa10c73fce3808e76a1e2d7d425fc6208"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b737-200.webp",
+      "bytes": 55624,
+      "sha256": "4d12c22b0c85ccbb48adc5fc973cb7ba2908a5a755c8738c6d7f6dc9d3d44a44"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b737-800.webp",
+      "bytes": 59102,
+      "sha256": "19e8b1a6a722c31735fa794d23a9ce4565ac357548b380b8570f31f97f5d31e1"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b737-max-10.webp",
+      "bytes": 58206,
+      "sha256": "a7bdcdb0853abd2d4809d2c6e555d52f74eb264d980eb8ca6ea1712f9882a079"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b737-max-8.webp",
+      "bytes": 54204,
+      "sha256": "0cacc512b705c95a5c614883366a3fde647622ab0d8f8d2101c6fb16dde20029"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b747-100.webp",
+      "bytes": 71224,
+      "sha256": "01f7e8c8d217622ade4ab737dc75ee1e4a7e04edccb852f3961eaed2815d3378"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b747-200.webp",
+      "bytes": 74468,
+      "sha256": "2bf68a7e93b2a95f5f537e87669bfe91f1c14ad0d4358093af44aa8a4095331b"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b747-400.webp",
+      "bytes": 71932,
+      "sha256": "e6ffbb2a2a356df016dd22445549d47e41afea9cb458f03eebba243802085007"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b747-8i.webp",
+      "bytes": 76242,
+      "sha256": "75ad346464058757702dfc5269c67c9a0d58d52749924cbabec771cf9d1b813e"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b757-200.webp",
+      "bytes": 57838,
+      "sha256": "3fd8f1172ebe117a1c9f6d356869e61ab895a6b204734d93d087d713737ab0fe"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b767-200er.webp",
+      "bytes": 65602,
+      "sha256": "d23a9b2cc1670abd5aeed5085c05ee2395ca379962cd7c6a86e21b8219fafa2f"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b767-300er.webp",
+      "bytes": 58854,
+      "sha256": "12e26e78a1993188b68e089186ef22230a11aa809fe5c7730e6adb410cbe1c55"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b777-300er.webp",
+      "bytes": 59094,
+      "sha256": "b36357769748faadba625968e9af049c0bf2ca1b2da051d187aec0610a1a424d"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b777x.webp",
+      "bytes": 53534,
+      "sha256": "01a21f71837afae71623395909d43343edcf58ee90ed213e714a5ad9095ea475"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b787-10.webp",
+      "bytes": 55678,
+      "sha256": "98aa1f1ae93424d7034330e6cc63eebf10e7b61e0530686d5f2680601a87d206"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b787-8.webp",
+      "bytes": 53522,
+      "sha256": "2530b8719273dd9a4d6f314f6c68c249f08f16520da03cdecdc4694a009e5792"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/b787-9.webp",
+      "bytes": 52854,
+      "sha256": "bfd14595991bd86ad6d304dae1dcab1bdaa8723ab79e208bc6f4181693999a34"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/concorde.webp",
+      "bytes": 57634,
+      "sha256": "ab50aa6922bd0efc430cb9727801d54d85f178958a2ba2b2892c2173caf539d5"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/dc-10-30.webp",
+      "bytes": 56688,
+      "sha256": "f662209fbe2f94e02fd54742244151a8ebaece4983a996564449e70a84eb671e"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/dc-8-63.webp",
+      "bytes": 56236,
+      "sha256": "6cf1f2c23031a4c1b7ddfd26743fd5eae358f932b1b8169554051c8d7a7860d0"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/dc-9-30.webp",
+      "bytes": 50822,
+      "sha256": "29f6a5a9f9a54374f9206c4b75161373726fb803611264bca5ebd9307b5b9c8a"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/l-1011.webp",
+      "bytes": 59992,
+      "sha256": "4840d842f72d712b040d6d56e5c8c8228ceca0c1ae85bed0d239ccf44a3726ed"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/md-80.webp",
+      "bytes": 53438,
+      "sha256": "709208bfa24bc646a7d55dca2f49446d86cdf05c259e9a163201d64b22ae912b"
+    },
+    {
+      "path": "assets/aircraft-cards/cards/overture.webp",
+      "bytes": 59484,
+      "sha256": "77ce980915ebf8664f43a6b5e33dd7e7d3e9e84c006c0e2ff82620785ca51a5a"
+    },
+    {
+      "path": "assets/aircraft-cards/manifest.csv",
+      "bytes": 7587,
+      "sha256": "6457cb82e16dc4ddbcd7a03945b99e38918a0000af613736abde21260ae804a8"
+    },
+    {
+      "path": "assets/aircraft-cards/manifest.json",
+      "bytes": 23260,
+      "sha256": "8817f48d759baad1036b13a18cf5e5388f37ca6ef9c5c0b56ae1197d52766e74"
+    },
+    {
+      "path": "assets/aircraft-cards/source/a220-100.svg",
+      "bytes": 5725,
+      "sha256": "0424df2af6d270d2f0c9637567106fc99e459d65bc0d26cb36b934e017d8cd29"
+    },
+    {
+      "path": "assets/aircraft-cards/source/a220-300.svg",
+      "bytes": 5768,
+      "sha256": "e9a42062b95285db7045818d0b82f7f5719791b9a6762a7bc6ee22f5550dc716"
+    },
+    {
+      "path": "assets/aircraft-cards/source/a300b4.svg",
+      "bytes": 5991,
+      "sha256": "5d5c21349ae95a874b91ef7b0d42487bbb3c5eae8719d6e07ef6df031c6006e3"
+    },
+    {
+      "path": "assets/aircraft-cards/source/a319.svg",
+      "bytes": 5672,
+      "sha256": "e0bfa9e6b9f7a40895fcda4935155c5a5388b2add80c51ca6c72930600995ded"
+    },
+    {
+      "path": "assets/aircraft-cards/source/a320.svg",
+      "bytes": 5681,
+      "sha256": "d1a3b68909ca520c1424ae0185b1d3433433871ec9ae99ab1e54f66cea7c037d"
+    },
+    {
+      "path": "assets/aircraft-cards/source/a320neo.svg",
+      "bytes": 5703,
+      "sha256": "cd6223cc15f72d5d1a13959e0b226fadf01ce139f81b1bfce5da7ada50830283"
+    },
+    {
+      "path": "assets/aircraft-cards/source/a321xlr.svg",
+      "bytes": 5863,
+      "sha256": "4fb58ae6a694726c386247a9ad44cc81b510ff6718f8458b833bcde456f46da0"
+    },
+    {
+      "path": "assets/aircraft-cards/source/a330-300.svg",
+      "bytes": 5596,
+      "sha256": "a39b2f0f20a4b451b0c62c1463cf54cad7918f4005fbaf39259581da3f7066fd"
+    },
+    {
+      "path": "assets/aircraft-cards/source/a330neo.svg",
+      "bytes": 5735,
+      "sha256": "b0b812ba9af8fb399dce658668537a68ef1c87c71c4ea52eb031d82dd272f773"
+    },
+    {
+      "path": "assets/aircraft-cards/source/a350-1000.svg",
+      "bytes": 5727,
+      "sha256": "21f9fa5d7784c3244b8d834203fda74cbfc1427ca4d2cd07902aaaff3aad3d78"
+    },
+    {
+      "path": "assets/aircraft-cards/source/a350-900.svg",
+      "bytes": 5766,
+      "sha256": "4cbf8ba81374ce3eca69af0160eccad22b25543a7c9328b5dbe295cc360fc398"
+    },
+    {
+      "path": "assets/aircraft-cards/source/a380-800.svg",
+      "bytes": 6342,
+      "sha256": "22317ae9db9c97f7cd239f0f51634fabe5a272b256d13f493781db55c4f4dd27"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b707-320b.svg",
+      "bytes": 6203,
+      "sha256": "71cbfddcdfc64fae0f1880442b20f6a9d3b69ecb77509af5ecd41992e9421f24"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b727-200.svg",
+      "bytes": 5891,
+      "sha256": "408956743522a6878e7edadbeaa38cd9673e3c49acd3a390aba1c1ac2bd9bf3b"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b737-200.svg",
+      "bytes": 5681,
+      "sha256": "68a8d08f084458d321357a0c7656f76d833f8a667826dd7f34b47c42f8c842b6"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b737-800.svg",
+      "bytes": 5794,
+      "sha256": "9bd3b4f2073e69844a40c4ba5fb290c2b6ab015de8a89e028cf764ca0a5ebf1d"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b737-max-10.svg",
+      "bytes": 5740,
+      "sha256": "fc49f90139033a9ec23aef58cbeea7aea53c52071db5448c31ed551b2e33dc6f"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b737-max-8.svg",
+      "bytes": 5734,
+      "sha256": "f416bb16cb0622db04a38f071ef7a9beec1a9763cf3a568f24bac5982ec2a5e5"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b747-100.svg",
+      "bytes": 6760,
+      "sha256": "952423f410d86d11bf0e6af6691b50be82cd861c7b05ce52609bfe612b72262c"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b747-200.svg",
+      "bytes": 6697,
+      "sha256": "21831d38dbe62b86dcc5df3851bb26e4e9570a967271e794d9f221dbe10beaf3"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b747-400.svg",
+      "bytes": 6529,
+      "sha256": "744a28e81af67877ede80551679bff557a3216d182de31603082838321866716"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b747-8i.svg",
+      "bytes": 6625,
+      "sha256": "03015c22651cb60d83ad80e73825e488cfab8cb650ea0cf9399528f6a1f3c127"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b757-200.svg",
+      "bytes": 5750,
+      "sha256": "b1faf3fdcb153456f3b42bc59e84b11630bcdee9e63a4e4412337b9d43968112"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b767-200er.svg",
+      "bytes": 5995,
+      "sha256": "2fc0721a1d9d021100c053fece8798ff1561bee908798ae21cdb81043d5455d9"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b767-300er.svg",
+      "bytes": 6040,
+      "sha256": "caefc3a43e9536d423d0ce8d2efe1fbc898473da02e5d2f327a5bfb587d53e58"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b777-300er.svg",
+      "bytes": 5801,
+      "sha256": "2d8e866a38b6a8df942458e631c95939ac6e8eb46dcdb35c8d6741d0047a4368"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b777x.svg",
+      "bytes": 5828,
+      "sha256": "758084c0a345d1eb165e89954084648fa0390b60ff93c563f86e84e5581db947"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b787-10.svg",
+      "bytes": 5836,
+      "sha256": "350af12233b8c040a33e5a43d6a8224dbc61fab4fc9ebe9d0a4d752d1fbbfca3"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b787-8.svg",
+      "bytes": 5763,
+      "sha256": "976b322e9ba6323412e49acb8eb961da84528f79b86fb07314246593f65e112e"
+    },
+    {
+      "path": "assets/aircraft-cards/source/b787-9.svg",
+      "bytes": 5759,
+      "sha256": "22263e3d712dfe6bd6be138b348fdbb71a6e9b12290dc779fa007afe8f2c15ea"
+    },
+    {
+      "path": "assets/aircraft-cards/source/concorde.svg",
+      "bytes": 5527,
+      "sha256": "ffe684b7a647dc28ef720ef0c52d08c820f76054620e5e6d5330bc9eb3533a98"
+    },
+    {
+      "path": "assets/aircraft-cards/source/dc-10-30.svg",
+      "bytes": 6358,
+      "sha256": "aa1a533f497cb1e7feab1055a311ac40c8613674da6e2051898f9db82bbbb79b"
+    },
+    {
+      "path": "assets/aircraft-cards/source/dc-8-63.svg",
+      "bytes": 6364,
+      "sha256": "0fddea6f8af6d320abd72253b49d49884ddae9fc16906c8f2e781d3ee00c6031"
+    },
+    {
+      "path": "assets/aircraft-cards/source/dc-9-30.svg",
+      "bytes": 5736,
+      "sha256": "ecc530ee43f5f2890d614ad90ee7ce01982cb278d7229cedb3eda618fba7acb7"
+    },
+    {
+      "path": "assets/aircraft-cards/source/l-1011.svg",
+      "bytes": 6267,
+      "sha256": "3a55b47c394af95630c8c5297ba73eb8c1357a99fca485d4aeccc39af5e4050e"
+    },
+    {
+      "path": "assets/aircraft-cards/source/md-80.svg",
+      "bytes": 5742,
+      "sha256": "9983ba117012d113f2941a5c2ec1202c56367dbdaab094139056dc9e944c5232"
+    },
+    {
+      "path": "assets/aircraft-cards/source/overture.svg",
+      "bytes": 5301,
+      "sha256": "aabde789f9222cef7a893567d1a4f6ad0b0c53c623dce0f4c2c9c63baeec2f07"
+    },
+    {
+      "path": "docs/implementation_aircraft_image_identity_package_v111.md",
+      "bytes": 1616,
+      "sha256": "d7486523ab4be16cb3987daad71cb831adb018aa2cdd5c60d82850db45acb847"
+    },
+    {
+      "path": "docs/qa_test_results_aircraft_image_identity_package_v111.md",
+      "bytes": 1539,
+      "sha256": "cda2b7612ad0358a6574117d5d46153f56d8cc85bcbf92cea166c445a89294f0"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/a220-100.webp",
+      "bytes": 35364,
+      "sha256": "dc1870f8b037cc6b81aaa55e61d89c2098ff65a54c75a2657779ed0931147fc5"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/a220-300.webp",
+      "bytes": 36618,
+      "sha256": "b5f0ef4936141ab713c863786800a79e45942ac16aafdd709945d1fe216d658e"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/a300b4.webp",
+      "bytes": 37874,
+      "sha256": "688d2d5deab5930c718587cf4d05b095664910765899984adfd2793253fdd56d"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/a319.webp",
+      "bytes": 33458,
+      "sha256": "3a0b75c09a8a96f8a6949300c67e08065deb1198342c8142efb00bf347425f9b"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/a320.webp",
+      "bytes": 31068,
+      "sha256": "4a29c79c1aa3599eb69b0089b0b274dd7933332965280f22fefe452f040abe46"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/a320neo.webp",
+      "bytes": 34794,
+      "sha256": "b3cd84832df0d006d6c17d09a49acf6f399f74458f7f4280b0916906113c384e"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/a321xlr.webp",
+      "bytes": 34036,
+      "sha256": "911ba73b4955fcc5801967577a1139ce29140b6f3f62ed68e0709c6f034952b7"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/a330-300.webp",
+      "bytes": 38604,
+      "sha256": "9d04ae1a83616d5d8c4e82c0cb232fa8757b41e92539b89bda624e43130c968d"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/a330neo.webp",
+      "bytes": 36806,
+      "sha256": "abc1333a7fc0923a9b504c5d49723cc38aec88076880ed26eb22619b98b6975d"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/a350-1000.webp",
+      "bytes": 37030,
+      "sha256": "344a9fe13e2b35906791d0494479aecac9c09f7a4f21434134debbaeb693bb36"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/a350-900.webp",
+      "bytes": 36786,
+      "sha256": "51f067a55ce59b67088488a1b067d2be9f9d8189a3754c197c53cb0b49f07ffe"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/a380-800.webp",
+      "bytes": 40596,
+      "sha256": "5b4781750fc78357d3841bdef92d25b13341b8d474afc3411fe5e56ccd3e3bb2"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b707-320b.webp",
+      "bytes": 33062,
+      "sha256": "f5b3d56203321eff2a8789fc3cfce1b57799f333c8f6922dddea085bee9cb181"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b727-200.webp",
+      "bytes": 35180,
+      "sha256": "05e1244d5fee16adc770147527d92863878efefc0ffcc9854b60d81fef500d21"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b737-200.webp",
+      "bytes": 32890,
+      "sha256": "a7a498ac08d5d83c386a103ffa092269289a98e70e86a817b8f84acf9339b294"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b737-800.webp",
+      "bytes": 33508,
+      "sha256": "8adc2025cd543ef5b8f0e278f07c88569779e6b043bb6a6d157c8d78517f8016"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b737-max-10.webp",
+      "bytes": 31336,
+      "sha256": "6e19ae4bea9d3f719a176be71800dd38c0f686fa5e8db26d5ded556ee79d9c86"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b737-max-8.webp",
+      "bytes": 30198,
+      "sha256": "d3e568f4bfa9a8da592bcab85fb048e5b35376c800738bb47f62e61458210ef9"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b747-100.webp",
+      "bytes": 41656,
+      "sha256": "b3fce760fc63b1dc6eb908ea25e7a721f83c5e42570addc7a895f411a6c19442"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b747-200.webp",
+      "bytes": 43000,
+      "sha256": "98ce745e2dc28018c1a59f2fc1452a3b8d7d717801a2dbb2f34744d41cf6ed03"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b747-400.webp",
+      "bytes": 43966,
+      "sha256": "a3652e4f712b48969529fe3168e74eec163f2acfc56e3ee090cccc9389db7920"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b747-8i.webp",
+      "bytes": 43988,
+      "sha256": "386431474c8e72e9efd1710607aa407c4815a5cbbe6b876cabea931eb55fc047"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b757-200.webp",
+      "bytes": 33244,
+      "sha256": "6d8a850c297d7ed74045def7e3a7f2cdbd8a5e772e61824374ecb1901c77dfb8"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b767-200er.webp",
+      "bytes": 36640,
+      "sha256": "fa00a9fd86ae8b9f61feef5e7fe2da1002057e88b6a9066bf5dc96f4d5d59014"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b767-300er.webp",
+      "bytes": 34426,
+      "sha256": "a6a110ec079012db70a6eddb90289d437516ecc3c8da9ec1da6592ae754f798f"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b777-300er.webp",
+      "bytes": 35270,
+      "sha256": "db3e681f1b7a14144b79066568d106a050b2880c7f2a2c1abc0e0ec8494f37d5"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b777x.webp",
+      "bytes": 31500,
+      "sha256": "749dbbdcc8b759f41df5d982ecc4f0c5b3c4ca9b814e428aca307bcaf524c95f"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b787-10.webp",
+      "bytes": 31740,
+      "sha256": "5027202edfddfd8da8f2dcd850a25f97dbf0a44c2bb6c376b391ba57e5a8cc33"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b787-8.webp",
+      "bytes": 28372,
+      "sha256": "57415a0f0580c3bd8a447f673431468e0c8a58f447287181b5b4e8ac0511ca4a"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/b787-9.webp",
+      "bytes": 30440,
+      "sha256": "93ff9e35a98d635a68b9cb0f0543acb7e485cda9f766d6cb926ddb3525e8df08"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/concorde.webp",
+      "bytes": 32046,
+      "sha256": "11afa28f235bd2bab671d7072ab382eeb9f7e2bacfa2633445d4279c89448008"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/dc-10-30.webp",
+      "bytes": 34236,
+      "sha256": "0bd5f7e7680d5deecce6feeef8588e7f5555f9432c6906bdf9dbd3641092c8ad"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/dc-8-63.webp",
+      "bytes": 33792,
+      "sha256": "3b4e2d6ed46951a1ab22f44469fcd77920b48c24760ab0f02c4c4bd2402b54d4"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/dc-9-30.webp",
+      "bytes": 29844,
+      "sha256": "cd102ae3bb03a9b95fd471f38d58b5fdc3fa7493a63ccf0ee4a4b988194c78c7"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/l-1011.webp",
+      "bytes": 35858,
+      "sha256": "376e8f2a702f4c702b72027c15fbe1567efb3efc890773e1d1f7adec4121d2aa"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/md-80.webp",
+      "bytes": 34598,
+      "sha256": "5de83deb68f9eb75c1d33ffb77cc908d6e866554579eff914ef8c26a287e19ef"
+    },
+    {
+      "path": "game/assets/aircraft-heroes/overture.webp",
+      "bytes": 35020,
+      "sha256": "4c011c20e3a0596b2419c07f1716e773c82a314df32b7dab3f28cba66c372876"
+    },
+    {
+      "path": "game/index.html",
+      "bytes": 48047,
+      "sha256": "849da5473835c0883e8ab4202e00fdf64286debc056f8048f063f984b280602d"
+    },
+    {
+      "path": "game/js/core/game.js",
+      "bytes": 2071575,
+      "sha256": "e43457de088bd05e85df3832aaf4fbf26d9cb6e484b4e59757813d7e4a6be489"
+    },
+    {
+      "path": "game/js/data/aircraftImageManifest.js",
+      "bytes": 8415,
+      "sha256": "8e4aee060d0e6a17aebbbf6f7c7bcd8645e01e335cfa73c312a166b894889200"
+    },
+    {
+      "path": "scripts/build-aircraft-cards.cjs",
+      "bytes": 22245,
+      "sha256": "ed2bad408f5027074ceef3e1f7090ba62f56cf670c180e8c737f329e144e1ab5"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+AIRLINE EMPIRE AIRCRAFT IMAGE AND IDENTITY PACKAGE v1.1.11
+
+Copy the contents of this folder over the root of C:\GitHub\AirlineEmpire.
+Preserve the included folder structure and replace the included game.js and index.html files when prompted.
+
+This package contains:
+- 37 game/assets/aircraft-heroes WebP files
+- game/js/data/aircraftImageManifest.js
+- complete replacement game/js/core/game.js
+- complete replacement game/index.html
+- 37 standalone WebP cards and 37 SVG sources under assets/aircraft-cards
+- JSON/CSV manifests and contact-sheet preview
+- implementation and QA result documents
+- deterministic rebuild script
+
+No Git commands or manual code merging are required.

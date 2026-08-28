@@ -13,8 +13,11 @@
 
 
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/route-overview-v111.css">
+    <link rel="stylesheet" href="css/executive-command-v111.css">
+    <link rel="stylesheet" href="css/compact-command-density-v111.css">
 </head>
-<body>
+<body class="ae-executive-command">
 
 <!-- ===== INTRO SCREEN ===== -->
 <div id="intro">
@@ -200,28 +203,11 @@
           <div class="ae4-ptitle"><span class="ae4-num">3</span>CHOOSE YOUR HOME HUB</div>
           <div class="ae4-rtabs" id="hub-region-tabs"></div>
           <div class="ae4-hubgrid" id="nh-hub-grid"></div>
-          <div class="ae4-legend" id="ae4-legend"></div>
         </div>
       </div>
       <div class="ae4-footer">
         <button class="ae4-back" onclick="wzStep(setupChoice.type==='scenario'?2:1)">← BACK</button>
-        <button class="ae4-launch" onclick="wzStep(4)">✈&nbsp;&nbsp;NEXT — AIRLINE PREVIEW</button>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ── Page 4: Airline Preview Review Screen ───────────────── -->
-  <div class="wz-page" id="wz-p4">
-    <div class="ae4-grid" style="grid-template-columns:1fr;max-width:1120px">
-      <div class="ae4-panel ae4-preview ae4-preview-full" id="ae4-preview"></div>
-      <div class="ae4-panel">
-        <div class="ae4-ptitle"><span class="ae4-num">5</span>FINAL REVIEW</div>
-        <div class="ae4-sublabel">Confirm your airline identity before entering the Operations Center. Back returns to logo, livery, and hub selection.</div>
-      </div>
-      <div class="ae4-footer">
-        <button class="ae4-back" onclick="wzStep(3)">← BACK TO SETUP</button>
-        <button class="ae4-launch" onclick="launchFromNameHub()">✈&nbsp;&nbsp;LAUNCH AIRLINE</button>
+        <button class="ae4-launch" onclick="aeFlyToOperationsCenter(event)">LAUNCH AIRLINE</button>
       </div>
     </div>
   </div>
@@ -475,7 +461,7 @@
         <div id="zoom-pct" title="Zoom level">100%</div>
         <button onclick="zoomBy(1/1.35)" title="Zoom out" aria-label="Zoom out">−</button>
       </div>
-      <div id="demand-toggle" onclick="toggleDemandOverlay()" title="Demand overlay placeholder">🌡 Demand</div>
+      <div id="demand-toggle" onclick="toggleDemandOverlay()" title="Show unmet passenger demand">🌡 Demand</div>
 
       <div id="tour-overlay" class="hidden"></div>
       <div id="action-pips" class="hidden-cap" title="Moves left this month"></div>
@@ -483,37 +469,6 @@
       <button id="end-turn-btn" onclick="endTurn()">END TURN ▶</button>
     </div>
 
-    <!-- ⬢ DASHBOARD OVERVIEW STRIP (mockup, v46) -->
-    <div id="dash-strip">
-      <div class="ds-collapse" onclick="toggleDashStrip()" title="Collapse / expand overview">
-        <span id="ds-chev">▾</span>
-      </div>
-      <div class="ds-panels" id="ds-panels">
-        <div class="ds-panel">
-          <div class="ds-title">NETWORK OVERVIEW</div>
-          <div class="ds-body" id="ds-network"></div>
-        </div>
-        <div class="ds-panel">
-          <div class="ds-title">FINANCIAL OVERVIEW <span class="ds-sub" id="ds-fin-sub"></span></div>
-          <div class="ds-body" id="ds-financial"></div>
-        </div>
-        <div class="ds-panel">
-          <div class="ds-title">TOP ROUTES <span class="ds-sub">(BY PROFIT)</span></div>
-          <div class="ds-body" id="ds-toproutes"></div>
-        </div>
-      </div>
-      <div class="ds-panels2" id="ds-panels2">
-        <div class="ds-panel">
-          <div class="ds-title">LIVE FLIGHTS <span class="ds-sub" id="ds-lf-sub">— THIS MONTH'S BOARD</span></div>
-          <div class="ds-body" id="ds-liveflights"></div>
-        </div>
-        <div class="ds-panel">
-          <div class="ds-title">AIRPORT ALERTS</div>
-          <div class="ds-body" id="ds-alerts"></div>
-          <button class="ds-alert-btn" onclick="try{switchTab('events')}catch(e){}">VIEW ALL ALERTS</button>
-        </div>
-      </div>
-    </div>
     </div><!-- /center-col -->
 
     <!-- RIGHT -->
@@ -532,15 +487,6 @@
 
       <!-- content -->
       <div class="panel-scroll">
-        <!-- ⬢ OPERATIONS CENTER — real monthly-sim status tiles -->
-        <div id="ops-center">
-          <div class="oc-head">
-            <span class="oc-title">⬢ Operations Center</span>
-            <span class="oc-live">▲ live</span>
-          </div>
-          <div class="oc-sub">This month at a glance</div>
-          <div id="oc-tiles"></div>
-        </div>
         <div class="tabs">
           <button class="tab-btn active" onclick="switchTab('routes')">ROUTES</button>
           <button class="tab-btn" onclick="switchTab('fleet')">FLEET</button>
@@ -586,12 +532,13 @@
 </div>
 
 <script src="./js/data/scenarios.js"></script>
-<script src="./js/data/airline-logos.js"></script>
+<script src="../assets/airline-identities/approved-250/catalog.js"></script>
 <script src="./js/data/curatedAirlineIdentities.js"></script>
 <script src="./js/generator/airlineIdentityGenerator.js"></script>
 <script src="./js/cities/citySkylineManifest.js"></script>
 <script src="./js/cities/cityProfileManager.js"></script>
 <script src="./js/cities/cityRenderer.js"></script>
+<script src="./js/data/aircraftImageManifest.js"></script>
 <script src="./js/core/game.js"></script>
 <script src="./js/core/aiAirlineLifecycle.js"></script>
 
@@ -687,6 +634,8 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 ═══════════════════════════════════════════════════════════════════════ -->
 
 <script defer src="./js/patches/foundation_polish_v02.js"></script>
+<!-- Compact Route Overview; detailed legacy report remains available from the overview. -->
+<script defer src="./js/patches/route_overview_v111.js"></script>
 
 </body>
 <!-- FLEETART_ECON_v02 CHANGELOG (base: LOGO_EXPANSION_v09)
