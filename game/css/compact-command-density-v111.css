@@ -2,6 +2,35 @@
    Compact command density layer.
    Layout-only overrides for the live Operations Center and research console. */
 
+/* Slot negotiations: keep the decision surface compact and comfortably clear
+   of the viewport edges while preserving its existing scroll behavior. */
+body.ae-executive-command .modal.modal-negotiations {
+  width: min(560px, calc(100vw - 32px)) !important;
+  max-width: calc(100vw - 32px) !important;
+  max-height: min(760px, calc(100vh - 96px)) !important;
+}
+
+body.ae-executive-command .modal-negotiations .modal-header {
+  padding: 11px 15px !important;
+}
+
+body.ae-executive-command .modal-negotiations .modal-title {
+  font-size: 13.5px !important;
+}
+
+body.ae-executive-command .modal-negotiations .modal-body {
+  max-width: none !important;
+  padding: 16px !important;
+}
+
+@media (max-width: 640px) {
+  body.ae-executive-command .modal.modal-negotiations {
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+    max-height: calc(100vh - 32px) !important;
+  }
+}
+
 /* Header, date, simulation controls, and End Turn */
 body.ae-executive-command #game-ui #header {
   min-height: 40px !important;
