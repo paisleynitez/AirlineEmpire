@@ -3,6 +3,12 @@
    Compact route decision window. Detailed economics remain in the full
    route report; route editing is grouped into focused action drawers.
    ===================================================================== */
+
+/* Quick Start Guide retired from the live game UI. */
+#first-turn-guide {
+  display: none !important;
+}
+
 .modal.modal-route-overview-v111 {
   width: 820px;
   max-width: calc(100vw - 32px);
