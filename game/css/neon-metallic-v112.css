@@ -1,0 +1,301 @@
+/* Airline Empire v1.1.12
+   Neon Metallic global visual system.
+   Visual-only override layer: preserves existing screens, layout and gameplay. */
+
+:root {
+  --ae-nm-bg: #020711;
+  --ae-nm-bg-2: #06101c;
+  --ae-nm-panel: rgba(6, 16, 29, .94);
+  --ae-nm-panel-2: rgba(9, 22, 38, .92);
+  --ae-nm-panel-3: rgba(12, 29, 48, .86);
+  --ae-nm-edge: rgba(77, 164, 225, .26);
+  --ae-nm-edge-strong: rgba(82, 206, 255, .62);
+  --ae-nm-cyan: #52d8ff;
+  --ae-nm-cyan-soft: rgba(82, 216, 255, .14);
+  --ae-nm-purple: #9d66ff;
+  --ae-nm-purple-soft: rgba(157, 102, 255, .16);
+  --ae-nm-teal: #4de0ba;
+  --ae-nm-teal-soft: rgba(77, 224, 186, .14);
+  --ae-nm-blue: #6c95ff;
+  --ae-nm-orange: #ffac61;
+  --ae-nm-red: #ff6f87;
+  --ae-nm-text: #f5f8ff;
+  --ae-nm-muted: #9db0ca;
+  --ae-nm-muted-2: #6f849f;
+  --ae-nm-radius: 12px;
+  --ae-nm-shadow: 0 24px 60px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.045);
+  --ae-nm-glow: 0 0 0 1px rgba(82,216,255,.18), 0 0 22px rgba(82,216,255,.12);
+}
+
+html,
+body.ae-executive-command {
+  color-scheme: dark;
+  background: var(--ae-nm-bg) !important;
+}
+
+body.ae-executive-command {
+  color: var(--ae-nm-text) !important;
+  background:
+    radial-gradient(1000px 650px at 18% -10%, rgba(71,129,255,.13), transparent 64%),
+    radial-gradient(850px 620px at 88% 10%, rgba(157,102,255,.09), transparent 68%),
+    radial-gradient(780px 560px at 50% 108%, rgba(38,183,206,.08), transparent 70%),
+    linear-gradient(145deg, #020712 0%, #030a14 54%, #02070f 100%) !important;
+}
+
+body.ae-executive-command::before {
+  opacity: .22 !important;
+  background-image:
+    linear-gradient(rgba(73,153,214,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(73,153,214,.045) 1px, transparent 1px) !important;
+  background-size: 48px 48px !important;
+}
+
+/* Metallic frame / header */
+body.ae-executive-command #header,
+body.ae-executive-command .topbar,
+body.ae-executive-command .app-header {
+  background:
+    linear-gradient(180deg, rgba(11,25,43,.98), rgba(4,12,23,.98)) !important;
+  border-bottom: 1px solid rgba(73,170,225,.3) !important;
+  box-shadow: 0 16px 42px rgba(0,0,0,.44), inset 0 -1px 0 rgba(113,210,255,.08) !important;
+}
+
+body.ae-executive-command #header::after {
+  background: linear-gradient(90deg, transparent 2%, var(--ae-nm-cyan) 30%, var(--ae-nm-purple) 66%, transparent 98%) !important;
+  opacity: .62;
+}
+
+body.ae-executive-command :is(#left-panel,#right-panel,.panel,.card,.window,.module,.widget,.ae-sb-panel,.ae-ceo-card,.acc-group) {
+  background:
+    linear-gradient(180deg, rgba(12,28,47,.88), rgba(5,15,27,.92)) !important;
+  border-color: var(--ae-nm-edge) !important;
+  box-shadow: var(--ae-nm-shadow) !important;
+}
+
+/* Generic modal / popup treatment */
+body.ae-executive-command :is(.modal,.popup,.dialog,.overlay-panel,.drawer,.sheet) {
+  color: var(--ae-nm-text) !important;
+  background:
+    linear-gradient(180deg, rgba(10,24,42,.985), rgba(4,12,23,.985)) !important;
+  border: 1px solid rgba(106,172,255,.38) !important;
+  border-radius: var(--ae-nm-radius) !important;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.68),
+    0 0 0 1px rgba(82,216,255,.06),
+    0 0 34px rgba(87,122,255,.10),
+    inset 0 1px 0 rgba(255,255,255,.055) !important;
+  backdrop-filter: blur(18px) saturate(1.16);
+}
+
+body.ae-executive-command :is(.modal-header,.popup-header,.dialog-header,.window-header,.panel-header) {
+  background: linear-gradient(90deg, rgba(82,216,255,.08), rgba(157,102,255,.045) 58%, transparent) !important;
+  border-bottom-color: rgba(95,170,228,.22) !important;
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,.025) !important;
+}
+
+body.ae-executive-command :is(.modal-title,.popup-title,.dialog-title,.window-title,.panel-title,h1,h2,h3) {
+  color: #f7f9ff !important;
+  text-shadow: 0 0 18px rgba(111,169,255,.11);
+}
+
+/* Tabs / navigation */
+body.ae-executive-command :is(.tabs,.tab-bar,.subtabs,.segmented,.nav-tabs) {
+  background: rgba(3,10,20,.58) !important;
+  border-color: rgba(84,159,218,.2) !important;
+}
+
+body.ae-executive-command :is(.tab-btn,.tab,.nf-btn,.ae-nav-item,.nav-item) {
+  color: #9fb1ca !important;
+  border: 1px solid transparent !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.018), rgba(255,255,255,.006)) !important;
+  transition: color .16s ease, border-color .16s ease, background .16s ease, box-shadow .16s ease, transform .16s ease !important;
+}
+
+body.ae-executive-command :is(.tab-btn,.tab,.nf-btn,.ae-nav-item,.nav-item):hover {
+  color: #f7fbff !important;
+  border-color: rgba(82,216,255,.32) !important;
+  background: linear-gradient(180deg, rgba(82,216,255,.10), rgba(82,216,255,.025)) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 0 16px rgba(82,216,255,.08) !important;
+}
+
+body.ae-executive-command :is(.tab-btn.active,.tab.active,.nf-btn.active,.ae-nav-item.active,.nav-item.active,[aria-selected="true"]) {
+  color: #fff !important;
+  border-color: rgba(83,218,255,.72) !important;
+  background:
+    linear-gradient(135deg, rgba(38,150,255,.20), rgba(151,91,255,.18)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    inset 3px 0 0 var(--ae-nm-cyan),
+    0 0 18px rgba(82,216,255,.16),
+    0 0 26px rgba(157,102,255,.08) !important;
+}
+
+/* Buttons */
+body.ae-executive-command :is(button,.btn,.cmd-btn,.hdr-tbtn,.speed-btn) {
+  border-radius: 9px !important;
+  border-color: rgba(82,160,220,.28) !important;
+  background: linear-gradient(180deg, rgba(16,34,55,.95), rgba(6,18,32,.95)) !important;
+  color: #d8e4f4 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.045) !important;
+  transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease, filter .14s ease !important;
+}
+
+body.ae-executive-command :is(button,.btn,.cmd-btn,.hdr-tbtn,.speed-btn):hover:not(:disabled) {
+  color: #fff !important;
+  border-color: rgba(82,216,255,.62) !important;
+  background: linear-gradient(180deg, rgba(20,53,80,.98), rgba(7,24,42,.98)) !important;
+  box-shadow: 0 0 0 1px rgba(82,216,255,.08), 0 0 18px rgba(82,216,255,.13), inset 0 1px 0 rgba(255,255,255,.07) !important;
+  transform: translateY(-1px);
+}
+
+body.ae-executive-command :is(.primary,.btn-primary,.primary-btn,.confirm-btn,.cta,#end-turn-btn):not(.danger) {
+  color: #fff !important;
+  border-color: rgba(134,202,255,.72) !important;
+  background:
+    linear-gradient(135deg, #126cc8 0%, #3158d8 45%, #7f47d6 100%) !important;
+  box-shadow:
+    0 0 0 1px rgba(82,216,255,.16),
+    0 0 22px rgba(82,216,255,.18),
+    0 0 30px rgba(157,102,255,.13),
+    inset 0 1px 0 rgba(255,255,255,.24) !important;
+}
+
+body.ae-executive-command :is(.primary,.btn-primary,.primary-btn,.confirm-btn,.cta,#end-turn-btn):hover:not(:disabled) {
+  filter: brightness(1.12) saturate(1.12);
+  box-shadow:
+    0 0 0 1px rgba(103,225,255,.30),
+    0 0 28px rgba(82,216,255,.28),
+    0 0 38px rgba(157,102,255,.18),
+    inset 0 1px 0 rgba(255,255,255,.3) !important;
+}
+
+body.ae-executive-command :is(.danger,.btn-danger,.destructive) {
+  border-color: rgba(255,111,135,.45) !important;
+  background: linear-gradient(180deg, rgba(106,28,47,.74), rgba(52,12,28,.78)) !important;
+  color: #ffdce3 !important;
+}
+
+/* Inputs / focus */
+body.ae-executive-command :is(input,select,textarea,.input,.select,.search-box) {
+  color: #eaf3ff !important;
+  caret-color: var(--ae-nm-cyan);
+  background: linear-gradient(180deg, rgba(3,11,22,.96), rgba(7,18,32,.94)) !important;
+  border: 1px solid rgba(81,151,207,.30) !important;
+  border-radius: 8px !important;
+  box-shadow: inset 0 1px 5px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.025) !important;
+}
+
+body.ae-executive-command :is(input,select,textarea,.input,.select,.search-box):focus,
+body.ae-executive-command :is(button,.btn,.tab-btn,.ae-nav-item):focus-visible {
+  outline: none !important;
+  border-color: rgba(82,216,255,.88) !important;
+  box-shadow:
+    0 0 0 2px rgba(82,216,255,.12),
+    0 0 20px rgba(82,216,255,.16),
+    0 0 28px rgba(157,102,255,.08),
+    inset 0 1px 0 rgba(255,255,255,.035) !important;
+}
+
+body.ae-executive-command ::placeholder { color: #647b97 !important; }
+
+/* Cards / KPI blocks */
+body.ae-executive-command :is(.stat,.stat-card,.metric,.metric-card,.kpi,.summary-card,.info-card,.fleet-card,.route-card,.research-card) {
+  background:
+    linear-gradient(160deg, rgba(14,32,52,.86), rgba(5,15,27,.88)) !important;
+  border: 1px solid rgba(73,149,211,.22) !important;
+  border-radius: 10px !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 10px 28px rgba(0,0,0,.22) !important;
+}
+
+body.ae-executive-command :is(.stat,.stat-card,.metric,.metric-card,.kpi,.summary-card,.info-card,.fleet-card,.route-card,.research-card):hover {
+  border-color: rgba(82,216,255,.38) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 12px 30px rgba(0,0,0,.26), 0 0 16px rgba(82,216,255,.07) !important;
+}
+
+/* Semantic accent colors */
+body.ae-executive-command :is(.profit,.positive,.success,.active,.status-active,.good) { color: var(--ae-nm-teal) !important; }
+body.ae-executive-command :is(.loss,.negative,.error,.danger-text,.bad) { color: var(--ae-nm-red) !important; }
+body.ae-executive-command :is(.warning,.warn) { color: var(--ae-nm-orange) !important; }
+body.ae-executive-command :is(.accent,.highlight,.link) { color: var(--ae-nm-cyan) !important; }
+
+body.ae-executive-command :is(.badge,.pill,.tag,.status,.chip) {
+  border-color: rgba(102,169,225,.28) !important;
+  background: rgba(15,35,57,.72) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035) !important;
+}
+
+/* Tables / list rows */
+body.ae-executive-command :is(table,.table,.data-table) {
+  border-color: rgba(73,149,211,.20) !important;
+  background: rgba(4,13,24,.58) !important;
+}
+
+body.ae-executive-command :is(th,.table-head,.list-header) {
+  color: #94a9c4 !important;
+  background: rgba(12,28,46,.82) !important;
+  border-color: rgba(73,149,211,.18) !important;
+}
+
+body.ae-executive-command :is(tr,.table-row,.list-row) {
+  border-color: rgba(67,137,194,.12) !important;
+}
+
+body.ae-executive-command :is(tr,.table-row,.list-row):hover {
+  background: linear-gradient(90deg, rgba(82,216,255,.055), rgba(157,102,255,.025)) !important;
+}
+
+/* Progress / utilization */
+body.ae-executive-command :is(progress,.progress,.progress-track,.meter,.utilization-bar) {
+  background: #05111e !important;
+  border-color: rgba(74,143,198,.24) !important;
+}
+
+body.ae-executive-command :is(.progress-fill,.meter-fill,.utilization-fill,#timer-fill) {
+  background: linear-gradient(90deg, #35bfff, #5de7e1 52%, #8a67ff) !important;
+  box-shadow: 0 0 14px rgba(82,216,255,.28) !important;
+}
+
+/* Scrollbars */
+body.ae-executive-command * {
+  scrollbar-color: #31516d #06101c;
+  scrollbar-width: thin;
+}
+body.ae-executive-command *::-webkit-scrollbar { width: 9px; height: 9px; }
+body.ae-executive-command *::-webkit-scrollbar-track { background: #06101c; }
+body.ae-executive-command *::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #24537a, #4c3f84);
+  border: 2px solid #06101c;
+  border-radius: 10px;
+}
+body.ae-executive-command *::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #2e7baa, #694db0); }
+
+/* Selection and keyboard focus */
+body.ae-executive-command ::selection { background: rgba(92,194,255,.28); color: #fff; }
+body.ae-executive-command a { color: #70d8ff; }
+body.ae-executive-command a:hover { color: #a58cff; text-shadow: 0 0 12px rgba(157,102,255,.24); }
+
+/* Preserve readability of muted copy */
+body.ae-executive-command :is(.muted,.subtle,.secondary,.help-text,.subtitle,.meta,.label) {
+  color: var(--ae-nm-muted) !important;
+}
+
+/* Close controls */
+body.ae-executive-command :is(.modal-close,.close-btn,.popup-close,[data-close]) {
+  color: #9cafc7 !important;
+  background: rgba(7,18,32,.72) !important;
+  border-color: rgba(90,156,210,.22) !important;
+}
+body.ae-executive-command :is(.modal-close,.close-btn,.popup-close,[data-close]):hover {
+  color: #fff !important;
+  border-color: rgba(157,102,255,.55) !important;
+  box-shadow: 0 0 16px rgba(157,102,255,.13) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.ae-executive-command *,
+  body.ae-executive-command *::before,
+  body.ae-executive-command *::after {
+    transition-duration: .001ms !important;
+    animation-duration: .001ms !important;
+  }
+}

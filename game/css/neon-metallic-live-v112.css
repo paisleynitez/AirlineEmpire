@@ -1,0 +1,134 @@
+/* Airline Empire v1.1.12
+   Directly loaded neon-metallic enforcement layer.
+   Keeps the approved visual treatment visible across the live game without
+   replacing the compact layout rules or relying on nested stylesheet imports. */
+
+:root {
+  --ae-live-bg:#020711;
+  --ae-live-panel:#071425;
+  --ae-live-panel2:#0b1c31;
+  --ae-live-cyan:#52d8ff;
+  --ae-live-purple:#9d66ff;
+  --ae-live-teal:#4de0ba;
+  --ae-live-text:#f5f8ff;
+  --ae-live-muted:#9db0ca;
+}
+
+html, body, body.ae-executive-command {
+  color-scheme:dark !important;
+  background:#020711 !important;
+  color:var(--ae-live-text) !important;
+}
+
+body,
+body.ae-executive-command,
+#game-ui,
+#main,
+#intro,
+#intro-inner {
+  background:
+    radial-gradient(1000px 650px at 15% -10%, rgba(82,216,255,.13), transparent 64%),
+    radial-gradient(850px 600px at 90% 8%, rgba(157,102,255,.11), transparent 68%),
+    linear-gradient(145deg,#020711 0%,#06101c 55%,#02070f 100%) !important;
+}
+
+body.ae-executive-command #header,
+body.ae-executive-command #left-panel,
+body.ae-executive-command #right-panel,
+body.ae-executive-command .panel,
+body.ae-executive-command .card,
+body.ae-executive-command .modal,
+body.ae-executive-command .popup,
+body.ae-executive-command .dialog,
+body.ae-executive-command .drawer,
+body.ae-executive-command .sheet,
+body.ae-executive-command .ae-sb-panel,
+body.ae-executive-command .ae-ceo-card,
+body.ae-executive-command .acc-group,
+body.ae-executive-command .hcard,
+body .modal,
+body .popup,
+body .dialog,
+body .hcard {
+  background:linear-gradient(180deg,rgba(12,29,49,.96),rgba(5,14,27,.97)) !important;
+  border-color:rgba(82,216,255,.34) !important;
+  box-shadow:0 24px 64px rgba(0,0,0,.56),inset 0 1px 0 rgba(255,255,255,.05),0 0 22px rgba(82,216,255,.05) !important;
+}
+
+body.ae-executive-command .modal,
+body.ae-executive-command .popup,
+body.ae-executive-command .dialog,
+body .modal,
+body .popup,
+body .dialog {
+  border:1px solid rgba(97,206,255,.55) !important;
+  border-radius:12px !important;
+  box-shadow:0 30px 86px rgba(0,0,0,.72),0 0 0 1px rgba(82,216,255,.08),0 0 32px rgba(157,102,255,.11),inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+
+body.ae-executive-command :is(.modal-header,.popup-header,.dialog-header,.window-header,.panel-header,.card-header),
+body :is(.modal-header,.popup-header,.dialog-header,.window-header,.panel-header,.card-header) {
+  background:linear-gradient(90deg,rgba(82,216,255,.10),rgba(157,102,255,.07) 62%,transparent) !important;
+  border-bottom:1px solid rgba(82,216,255,.22) !important;
+}
+
+body.ae-executive-command :is(button,.btn,.cmd-btn,.hdr-tbtn,.speed-btn),
+body :is(button,.btn,.cmd-btn,.hdr-tbtn,.speed-btn) {
+  color:#dceaff !important;
+  background:linear-gradient(180deg,rgba(18,42,68,.98),rgba(6,18,34,.98)) !important;
+  border:1px solid rgba(82,216,255,.34) !important;
+  border-radius:9px !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.055) !important;
+}
+
+body.ae-executive-command :is(button,.btn,.cmd-btn,.hdr-tbtn,.speed-btn):hover:not(:disabled),
+body :is(button,.btn,.cmd-btn,.hdr-tbtn,.speed-btn):hover:not(:disabled) {
+  color:#fff !important;
+  border-color:rgba(82,216,255,.78) !important;
+  box-shadow:0 0 0 1px rgba(82,216,255,.10),0 0 22px rgba(82,216,255,.20),0 0 28px rgba(157,102,255,.08),inset 0 1px 0 rgba(255,255,255,.08) !important;
+}
+
+body.ae-executive-command :is(.primary,.btn-primary,.primary-btn,.confirm-btn,.cta,#end-turn-btn),
+body :is(.primary,.btn-primary,.primary-btn,.confirm-btn,.cta,#end-turn-btn) {
+  color:#fff !important;
+  background:linear-gradient(135deg,#0d7dc7 0%,#315be0 48%,#8c4de4 100%) !important;
+  border-color:rgba(136,224,255,.82) !important;
+  box-shadow:0 0 0 1px rgba(82,216,255,.15),0 0 24px rgba(82,216,255,.20),0 0 34px rgba(157,102,255,.14),inset 0 1px 0 rgba(255,255,255,.25) !important;
+}
+
+body.ae-executive-command :is(input,select,textarea,.input,.select,.search-box),
+body :is(input,select,textarea,.input,.select,.search-box) {
+  color:#eff7ff !important;
+  background:linear-gradient(180deg,rgba(3,11,22,.98),rgba(7,19,34,.98)) !important;
+  border:1px solid rgba(82,180,228,.38) !important;
+  border-radius:8px !important;
+}
+
+body.ae-executive-command :is(input,select,textarea,.input,.select,.search-box):focus,
+body.ae-executive-command :is(button,.btn,.tab-btn,.ae-nav-item):focus-visible,
+body :is(input,select,textarea,.input,.select,.search-box):focus,
+body :is(button,.btn,.tab-btn,.ae-nav-item):focus-visible {
+  outline:none !important;
+  border-color:var(--ae-live-cyan) !important;
+  box-shadow:0 0 0 2px rgba(82,216,255,.14),0 0 22px rgba(82,216,255,.20),0 0 30px rgba(157,102,255,.09) !important;
+}
+
+body.ae-executive-command :is(.tab-btn,.tab,.nf-btn,.ae-nav-item,.nav-item).active,
+body.ae-executive-command :is(.tab-btn,.tab,.nf-btn,.ae-nav-item,.nav-item)[aria-selected='true'],
+body :is(.tab-btn,.tab,.nf-btn,.ae-nav-item,.nav-item).active,
+body :is(.tab-btn,.tab,.nf-btn,.ae-nav-item,.nav-item)[aria-selected='true'] {
+  color:#fff !important;
+  background:linear-gradient(135deg,rgba(32,159,255,.23),rgba(145,78,255,.22)) !important;
+  border-color:rgba(82,216,255,.72) !important;
+  box-shadow:inset 3px 0 0 var(--ae-live-cyan),0 0 18px rgba(82,216,255,.16),0 0 28px rgba(157,102,255,.10) !important;
+}
+
+body.ae-executive-command :is(.profit,.positive,.success,.status-active,.good),
+body :is(.profit,.positive,.success,.status-active,.good) { color:var(--ae-live-teal) !important; }
+
+body.ae-executive-command ::-webkit-scrollbar,
+body ::-webkit-scrollbar { width:10px; height:10px; }
+body.ae-executive-command ::-webkit-scrollbar-track,
+body ::-webkit-scrollbar-track { background:#030a14; }
+body.ae-executive-command ::-webkit-scrollbar-thumb,
+body ::-webkit-scrollbar-thumb { background:linear-gradient(180deg,#1a5278,#5d43a7); border:2px solid #030a14; border-radius:10px; }

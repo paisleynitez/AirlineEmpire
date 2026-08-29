@@ -1,0 +1,244 @@
+/* Airline Empire v1.1.12
+   Site-wide Neon Metallic coverage.
+   This layer intentionally applies the approved visual language to the entire
+   live game page, including intro/home, overlays, utility panels, feature
+   windows, mini-games and dynamically-created UI. Layout and behavior remain
+   owned by the existing feature styles. */
+
+html,
+body {
+  color-scheme: dark;
+  background: #020711 !important;
+  color: var(--ae-nm-text, #f5f8ff);
+}
+
+body {
+  background:
+    radial-gradient(1000px 650px at 18% -10%, rgba(71,129,255,.13), transparent 64%),
+    radial-gradient(850px 620px at 88% 10%, rgba(157,102,255,.09), transparent 68%),
+    radial-gradient(780px 560px at 50% 108%, rgba(38,183,206,.08), transparent 70%),
+    linear-gradient(145deg, #020712 0%, #030a14 54%, #02070f 100%) !important;
+}
+
+/* Every major surface, not only the Operations Center. */
+:is(#intro,#intro-inner,#game-ui,#main,#left-panel,#right-panel,
+    .panel,.card,.window,.module,.widget,.screen,.page,.view,.content-panel,
+    .ae-sb-panel,.ae-ceo-card,.acc-group,.home-wrap,.hcard,
+    .modal,.popup,.dialog,.overlay-panel,.drawer,.sheet,
+    [role="dialog"],[data-modal],[data-popup]) {
+  border-color: var(--ae-nm-edge, rgba(77,164,225,.26)) !important;
+}
+
+:is(.panel,.card,.window,.module,.widget,.content-panel,.ae-sb-panel,.ae-ceo-card,.acc-group,
+    .hcard,.home-card,.feature-card,.mini-game-card,.admin-card,.receipt,.order-card) {
+  background:
+    linear-gradient(180deg, rgba(12,28,47,.90), rgba(5,15,27,.94)) !important;
+  border: 1px solid var(--ae-nm-edge, rgba(77,164,225,.26)) !important;
+  box-shadow:
+    0 20px 52px rgba(0,0,0,.42),
+    inset 0 1px 0 rgba(255,255,255,.045) !important;
+}
+
+/* Intro / home gets the same metallic-neon language. */
+#intro,
+#intro-inner,
+.home-wrap {
+  background:
+    radial-gradient(900px 580px at 20% 0%, rgba(82,216,255,.10), transparent 66%),
+    radial-gradient(760px 540px at 85% 18%, rgba(157,102,255,.10), transparent 70%),
+    linear-gradient(145deg, rgba(2,7,17,.98), rgba(3,10,20,.98)) !important;
+}
+
+:is(.home-top,.home-hero,.home-cards,.home-cards-grid,.home-ceo,.home-gear) {
+  border-color: rgba(82,216,255,.22) !important;
+}
+
+.hcard,
+.home-card {
+  border-radius: 12px !important;
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease, filter .16s ease !important;
+}
+
+.hcard:hover,
+.home-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(82,216,255,.64) !important;
+  box-shadow:
+    0 18px 42px rgba(0,0,0,.38),
+    0 0 24px rgba(82,216,255,.13),
+    0 0 34px rgba(157,102,255,.09),
+    inset 0 1px 0 rgba(255,255,255,.07) !important;
+}
+
+:is(.home-logo-txt,.hc-title,.home-ceo b,.home-tag) {
+  color: #f6f9ff !important;
+  text-shadow: 0 0 18px rgba(111,169,255,.12);
+}
+
+/* Global headers, titles and section bars. */
+:is(header,.topbar,.app-header,.modal-header,.popup-header,.dialog-header,.window-header,.panel-header,
+    .section-header,.card-header,.admin-header,.receipt-header) {
+  border-color: rgba(88,172,230,.24) !important;
+}
+
+:is(.modal-header,.popup-header,.dialog-header,.window-header,.panel-header,.section-header,.card-header,
+    .admin-header,.receipt-header) {
+  background: linear-gradient(90deg, rgba(82,216,255,.075), rgba(157,102,255,.045) 60%, transparent) !important;
+}
+
+:is(h1,h2,h3,h4,.title,.modal-title,.popup-title,.dialog-title,.window-title,.panel-title,.section-title,.card-title) {
+  color: #f7f9ff !important;
+}
+
+/* All modal-like surfaces including dynamically generated popups. */
+:is(.modal,.popup,.dialog,.overlay-panel,.drawer,.sheet,[role="dialog"],[data-modal],[data-popup]) {
+  color: var(--ae-nm-text, #f5f8ff) !important;
+  background:
+    linear-gradient(180deg, rgba(10,24,42,.985), rgba(4,12,23,.985)) !important;
+  border: 1px solid rgba(106,172,255,.40) !important;
+  border-radius: 12px !important;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.68),
+    0 0 0 1px rgba(82,216,255,.06),
+    0 0 34px rgba(87,122,255,.10),
+    inset 0 1px 0 rgba(255,255,255,.055) !important;
+}
+
+/* Tabs / nav everywhere. */
+:is(.tabs,.tab-bar,.subtabs,.segmented,.nav-tabs,.menu-tabs,.toolbar-tabs) {
+  background: rgba(3,10,20,.62) !important;
+  border-color: rgba(84,159,218,.22) !important;
+}
+
+:is(.tab-btn,.tab,.nf-btn,.ae-nav-item,.nav-item,.menu-item,.toolbar-btn) {
+  color: #9fb1ca !important;
+  border-color: transparent !important;
+  transition: color .16s ease, border-color .16s ease, background .16s ease, box-shadow .16s ease !important;
+}
+
+:is(.tab-btn,.tab,.nf-btn,.ae-nav-item,.nav-item,.menu-item,.toolbar-btn):hover {
+  color: #fff !important;
+  border-color: rgba(82,216,255,.34) !important;
+  background: linear-gradient(180deg, rgba(82,216,255,.10), rgba(82,216,255,.025)) !important;
+  box-shadow: 0 0 16px rgba(82,216,255,.08) !important;
+}
+
+:is(.tab-btn.active,.tab.active,.nf-btn.active,.ae-nav-item.active,.nav-item.active,.menu-item.active,
+    [aria-selected="true"],[aria-current="page"]) {
+  color: #fff !important;
+  border-color: rgba(83,218,255,.72) !important;
+  background: linear-gradient(135deg, rgba(38,150,255,.20), rgba(151,91,255,.18)) !important;
+  box-shadow:
+    inset 3px 0 0 var(--ae-nm-cyan, #52d8ff),
+    0 0 18px rgba(82,216,255,.16),
+    0 0 26px rgba(157,102,255,.08) !important;
+}
+
+/* Buttons everywhere, including mini-games and utility windows. */
+:is(button,.btn,.cmd-btn,.hdr-tbtn,.speed-btn,.action-btn,.purchase-btn,.buy-btn,.close-btn) {
+  border-radius: 9px !important;
+  border: 1px solid rgba(82,160,220,.30) !important;
+  background: linear-gradient(180deg, rgba(16,34,55,.95), rgba(6,18,32,.95)) !important;
+  color: #d8e4f4 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.045) !important;
+}
+
+:is(button,.btn,.cmd-btn,.hdr-tbtn,.speed-btn,.action-btn,.purchase-btn,.buy-btn,.close-btn):hover:not(:disabled) {
+  color: #fff !important;
+  border-color: rgba(82,216,255,.64) !important;
+  box-shadow: 0 0 18px rgba(82,216,255,.14), inset 0 1px 0 rgba(255,255,255,.07) !important;
+}
+
+:is(.primary,.btn-primary,.primary-btn,.confirm-btn,.cta,.purchase-btn,.buy-btn,#end-turn-btn):not(.danger) {
+  color: #fff !important;
+  border-color: rgba(134,202,255,.74) !important;
+  background: linear-gradient(135deg, #126cc8 0%, #3158d8 45%, #7f47d6 100%) !important;
+  box-shadow:
+    0 0 0 1px rgba(82,216,255,.15),
+    0 0 22px rgba(82,216,255,.18),
+    0 0 30px rgba(157,102,255,.13),
+    inset 0 1px 0 rgba(255,255,255,.24) !important;
+}
+
+/* Forms everywhere. */
+:is(input,select,textarea,.input,.select,.search-box,[contenteditable="true"]) {
+  color: #eaf3ff !important;
+  caret-color: var(--ae-nm-cyan, #52d8ff);
+  background: linear-gradient(180deg, rgba(3,11,22,.96), rgba(7,18,32,.94)) !important;
+  border: 1px solid rgba(81,151,207,.32) !important;
+  border-radius: 8px !important;
+  box-shadow: inset 0 1px 5px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.025) !important;
+}
+
+:is(input,select,textarea,.input,.select,.search-box,[contenteditable="true"]):focus,
+:is(button,.btn,.tab-btn,.ae-nav-item,.menu-item):focus-visible {
+  outline: none !important;
+  border-color: rgba(82,216,255,.90) !important;
+  box-shadow:
+    0 0 0 2px rgba(82,216,255,.12),
+    0 0 20px rgba(82,216,255,.17),
+    0 0 28px rgba(157,102,255,.08) !important;
+}
+
+::placeholder { color: #647b97 !important; }
+
+/* Lists, tables, receipts, finance/admin rows. */
+:is(table,.table,.data-table,.receipt-table,.admin-table) {
+  background: rgba(4,13,24,.62) !important;
+  border-color: rgba(73,149,211,.22) !important;
+}
+
+:is(th,.table-head,.list-header,.receipt-head,.admin-table th) {
+  color: #94a9c4 !important;
+  background: rgba(12,28,46,.84) !important;
+  border-color: rgba(73,149,211,.20) !important;
+}
+
+:is(tr,.table-row,.list-row,.receipt-row,.admin-row) {
+  border-color: rgba(67,137,194,.14) !important;
+}
+
+:is(tr,.table-row,.list-row,.receipt-row,.admin-row):hover {
+  background: linear-gradient(90deg, rgba(82,216,255,.055), rgba(157,102,255,.025)) !important;
+}
+
+/* Badges/status/progress globally. */
+:is(.badge,.pill,.tag,.status,.chip) {
+  border-color: rgba(102,169,225,.30) !important;
+  background: rgba(15,35,57,.76) !important;
+}
+
+:is(.profit,.positive,.success,.status-active,.good) { color: var(--ae-nm-teal, #4de0ba) !important; }
+:is(.loss,.negative,.error,.danger-text,.bad) { color: var(--ae-nm-red, #ff6f87) !important; }
+:is(.warning,.warn) { color: var(--ae-nm-orange, #ffac61) !important; }
+:is(.accent,.highlight,.link,a:hover) { color: var(--ae-nm-cyan, #52d8ff) !important; }
+
+:is(progress,.progress,.progress-track,.meter,.utilization-bar) {
+  background: #05111e !important;
+  border-color: rgba(74,143,198,.24) !important;
+}
+
+:is(.progress-fill,.meter-fill,.utilization-fill,#timer-fill) {
+  background: linear-gradient(90deg, #35bfff, #5de7e1 52%, #8a67ff) !important;
+  box-shadow: 0 0 14px rgba(82,216,255,.22) !important;
+}
+
+/* Consistent scrollbar across all windows and embedded tools. */
+* {
+  scrollbar-color: rgba(82,216,255,.55) rgba(3,10,19,.72);
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar { width: 9px; height: 9px; }
+*::-webkit-scrollbar-track { background: rgba(3,10,19,.72); }
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(82,216,255,.72), rgba(126,89,224,.72));
+  border: 2px solid rgba(3,10,19,.72);
+  border-radius: 999px;
+}
+
+/* Maintain visible keyboard focus site-wide. */
+:focus-visible {
+  outline: 2px solid rgba(82,216,255,.82);
+  outline-offset: 2px;
+}
