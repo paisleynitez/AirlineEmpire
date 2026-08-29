@@ -133,6 +133,16 @@
     const style=document.createElement('style');
     style.id='ae-draggable-popups-v01-style';
     style.textContent=`
+      body.ae-executive-command #modal-overlay.open .modal.modal-new-route{
+        width:76vw!important;
+        height:80vh!important;
+        max-width:1100px!important;
+        max-height:720px!important;
+        overflow:hidden!important;
+      }
+      body.ae-executive-command .modal-new-route :is(.modal-body,.nr-body,.nr-content,.nr-main){
+        min-height:0!important;
+      }
       body.ae-executive-command :is(.modal,.lab-card,#ac-pop-card) :is(.modal-header,.rov-header,.ops-report-header,.lab-header,.ac-pop-header,.nr-header,.rm-header,.cm-header,.bf-header,.projects-head,.neg-header){
         cursor:grab!important;
         user-select:none!important;
@@ -140,6 +150,14 @@
       }
       body.ae-executive-command :is(.modal,.lab-card,#ac-pop-card).ae-popup-dragging :is(.modal-header,.rov-header,.ops-report-header,.lab-header,.ac-pop-header,.nr-header,.rm-header,.cm-header,.bf-header,.projects-head,.neg-header){
         cursor:grabbing!important;
+      }
+      @media (max-width:900px){
+        body.ae-executive-command #modal-overlay.open .modal.modal-new-route{
+          width:calc(100vw - 24px)!important;
+          height:calc(100vh - 24px)!important;
+          max-width:calc(100vw - 24px)!important;
+          max-height:calc(100vh - 24px)!important;
+        }
       }
     `;
     document.head.appendChild(style);
