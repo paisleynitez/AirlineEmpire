@@ -1,0 +1,251 @@
+/* Airline Empire — New Route command layout v1.1.13
+   Screenshot-aligned two-column route builder. Layout/styling only; existing
+   route selection, aircraft, fare and open-route logic remain authoritative. */
+
+body.ae-executive-command #modal-content.modal.modal-new-route {
+  width: min(1680px, calc(100vw - 28px)) !important;
+  max-width: none !important;
+  height: min(900px, calc(100vh - 20px)) !important;
+  max-height: calc(100vh - 20px) !important;
+  margin: 10px auto !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 18px !important;
+  border: 1px solid rgba(102, 187, 210, .32) !important;
+  background: linear-gradient(180deg, rgba(7, 24, 34, .995), rgba(4, 15, 23, .995)) !important;
+  box-shadow: 0 30px 90px rgba(0,0,0,.58), inset 0 1px 0 rgba(255,255,255,.035) !important;
+}
+
+body.ae-executive-command #modal-content.modal.modal-new-route .modal-header,
+body.ae-executive-command #modal-content.modal.modal-new-route > header,
+body.ae-executive-command #modal-content.modal.modal-new-route .nr-header {
+  min-height: 78px !important;
+  padding: 0 22px !important;
+  display: flex !important;
+  align-items: center !important;
+  border-bottom: 1px solid rgba(145, 108, 183, .26) !important;
+  background: linear-gradient(180deg, rgba(9,27,38,.98), rgba(6,20,29,.98)) !important;
+}
+
+body.ae-executive-command #modal-content.modal.modal-new-route :is(.modal-title,.nr-title,h2) {
+  font-size: 28px !important;
+  line-height: 1 !important;
+  letter-spacing: .08em !important;
+  font-weight: 900 !important;
+  color: #f4f7f8 !important;
+}
+
+body.ae-executive-command #modal-content.modal.modal-new-route .nr-progress {
+  height: 4px !important;
+  margin: 0 !important;
+  padding: 0 22px !important;
+  gap: 8px !important;
+  background: rgba(3,11,17,.92) !important;
+}
+body.ae-executive-command #modal-content.modal.modal-new-route .nr-progress span {
+  height: 3px !important;
+  border-radius: 0 !important;
+}
+
+/* Core split: destination workspace gets more room, flight card gets less. */
+body.ae-executive-command #modal-content.modal.modal-new-route :is(.nr-main,.nr-body,.nr-grid,.nr-layout) {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.18fr) minmax(520px, .98fr) !important;
+  gap: 14px !important;
+  padding: 18px 16px 84px !important;
+  height: calc(100% - 82px) !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+body.ae-executive-command #modal-content.modal.modal-new-route .nr-pane {
+  min-width: 0 !important;
+  height: 100% !important;
+  padding: 20px 18px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(101, 169, 190, .23) !important;
+  border-radius: 17px !important;
+  background: linear-gradient(180deg, rgba(7,22,32,.90), rgba(5,17,25,.82)) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025) !important;
+}
+
+body.ae-executive-command #modal-content.modal.modal-new-route .nr-pane:first-child {
+  display: flex !important;
+  flex-direction: column !important;
+}
+body.ae-executive-command #modal-content.modal.modal-new-route .nr-pane:last-child {
+  padding: 20px 18px 16px !important;
+  overflow-y: auto !important;
+}
+
+body.ae-executive-command #modal-content.modal.modal-new-route :is(.nr-step,.nr-eyebrow,.nr-kicker) {
+  margin-bottom: 7px !important;
+  color: #c9acd9 !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase !important;
+}
+body.ae-executive-command #modal-content.modal.modal-new-route :is(.nr-pane h2,.nr-pane h3,.nr-heading) {
+  margin: 0 0 14px !important;
+  font-size: 25px !important;
+  color: #f4f7f8 !important;
+}
+
+body.ae-executive-command #modal-content.modal.modal-new-route .nr-hub-banner {
+  min-height: 72px !important;
+  margin-bottom: 14px !important;
+  padding: 14px 18px !important;
+  border-radius: 15px !important;
+  display: flex !important;
+  align-items: center !important;
+  background: linear-gradient(100deg, rgba(32,91,111,.27), rgba(25,41,58,.42)) !important;
+  border: 1px solid rgba(109,193,215,.38) !important;
+}
+
+/* Region and subregion selectors sit side-by-side, with All Regions / All Subregions. */
+body.ae-executive-command #modal-content.modal.modal-new-route :is(.nr-region-row,.nr-filter-row,.nr-region-filters,.region-tabs) {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 12px !important;
+  margin: 0 0 14px !important;
+}
+body.ae-executive-command #modal-content.modal.modal-new-route :is(.region-tab,.nr-region-select,.nr-subregion-select,select.nr-filter) {
+  width: 100% !important;
+  min-height: 58px !important;
+  padding: 0 18px !important;
+  border-radius: 14px !important;
+  border: 1px solid rgba(98,163,185,.25) !important;
+  background: rgba(5,19,28,.76) !important;
+  color: #eef5f7 !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+}
+body.ae-executive-command #modal-content.modal.modal-new-route :is(.region-tab.active,.nr-region-select.active,.nr-subregion-select.active) {
+  border-color: rgba(103,203,223,.52) !important;
+  background: linear-gradient(90deg, rgba(64,149,170,.18), rgba(53,92,112,.10)) !important;
+  box-shadow: inset 3px 0 #68c8d8 !important;
+}
+
+/* Recommended destination hero, then a compact two-column city grid. */
+body.ae-executive-command #modal-content.modal.modal-new-route :is(.nr-recommended,.nr-rec-card,.nr-featured-city) {
+  min-height: 148px !important;
+  margin-bottom: 12px !important;
+  padding: 24px 20px !important;
+  border-radius: 16px !important;
+  border: 1px solid rgba(168,108,225,.65) !important;
+  background:
+    linear-gradient(90deg, rgba(41,17,61,.90), rgba(44,43,77,.60) 54%, rgba(89,114,151,.58)),
+    radial-gradient(circle at 85% 30%, rgba(155,192,230,.25), transparent 45%) !important;
+  overflow: hidden !important;
+}
+body.ae-executive-command #modal-content.modal.modal-new-route :is(.nr-city-list,.nr-city-grid,.nr-destinations) {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  gap: 10px !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  padding-right: 4px !important;
+}
+body.ae-executive-command #modal-content.modal.modal-new-route .nr-city-card {
+  min-height: 108px !important;
+  padding: 14px 15px !important;
+  border-radius: 14px !important;
+  background: rgba(6,19,28,.74) !important;
+  border: 1px solid rgba(99,160,180,.19) !important;
+}
+body.ae-executive-command #modal-content.modal.modal-new-route .nr-city-card:hover,
+body.ae-executive-command #modal-content.modal.modal-new-route .nr-city-card.is-selected {
+  background: linear-gradient(90deg, rgba(66,167,185,.13), rgba(42,73,92,.10)) !important;
+  border-color: rgba(102,205,222,.48) !important;
+}
+
+/* Flight builder side: tighter cards and less dead space. */
+body.ae-executive-command #modal-content.modal.modal-new-route :is(.nr-route-hero,.nr-aircraft-section,.nr-fare-section,.nr-est) {
+  border-radius: 15px !important;
+  border: 1px solid rgba(96,157,178,.22) !important;
+  background: rgba(5,18,27,.72) !important;
+}
+body.ae-executive-command #modal-content.modal.modal-new-route .nr-route-hero {
+  min-height: 86px !important;
+  padding: 14px 16px !important;
+  margin-bottom: 14px !important;
+}
+body.ae-executive-command #modal-content.modal.modal-new-route .nr-plane-row {
+  min-height: 96px !important;
+  padding: 12px 14px !important;
+  border-radius: 14px !important;
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) auto !important;
+  align-items: center !important;
+  gap: 12px !important;
+  background: linear-gradient(90deg, rgba(22,65,80,.40), rgba(5,19,28,.70)) !important;
+  border: 1px solid rgba(94,190,208,.45) !important;
+}
+body.ae-executive-command #modal-content.modal.modal-new-route .nr-plane-row.sel {
+  box-shadow: inset 4px 0 #72d5df, 0 0 22px rgba(85,190,211,.08) !important;
+}
+body.ae-executive-command #modal-content.modal.modal-new-route :is(.nr-plane-add,.nr-buy-plane,.nr-change-plane) {
+  min-height: 46px !important;
+  margin-top: 12px !important;
+  width: 100% !important;
+  border-radius: 14px !important;
+}
+body.ae-executive-command #modal-content.modal.modal-new-route .nr-fare-section {
+  margin-top: 14px !important;
+  padding: 18px 16px !important;
+}
+body.ae-executive-command #modal-content.modal.modal-new-route :is(input[type="range"],.nr-fare-slider) {
+  accent-color: #63c5d6 !important;
+}
+body.ae-executive-command #modal-content.modal.modal-new-route .nr-est {
+  margin-top: 14px !important;
+  padding: 15px 16px !important;
+}
+
+/* Fixed route-summary footer from screenshot. */
+body.ae-executive-command #modal-content.modal.modal-new-route .nr-footer {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 8 !important;
+  min-height: 78px !important;
+  padding: 12px 22px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 14px !important;
+  border-top: 1px solid rgba(102,169,189,.24) !important;
+  background: rgba(4,16,24,.97) !important;
+  backdrop-filter: blur(14px) !important;
+}
+body.ae-executive-command #modal-content.modal.modal-new-route .nr-footer :is(button,.btn) {
+  min-height: 48px !important;
+  border-radius: 14px !important;
+  padding-inline: 22px !important;
+}
+
+body.ae-executive-command #modal-content.modal.modal-new-route ::-webkit-scrollbar { width: 7px !important; }
+body.ae-executive-command #modal-content.modal.modal-new-route ::-webkit-scrollbar-thumb {
+  background: rgba(92,186,207,.42) !important;
+  border-radius: 10px !important;
+}
+
+@media (max-width: 1180px) {
+  body.ae-executive-command #modal-content.modal.modal-new-route :is(.nr-main,.nr-body,.nr-grid,.nr-layout) {
+    grid-template-columns: minmax(0, 1.08fr) minmax(440px, .92fr) !important;
+  }
+}
+@media (max-width: 960px) {
+  body.ae-executive-command #modal-content.modal.modal-new-route {
+    width: calc(100vw - 12px) !important;
+    height: calc(100vh - 12px) !important;
+    margin: 6px !important;
+  }
+  body.ae-executive-command #modal-content.modal.modal-new-route :is(.nr-main,.nr-body,.nr-grid,.nr-layout) {
+    display: block !important;
+    overflow-y: auto !important;
+  }
+  body.ae-executive-command #modal-content.modal.modal-new-route .nr-pane { height: auto !important; margin-bottom: 12px !important; }
+}
