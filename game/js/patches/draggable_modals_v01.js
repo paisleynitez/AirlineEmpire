@@ -134,29 +134,119 @@
     style.id='ae-draggable-popups-v01-style';
     style.textContent=`
       body.ae-executive-command #modal-overlay.open .modal.modal-new-route{
-        width:76vw!important;
-        height:80vh!important;
-        max-width:1100px!important;
-        max-height:720px!important;
+        width:min(76vw,1100px)!important;
+        height:min(80vh,720px)!important;
+        max-width:calc(100vw - 32px)!important;
+        max-height:calc(100vh - 32px)!important;
         overflow:hidden!important;
+        font-size:clamp(13px,.78vw,16px)!important;
+        line-height:1.4!important;
       }
+
       body.ae-executive-command .modal-new-route :is(.modal-body,.nr-body,.nr-content,.nr-main){
         min-height:0!important;
       }
+
+      body.ae-executive-command .modal-new-route :is(.modal-body,.nr-body,.nr-content,.nr-main,.nr-pane){
+        overflow:auto;
+      }
+
+      body.ae-executive-command .modal-new-route :is(h1,h2,h3,.modal-title,.nr-title,.nr-pane-heading strong){
+        line-height:1.15!important;
+        letter-spacing:0!important;
+        text-wrap:balance;
+      }
+
+      body.ae-executive-command .modal-new-route .modal-title{
+        font-size:clamp(20px,1.45vw,28px)!important;
+      }
+
+      body.ae-executive-command .modal-new-route :is(.nr-pane-heading strong,.nr-title){
+        font-size:clamp(17px,1.2vw,23px)!important;
+      }
+
+      body.ae-executive-command .modal-new-route :is(
+        .nr-pane-heading,.nr-label,.nr-meta,.nr-city-card,.nr-plane-row,.region-tab,
+        .nr-est,.nr-route-hero,.nr-fare-section,.nr-footer,.uk-info,.info-box,
+        button,input,select,textarea
+      ){
+        font-size:clamp(12.5px,.74vw,15px)!important;
+      }
+
+      body.ae-executive-command .modal-new-route :is(
+        .nr-meta,.nr-sub,.nr-city-meta,.nr-plane-meta,.nr-muted,small
+      ){
+        color:#aebfc6!important;
+        font-size:clamp(11.5px,.67vw,13.5px)!important;
+        line-height:1.45!important;
+      }
+
+      body.ae-executive-command .modal-new-route :is(
+        .modal-title,.nr-title,.nr-pane-heading strong,.nr-city-card strong,
+        .nr-plane-row strong,.nr-est strong,.nr-route-hero strong
+      ){
+        color:#f4f8f9!important;
+        font-weight:750!important;
+        text-shadow:none!important;
+      }
+
+      body.ae-executive-command .modal-new-route :is(.region-tab,.nr-city-card,.nr-plane-row,button){
+        min-height:34px;
+      }
+
+      body.ae-executive-command .modal-new-route :is(.nr-pane,.nr-est,.nr-fare-section,.nr-route-hero){
+        padding:clamp(10px,1vw,16px)!important;
+      }
+
+      body.ae-executive-command .modal-new-route :is(.nr-city-card,.nr-plane-row){
+        padding:clamp(8px,.75vw,12px)!important;
+      }
+
+      body.ae-executive-command .modal-new-route .nr-footer{
+        min-height:58px!important;
+        padding:10px clamp(12px,1.2vw,20px)!important;
+      }
+
       body.ae-executive-command :is(.modal,.lab-card,#ac-pop-card) :is(.modal-header,.rov-header,.ops-report-header,.lab-header,.ac-pop-header,.nr-header,.rm-header,.cm-header,.bf-header,.projects-head,.neg-header){
         cursor:grab!important;
         user-select:none!important;
         touch-action:none!important;
       }
+
       body.ae-executive-command :is(.modal,.lab-card,#ac-pop-card).ae-popup-dragging :is(.modal-header,.rov-header,.ops-report-header,.lab-header,.ac-pop-header,.nr-header,.rm-header,.cm-header,.bf-header,.projects-head,.neg-header){
         cursor:grabbing!important;
       }
+
+      @media (max-width:1200px){
+        body.ae-executive-command #modal-overlay.open .modal.modal-new-route{
+          width:min(90vw,1050px)!important;
+          height:min(86vh,700px)!important;
+        }
+      }
+
       @media (max-width:900px){
         body.ae-executive-command #modal-overlay.open .modal.modal-new-route{
-          width:calc(100vw - 24px)!important;
-          height:calc(100vh - 24px)!important;
-          max-width:calc(100vw - 24px)!important;
-          max-height:calc(100vh - 24px)!important;
+          width:calc(100vw - 20px)!important;
+          height:calc(100vh - 20px)!important;
+          max-width:calc(100vw - 20px)!important;
+          max-height:calc(100vh - 20px)!important;
+          font-size:14px!important;
+        }
+        body.ae-executive-command .modal-new-route :is(.nr-grid,.nr-layout,.nr-columns,.nr-main-grid){
+          grid-template-columns:1fr!important;
+        }
+      }
+
+      @media (max-width:640px){
+        body.ae-executive-command .modal-new-route{
+          font-size:13.5px!important;
+        }
+        body.ae-executive-command .modal-new-route .modal-title{
+          font-size:20px!important;
+        }
+        body.ae-executive-command .modal-new-route :is(.region-tabs,.nr-region-tabs,.nr-tabs){
+          overflow-x:auto!important;
+          flex-wrap:nowrap!important;
         }
       }
     `;
