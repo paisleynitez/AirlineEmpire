@@ -10,6 +10,58 @@
     }catch(e){}
   }
 
+  function installNewRouteSizing(){
+    if(document.getElementById('nr-compact-balance-v1')) return;
+    const style=document.createElement('style');
+    style.id='nr-compact-balance-v1';
+    style.textContent=`
+      body.ae-executive-command .modal.modal-new-route{
+        width:min(1380px,calc(100vw - 88px))!important;
+        max-width:calc(100vw - 48px)!important;
+        height:min(720px,calc(100vh - 76px))!important;
+        min-height:0!important;
+        max-height:calc(100vh - 48px)!important;
+        border-radius:18px!important;
+        overflow:hidden!important;
+      }
+      body.ae-executive-command .modal-new-route :is(.nr-body,.nr-main,.nr-content,.nr-layout,.nr-grid){
+        min-height:0!important;
+      }
+      body.ae-executive-command .modal-new-route :is(.nr-body,.nr-main,.nr-content){
+        overflow:hidden!important;
+      }
+      body.ae-executive-command .modal-new-route :is(.nr-pane,.nr-city-list,.nr-destination-list,.nr-aircraft-list,.nr-build-pane){
+        min-height:0!important;
+      }
+      body.ae-executive-command .modal-new-route :is(.nr-city-list,.nr-destination-list,.nr-aircraft-list){
+        overflow-y:auto!important;
+      }
+      body.ae-executive-command .modal-new-route :is(.nr-grid,.nr-layout,.nr-main-grid){
+        grid-template-columns:minmax(0,1.16fr) minmax(0,.94fr)!important;
+        gap:14px!important;
+      }
+      body.ae-executive-command .modal-new-route .nr-footer{
+        min-height:72px!important;
+        padding:10px 18px!important;
+      }
+      body.ae-executive-command .modal-new-route :is(.nr-pane,.nr-fare-section,.nr-est,.nr-route-hero){
+        border-radius:14px!important;
+      }
+      @media (max-width:1100px){
+        body.ae-executive-command .modal.modal-new-route{
+          width:calc(100vw - 32px)!important;
+          height:calc(100vh - 32px)!important;
+          max-width:none!important;
+          max-height:none!important;
+        }
+        body.ae-executive-command .modal-new-route :is(.nr-grid,.nr-layout,.nr-main-grid){
+          grid-template-columns:1fr 1fr!important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   function installNewRouteDrag(){
     const modal=document.getElementById('modal-content');
     if(!modal || modal.dataset.nrDragInstalled==='1') return;
@@ -64,7 +116,7 @@
       modal.style.top=top+'px';
     });
 
-    function stop(e){
+    function stop(){
       if(!dragging) return;
       const handle=dragHandle();
       dragging=false;
@@ -96,7 +148,7 @@
     observer.observe(modal,{attributes:true,attributeFilter:['class'],childList:true,subtree:true});
   }
 
-  function boot(){ applyV08(); installNewRouteDrag(); }
+  function boot(){ applyV08(); installNewRouteSizing(); installNewRouteDrag(); }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
   setTimeout(boot,250);
 })();
