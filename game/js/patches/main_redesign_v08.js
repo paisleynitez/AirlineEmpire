@@ -11,17 +11,17 @@
   }
 
   function loadFleetUpgrade(){
-    if(!document.getElementById('ae-fleet-aircraft-v113-style')){
+    if(!document.getElementById('ae-fleet-aircraft-v114-style')){
       const link=document.createElement('link');
-      link.id='ae-fleet-aircraft-v113-style';
+      link.id='ae-fleet-aircraft-v114-style';
       link.rel='stylesheet';
-      link.href='./css/fleet-aircraft-v113.css';
+      link.href='./css/fleet-aircraft-v114.css?v=114';
       document.head.appendChild(link);
     }
-    if(!document.getElementById('ae-fleet-aircraft-v113-script')){
+    if(!document.getElementById('ae-fleet-aircraft-v114-script')){
       const script=document.createElement('script');
-      script.id='ae-fleet-aircraft-v113-script';
-      script.src='./js/patches/fleet_aircraft_v113.js';
+      script.id='ae-fleet-aircraft-v114-script';
+      script.src='./js/patches/fleet_aircraft_v114.js?v=114';
       document.head.appendChild(script);
     }
   }
@@ -34,7 +34,9 @@
       const ticker=document.getElementById('stock-ticker'); if(ticker) ticker.classList.remove('visible');
       loadDraggablePopups();
       loadFleetUpgrade();
-    }catch(e){}
+    }catch(e){
+      console.error('[AE] main redesign patch failed',e);
+    }
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',applyV08); else applyV08();
   setTimeout(applyV08,250);
