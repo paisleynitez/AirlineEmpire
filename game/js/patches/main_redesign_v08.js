@@ -11,17 +11,17 @@
   }
 
   function loadFleetUpgrade(){
-    if(!document.getElementById('ae-fleet-aircraft-v115-style')){
+    if(!document.getElementById('ae-fleet-aircraft-v116-style')){
       const link=document.createElement('link');
-      link.id='ae-fleet-aircraft-v115-style';
+      link.id='ae-fleet-aircraft-v116-style';
       link.rel='stylesheet';
-      link.href='./css/fleet-aircraft-v115.css?v=115';
+      link.href='./css/fleet-aircraft-v116.css?v=116';
       document.head.appendChild(link);
     }
-    if(!document.getElementById('ae-fleet-aircraft-v115-script')){
+    if(!document.getElementById('ae-fleet-aircraft-v116-script')){
       const script=document.createElement('script');
-      script.id='ae-fleet-aircraft-v115-script';
-      script.src='./js/patches/fleet_aircraft_v115.js?v=115';
+      script.id='ae-fleet-aircraft-v116-script';
+      script.src='./js/patches/fleet_aircraft_v116.js?v=116';
       document.head.appendChild(script);
     }
   }
