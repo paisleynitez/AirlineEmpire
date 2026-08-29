@@ -31,6 +31,219 @@ body.ae-executive-command .modal-negotiations .modal-body {
   }
 }
 
+/* New Route: balanced decision window with denser two-pane workflow. */
+body.ae-executive-command .modal.modal-new-route {
+  width: min(1100px, 76vw) !important;
+  height: min(720px, 80vh) !important;
+  max-width: calc(100vw - 48px) !important;
+  max-height: calc(100vh - 64px) !important;
+  border-radius: 16px !important;
+}
+
+body.ae-executive-command .modal-new-route .modal-header {
+  padding: 12px 18px 10px !important;
+}
+
+body.ae-executive-command .modal-new-route .modal-title {
+  font-size: 17px !important;
+  letter-spacing: 1.8px !important;
+}
+
+body.ae-executive-command .modal-new-route .modal-close {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 8px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-progress {
+  padding-inline: 18px !important;
+}
+
+body.ae-executive-command .modal-new-route .modal-body {
+  padding: 11px 13px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-grid {
+  grid-template-columns: minmax(0, 1.08fr) minmax(350px, .92fr) !important;
+  gap: 10px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-pane {
+  padding: 12px !important;
+  border-radius: 12px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-pane-heading {
+  margin-bottom: 8px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-pane-heading span,
+body.ae-executive-command .modal-new-route .nr-card-label,
+body.ae-executive-command .modal-new-route .nr-origin-label {
+  font-size: 9.5px !important;
+  letter-spacing: 1.1px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-pane-heading strong {
+  font-size: 16px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-pane-heading > b {
+  padding: 4px 8px !important;
+  font-size: 9.5px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-hub-row {
+  margin-bottom: 8px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-hub-banner {
+  min-height: 46px !important;
+  padding: 9px 11px !important;
+  border-radius: 10px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-hub-name {
+  font-size: 14px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-hub-iata {
+  font-size: 12px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-region-row {
+  margin-bottom: 5px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-subregion-row {
+  margin-bottom: 7px !important;
+}
+
+body.ae-executive-command .modal-new-route .region-tab {
+  min-width: 62px !important;
+  padding: 5px 7px !important;
+  border-radius: 7px !important;
+  font-size: 10px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-featured {
+  min-height: 98px !important;
+  margin-bottom: 7px !important;
+  border-radius: 11px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-featured-copy {
+  padding: 12px !important;
+  gap: 3px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-featured-copy small {
+  font-size: 8.5px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-featured-copy strong {
+  font-size: 18px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-featured-copy > span {
+  font-size: 10.5px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-featured-code {
+  top: 11px !important;
+  right: 11px !important;
+  font-size: 14px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-city-grid {
+  gap: 5px !important;
+  max-height: 170px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-city-card {
+  gap: 5px !important;
+  padding: 8px 9px !important;
+  border-radius: 9px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-city-top strong {
+  font-size: 12px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-route-hero {
+  min-height: 56px !important;
+  margin-bottom: 8px !important;
+  padding: 9px 11px !important;
+  border-radius: 10px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-route-place strong {
+  font-size: 17px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-plane-row {
+  padding: 7px 9px !important;
+  border-radius: 9px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-plane-row.rec {
+  padding-top: 21px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-plane-art {
+  flex-basis: 60px !important;
+  width: 60px !important;
+  height: 34px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-buy-link {
+  margin-top: 6px !important;
+  padding: 7px 9px !important;
+  font-size: 10.5px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-fare-section {
+  margin-top: 8px !important;
+  padding: 9px !important;
+  border-radius: 9px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-fare-heading {
+  margin-bottom: 5px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-fare-heading strong {
+  font-size: 17px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-tip {
+  margin-top: 6px !important;
+  padding: 6px 8px !important;
+  font-size: 9.5px !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-footer {
+  padding: 9px 14px 10px !important;
+}
+
+body.ae-executive-command .modal-new-route :is(.nr-open-btn, .nr-add-btn) {
+  min-height: 36px !important;
+  padding: 8px 12px !important;
+  font-size: 11px !important;
+}
+
+@media (max-width: 980px) {
+  body.ae-executive-command .modal.modal-new-route {
+    width: min(720px, calc(100vw - 24px)) !important;
+    height: calc(100vh - 32px) !important;
+    max-height: calc(100vh - 32px) !important;
+  }
+
+  body.ae-executive-command .modal-new-route .nr-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 /* Header, date, simulation controls, and End Turn */
 body.ae-executive-command #game-ui #header {
   min-height: 40px !important;
