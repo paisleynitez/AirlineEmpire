@@ -10,6 +10,22 @@
     document.head.appendChild(script);
   }
 
+  function loadFleetUpgrade(){
+    if(!document.getElementById('ae-fleet-aircraft-v112-style')){
+      const link=document.createElement('link');
+      link.id='ae-fleet-aircraft-v112-style';
+      link.rel='stylesheet';
+      link.href='./css/fleet-aircraft-v112.css';
+      document.head.appendChild(link);
+    }
+    if(!document.getElementById('ae-fleet-aircraft-v112-script')){
+      const script=document.createElement('script');
+      script.id='ae-fleet-aircraft-v112-script';
+      script.src='./js/patches/fleet_aircraft_v112.js';
+      document.head.appendChild(script);
+    }
+  }
+
   function applyV08(){
     try{
       document.documentElement.setAttribute('data-ae-build',tag);
@@ -17,6 +33,7 @@
       const oc=document.querySelector('#ops-center .oc-sub'); if(oc) oc.textContent='Ops feed · alerts, rivals, fleet, routes';
       const ticker=document.getElementById('stock-ticker'); if(ticker) ticker.classList.remove('visible');
       loadDraggablePopups();
+      loadFleetUpgrade();
     }catch(e){}
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',applyV08); else applyV08();
