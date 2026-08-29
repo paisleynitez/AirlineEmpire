@@ -1,6 +1,6 @@
 (function(){
   const tag='MAIN_REDESIGN_v08_SLOT_DIRECT';
-  let selectedCity='Denver', pinned=false, region='ALL', sort='revenue', confirmCity=null;
+  let selectedCity='Denver', pinned=false, region='ALL', subregion='ALL', sort='revenue', confirmCity=null;
   let nativeOpenModal=null;
 
   function addSlotStyles(){
@@ -23,14 +23,31 @@
         const active=(STATE.negotiating||{})[name]||0;
         const frozen=!!(STATE.slotFreeze&&STATE.slotFreeze[name]);
         const routes=(STATE.routes||[]).filter(r=>r.from===name||r.to===name).length;
-        return {name,code:ci.abbr||name.slice(0,3).toUpperCase(),region:ci.region||'Other',slots:ci.slots||0,
+        return {name,code:ci.abbr||name.slice(0,3).toUpperCase(),region:ci.region||'Other',lat:ci.lat||0,lon:ci.lon||0,slots:ci.slots||0,
           econ:ci.econ||0,tourism:ci.tourism||0,pop:ci.pop||0,cost,revenue,load,active,frozen,routes};
       });
+  }
+
+  function subregionDefinitions(){
+    return region!=='ALL' && typeof SUBREGIONS!=='undefined' ? (SUBREGIONS[region]||[]) : [];
+  }
+
+  function refreshSubregionOptions(){
+    const select=document.getElementById('ae-slot-subregion'); if(!select) return;
+    const definitions=subregionDefinitions();
+    select.innerHTML=`<option value="ALL">All Subregions</option>${definitions.map(s=>`<option value="${s.key}">${s.label}</option>`).join('')}`;
+    select.disabled=!definitions.length;
+    if(!definitions.some(s=>s.key===subregion)) subregion='ALL';
+    select.value=subregion;
   }
 
   function filteredCities(){
     let rows=availableCities();
     if(region!=='ALL') rows=rows.filter(a=>a.region===region);
+    if(subregion!=='ALL'){
+      const definition=subregionDefinitions().find(s=>s.key===subregion);
+      if(definition) rows=rows.filter(a=>definition.test(a.lat,a.lon,a.name));
+    }
     rows.sort((a,b)=>sort==='slots'?b.slots-a.slots:sort==='name'?a.name.localeCompare(b.name):b.revenue-a.revenue);
     return rows;
   }
@@ -93,6 +110,7 @@
   function renderList(){
     const host=document.querySelector('#ae-slot-negotiations .ae-sn-list'); if(!host) return;
     const rows=filteredCities();
+    if(rows.length && !rows.some(a=>a.name===selectedCity)) selectedCity=rows[0].name;
     host.innerHTML=rows.map(card).join('');
     host.querySelectorAll('.ae-sn-card').forEach(el=>{
       const choose=()=>{selectedCity=el.dataset.city;confirmCity=null;renderList();details();};
@@ -134,14 +152,15 @@
     const regs=[...new Set(availableCities().map(a=>a.region))].sort();
     root.innerHTML=`<section class="ae-sn-window" role="dialog" aria-modal="true" aria-label="Slot Negotiations">
       <header class="ae-sn-head"><div class="ae-sn-title"><span>🤝</span>SLOT NEGOTIATIONS</div><div class="ae-sn-grip" aria-hidden="true"></div><div class="ae-sn-head-actions"><button class="ae-sn-iconbtn ae-sn-pin" title="Pin">📌</button><button class="ae-sn-iconbtn ae-sn-min" title="Minimize">−</button><button class="ae-sn-iconbtn ae-sn-x" title="Close">×</button></div></header>
-      <div class="ae-sn-body"><aside class="ae-sn-left"><div class="ae-sn-filters"><select id="ae-slot-region" class="ae-sn-select" aria-label="Region"><option value="ALL">🌐 All Regions</option>${regs.map(r=>`<option value="${r}">${r}</option>`).join('')}</select><select id="ae-slot-sort" class="ae-sn-select" aria-label="Sort"><option value="revenue">⚖ Sort: Revenue</option><option value="slots">Sort: Slots</option><option value="name">Sort: Name</option></select></div><div class="ae-sn-list"></div></aside><main class="ae-sn-right"></main></div>
+      <div class="ae-sn-body"><aside class="ae-sn-left"><div class="ae-sn-filters"><select id="ae-slot-region" class="ae-sn-select" aria-label="Region"><option value="ALL">🌐 All Regions</option>${regs.map(r=>`<option value="${r}">${r}</option>`).join('')}</select><select id="ae-slot-subregion" class="ae-sn-select" aria-label="Subregion"><option value="ALL">All Subregions</option></select><select id="ae-slot-sort" class="ae-sn-select" aria-label="Sort"><option value="revenue">⚖ Sort: Revenue</option><option value="slots">Sort: Slots</option><option value="name">Sort: Name</option></select></div><div class="ae-sn-list"></div></aside><main class="ae-sn-right"></main></div>
       <footer class="ae-sn-foot"><span class="ae-sn-count"></span><button class="ae-sn-close" type="button">Close</button></footer></section>`;
     document.body.appendChild(root);
     root.querySelector('.ae-sn-x').addEventListener('click',closeSlotWindow);
     root.querySelector('.ae-sn-close').addEventListener('click',closeSlotWindow);
     root.querySelector('.ae-sn-min').addEventListener('click',()=>root.querySelector('.ae-sn-window').classList.toggle('minimized'));
     root.querySelector('.ae-sn-pin').addEventListener('click',e=>{pinned=!pinned;e.currentTarget.style.color=pinned?'#59d9ff':'';});
-    root.querySelector('#ae-slot-region').addEventListener('change',e=>{region=e.target.value;confirmCity=null;renderList();details();});
+    root.querySelector('#ae-slot-region').addEventListener('change',e=>{region=e.target.value;subregion='ALL';confirmCity=null;refreshSubregionOptions();renderList();details();});
+    root.querySelector('#ae-slot-subregion').addEventListener('change',e=>{subregion=e.target.value;confirmCity=null;renderList();details();});
     root.querySelector('#ae-slot-sort').addEventListener('change',e=>{sort=e.target.value;renderList();});
     root.addEventListener('mousedown',e=>{if(e.target===root&&!pinned)closeSlotWindow();});
     makeDraggable(root.querySelector('.ae-sn-window'),root.querySelector('.ae-sn-head'));
@@ -158,6 +177,7 @@
     if(!rows.some(a=>a.name===selectedCity)) selectedCity=rows[0].name;
     const root=buildWindow();
     root.hidden=false;
+    refreshSubregionOptions();
     const win=root.querySelector('.ae-sn-window');
     win.classList.remove('minimized');
     renderList();details();
