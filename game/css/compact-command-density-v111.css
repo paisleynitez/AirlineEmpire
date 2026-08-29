@@ -119,6 +119,44 @@ body.ae-executive-command .modal-new-route .nr-subregion-row {
   margin-bottom: 7px !important;
 }
 
+body.ae-executive-command .modal-new-route .nr-location-filters {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 8px;
+}
+
+body.ae-executive-command .modal-new-route :is(.nr-region-row, .nr-subregion-row) {
+  display: block !important;
+  margin: 0 !important;
+}
+
+body.ae-executive-command .modal-new-route .nr-location-select {
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid rgba(108, 199, 216, .28);
+  border-radius: 9px;
+  outline: none;
+  color: #e7f0f3;
+  background: rgba(8, 27, 39, .92);
+  font: 700 12px/1 Inter, system-ui, sans-serif;
+}
+
+body.ae-executive-command .modal-new-route .nr-location-select:focus {
+  border-color: rgba(108, 199, 216, .7);
+  box-shadow: 0 0 0 2px rgba(108, 199, 216, .12);
+}
+
+body.ae-executive-command .modal-new-route .nr-location-select:disabled {
+  color: #637682;
+  border-color: rgba(123, 173, 195, .14);
+  background: rgba(7, 21, 31, .62);
+  cursor: not-allowed;
+  opacity: .8;
+}
+
 body.ae-executive-command .modal-new-route .region-tab {
   min-width: 62px !important;
   padding: 5px 7px !important;
