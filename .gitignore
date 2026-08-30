@@ -29,3 +29,6 @@ game/screenshots/*
 
 # Local developer scratch space
 /dev/
+
+# File Claude cannot delete
+claude_for_delete/

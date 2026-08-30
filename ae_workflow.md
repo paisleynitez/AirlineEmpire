@@ -100,3 +100,47 @@ The active development branch is the source of truth for in-progress Airline Emp
 `main` is the integrated baseline and remains protected from direct AI development changes.
 
 Repository access should be used directly whenever available, with GitHub serving as the handoff point between ChatGPT, Scotty, and Doug.
+
+## Claude (claude.ai) session workflow
+
+Claude works through the Filesystem connector directly on the local working copy at
+`C:\GitHub\AirlineEmpire`. Claude edits local files only; Scotty handles all Git operations
+manually. Claude never runs or suggests Git commands.
+
+### Text changes (code, CSS, HTML, data, docs)
+
+Claude writes these directly into the working copy. New work goes in self-contained,
+versioned files (`game\css\*-vNN.css`, `game\js\patches\*_vNN.js`) plus minimal loader
+lines in `game\index.html`. `game\js\core\game.js` is not edited by Claude; if a change
+there is unavoidable, Claude specifies the exact line and Scotty applies it, then Claude
+verifies the saved file (syntax check + diff against the previous version).
+
+### Images / binary files (Claude → repo)
+
+The connector is text-only, so binary files are delivered as a zip:
+
+1. Claude builds the zip, always rooted at repo layout (`assets\...`, `game\...`),
+   verifies its contents, and attaches it in chat.
+2. Save the download to `C:\GitHub\AirlineEmpire\images_to_apply\<filename>.zip`.
+3. From the base directory `C:\GitHub\AirlineEmpire`, run:
+   `unzip -o .\images_to_apply\<filename>.zip`
+   (`-o` overwrites in place — Claude's zips are always intentional overwrites and
+   contain nothing outside their stated paths.)
+4. Reply "applied".
+5. Claude verifies through the connector (byte-size/content spot checks against the
+   built package) and confirms, or flags exactly what did not land.
+
+### Images / binary files (ChatGPT → repo)
+
+Generated images for Claude to integrate go into `C:\GitHub\AirlineEmpire\images_to_apply\`
+(following the request README there when one exists). Claude routes them into the game
+from that folder and updates the relevant manifests.
+
+### File removal
+
+Claude cannot delete files. When a file should be removed from the working copy, Claude
+moves it to `C:\GitHub\AirlineEmpire\claude_for_delete\`, appending a timestamp before the
+extension — `fleet_aircraft_v112.js` → `fleet_aircraft_v112_1512.js` (24h HHMM; seconds added
+only if needed to avoid a collision) — and states in chat what was moved and why. Scotty
+handles the actual cleanup of that folder. Claude also removes any loader/manifest references
+to the moved file so the game never points at it.

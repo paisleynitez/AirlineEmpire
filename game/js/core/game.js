@@ -2618,8 +2618,7 @@ function switchGuideTab(tab) {
   _activeGuideTab = tab;
   document.querySelectorAll('.guide-tab').forEach(t =>
     t.classList.toggle('active', t.dataset.tab === tab));
-  document.getElementById('guide-body').innerHTML = GUIDE_CONTENT[tab] || '';
-}
+const gb = document.getElementById('guide-body'); if (gb) gb.innerHTML = GUIDE_CONTENT[tab] || '';}
 function toggleFaq(el) {
   const isOpen = el.classList.contains('open');
   document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
