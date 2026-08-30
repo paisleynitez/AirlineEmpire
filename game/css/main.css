@@ -3737,15 +3737,26 @@
   .modal-wide { width: 920px; max-width: 96vw; }
   .modal-negotiations { width: 620px; max-width: 96vw; }
   .modal.modal-route-manager {
-    width: 600px;
+    width: 680px;
+    min-width: 520px;
+    min-height: 320px;
     max-width: 96vw;
     max-height: calc(100vh - 156px);
     margin-top: 140px;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    resize: both;
     background: linear-gradient(145deg, rgba(43,32,63,.98), rgba(25,20,37,.98)) !important;
   }
-  .modal-route-manager .modal-header { padding: 13px 17px; }
-  .modal-route-manager .modal-title { font-size: 16px; letter-spacing: 2px !important; }
-  .modal-route-manager #rm-body { min-height: 0; padding: 0; }
+  .modal.modal-route-manager::-webkit-resizer {
+    background:
+      linear-gradient(135deg, transparent 0 45%, rgba(190,161,255,.55) 45% 55%, transparent 55% 70%, rgba(190,161,255,.55) 70% 80%, transparent 80%);
+    border-bottom-right-radius: 9px;
+  }
+  .modal-route-manager .modal-header { padding: 14px 18px; flex: 0 0 auto; }
+  .modal-route-manager .modal-title { font-size: 17px; letter-spacing: 2px !important; }
+  .modal-route-manager #rm-body { flex: 1 1 auto; min-height: 0; padding: 0; display: flex; flex-direction: column; }
   .modal-route-manager .rm-empty {
     display:flex;
     flex-direction:column;
@@ -3775,15 +3786,16 @@
   .modal-route-manager .rm-empty:not(.rm-empty--routes) .cmd-btn .icon { font-size: 22px; }
   .modal-route-manager .rm-empty--routes {
     position: relative;
+    flex: 1 1 auto;
     display: grid;
-    grid-template-columns: minmax(0,1.16fr) minmax(190px,.84fr);
+    grid-template-columns: minmax(0,1.16fr) minmax(200px,.84fr);
     align-items: stretch;
-    gap: 22px;
+    gap: 24px;
     box-sizing: border-box;
     overflow: hidden;
-    min-height: 226px;
+    min-height: 240px;
     margin: 0;
-    padding: 22px 24px 24px;
+    padding: 24px 28px 26px;
     border: 0;
     border-radius: 0 0 12px 12px;
     background:
@@ -3804,17 +3816,17 @@
   .modal-route-manager .rm-empty-kicker {
     display: flex;
     align-items: center;
-    gap: 8px;
-    color: #bda5f6;
-    font-size: 10.5px;
+    gap: 9px;
+    color: #c9b4ff;
+    font-size: 12px;
     font-weight: 800;
-    letter-spacing: 1.8px;
+    letter-spacing: 1.6px;
     line-height: 1;
     text-transform: uppercase;
   }
   .modal-route-manager .rm-empty-kicker span {
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: #70e1bd;
     box-shadow: 0 0 12px rgba(112,225,189,.75);
@@ -3822,7 +3834,7 @@
   .modal-route-manager .rm-empty-art {
     position: relative;
     z-index: 2;
-    width: min(210px, 100%);
+    width: min(260px, 100%);
     margin: auto;
     filter: drop-shadow(0 15px 20px rgba(0,0,0,.38));
   }
@@ -3834,26 +3846,27 @@
     line-height: 1;
   }
   .modal-route-manager .rm-empty-title {
-    margin-top: 9px;
-    color: #f6f2fb;
-    font-size: 23px;
-    font-weight: 780;
-    letter-spacing: -.45px;
-    line-height: 1.14;
+    margin-top: 10px;
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -.3px;
+    line-height: 1.18;
+    text-wrap: balance;
   }
   .modal-route-manager .rm-empty-text {
-    max-width: 36ch;
-    margin-top: 7px;
-    color: #cec6d9;
-    font-size: 13.5px;
-    line-height: 1.42;
+    max-width: 40ch;
+    margin-top: 9px;
+    color: #e2dbec;
+    font-size: 15px;
+    line-height: 1.5;
   }
   .modal-route-manager .rm-empty-readiness {
     display: flex;
     width: 100%;
-    max-width: 350px;
-    margin-top: 12px;
-    padding: 8px 0;
+    max-width: 380px;
+    margin-top: 14px;
+    padding: 10px 0;
     border-top: 1px solid rgba(190,161,255,.14);
     border-bottom: 1px solid rgba(190,161,255,.14);
   }
@@ -3870,31 +3883,31 @@
     border-left: 1px solid rgba(190,161,255,.14);
   }
   .modal-route-manager .rm-empty-readiness b {
-    color: #f1eafa;
+    color: #ffffff;
     font-family: 'DM Mono', monospace;
-    font-size: 13.5px;
+    font-size: 16px;
   }
   .modal-route-manager .rm-empty-readiness span {
-    color: #a99fb7;
-    font-size: 10.5px;
-    letter-spacing: .25px;
+    color: #c0b5d0;
+    font-size: 12.5px;
+    letter-spacing: .2px;
   }
   .modal-route-manager .rm-empty-action {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 14px;
-    width: min(270px, 100%);
-    min-height: 44px;
-    margin-top: 12px;
-    padding: 10px 18px;
+    width: min(300px, 100%);
+    min-height: 48px;
+    margin-top: 16px;
+    padding: 11px 20px;
     border: 1px solid rgba(209,188,255,.48);
     border-radius: 12px;
     background: linear-gradient(135deg, #b999ff, #8e68e8);
     box-shadow: 0 10px 26px rgba(104,67,178,.28), inset 0 1px 0 rgba(255,255,255,.3);
     color: #170a2b;
     font-family: inherit;
-    font-size: 14.5px;
+    font-size: 16px;
     font-weight: 750;
     line-height: 1.2;
     letter-spacing: .15px;
@@ -3910,7 +3923,7 @@
     outline: 3px solid rgba(216,198,255,.7);
     outline-offset: 3px;
   }
-  .modal-route-manager .rm-empty-action-arrow { font-size: 19px; line-height: 1; }
+  .modal-route-manager .rm-empty-action-arrow { font-size: 21px; line-height: 1; }
   .modal-route-manager .rm-empty-visual {
     position: relative;
     display: flex;
@@ -3963,16 +3976,16 @@
     background: rgba(14,10,23,.56);
   }
   .modal-route-manager .rm-empty-model span {
-    color: #9e92ad;
-    font-size: 9.5px;
+    color: #b5a9c6;
+    font-size: 11px;
     font-weight: 750;
     letter-spacing: 1px;
     text-transform: uppercase;
   }
   .modal-route-manager .rm-empty-model b {
-    color: #c2a8ff;
+    color: #d4c1ff;
     font-family: 'DM Mono', monospace;
-    font-size: 12px;
+    font-size: 14px;
   }
   @media (max-width: 560px) {
     .modal.modal-route-manager {
@@ -3986,8 +3999,8 @@
       gap: 22px;
       padding: 25px 21px 27px;
     }
-    .modal-route-manager .rm-empty-title { font-size: 24px; }
-    .modal-route-manager .rm-empty-text { font-size: 15px; }
+    .modal-route-manager .rm-empty-title { font-size: 26px; }
+    .modal-route-manager .rm-empty-text { font-size: 15.5px; }
     .modal-route-manager .rm-empty-readiness { max-width: none; }
     .modal-route-manager .rm-empty-action { width: 100%; min-height: 52px; font-size: 16px; }
     .modal-route-manager .rm-empty-visual { order: -1; min-height: 130px; padding: 0 0 18px; border-left: 0; border-bottom: 1px solid rgba(190,161,255,.13); }
@@ -6895,3 +6908,58 @@ button,input,select,textarea{font:inherit}
     grid-template-columns: 1fr;
   }
 }
+
+/* =====================================================================
+   LIVE_TILES_CLARITY_v01
+   KPI strip above the map: larger, higher-contrast type; a soft cyan
+   leading edge per tile; tighter vertical rhythm. Overrides the compact
+   density sizes. No data or behavior change.
+   ===================================================================== */
+body.ae-executive-command #game-ui #mock-livetiles {
+  gap: 6px !important;
+  margin: 6px 8px 0 !important;
+}
+body.ae-executive-command #game-ui #mock-livetiles .mlt {
+  position: relative;
+  min-height: 0 !important;
+  padding: 7px 12px 7px 14px !important;
+  border: 1px solid rgba(123, 173, 195, .22) !important;
+  border-radius: 9px !important;
+  background: linear-gradient(180deg, rgba(14, 28, 40, .92), rgba(8, 18, 27, .94)) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04) !important;
+  overflow: hidden;
+}
+body.ae-executive-command #game-ui #mock-livetiles .mlt::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  bottom: 7px;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, rgba(108, 199, 216, .9), rgba(108, 199, 216, .25));
+}
+body.ae-executive-command #game-ui #mock-livetiles .mlt-l {
+  font-size: 9.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: .14em !important;
+  line-height: 1.15 !important;
+  color: #a9c4d4 !important;
+}
+body.ae-executive-command #game-ui #mock-livetiles .mlt-v {
+  margin-top: 3px !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  letter-spacing: .01em !important;
+  color: #ffffff !important;
+  text-shadow: 0 0 12px rgba(108, 199, 216, .18);
+}
+body.ae-executive-command #game-ui #mock-livetiles .mlt-s {
+  min-height: 12px !important;
+  margin-top: 2px !important;
+  font-size: 10px !important;
+  line-height: 1.15 !important;
+  color: #cbd7e0 !important;
+}
+body.ae-executive-command #game-ui #mock-livetiles .mlt-s:empty { min-height: 0 !important; margin-top: 0 !important; }

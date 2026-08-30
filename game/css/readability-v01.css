@@ -1,0 +1,213 @@
+/* READABILITY_v01 — sitewide type clarity + New Route window balance
+   Loads last in <head>. Two jobs:
+   1. Sitewide: raise the floor on tiny/dim text, brighten the muted palette, sharpen rendering,
+      and calm decorative glows that blur letterforms. No layout or behavior changes.
+   2. New Route window: tighter header/footer, panes share the space evenly, denser city list,
+      larger card text. Purely CSS. */
+
+/* ── 1. Sitewide type clarity ─────────────────────────────────────────────── */
+body.ae-executive-command {
+  --muted: #c6d3da;
+  --muted2: #9db0bb;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* Inter: tabular figures so columns of numbers align; ss01 opens the 3/6/9/a forms; cv11 single-storey a */
+  font-feature-settings: "tnum" 1, "ss01" 1, "cv11" 1;
+}
+
+/* Left nav: main labels 14px/700, sub-labels 12.5px at 78% white, tighter two-line rhythm */
+body.ae-executive-command #game-ui #left-panel .ae-nav-item { line-height: 1.25 !important; }
+body.ae-executive-command #game-ui #left-panel .mn-l { font-size: 14px !important; font-weight: 700 !important; letter-spacing: 0 !important; color: #ffffff !important; }
+body.ae-executive-command #game-ui #left-panel .mn-s { font-size: 12.5px !important; font-weight: 500 !important; letter-spacing: 0 !important; color: rgba(236, 242, 246, .78) !important; margin-top: 1px; }
+body.ae-executive-command #game-ui #left-panel .mock-nav-sec { font-size: 10px !important; letter-spacing: .14em !important; color: rgba(236, 242, 246, .8) !important; }
+body.ae-executive-command #game-ui #left-panel .ae-nav-item.active .mn-s { color: rgba(255, 255, 255, .88) !important; }
+/* Floor for the smallest UI labels: nothing under 10px, nothing dimmer than 70% white */
+body.ae-executive-command #game-ui :is(small, .hs-k, .hdr-delta, .label, .mn-s, .mns-badge, .rk-k, .mq-title,
+  .map-title, .oc-sub, .mcc-cl, .mcc-role, .ae-sb-title, .acc-header, .rm-ct, .nr-chip, .nr-sub, .cm-badge,
+  .flp-meta, .flp-sub, .uk-k, .stat-k, .sc-stat-k, .dt-note) {
+  font-size: max(10.5px, 1em) !important;
+  color: rgba(232, 239, 243, .82) !important;
+  letter-spacing: .06em !important;
+}
+/* Cap letter-spacing on tiny all-caps labels — wide tracking at 8–9px reads as dots */
+body.ae-executive-command #game-ui [class*="-label"],
+body.ae-executive-command #game-ui [class*="-kicker"],
+body.ae-executive-command #game-ui [class*="-eyebrow"] {
+  letter-spacing: min(.12em, 1.6px) !important;
+}
+/* Decorative glows soften glyph edges; keep them off body copy */
+body.ae-executive-command #game-ui :is(p, li, td, .value, .rk-v, .hs-v, .mlt-v, .nr-city-top strong, .flp-ac-name, .modal-body) {
+  text-shadow: none !important;
+}
+body.ae-executive-command #game-ui :is(.modal, .lab-card, #left-panel, #right-panel) {
+  line-height: 1.4;
+}
+
+/* No lavender/purple text anywhere — accent stays for borders, fills and glows; type is white.
+   Covers stylesheet classes that used the accent for text, plus inline style="color:…" from game.js. */
+body.ae-executive-command :is(
+  .sc-card-tag, .sc2-sel-tag, .rm-empty-kicker, .wz-step, .sc2-rail-title, .sc-quick .sq-diff b,
+  .rm-empty-model b, .nr-origin-label, .nr-card-label, .nr-pane-heading span, .nr-city-hub,
+  .ae-sn-region, .ae-sn-hero-copy .region, .ae-sn-row .purple, .sc-stat-v, .rep-word,
+  .hdr-dt-sub, .mns-badge, .value.purple, .purple, .home-status, #home-status,
+  .nr-step, .mn-l, .ae-nav-item.active span, .nr-hub-iata, .nr-featured-code, .nr-city-top > b
+),
+body.ae-executive-command [style*="color:var(--accent)"],
+body.ae-executive-command [style*="color: var(--accent)"],
+body.ae-executive-command [style*="color:#a789ff"],
+body.ae-executive-command [style*="color:#bb85ff"],
+body.ae-executive-command [style*="color:#b982ff"],
+body.ae-executive-command [style*="color:#af79ff"],
+body.ae-executive-command [style*="color:#c2a8ff"],
+body.ae-executive-command [style*="color:#d4c1ff"],
+body.ae-executive-command [style*="color:#c0a7ff"] {
+  color: #ffffff !important;
+}
+#wz-p2 :is(.sc-card-tag, .sc-quick .sq-diff b, .sc-detail-row b, .sc2-sel-name, .sc2-sel-tag, .wz-panel-title, .wz-panel-title .wz-num) { color: #ffffff !important; }
+
+/* ── 2. New Route window balance ─────────────────────────────────────────── */
+body.ae-executive-command #modal-overlay.open .modal.modal-new-route {
+  width: min(84vw, 1180px) !important;
+  height: min(86vh, 780px) !important;
+}
+/* Header + progress: reclaim ~20px */
+body.ae-executive-command .modal-new-route .modal-header { padding: 11px 18px !important; }
+body.ae-executive-command .modal-new-route .modal-title { font-size: 20px !important; letter-spacing: 1.5px !important; }
+body.ae-executive-command .modal-new-route .nr-progress { display: none !important; } /* orphaned once the step kickers were removed */
+body.ae-executive-command .modal-new-route .modal-body { padding: 14px 16px 10px !important; }
+
+/* Panes: equal columns, tighter padding, headings one size down */
+body.ae-executive-command .modal-new-route .nr-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  gap: 12px !important;
+}
+body.ae-executive-command .modal-new-route .nr-pane { padding: 14px 16px !important; border-radius: 12px !important; }
+/* Headings on the same line, pill centred to the title, identical bottom rhythm on both panes */
+body.ae-executive-command .modal-new-route .nr-pane-heading { align-items: center !important; min-height: 30px !important; margin-bottom: 10px !important; }
+body.ae-executive-command .modal-new-route .nr-pane-heading > b { padding: 4px 9px !important; font-size: 11px !important; }
+body.ae-executive-command .modal-new-route .nr-pane-heading > div > span { display: none !important; } /* "01 · CHOOSE DESTINATION" / "02 · BUILD THE FLIGHT" kickers removed */
+body.ae-executive-command .modal-new-route .nr-pane-heading strong { font-size: 17px !important; }
+body.ae-executive-command .modal-new-route :is(.nr-pane-heading span, .nr-card-label, .nr-origin-label) {
+  color: #ffffff !important;
+  font-size: 10.5px !important;
+  letter-spacing: 1.2px !important;
+}
+body.ae-executive-command .modal-new-route .nr-origin-label { margin-bottom: 5px !important; }
+/* Left pane stack: hub banner → filters → recommended → list, all on a 10px rhythm */
+body.ae-executive-command .modal-new-route .nr-hub-banner { padding: 9px 14px !important; }
+body.ae-executive-command .modal-new-route .nr-hub-row { margin-bottom: 10px !important; }
+body.ae-executive-command .modal-new-route .nr-filter-row { margin: 0 0 10px !important; }
+body.ae-executive-command .modal-new-route .nr-filter-select { height: 34px !important; }
+
+/* Recommended card: shorter so the list gets the room */
+body.ae-executive-command .modal-new-route #nr-featured-destination > * { min-height: 0 !important; padding: 10px 14px !important; }
+body.ae-executive-command .modal-new-route #nr-featured-destination { margin-bottom: 10px !important; }
+body.ae-executive-command .modal-new-route .nr-featured-copy small { font-size: 10px !important; letter-spacing: 1.2px !important; }
+body.ae-executive-command .modal-new-route .nr-featured-copy strong { font-size: 18px !important; }
+
+/* City list: denser cards, bigger names, brighter meta */
+body.ae-executive-command .modal-new-route .nr-city-grid { gap: 7px !important; }
+body.ae-executive-command .modal-new-route .nr-city-card { padding: 9px 10px !important; border-radius: 9px !important; }
+body.ae-executive-command .modal-new-route .nr-city-top strong { font-size: 14px !important; color: #fff !important; }
+body.ae-executive-command .modal-new-route .nr-city-top > b { font-size: 11.5px !important; color: #cfc2e0 !important; }
+body.ae-executive-command .modal-new-route .nr-city-demand em { font-size: 10.5px !important; color: #b3a6c4 !important; }
+body.ae-executive-command .modal-new-route .nr-city-bottom b { font-size: 10.5px !important; }
+body.ae-executive-command .modal-new-route .nr-city-bottom small { font-size: 11.5px !important; color: #d8cfe6 !important; }
+
+/* Right pane: route line, aircraft, fare — same rhythm as the left. (Flex-stretching the panes broke the
+   city grid's row sizing, so the panes stay block-level; the city list gets a taller scroll area instead.) */
+body.ae-executive-command .modal-new-route .nr-destination-pane .nr-city-grid { max-height: 300px !important; }
+body.ae-executive-command .modal-new-route :is(.nr-route-hero, .nr-est, .nr-fare-section) { padding: 12px 14px !important; margin-bottom: 10px !important; }
+body.ae-executive-command .modal-new-route .nr-route-hero { min-height: 60px !important; }
+body.ae-executive-command .modal-new-route .nr-plane-row { padding: 9px 10px !important; }
+/* Recommended row: the ★ pill sits inline between the aircraft info and the stepper instead of floating
+   above the row, so the card is one balanced line: art · name/meta · pill · − 1 + */
+body.ae-executive-command .modal-new-route .nr-plane-row { display: flex !important; align-items: center !important; gap: 10px !important; }
+body.ae-executive-command .modal-new-route .nr-plane-row.rec { padding-top: 9px !important; }
+body.ae-executive-command .modal-new-route .nr-plane-row > .nr-plane-art { order: 1; }
+body.ae-executive-command .modal-new-route .nr-plane-row > div:not(.nr-plane-art) { order: 2; }
+body.ae-executive-command .modal-new-route .nr-plane-row > div:last-child { order: 4; margin-left: 4px; }
+body.ae-executive-command .modal-new-route .nr-rec-pill {
+  position: static !important;
+  order: 3;
+  flex: 0 0 auto;
+  align-self: center;
+  margin: 0 !important;
+  padding: 4px 8px !important;
+  border-radius: 999px !important;
+  font-size: 9.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: .7px !important;
+  line-height: 1 !important;
+  white-space: nowrap;
+}
+body.ae-executive-command .modal-new-route :is(.nr-meta, .nr-plane-meta, .nr-city-meta, .nr-muted) {
+  color: #c4d0d8 !important;
+  font-size: 12px !important;
+}
+/* Aircraft row text: name larger/white, meta on two clean lines (specs, then free/owned) */
+body.ae-executive-command .modal-new-route .nr-plane-row > div:not(.nr-plane-art):not(:last-child) > div:first-child { font-size: 14px !important; color: #ffffff !important; }
+body.ae-executive-command .modal-new-route .nr-plane-row.sel > div:not(.nr-plane-art):not(:last-child) > div:first-child { color: #ffffff !important; }
+body.ae-executive-command .modal-new-route .nr-plane-row > div:not(.nr-plane-art):not(:last-child) > div:last-child { font-size: 12px !important; color: #c9d4dc !important; line-height: 1.35 !important; margin-top: 2px !important; }
+body.ae-executive-command .modal-new-route .nr-plane-row > div:not(.nr-plane-art):not(:last-child) > div:last-child > span { display: block !important; white-space: nowrap; }
+/* "Flights per week · one aircraft each" helper removed from the AIRCRAFT label */
+body.ae-executive-command .modal-new-route .nr-card-label > span { display: none !important; }
+body.ae-executive-command .modal-new-route .nr-tip { font-size: 11.5px !important; color: #d9cfe8 !important; }
+
+/* Footer: one row, less height */
+body.ae-executive-command .modal-new-route .nr-footer {
+  min-height: 50px !important;
+  margin-top: 10px !important;
+  padding: 9px 0 0 !important;
+}
+body.ae-executive-command .modal-new-route .nr-footer button { min-height: 36px !important; }
+
+/* ── 3. Route Manager (populated view) — same type system as the rest of the UI ──────── */
+/* KPI strip: mono figures instead of condensed display type, brighter labels, cyan leading edge like the map tiles */
+body.ae-executive-command .modal-route-manager .rm-kpis { gap: 8px !important; margin: 12px 14px 10px !important; }
+body.ae-executive-command .modal-route-manager .rm-kpi {
+  position: relative; padding: 10px 8px 9px !important; border-radius: 9px !important;
+  border: 1px solid rgba(123, 173, 195, .22) !important;
+  background: linear-gradient(180deg, rgba(14, 28, 40, .92), rgba(8, 18, 27, .94)) !important;
+}
+body.ae-executive-command .modal-route-manager .rm-kpi::before { content: ''; position: absolute; left: 0; top: 9px; bottom: 9px; width: 2px; border-radius: 2px; background: linear-gradient(180deg, rgba(108,199,216,.9), rgba(108,199,216,.25)); }
+body.ae-executive-command .modal-route-manager .rm-kpi .rk-v { font-family: 'DM Mono', monospace !important; font-size: 22px !important; font-weight: 700 !important; line-height: 1.1 !important; letter-spacing: 0 !important; text-shadow: none !important; }
+body.ae-executive-command .modal-route-manager .rm-kpi .rk-k { font-size: 10px !important; font-weight: 800 !important; letter-spacing: .14em !important; color: #a9c4d4 !important; margin-top: 4px !important; }
+
+/* Filter / sort pills: 12px, white, cyan active state instead of purple */
+body.ae-executive-command .modal-route-manager .rm-controls { margin: 0 14px 10px !important; }
+body.ae-executive-command .modal-route-manager .rm-sort-lbl { font-size: 10px !important; font-weight: 800 !important; letter-spacing: .14em !important; color: #a9c4d4 !important; }
+body.ae-executive-command .modal-route-manager :is(.rm-fbtn, .rm-sbtn) { padding: 5px 11px !important; border-radius: 8px !important; color: #ffffff !important; font-size: 12px !important; font-weight: 600 !important; border: 1px solid rgba(123, 173, 195, .28) !important; background: rgba(14, 30, 44, .7) !important; }
+body.ae-executive-command .modal-route-manager :is(.rm-fbtn, .rm-sbtn).active { color: #ffffff !important; font-weight: 800 !important; border-color: rgba(108, 199, 216, .85) !important; background: rgba(108, 199, 216, .16) !important; box-shadow: 0 0 12px rgba(108, 199, 216, .18) !important; }
+body.ae-executive-command .modal-route-manager .rm-ct { font-family: 'DM Mono', monospace !important; font-size: 11px !important; opacity: 1 !important; color: #c9d6df !important; }
+
+/* Route rows */
+body.ae-executive-command .modal-route-manager .rm-list { padding: 0 14px 12px !important; gap: 6px !important; }
+body.ae-executive-command .modal-route-manager .rm-row { border-radius: 9px !important; border-color: rgba(123, 173, 195, .2) !important; }
+body.ae-executive-command .modal-route-manager .rm-row.open { border-color: rgba(108, 199, 216, .5) !important; }
+body.ae-executive-command .modal-route-manager .rm-head { padding: 10px 12px !important; gap: 10px !important; }
+body.ae-executive-command .modal-route-manager .rm-pair { font-size: 14px !important; font-weight: 700 !important; color: #ffffff !important; letter-spacing: .02em !important; }
+body.ae-executive-command .modal-route-manager .rm-tag { font-size: 9.5px !important; font-weight: 800 !important; padding: 2px 6px !important; border-radius: 5px !important; color: #ffffff !important; background: rgba(108, 199, 216, .16) !important; border: 1px solid rgba(108, 199, 216, .35) !important; }
+body.ae-executive-command .modal-route-manager .rm-city { font-size: 13px !important; color: #e3ecf2 !important; max-width: 160px !important; }
+body.ae-executive-command .modal-route-manager .rm-bar { height: 5px !important; background: rgba(123, 173, 195, .16) !important; }
+body.ae-executive-command .modal-route-manager .rm-bar-be { background: #ffffff !important; opacity: .85 !important; }
+body.ae-executive-command .modal-route-manager .rm-load { font-size: 13px !important; font-weight: 700 !important; }
+body.ae-executive-command .modal-route-manager .rm-arrow { color: #a9c4d4 !important; }
+
+/* Expanded row: summary line, hint, stat cells, fare stepper, actions */
+body.ae-executive-command .modal-route-manager .rm-inner { padding: 10px 12px 12px !important; }
+body.ae-executive-command .modal-route-manager .rm-summary { font-size: 12.5px !important; color: #c9d6df !important; border-bottom-color: rgba(123, 173, 195, .16) !important; }
+body.ae-executive-command .modal-route-manager .rm-summary b { color: #ffffff !important; font-family: 'DM Mono', monospace !important; }
+body.ae-executive-command .modal-route-manager .rm-hint { font-size: 12.5px !important; color: #d6e0e7 !important; border: 1px solid rgba(123, 173, 195, .18) !important; border-radius: 8px !important; background: rgba(14, 30, 44, .7) !important; padding: 9px 11px !important; line-height: 1.4 !important; }
+body.ae-executive-command .modal-route-manager .rm-cell { border: 1px solid rgba(123, 173, 195, .18) !important; border-radius: 8px !important; background: rgba(14, 30, 44, .7) !important; padding: 8px 10px !important; }
+body.ae-executive-command .modal-route-manager .rm-cell-k { font-size: 10px !important; font-weight: 800 !important; letter-spacing: .12em !important; color: #a9c4d4 !important; }
+body.ae-executive-command .modal-route-manager .rm-cell-v { font-size: 14.5px !important; font-weight: 700 !important; color: #ffffff !important; margin-top: 4px !important; }
+body.ae-executive-command .modal-route-manager .rm-fare { font-size: 10px !important; font-weight: 800 !important; letter-spacing: .14em !important; color: #a9c4d4 !important; }
+body.ae-executive-command .modal-route-manager .rm-fare-v { font-size: 15px !important; font-weight: 700 !important; color: #ffffff !important; }
+body.ae-executive-command .modal-route-manager .rm-step { width: 28px !important; height: 28px !important; border-radius: 7px !important; color: #ffffff !important; border: 1px solid rgba(108, 199, 216, .42) !important; background: rgba(14, 30, 44, .9) !important; font-size: 16px !important; }
+body.ae-executive-command .modal-route-manager .rm-step:hover { background: rgba(108, 199, 216, .18) !important; border-color: rgba(108, 199, 216, .85) !important; color: #ffffff !important; }
+body.ae-executive-command .modal-route-manager .rm-act { padding: 7px 13px !important; border-radius: 8px !important; color: #ffffff !important; font-size: 12px !important; font-weight: 700 !important; border: 1px solid rgba(108, 199, 216, .42) !important; background: rgba(14, 30, 44, .9) !important; }
+body.ae-executive-command .modal-route-manager .rm-act:hover { border-color: rgba(108, 199, 216, .85) !important; background: rgba(108, 199, 216, .16) !important; }
+body.ae-executive-command .modal-route-manager .rm-act.rm-danger { border-color: rgba(244, 63, 94, .45) !important; }
+body.ae-executive-command .modal-route-manager .rm-act.rm-danger:hover { background: rgba(244, 63, 94, .16) !important; border-color: rgba(244, 63, 94, .8) !important; }

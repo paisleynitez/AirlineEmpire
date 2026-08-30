@@ -1,0 +1,217 @@
+/* SCENARIO_SELECT_v01 — Scenario Selection polish (setup wizard page 2)
+   Loads after main.css and the neon layers. Scope is #wz-p2 only.
+   Pairs with js/patches/scenario_select_v01.js (stat strip, check badge, rail summary).
+   No gameplay change: selection still flows through pickScenario(). */
+
+/* Step context in the panel title */
+#wz-p2 .wz-panel-title .wz-step {
+  margin-left: auto;
+  color: var(--sc-muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+}
+
+/* 1. Equal-height cards — rows stretch, DETAILS pins to the bottom; cards take the full stage (rail removed) */
+#wz-p2.wz-page { max-width: 1120px; }
+#wz-p2 .wz-nav { max-width: 1120px; }
+#wz-p2 .wz-panel { padding: 18px 22px 20px; }
+#wz-p2 .sc2-layout { display: block; }
+#wz-p2 .sc2-rail { display: none !important; }
+#wz-p2 .sc-grid { align-items: stretch; gap: 14px; }
+#wz-p2 .sc-card {
+  align-self: stretch;
+  min-height: 224px;
+  padding: 16px 18px 14px;
+  gap: 8px;
+}
+#wz-p2 .sc-card-name { font-size: 19px; }
+#wz-p2 .sc-card-tag { font-size: 13px; }
+#wz-p2 .sc-card-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: #e8e2f3;
+  font-size: 14px;
+  line-height: 1.5;
+}
+#wz-p2 .sc-details-head { margin-top: auto; }
+
+/* 2. Clear selection state — ring + check badge + filled icon */
+#wz-p2 .sc-card {
+  cursor: pointer;
+  outline: none;
+}
+#wz-p2 .sc-card:focus-visible {
+  box-shadow: 0 0 0 2px var(--sc-violet-soft), 0 12px 30px rgba(0, 0, 0, .28);
+}
+#wz-p2 .sc-card.selected {
+  border-color: var(--sc-violet-soft);
+  box-shadow:
+    0 0 0 2px var(--sc-violet-soft),
+    0 0 30px rgba(160, 121, 238, .22),
+    0 17px 40px rgba(0, 0, 0, .25);
+}
+#wz-p2 .sc-card.selected .sc-card-icon {
+  color: #0b0418;
+  background: linear-gradient(135deg, var(--sc-violet-soft), var(--sc-teal-bright));
+  border-color: transparent;
+  box-shadow: 0 0 18px rgba(160, 121, 238, .35);
+}
+#wz-p2 .sc-check {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  display: none;
+  place-items: center;
+  border-radius: 50%;
+  color: #0b0418;
+  background: var(--sc-violet-soft);
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1;
+  box-shadow: 0 0 14px rgba(192, 167, 255, .55);
+  z-index: 2;
+}
+#wz-p2 .sc-card.selected .sc-check { display: grid; }
+#wz-p2 .sc-card.selected .sc-rec-pill { margin-right: 32px; }
+
+/* 3. Hover lift so the whole card reads as clickable (already the click target) */
+#wz-p2 .sc-card:hover { transform: translateY(-2px); }
+#wz-p2 .sc-card.selected:hover { transform: none; }
+
+/* 4. Always-visible key numbers — 2×2 grid, label left / value right, never truncates */
+#wz-p2 .sc-quick {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0 0 2px;
+}
+#wz-p2 .sc-quick > div {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 9px;
+  border: 1px solid rgba(157, 117, 255, .14);
+  border-radius: 8px;
+  background: rgba(157, 117, 255, .05);
+  text-align: left;
+}
+#wz-p2 .sc-quick b {
+  order: 2;
+  display: block;
+  color: #ffffff;
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+#wz-p2 .sc-quick span {
+  order: 1;
+  display: block;
+  margin-top: 0;
+  color: #b6aac9;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: .9px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+#wz-p2 .sc-quick .sq-diff b { color: var(--sq-diff, #ffffff); }
+
+/* Expanded DETAILS now carries what the strip doesn't: credit line, goal, flavor */
+#wz-p2 .sc-card-stats { grid-template-columns: 1fr; gap: 6px; }
+#wz-p2 .sc-detail-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 9px;
+  border: 1px solid rgba(157, 117, 255, .14);
+  border-radius: 8px;
+  background: rgba(157, 117, 255, .045);
+  font-size: 12.4px;
+}
+#wz-p2 .sc-detail-row span { color: var(--sc-muted); white-space: nowrap; }
+#wz-p2 .sc-detail-row b { color: #ffffff; font-family: 'DM Mono', monospace; font-weight: 700; text-align: right; }
+#wz-p2 .sc-detail-goal { display: block; }
+#wz-p2 .sc-detail-goal b { display: block; margin-top: 3px; font-family: inherit; text-align: left; text-transform: none; }
+#wz-p2 .sc-detail-flavor {
+  padding: 2px 2px 0;
+  color: var(--sc-copy);
+  font-size: 12.4px;
+  font-style: italic;
+  line-height: 1.45;
+}
+
+/* 5. Right rail — selected-scenario summary fills the empty space */
+#wz-p2 .sc2-selected {
+  border-color: rgba(192, 167, 255, .5);
+  background:
+    radial-gradient(240px 120px at 12% 0%, rgba(160, 121, 238, .14), transparent 70%),
+    linear-gradient(155deg, rgba(22, 10, 46, .97), rgba(11, 4, 25, .98));
+}
+#wz-p2 .sc2-selected .sc2-rail-title { color: var(--sc-violet-soft); }
+#wz-p2 .sc2-sel-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+#wz-p2 .sc2-sel-icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  color: #0b0418;
+  background: linear-gradient(135deg, var(--sc-violet-soft), var(--sc-teal-bright));
+  font-size: 18px;
+}
+#wz-p2 .sc2-sel-name { color: #ffffff; font-size: 14.5px; font-weight: 800; line-height: 1.2; }
+#wz-p2 .sc2-sel-tag { color: var(--sc-violet-soft); font-size: 11.3px; font-weight: 700; margin-top: 2px; }
+#wz-p2 .sc2-sel-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 8px 0; }
+#wz-p2 .sc2-sel-stats div {
+  padding: 6px 8px;
+  border: 1px solid rgba(157, 117, 255, .16);
+  border-radius: 8px;
+  background: rgba(157, 117, 255, .05);
+}
+#wz-p2 .sc2-sel-stats b { display: block; color: #ffffff; font-family: 'DM Mono', monospace; font-size: 13.5px; }
+#wz-p2 .sc2-sel-stats span { display: block; color: #b6aac9; font-size: 9.5px; font-weight: 800; letter-spacing: .9px; text-transform: uppercase; margin-top: 2px; }
+#wz-p2 .sc2-sel-goal { color: #e8e2f3; font-size: 12.5px; line-height: 1.45; }
+#wz-p2 .sc2-sel-goal em { color: #b6aac9; font-style: normal; font-size: 9.5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 3px; }
+#wz-p2 .sc2-how { font-size: 12px; }
+#wz-p2 .sc2-how b { font-size: 12.5px; }
+#wz-p2 .sc2-tips > div:last-child { font-size: 12px !important; color: #d6cee6 !important; }
+
+/* 6. Polish — one accent for taglines, uniform icons, calmer Next button */
+#wz-p2 .sc-card-tag,
+#wz-p2 .sc-card:nth-child(2) .sc-card-tag,
+#wz-p2 .sc-card:nth-child(4) .sc-card-tag,
+#wz-p2 .sc-card:nth-child(6) .sc-card-tag { color: var(--sc-violet-soft) !important; }
+
+#wz-p2 .sc-card-icon,
+#wz-p2 .sc-card:nth-child(3n) .sc-card-icon,
+#wz-p2 .sc-card:nth-child(5n) .sc-card-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  font-size: 22px;
+  color: var(--sc-violet-soft);
+  border-color: rgba(157, 117, 255, .55);
+  background: linear-gradient(145deg, rgba(133, 91, 255, .18), rgba(83, 43, 164, .12));
+}
+
+#wz-p2 .sc2-next::before { content: none; animation: none; }
+#wz-p2 .sc2-next::after { animation-duration: 5.2s; }
+
+@media (max-width: 900px) {
+  #wz-p2 .sc2-rail { grid-template-columns: 1fr 1fr; }
+  #wz-p2 .sc2-selected { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  #wz-p2 .sc-quick { grid-template-columns: 1fr; }
+}

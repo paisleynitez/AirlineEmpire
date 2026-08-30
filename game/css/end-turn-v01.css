@@ -1,0 +1,193 @@
+/* END_TURN_v01 — header END TURN button: reliability + three switchable prototypes
+   Active prototype is chosen by <html data-ae-endturn="a|b|c"> (set by js/patches/end_turn_v01.js).
+   Ctrl+click the button to cycle prototypes; the choice persists in localStorage (ae_endturn_style).
+   Loads after every other layer, so these rules intentionally out-rank the neon/executive skins. */
+
+/* ── Shared base: make the control unmissable and unblockable ── */
+body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  z-index: 5 !important;
+  pointer-events: auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  box-sizing: border-box !important;
+  align-self: center !important;
+  min-height: 30px !important;
+  height: 30px !important;
+  margin: 0 0 0 6px !important;
+  padding: 0 10px 0 11px !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: .11em !important;
+  line-height: 1 !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  animation: none !important;
+  transition: transform .12s ease, box-shadow .18s ease, filter .18s ease, background .18s ease, border-color .18s ease !important;
+}
+body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn .et-arrow {
+  margin-left: 0 !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+  transition: transform .18s ease !important;
+}
+body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn:hover .et-arrow { transform: translateX(3px); }
+body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn:active,
+body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn.et-pressed { transform: translateY(1px) scale(.985) !important; }
+body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn:focus-visible {
+  outline: 2px solid rgba(108, 199, 216, .85) !important;
+  outline-offset: 2px !important;
+}
+body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn.et-busy {
+  pointer-events: none !important;
+  filter: saturate(.6) brightness(.85) !important;
+}
+@keyframes aeEtUrgent {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(228, 189, 112, .55), 0 6px 18px rgba(0, 0, 0, .35); }
+  50%      { box-shadow: 0 0 0 5px rgba(228, 189, 112, 0), 0 6px 18px rgba(0, 0, 0, .35); }
+}
+body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn.urgent {
+  animation: aeEtUrgent 1.3s ease-out infinite !important;
+}
+
+/* ── Prototype A · "Executive" — dark glass body, gold hairline + gold label, cyan arrow.
+      Sits in the same family as the speed cluster and the date chip without shouting. ── */
+html[data-ae-endturn="a"] body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn {
+  color: #f0d79a !important;
+  background:
+    linear-gradient(180deg, rgba(228, 189, 112, .10), rgba(228, 189, 112, .03)),
+    linear-gradient(180deg, rgba(16, 32, 45, .98), rgba(8, 18, 27, .98)) !important;
+  border: 1px solid rgba(228, 189, 112, .58) !important;
+  border-radius: 9px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 244, 214, .12),
+    inset 0 -1px 0 rgba(0, 0, 0, .35),
+    0 0 0 1px rgba(228, 189, 112, .10),
+    0 0 16px rgba(228, 189, 112, .14) !important;
+  text-shadow: 0 0 10px rgba(228, 189, 112, .25) !important;
+}
+html[data-ae-endturn="a"] body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn .et-arrow {
+  color: #8fe0ec !important;
+  text-shadow: 0 0 8px rgba(108, 199, 216, .55) !important;
+}
+html[data-ae-endturn="a"] body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn:hover {
+  color: #fff1cf !important;
+  border-color: rgba(240, 215, 154, .9) !important;
+  background:
+    linear-gradient(180deg, rgba(228, 189, 112, .18), rgba(228, 189, 112, .06)),
+    linear-gradient(180deg, rgba(20, 38, 53, .98), rgba(10, 22, 32, .98)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 244, 214, .16),
+    0 0 0 1px rgba(228, 189, 112, .18),
+    0 0 22px rgba(228, 189, 112, .26) !important;
+}
+
+/* ── Prototype B · "Cyan Glass" — outlined glass control in the speed-cluster family; calm, precise ── */
+html[data-ae-endturn="b"] body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn {
+  color: #9fe6f2 !important;
+  background: linear-gradient(180deg, rgba(108, 199, 216, .14), rgba(108, 199, 216, .05)) !important;
+  border: 1px solid rgba(108, 199, 216, .55) !important;
+  border-radius: 9px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .08),
+    inset 0 0 14px rgba(108, 199, 216, .10),
+    0 0 16px rgba(108, 199, 216, .12) !important;
+  text-shadow: 0 0 10px rgba(108, 199, 216, .35) !important;
+}
+html[data-ae-endturn="b"] body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn:hover {
+  color: #ffffff !important;
+  border-color: rgba(108, 199, 216, .9) !important;
+  background: linear-gradient(180deg, rgba(108, 199, 216, .24), rgba(108, 199, 216, .10)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .1),
+    inset 0 0 18px rgba(108, 199, 216, .16),
+    0 0 22px rgba(108, 199, 216, .26) !important;
+}
+
+/* ── Prototype C · "Departure Board" — slate tab with a gold leading edge and a NEXT MONTH sub-label ── */
+html[data-ae-endturn="c"] body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 2px !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  padding: 3px 28px 3px 11px !important;
+  color: #f4ecd9 !important;
+  background: linear-gradient(180deg, rgba(20, 36, 50, .98), rgba(10, 21, 31, .98)) !important;
+  border: 1px solid rgba(123, 173, 195, .32) !important;
+  border-left: 3px solid var(--ec-gold, #e4bd70) !important;
+  border-radius: 7px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 6px 16px rgba(0, 0, 0, .35) !important;
+  font-family: 'DM Mono', monospace !important;
+  font-size: 10.5px !important;
+  letter-spacing: .12em !important;
+}
+html[data-ae-endturn="c"] body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn::after {
+  content: 'NEXT MONTH';
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .2em;
+  color: rgba(228, 189, 112, .85);
+  line-height: 1;
+}
+html[data-ae-endturn="c"] body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn .et-arrow {
+  position: absolute !important;
+  right: 10px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: var(--ec-gold, #e4bd70) !important;
+  font-size: 15px !important;
+}
+html[data-ae-endturn="c"] body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn:hover {
+  border-color: rgba(108, 199, 216, .55) !important;
+  background: linear-gradient(180deg, rgba(26, 46, 62, .98), rgba(12, 25, 36, .98)) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 0 18px rgba(108, 199, 216, .14), 0 6px 16px rgba(0, 0, 0, .35) !important;
+}
+html[data-ae-endturn="c"] body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn:hover .et-arrow {
+  transform: translateY(-50%) translateX(3px) !important;
+}
+
+/* ── Transport cluster: order = speeds · pause · settings; quiet pause/play icon, chevron speeds ── */
+body.ae-executive-command #game-ui #header .hdr-transport { display: flex !important; align-items: center !important; }
+body.ae-executive-command #game-ui #header .hdr-transport .hdr-speed-ctrl { order: 1 !important; }
+body.ae-executive-command #game-ui #header .hdr-transport #hdr-play { order: 2 !important; margin-left: 2px !important; }
+body.ae-executive-command #game-ui #header .hdr-transport .hdr-tbtn:not(#hdr-play) { order: 3 !important; }
+body.ae-executive-command #game-ui #header .hdr-tbtn.primary#hdr-play {
+  color: #9fe6f2 !important;
+  background: rgba(108, 199, 216, .08) !important;
+  border: 1px solid rgba(108, 199, 216, .34) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05) !important;
+  text-shadow: none !important;
+}
+body.ae-executive-command #game-ui #header .hdr-tbtn.primary#hdr-play:hover {
+  color: #ffffff !important;
+  border-color: rgba(108, 199, 216, .7) !important;
+  background: rgba(108, 199, 216, .16) !important;
+}
+body.ae-executive-command #game-ui #header .hdr-tbtn.primary#hdr-play svg {
+  width: 13px !important;
+  height: 13px !important;
+}
+body.ae-executive-command #game-ui #header .hdr-speed-ctrl .speed-btn.ae-chev {
+  font-family: 'DM Mono', monospace !important;
+  font-size: 11px !important;
+  letter-spacing: -.08em !important;
+  padding: 4px 7px !important;
+  min-width: 30px !important;
+}
+body.ae-executive-command #game-ui #header .hdr-speed-ctrl .speed-btn.ae-chev-hidden { display: none !important; }
+body.ae-executive-command #game-ui #header .hdr-speed-status { display: none !important; }
+body.ae-executive-command #game-ui #header #ts-label,
+body.ae-executive-command #game-ui #header .hdr-timescale-label,
+body.ae-executive-command #game-ui #header #spd-off { display: none !important; }

@@ -1,0 +1,103 @@
+/* POPUP_ALIGN_v01 — one alignment rule for every popup surface
+   Every overlay centers its window on both axes with the same 24px gutter, and every
+   window starts from margin 0 so nothing sits high, low, or off to one side. Dragging
+   still works: the drag layer switches the window to position:fixed inline, which these
+   rules do not touch. Loads last in the <head> so it wins over the skin layers. */
+
+:root { --ae-popup-gutter: 24px; }
+
+/* Overlays: fixed, full-viewport, flex-centered, uniform gutter.
+   Only the OPEN state of each overlay is targeted; hidden states are left alone. */
+#modal-overlay.open,
+#lab-overlay.open,
+#cont-ovl,
+#ae-slot-negotiations:not([hidden]) {
+  position: fixed !important;
+  inset: 0 !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: var(--ae-popup-gutter) !important;
+}
+/* Inline-toggled overlays (display:none/flex set by script): align only, never force visibility */
+#ac-pop,
+#pause-overlay {
+  box-sizing: border-box !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: var(--ae-popup-gutter) !important;
+}
+
+/* Windows: no stray offsets; size stays inside the gutter on every viewport */
+#modal-overlay .modal,
+#modal-overlay #modal-content,
+#lab-overlay .lab-card,
+#ac-pop #ac-pop-card,
+#cont-ovl .pn-cont-panel,
+#ae-slot-negotiations .ae-sn-window {
+  margin: 0 !important;
+  max-width: calc(100vw - (2 * var(--ae-popup-gutter))) !important;
+  max-height: calc(100vh - (2 * var(--ae-popup-gutter))) !important;
+  flex-shrink: 0;
+}
+
+/* Specific offsets that broke the balance */
+.modal.modal-route-manager { margin-top: 0 !important; }
+.modal.modal-route-manager,
+.modal.modal-new-route,
+.modal.modal-city,
+.modal.modal-wide,
+.modal.operations-report-modal,
+.modal.ops-report-modal { margin: 0 !important; }
+
+@media (max-width: 640px) {
+  :root { --ae-popup-gutter: 12px; }
+}
+
+/* ── One close-box style everywhere (matches the New Route window's ×) ──
+   36px square, dark navy fill, cyan hairline, soft glow, white × centred. */
+body.ae-executive-command :is(
+  .modal-close, .modal-close-btn, .ops-report-close, .pn-cont-close, .rov-close, .rov-drawer-close,
+  .lab-x, .ae-sn-iconbtn, #dt-min, #cine-skip
+) {
+  box-sizing: border-box !important;
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  border: 1px solid rgba(108, 199, 216, .42) !important;
+  border-radius: 10px !important;
+  color: #ffffff !important;
+  background: linear-gradient(180deg, rgba(14, 30, 44, .96), rgba(8, 19, 29, .98)) !important;
+  box-shadow: 0 0 0 1px rgba(108, 199, 216, .08), 0 0 14px rgba(108, 199, 216, .14), inset 0 1px 0 rgba(255, 255, 255, .06) !important;
+  font: 700 18px/1 'Inter', system-ui, sans-serif !important;
+  letter-spacing: 0 !important;
+  text-shadow: none !important;
+  text-transform: none !important;
+  cursor: pointer !important;
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease !important;
+}
+body.ae-executive-command :is(
+  .modal-close, .modal-close-btn, .ops-report-close, .pn-cont-close, .rov-close, .rov-drawer-close,
+  .lab-x, .ae-sn-iconbtn, #dt-min, #cine-skip
+):hover {
+  border-color: rgba(108, 199, 216, .85) !important;
+  background: linear-gradient(180deg, rgba(18, 40, 58, .98), rgba(10, 24, 36, .98)) !important;
+  box-shadow: 0 0 0 1px rgba(108, 199, 216, .18), 0 0 20px rgba(108, 199, 216, .28), inset 0 1px 0 rgba(255, 255, 255, .08) !important;
+}
+body.ae-executive-command :is(
+  .modal-close, .modal-close-btn, .ops-report-close, .pn-cont-close, .rov-close, .rov-drawer-close,
+  .lab-x, .ae-sn-iconbtn, #dt-min, #cine-skip
+):focus-visible {
+  outline: 2px solid rgba(108, 199, 216, .85) !important;
+  outline-offset: 2px !important;
+}
+/* Slot Negotiations pin/minimise share the box; only the × reads as a close */
+body.ae-executive-command .ae-sn-iconbtn { font-size: 15px !important; }
+body.ae-executive-command .ae-sn-iconbtn.ae-sn-x { font-size: 18px !important; }
+/* Cinematic SKIP keeps its word but in the same box */
+body.ae-executive-command #cine-skip { width: auto !important; padding: 0 12px !important; font-size: 11px !important; letter-spacing: .12em !important; }

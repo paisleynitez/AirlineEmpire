@@ -19,6 +19,14 @@
     <link rel="stylesheet" href="css/neon-metallic-v112.css">
     <link rel="stylesheet" href="css/neon-metallic-sitewide-v112.css">
     <link rel="stylesheet" href="css/neon-metallic-live-v112.css">
+    <!-- POPUP_ALIGN_v01: every overlay centers its window with the same gutter; stays last so it wins over skin layers -->
+    <link rel="stylesheet" href="css/popup-align-v01.css">
+    <!-- READABILITY_v01: sitewide type clarity floor + New Route window balance -->
+    <link rel="stylesheet" href="css/readability-v01.css">
+    <!-- FONTS_MONO_SWAP_v01: JetBrains Mono served under the 'DM Mono' family name for all numeric/code labels -->
+    <link rel="stylesheet" href="css/fonts-mono-swap-v01.css">
+    <!-- FONTS_BODY_ATKINSON_v01: Atkinson Hyperlegible served under the 'Inter' family name for all UI text -->
+    <link rel="stylesheet" href="css/fonts-body-atkinson-v01.css">
 </head>
 <body class="ae-executive-command">
 
@@ -639,6 +647,14 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <script defer src="./js/patches/foundation_polish_v02.js"></script>
 <!-- Compact Route Overview; detailed legacy report remains available from the overview. -->
 <script defer src="./js/patches/route_overview_v111.js"></script>
+<!-- SCENARIO_SELECT_v01: scenario card stat strip, selection badge, rail summary (setup page 2). Injects its own stylesheet. -->
+<script defer src="./js/patches/scenario_select_v01.js"></script>
+<!-- END_TURN_v01: header END TURN reliability, report/clock hand-off, three switchable prototypes (Ctrl+click to cycle). Injects its own stylesheet. -->
+<script defer src="./js/patches/end_turn_v01.js"></script>
+<!-- NEW_ROUTE_FILTERS_v01: New Route region/subregion pills become Slot-Negotiations-style dropdowns -->
+<script defer src="./js/patches/new_route_filters_v01.js"></script>
+<!-- DEV_CONSOLE_v01: "Dev" tab in the Tune panel — pages, windows, clock/turn controls, kill switches -->
+<script defer src="./js/patches/dev_console_v01.js"></script>
 
 </body>
 <!-- FLEETART_ECON_v02 CHANGELOG (base: LOGO_EXPANSION_v09)
