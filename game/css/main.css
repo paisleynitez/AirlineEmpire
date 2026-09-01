@@ -7031,3 +7031,15 @@ body.ae-executive-command #game-ui #mock-livetiles .mlt-s:empty { min-height: 0 
   transform-origin: center center !important;
 }
 
+
+/* Logo picker grid fit v01: scrollable grid + flexible card height so bottom-row names never clip */
+#logo-pick-row.ae4-logogrid{overflow-y:auto!important;scrollbar-width:thin;}
+.ae4-logogrid .logo-pick.logo-card.image-logo-card{height:auto!important;min-height:142px!important;padding-bottom:9px!important;}
+
+/* Logo picker grid fit v02: panel grows to show all 9 cards at once - no internal scroll */
+#logo-pick-row.ae4-logogrid{max-height:none!important;height:auto!important;overflow:visible!important;}
+.ae4-logo-panel{overflow:visible!important;}
+
+/* Logo picker grid fit v03: rows size to content (container forced 142px rows; that, not card height, was clipping names) */
+#setup #logo-pick-row.ae4-logogrid{grid-template-rows:none!important;grid-auto-rows:auto!important;}
+#setup #logo-pick-row .logo-pick.logo-card.image-logo-card{height:auto!important;min-height:142px!important;padding-bottom:9px!important;}

@@ -4030,7 +4030,7 @@
     if(!logo) return '<span class="ae-logo-fallback">✈</span>';
     const cls=className ? ' '+className : '';
     const safeAlt=String(alt || logo.name || 'Airline logo').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
-    return '<img class="ae-airline-logo-img'+cls+'" src="'+logo.image+'" alt="'+safeAlt+'" loading="lazy" decoding="async">';
+    return '<img class="ae-airline-logo-img'+cls+'" src="'+logo.image+'" alt="'+safeAlt+'" decoding="async">';
   }
   window.AIRLINE_LOGOS=AIRLINE_LOGOS;
   window.AIRLINE_LOGO_GROUPS=GROUP_LABELS;
