@@ -208,6 +208,33 @@
 #wz-p2 .sc2-next::before { content: none; animation: none; }
 #wz-p2 .sc2-next::after { animation-duration: 5.2s; }
 
+/* 7. DETAILS toggle — defuse the sitewide neon <button> skin.
+   neon-metallic-sitewide-v112.css styles every <button> with !important
+   (9px radius, teal border, gradient fill, glow), which rendered the DETAILS
+   row as a floating capsule clashing with the card's rounded border.
+   Restore the intended flat divider row: top hairline only, transparent,
+   no radius, no glow. */
+#wz-p2 .sc-card .sc-details-head,
+#wz-p2 .sc-card .sc-details-head:hover:not(:disabled),
+#wz-p2 .sc-card .sc-details-head:focus-visible {
+  border: 0 !important;
+  border-top: 1px solid rgba(125, 95, 184, .22) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+#wz-p2 .sc-card .sc-details-head {
+  padding: 7px 0 5px;
+  color: #ffffff !important;
+}
+#wz-p2 .sc-card .sc-details-head:hover:not(:disabled) {
+  color: var(--sc-teal-bright) !important;
+}
+#wz-p2 .sc-card .sc-details-head:focus-visible {
+  outline: 2px solid var(--sc-violet-soft) !important;
+  outline-offset: 3px;
+}
+
 @media (max-width: 900px) {
   #wz-p2 .sc2-rail { grid-template-columns: 1fr 1fr; }
   #wz-p2 .sc2-selected { grid-column: 1 / -1; }
