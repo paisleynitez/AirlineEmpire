@@ -1,0 +1,547 @@
+{
+ "pass": "extra",
+ "generated": "2026-08-31",
+ "count": 65,
+ "coverage": "AI base rivals (6), AI lifecycle pool (41 new + 4 reusing catalog marks), dice-button player names (18)",
+ "spec": "512x512 RGBA PNG, transparent bg, mark inscribed with safe margin, no name text",
+ "reuseExistingCatalogMarks": [
+  {
+   "name": "Meridian Air",
+   "use": "runtime-logos/classic-prestige/meridian_air.png"
+  },
+  {
+   "name": "Flux Airlines",
+   "use": "runtime-logos/speed-motion/flux_airlines.png"
+  },
+  {
+   "name": "Zenith Air",
+   "use": "runtime-logos/bold-modern/zenith_air.png"
+  },
+  {
+   "name": "Sovereign Wings",
+   "use": "runtime-logos/classic-prestige/sovereign_wings.png"
+  }
+ ],
+ "marks": [
+  {
+   "id": "aether_sky",
+   "name": "Aether Sky",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/aether_sky.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "atlas_wings",
+   "name": "Atlas Wings",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/atlas_wings.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "aurora_air",
+   "name": "Aurora Air",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/aurora_air.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "aurora_regional",
+   "name": "Aurora Regional",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/aurora_regional.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "blue_meridian",
+   "name": "Blue Meridian",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/blue_meridian.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "cascade_air",
+   "name": "Cascade Air",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/cascade_air.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "cinderjet",
+   "name": "CinderJet",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/cinderjet.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "cobalt_air",
+   "name": "Cobalt Air",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/cobalt_air.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "cumulusair",
+   "name": "CumulusAir",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/cumulusair.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "eagle_sky",
+   "name": "Eagle Sky",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/eagle_sky.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "evergreen_airways",
+   "name": "Evergreen Airways",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/evergreen_airways.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "frontier_wings",
+   "name": "Frontier Wings",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/frontier_wings.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "global_one",
+   "name": "Global One",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/global_one.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "greenjet",
+   "name": "GreenJet",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/greenjet.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "harborwing_airlines",
+   "name": "Harborwing Airlines",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/harborwing_airlines.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "horizon_jet",
+   "name": "Horizon Jet",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/horizon_jet.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "liberty_jet",
+   "name": "Liberty Jet",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/liberty_jet.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "majestic_air",
+   "name": "Majestic Air",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/majestic_air.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "maple_jet",
+   "name": "Maple Jet",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/maple_jet.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "northcrest_airways",
+   "name": "Northcrest Airways",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/northcrest_airways.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "nova_air",
+   "name": "Nova Air",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/nova_air.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "oceanic_air",
+   "name": "Oceanic Air",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/oceanic_air.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "orion_jet",
+   "name": "Orion Jet",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/orion_jet.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "pacific_crest",
+   "name": "Pacific Crest",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/pacific_crest.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "pinnacle_air",
+   "name": "Pinnacle Air",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/pinnacle_air.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "pioneer_air",
+   "name": "Pioneer Air",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/pioneer_air.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "polar_connect",
+   "name": "Polar Connect",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/polar_connect.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "quantum",
+   "name": "Quantum",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/quantum.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "radiant_airlines",
+   "name": "Radiant Airlines",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/radiant_airlines.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "rapid_air",
+   "name": "Rapid Air",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/rapid_air.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "regal_jet",
+   "name": "Regal Jet",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/regal_jet.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "silver_horizon",
+   "name": "Silver Horizon",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/silver_horizon.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "sky_sover",
+   "name": "Sky Sover",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/sky_sover.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "skylancer",
+   "name": "SkyLancer",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/skylancer.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "solaris_connect",
+   "name": "Solaris Connect",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/solaris_connect.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "summit_air",
+   "name": "Summit Air",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/summit_air.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "sunrise_air",
+   "name": "Sunrise Air",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/sunrise_air.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "unity_air",
+   "name": "Unity Air",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/unity_air.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "vanguard_air",
+   "name": "Vanguard Air",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/vanguard_air.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "velocitycrest",
+   "name": "Velocitycrest",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/velocitycrest.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "westwind_jet",
+   "name": "Westwind Jet",
+   "category": "ai-pool",
+   "file": "logos/ai-pool/westwind_jet.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "aeronova",
+   "name": "AeroNova",
+   "category": "ai-rivals",
+   "file": "logos/ai-rivals/aeronova.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "airglobe",
+   "name": "AirGlobe",
+   "category": "ai-rivals",
+   "file": "logos/ai-rivals/airglobe.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "jetstar_intl",
+   "name": "JetStar Intl",
+   "category": "ai-rivals",
+   "file": "logos/ai-rivals/jetstar_intl.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "panworld",
+   "name": "PanWorld",
+   "category": "ai-rivals",
+   "file": "logos/ai-rivals/panworld.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "skyrush",
+   "name": "SkyRush",
+   "category": "ai-rivals",
+   "file": "logos/ai-rivals/skyrush.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "transocean",
+   "name": "TransOcean",
+   "category": "ai-rivals",
+   "file": "logos/ai-rivals/transocean.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "apex_air",
+   "name": "APEX AIR",
+   "category": "dice-names",
+   "file": "logos/dice-names/apex_air.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "atlas_air",
+   "name": "ATLAS AIR",
+   "category": "dice-names",
+   "file": "logos/dice-names/atlas_air.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "aurora",
+   "name": "AURORA",
+   "category": "dice-names",
+   "file": "logos/dice-names/aurora.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "cirrus",
+   "name": "CIRRUS",
+   "category": "dice-names",
+   "file": "logos/dice-names/cirrus.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "equinox",
+   "name": "EQUINOX",
+   "category": "dice-names",
+   "file": "logos/dice-names/equinox.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "horizon",
+   "name": "HORIZON",
+   "category": "dice-names",
+   "file": "logos/dice-names/horizon.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "meridian",
+   "name": "MERIDIAN",
+   "category": "dice-names",
+   "file": "logos/dice-names/meridian.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "nimbus",
+   "name": "NIMBUS",
+   "category": "dice-names",
+   "file": "logos/dice-names/nimbus.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "nova_wings",
+   "name": "NOVA WINGS",
+   "category": "dice-names",
+   "file": "logos/dice-names/nova_wings.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "pacific_jet",
+   "name": "PACIFIC JET",
+   "category": "dice-names",
+   "file": "logos/dice-names/pacific_jet.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "paisley_air",
+   "name": "PAISLEY AIR",
+   "category": "dice-names",
+   "file": "logos/dice-names/paisley_air.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "polaris",
+   "name": "POLARIS",
+   "category": "dice-names",
+   "file": "logos/dice-names/polaris.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "skyline",
+   "name": "SKYLINE",
+   "category": "dice-names",
+   "file": "logos/dice-names/skyline.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "solstice",
+   "name": "SOLSTICE",
+   "category": "dice-names",
+   "file": "logos/dice-names/solstice.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "stratus",
+   "name": "STRATUS",
+   "category": "dice-names",
+   "file": "logos/dice-names/stratus.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "vantage",
+   "name": "VANTAGE",
+   "category": "dice-names",
+   "file": "logos/dice-names/vantage.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "velocity",
+   "name": "VELOCITY",
+   "category": "dice-names",
+   "file": "logos/dice-names/velocity.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  },
+  {
+   "id": "zephyr",
+   "name": "ZEPHYR",
+   "category": "dice-names",
+   "file": "logos/dice-names/zephyr.png",
+   "size": "512x512",
+   "sourceKind": "completed-caption-safe-procedural-extra"
+  }
+ ]
+}

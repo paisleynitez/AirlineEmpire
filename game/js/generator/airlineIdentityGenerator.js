@@ -84,7 +84,12 @@
     for(const item of items){ roll-=Math.max(1,Number(item.weight)||1); if(roll<=0) return item; }
     return items[items.length-1];
   }
-  function curatedPool(){ return Array.isArray(window.CURATED_AIRLINE_IDENTITIES) ? window.CURATED_AIRLINE_IDENTITIES.filter(x=>x&&x.name) : []; }
+  function curatedPool(){
+    const approvedNames=new Set(APPROVED_CATALOG.map(x=>String(x.name).trim().toLowerCase()));
+    return Array.isArray(window.CURATED_AIRLINE_IDENTITIES)
+      ? window.CURATED_AIRLINE_IDENTITIES.filter(x=>x&&x.name&&!approvedNames.has(String(x.name).trim().toLowerCase()))
+      : [];
+  }
   function contactDisplayName(sourceId){
     const index=Math.max(0,Number(String(sourceId).replace('contact_',''))-1);
     if(index<CONTACT_NAMES.length) return CONTACT_NAMES[index].replace(/\s+\d+$/,'');
@@ -162,12 +167,8 @@
     activeRegion=target;
     const list=window.AIRLINE_LOGOS || (window.AIRLINE_LOGOS=[]);
     list.splice(0,list.length);
-    const regional=shuffle(regionPool(target).slice());
     const approved=shuffle(approvedPool());
-    const regionalCount=Math.min(regional.length, count>2 ? 3 : 1);
-    const approvedCount=Math.min(approved.length, Math.max(0,count-regionalCount));
-    const picks=approved.slice(0,approvedCount)
-      .concat(regional.slice(0,count-approvedCount).map(item=>createCuratedIdentity(item,target)));
+    const picks=approved.slice(0,Math.min(approved.length,count));
     shuffle(picks).reverse().forEach(item=>register(item));
     current=list[0]||null;
     if(current && typeof window.pickLogo==='function') window.pickLogo(current.id);

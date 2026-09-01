@@ -1,0 +1,66 @@
+id,name,category,file,size,sourceKind
+aether_sky,Aether Sky,ai-pool,logos/ai-pool/aether_sky.png,512x512,completed-caption-safe-procedural-extra
+atlas_wings,Atlas Wings,ai-pool,logos/ai-pool/atlas_wings.png,512x512,completed-caption-safe-procedural-extra
+aurora_air,Aurora Air,ai-pool,logos/ai-pool/aurora_air.png,512x512,completed-caption-safe-procedural-extra
+aurora_regional,Aurora Regional,ai-pool,logos/ai-pool/aurora_regional.png,512x512,completed-caption-safe-procedural-extra
+blue_meridian,Blue Meridian,ai-pool,logos/ai-pool/blue_meridian.png,512x512,completed-caption-safe-procedural-extra
+cascade_air,Cascade Air,ai-pool,logos/ai-pool/cascade_air.png,512x512,completed-caption-safe-procedural-extra
+cinderjet,CinderJet,ai-pool,logos/ai-pool/cinderjet.png,512x512,completed-caption-safe-procedural-extra
+cobalt_air,Cobalt Air,ai-pool,logos/ai-pool/cobalt_air.png,512x512,completed-caption-safe-procedural-extra
+cumulusair,CumulusAir,ai-pool,logos/ai-pool/cumulusair.png,512x512,completed-caption-safe-procedural-extra
+eagle_sky,Eagle Sky,ai-pool,logos/ai-pool/eagle_sky.png,512x512,completed-caption-safe-procedural-extra
+evergreen_airways,Evergreen Airways,ai-pool,logos/ai-pool/evergreen_airways.png,512x512,completed-caption-safe-procedural-extra
+frontier_wings,Frontier Wings,ai-pool,logos/ai-pool/frontier_wings.png,512x512,completed-caption-safe-procedural-extra
+global_one,Global One,ai-pool,logos/ai-pool/global_one.png,512x512,completed-caption-safe-procedural-extra
+greenjet,GreenJet,ai-pool,logos/ai-pool/greenjet.png,512x512,completed-caption-safe-procedural-extra
+harborwing_airlines,Harborwing Airlines,ai-pool,logos/ai-pool/harborwing_airlines.png,512x512,completed-caption-safe-procedural-extra
+horizon_jet,Horizon Jet,ai-pool,logos/ai-pool/horizon_jet.png,512x512,completed-caption-safe-procedural-extra
+liberty_jet,Liberty Jet,ai-pool,logos/ai-pool/liberty_jet.png,512x512,completed-caption-safe-procedural-extra
+majestic_air,Majestic Air,ai-pool,logos/ai-pool/majestic_air.png,512x512,completed-caption-safe-procedural-extra
+maple_jet,Maple Jet,ai-pool,logos/ai-pool/maple_jet.png,512x512,completed-caption-safe-procedural-extra
+northcrest_airways,Northcrest Airways,ai-pool,logos/ai-pool/northcrest_airways.png,512x512,completed-caption-safe-procedural-extra
+nova_air,Nova Air,ai-pool,logos/ai-pool/nova_air.png,512x512,completed-caption-safe-procedural-extra
+oceanic_air,Oceanic Air,ai-pool,logos/ai-pool/oceanic_air.png,512x512,completed-caption-safe-procedural-extra
+orion_jet,Orion Jet,ai-pool,logos/ai-pool/orion_jet.png,512x512,completed-caption-safe-procedural-extra
+pacific_crest,Pacific Crest,ai-pool,logos/ai-pool/pacific_crest.png,512x512,completed-caption-safe-procedural-extra
+pinnacle_air,Pinnacle Air,ai-pool,logos/ai-pool/pinnacle_air.png,512x512,completed-caption-safe-procedural-extra
+pioneer_air,Pioneer Air,ai-pool,logos/ai-pool/pioneer_air.png,512x512,completed-caption-safe-procedural-extra
+polar_connect,Polar Connect,ai-pool,logos/ai-pool/polar_connect.png,512x512,completed-caption-safe-procedural-extra
+quantum,Quantum,ai-pool,logos/ai-pool/quantum.png,512x512,completed-caption-safe-procedural-extra
+radiant_airlines,Radiant Airlines,ai-pool,logos/ai-pool/radiant_airlines.png,512x512,completed-caption-safe-procedural-extra
+rapid_air,Rapid Air,ai-pool,logos/ai-pool/rapid_air.png,512x512,completed-caption-safe-procedural-extra
+regal_jet,Regal Jet,ai-pool,logos/ai-pool/regal_jet.png,512x512,completed-caption-safe-procedural-extra
+silver_horizon,Silver Horizon,ai-pool,logos/ai-pool/silver_horizon.png,512x512,completed-caption-safe-procedural-extra
+sky_sover,Sky Sover,ai-pool,logos/ai-pool/sky_sover.png,512x512,completed-caption-safe-procedural-extra
+skylancer,SkyLancer,ai-pool,logos/ai-pool/skylancer.png,512x512,completed-caption-safe-procedural-extra
+solaris_connect,Solaris Connect,ai-pool,logos/ai-pool/solaris_connect.png,512x512,completed-caption-safe-procedural-extra
+summit_air,Summit Air,ai-pool,logos/ai-pool/summit_air.png,512x512,completed-caption-safe-procedural-extra
+sunrise_air,Sunrise Air,ai-pool,logos/ai-pool/sunrise_air.png,512x512,completed-caption-safe-procedural-extra
+unity_air,Unity Air,ai-pool,logos/ai-pool/unity_air.png,512x512,completed-caption-safe-procedural-extra
+vanguard_air,Vanguard Air,ai-pool,logos/ai-pool/vanguard_air.png,512x512,completed-caption-safe-procedural-extra
+velocitycrest,Velocitycrest,ai-pool,logos/ai-pool/velocitycrest.png,512x512,completed-caption-safe-procedural-extra
+westwind_jet,Westwind Jet,ai-pool,logos/ai-pool/westwind_jet.png,512x512,completed-caption-safe-procedural-extra
+aeronova,AeroNova,ai-rivals,logos/ai-rivals/aeronova.png,512x512,completed-caption-safe-procedural-extra
+airglobe,AirGlobe,ai-rivals,logos/ai-rivals/airglobe.png,512x512,completed-caption-safe-procedural-extra
+jetstar_intl,JetStar Intl,ai-rivals,logos/ai-rivals/jetstar_intl.png,512x512,completed-caption-safe-procedural-extra
+panworld,PanWorld,ai-rivals,logos/ai-rivals/panworld.png,512x512,completed-caption-safe-procedural-extra
+skyrush,SkyRush,ai-rivals,logos/ai-rivals/skyrush.png,512x512,completed-caption-safe-procedural-extra
+transocean,TransOcean,ai-rivals,logos/ai-rivals/transocean.png,512x512,completed-caption-safe-procedural-extra
+apex_air,APEX AIR,dice-names,logos/dice-names/apex_air.png,512x512,completed-caption-safe-procedural-extra
+atlas_air,ATLAS AIR,dice-names,logos/dice-names/atlas_air.png,512x512,completed-caption-safe-procedural-extra
+aurora,AURORA,dice-names,logos/dice-names/aurora.png,512x512,completed-caption-safe-procedural-extra
+cirrus,CIRRUS,dice-names,logos/dice-names/cirrus.png,512x512,completed-caption-safe-procedural-extra
+equinox,EQUINOX,dice-names,logos/dice-names/equinox.png,512x512,completed-caption-safe-procedural-extra
+horizon,HORIZON,dice-names,logos/dice-names/horizon.png,512x512,completed-caption-safe-procedural-extra
+meridian,MERIDIAN,dice-names,logos/dice-names/meridian.png,512x512,completed-caption-safe-procedural-extra
+nimbus,NIMBUS,dice-names,logos/dice-names/nimbus.png,512x512,completed-caption-safe-procedural-extra
+nova_wings,NOVA WINGS,dice-names,logos/dice-names/nova_wings.png,512x512,completed-caption-safe-procedural-extra
+pacific_jet,PACIFIC JET,dice-names,logos/dice-names/pacific_jet.png,512x512,completed-caption-safe-procedural-extra
+paisley_air,PAISLEY AIR,dice-names,logos/dice-names/paisley_air.png,512x512,completed-caption-safe-procedural-extra
+polaris,POLARIS,dice-names,logos/dice-names/polaris.png,512x512,completed-caption-safe-procedural-extra
+skyline,SKYLINE,dice-names,logos/dice-names/skyline.png,512x512,completed-caption-safe-procedural-extra
+solstice,SOLSTICE,dice-names,logos/dice-names/solstice.png,512x512,completed-caption-safe-procedural-extra
+stratus,STRATUS,dice-names,logos/dice-names/stratus.png,512x512,completed-caption-safe-procedural-extra
+vantage,VANTAGE,dice-names,logos/dice-names/vantage.png,512x512,completed-caption-safe-procedural-extra
+velocity,VELOCITY,dice-names,logos/dice-names/velocity.png,512x512,completed-caption-safe-procedural-extra
+zephyr,ZEPHYR,dice-names,logos/dice-names/zephyr.png,512x512,completed-caption-safe-procedural-extra

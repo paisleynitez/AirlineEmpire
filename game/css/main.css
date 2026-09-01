@@ -6530,7 +6530,7 @@ button,input,select,textarea{font:inherit}
   background:#080312!important;
 }
 .logo-card-image-wrap::after{
-  content:'';
+  content:none;
   position:absolute;
   left:0;right:0;bottom:0;
   height:34%;
@@ -6559,10 +6559,10 @@ button,input,select,textarea{font:inherit}
 }
 .logo-card-image-wrap img.logo-card-image,
 .logo-card-image-wrap img{
-  object-fit:cover!important;
-  object-position:center top!important;
-  transform:scale(1.05);
-  transform-origin:center top;
+  object-fit:contain!important;
+  object-position:center center!important;
+  transform:none;
+  transform-origin:center center;
 }
 /* The name below the art remains the authoritative readable label. */
 .ae4-logogrid .logo-card-name{
@@ -6963,3 +6963,71 @@ body.ae-executive-command #game-ui #mock-livetiles .mlt-s {
   color: #cbd7e0 !important;
 }
 body.ae-executive-command #game-ui #mock-livetiles .mlt-s:empty { min-height: 0 !important; margin-top: 0 !important; }
+
+/* ======================================================================
+   AE v1.1.6 — LOGO_CARD_FIT_v01
+   Square procedural identity marks (approved-250 passes 2/3 + extras) must
+   never crop inside the logo picker cards. Overrides the v1.1.5 TP rule
+   (.logo-card-image-wrap img { object-fit:cover; center top; scale(1.05) })
+   which showed only the top ~60% of a square source. `contain` letterboxes
+   wide curated art instead of cropping square marks — nothing is ever cut.
+   ====================================================================== */
+.ae4-logogrid .logo-card-image-wrap img,
+.logo-card-image-wrap img.ae-airline-logo-img {
+  object-fit: contain !important;
+  object-position: center center !important;
+  transform: none !important;
+}
+
+/* ======================================================================
+   AE v1.1.6 — LOGO_CARD_FILL_v01
+   Companion to LOGO_CARD_FIT_v01. The wrap was a wide box (~180×96), so
+   square marks letterboxed with dead space at the sides. Make the image
+   area a centered square, enlarge it, and zoom 1.06 to consume only the
+   transparent margin baked into the marks (solid content ends at 96.5%,
+   visible window is 2.8%–97.2% — letter tabs stay whole).
+   ====================================================================== */
+.ae4-logogrid .logo-pick.logo-card.image-logo-card {
+  height: 172px !important;
+  min-height: 172px !important;
+  padding: 8px 8px 7px !important;
+  gap: 4px !important;
+}
+.ae4-logogrid .logo-card-image-wrap {
+  height: 112px !important;
+  min-height: 112px !important;
+  width: 112px !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+}
+.ae4-logogrid .logo-card-image,
+.ae4-logogrid .logo-card-image-wrap img {
+  height: 112px !important;
+  max-height: 112px !important;
+  width: 100% !important;
+  object-fit: contain !important;
+  transform: scale(1.06) !important;
+  transform-origin: center center !important;
+}
+@media (max-width: 650px) {
+  .ae4-logogrid .logo-pick.logo-card.image-logo-card { height: 136px !important; min-height: 136px !important; }
+  .ae4-logogrid .logo-card-image-wrap { height: 84px !important; min-height: 84px !important; width: 84px !important; }
+  .ae4-logogrid .logo-card-image,
+  .ae4-logogrid .logo-card-image-wrap img { height: 84px !important; max-height: 84px !important; min-height: 84px !important; }
+}
+
+/* ======================================================================
+   AE v1.1.6 — LOGO_BADGE_ZOOM_v01
+   Same margin-eating 1.06 zoom for the three small badge contexts
+   (setup selected-logo, header badge, CEO badge). Their containers
+   already have overflow:hidden, so the zoom crops only the transparent
+   margin baked into the marks — solid content ends at 96.5% of the
+   frame, the visible window is 2.8%–97.2%; letter tabs stay whole.
+   ====================================================================== */
+.ae-airline-logo-img.nh-selected-logo,
+.ae-airline-logo-img.header-airline-logo,
+.ae-airline-logo-img.ceo-airline-logo {
+  transform: scale(1.06) !important;
+  transform-origin: center center !important;
+}
+
