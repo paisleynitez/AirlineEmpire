@@ -27,6 +27,12 @@
     <link rel="stylesheet" href="css/fonts-mono-swap-v01.css">
     <!-- FONTS_BODY_ATKINSON_v01: Atkinson Hyperlegible served under the 'Inter' family name for all UI text -->
     <link rel="stylesheet" href="css/fonts-body-atkinson-v01.css">
+    <!-- REGION_BAR_v01: map screen region selector restyled as one segmented control; last so it wins over skin layers -->
+    <link rel="stylesheet" href="css/region-bar-v01.css">
+    <!-- BUY_AIRCRAFT_v01: Buy Aircraft window header fix (Identity Guide button no longer stretches full width) -->
+    <link rel="stylesheet" href="css/buy-aircraft-v01.css">
+    <!-- SLOT_WINDOW_CHROME_v01: Slot Negotiations header matches other windows (grip dots, pin, minimize hidden) -->
+    <link rel="stylesheet" href="css/slot-window-chrome-v01.css">
 </head>
 <body class="ae-executive-command">
 
@@ -655,6 +661,16 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <script defer src="./js/patches/new_route_filters_v01.js"></script>
 <!-- HUB_REGION_DROPDOWNS_v01: setup step 3 hub region pills become New-Route-style Region/Subregion dropdowns -->
 <script defer src="./js/patches/hub_region_dropdowns_v01.js"></script>
+<!-- BUY_AIRCRAFT_RESIZE_v01: Buy Aircraft window resizable from its bottom-right corner; size remembered across launches -->
+<script defer src="./js/patches/buy_aircraft_resize_v01.js"></script>
+<!-- DEV_SKIP_v01: TEMPORARY dev button on the home screen that jumps straight into a default game. Delete this line to remove. -->
+<script defer src="./js/patches/dev_skip_v01.js"></script>
+<!-- REAL_DEV_v01: "Real Dev" tab in the Tune panel — live-edit cash, loan, reputation, fuel multiplier, aircraft prices, rival aggression, budget sliders -->
+<script defer src="./js/patches/real_dev_v01.js"></script>
+<!-- WINDOW_CHROME_v01: single × close on every window (adds × to Fleet & Aircraft page) -->
+<script defer src="./js/patches/window_chrome_v01.js"></script>
+<!-- RESEARCH_REDIRECT_v01: TEMPORARY — sidebar Research opens RESEARCH & UPGRADES directly (skips the Research Hub page). Delete this line to restore. -->
+<script defer src="./js/patches/research_redirect_v01.js"></script>
 <!-- DEV_CONSOLE_v01: "Dev" tab in the Tune panel — pages, windows, clock/turn controls, kill switches -->
 <script defer src="./js/patches/dev_console_v01.js"></script>
 

@@ -1,0 +1,137 @@
+/* REGION_BAR_v01 — map screen region selector (#region-tabs) restyle.
+   Scope: the region bar floating over the world map only. Does not touch the
+   New Route modal's .region-tab chips or the hub-region tabs in the setup wizard.
+   Loaded last so it wins over the late !important rules in main.css and the
+   executive-command panel treatment of #region-tabs. UI-only: markup and
+   setRegion()/renderRegionTabs()/flashRegionTab() are unchanged. */
+
+/* --- Container: one segmented control instead of a dark slab with a fade mask --- */
+body #region-tabs,
+body.ae-executive-command #region-tabs {
+  top: 12px !important;
+  right: 12px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  padding: 3px !important;
+  max-width: calc(100% - 24px) !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scrollbar-width: none !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  color: #9fb1ca !important;
+  background: linear-gradient(180deg, rgba(8, 20, 36, .92), rgba(4, 12, 24, .94)) !important;
+  border: 1px solid rgba(84, 159, 218, .28) !important;
+  border-radius: 12px !important;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, .45),
+    0 0 0 1px rgba(0, 0, 0, .35),
+    inset 0 1px 0 rgba(255, 255, 255, .05) !important;
+  backdrop-filter: blur(14px) saturate(125%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(125%) !important;
+}
+body #region-tabs::-webkit-scrollbar { display: none !important; }
+
+/* --- Segments --- */
+body #region-tabs .region-tab {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  height: 26px !important;
+  padding: 0 12px !important;
+  margin: 0 !important;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif !important;
+  font-size: 10.4px !important;
+  font-weight: 700 !important;
+  letter-spacing: .9px !important;
+  text-transform: uppercase !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  color: #9fb1ca !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: 9px !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  transition: color .16s ease, background .16s ease, border-color .16s ease, box-shadow .16s ease !important;
+}
+
+body #region-tabs .region-tab:hover {
+  color: #fff !important;
+  background: linear-gradient(180deg, rgba(82, 216, 255, .10), rgba(82, 216, 255, .03)) !important;
+  border-color: rgba(82, 216, 255, .30) !important;
+  box-shadow: 0 0 14px rgba(82, 216, 255, .08) !important;
+}
+
+body #region-tabs .region-tab.active,
+body #region-tabs .region-tab.active:hover {
+  color: #fff !important;
+  font-weight: 800 !important;
+  background: linear-gradient(135deg, rgba(38, 150, 255, .26), rgba(151, 91, 255, .24)) !important;
+  border-color: rgba(83, 218, 255, .70) !important;
+  box-shadow:
+    inset 0 -2px 0 rgba(82, 216, 255, .85),
+    0 0 16px rgba(82, 216, 255, .18),
+    0 0 24px rgba(157, 102, 255, .10) !important;
+}
+
+/* Keyboard focus ring in the house cyan. */
+body #region-tabs .region-tab:focus-visible {
+  outline: none !important;
+  border-color: rgba(82, 216, 255, .85) !important;
+  box-shadow: 0 0 0 2px rgba(82, 216, 255, .18) !important;
+}
+
+/* WORLD sits apart from the seven regions: thin divider + small globe dot. */
+body #region-tabs .region-tab:last-child {
+  margin-left: 6px !important;
+  padding-left: 22px !important;
+}
+body #region-tabs .region-tab:last-child::before {
+  content: '' !important;
+  position: absolute !important;
+  left: -4px !important;
+  top: 5px !important;
+  bottom: 5px !important;
+  width: 1px !important;
+  background: rgba(84, 159, 218, .32) !important;
+}
+body #region-tabs .region-tab:last-child::after {
+  content: '' !important;
+  position: absolute !important;
+  left: 9px !important;
+  top: 50% !important;
+  width: 7px !important;
+  height: 7px !important;
+  margin-top: -3.5px !important;
+  border-radius: 50% !important;
+  border: 1.5px solid currentColor !important;
+  opacity: .75 !important;
+  box-sizing: border-box !important;
+}
+body #region-tabs .region-tab.active:last-child::after {
+  border-color: #52d8ff !important;
+  box-shadow: 0 0 6px rgba(82, 216, 255, .6) !important;
+  opacity: 1 !important;
+}
+
+/* Hub-flash pulse (used when a hub is added) re-tinted to the house cyan. */
+@keyframes regionBarFlash {
+  0%   { box-shadow: 0 0 0 0 rgba(82, 216, 255, .55), 0 0 0 0 rgba(82, 216, 255, .0); }
+  100% { box-shadow: 0 0 0 7px rgba(82, 216, 255, 0), 0 0 18px rgba(82, 216, 255, .0); }
+}
+body #region-tabs .region-tab.hub-flash {
+  animation: regionBarFlash 1.4s ease-out 3 !important;
+  border-color: rgba(82, 216, 255, .7) !important;
+}
+
+/* Narrow map: tighten segments before allowing scroll. */
+@media (max-width: 1360px) {
+  body #region-tabs .region-tab { padding: 0 9px !important; font-size: 9.8px !important; letter-spacing: .7px !important; }
+  body #region-tabs .region-tab:last-child { padding-left: 19px !important; }
+}

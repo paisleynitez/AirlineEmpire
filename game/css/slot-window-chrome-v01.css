@@ -1,0 +1,21 @@
+/* SLOT_WINDOW_CHROME_v01 — Slot Negotiations (Airports) window header brought in
+   line with every other window: no drag-grip dots, no pin, no minimize — just the
+   title and the standard × close box. Buttons are hidden, not removed, so the
+   patch script that wires them (main_redesign_v07.js) is untouched. */
+body #ae-slot-negotiations .ae-sn-head, body.ae-executive-command #ae-slot-negotiations .ae-sn-head { grid-template-columns: 1fr auto !important; cursor: default !important; }
+body #ae-slot-negotiations .ae-sn-grip { display: none !important; }
+body #ae-slot-negotiations .ae-sn-head-actions .ae-sn-pin,
+body #ae-slot-negotiations .ae-sn-head-actions .ae-sn-min,
+body.ae-executive-command #ae-slot-negotiations .ae-sn-head-actions .ae-sn-pin,
+body.ae-executive-command #ae-slot-negotiations .ae-sn-head-actions .ae-sn-min { display: none !important; }
+body.ae-executive-command #ae-slot-negotiations .ae-sn-head-actions .ae-sn-iconbtn.ae-sn-x { font-size: 18px !important; }
+
+/* Footer "Close" button removed — the header × is the one close control. */
+body #ae-slot-negotiations .ae-sn-foot .ae-sn-close,
+body.ae-executive-command #ae-slot-negotiations .ae-sn-foot .ae-sn-close { display: none !important; }
+body #ae-slot-negotiations .ae-sn-foot { justify-content: flex-start !important; }
+
+/* Fleet & Aircraft page: × added by js/patches/window_chrome_v01.js sits top-right of the header. */
+body .flp-head { position: relative !important; }
+body .flp-head .ae-flp-close { position: absolute !important; top: 0 !important; right: 0 !important; }
+body .flp-head .flp-summary { margin-right: 48px !important; }

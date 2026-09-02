@@ -1,0 +1,371 @@
+/* BUY_AIRCRAFT_v01 — Buy Aircraft window header fix + tidy.
+   Root cause of the oversized header: the generic .action-btn rule in main.css
+   sets width:100%, so the "Identity Guide" button inside the flex header row
+   grabbed the full width and crushed the title/subtitle into a tall narrow
+   column. This scopes the fix to the Buy Aircraft window only. UI-only;
+   buildBuyPlanes() markup and behavior are unchanged. */
+
+/* --- Header row: title left, Identity Guide + Cash right, one line --- */
+body .bp-content .bp-cat-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin: 0 0 12px !important;
+  padding: 0 0 12px !important;
+  border-bottom: 1px solid rgba(84, 159, 218, .18) !important;
+}
+
+body .bp-content .bp-cat-header > div[style*="flex:1"] {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+
+body .bp-content .bp-cat-icon {
+  font-size: 18px !important;
+  line-height: 1 !important;
+  width: 34px !important;
+  height: 34px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 9px !important;
+  color: #52d8ff !important;
+  background: linear-gradient(180deg, rgba(82, 216, 255, .12), rgba(82, 216, 255, .04)) !important;
+  border: 1px solid rgba(82, 216, 255, .28) !important;
+  flex: 0 0 auto !important;
+}
+
+body .bp-content .bp-cat-name {
+  font-size: 14.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: .6px !important;
+  text-transform: uppercase !important;
+  color: #f5f8ff !important;
+  white-space: nowrap !important;
+  line-height: 1.15 !important;
+}
+
+body .bp-content .bp-cat-sub {
+  font-size: 11px !important;
+  color: #9db0ca !important;
+  margin-top: 3px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* The button: compact, natural width, never 100%. */
+body .bp-content .bp-cat-header .action-btn,
+body.ae-executive-command .bp-content .bp-cat-header .action-btn {
+  width: auto !important;
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  height: 30px !important;
+  padding: 0 12px !important;
+  font-size: 10.6px !important;
+  font-weight: 700 !important;
+  letter-spacing: .8px !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  line-height: 1 !important;
+  transform: none !important;
+}
+
+/* Cash chip: same height as the button, mono number in the house gold. */
+body .bp-content .bp-cat-header .nr-chip {
+  flex: 0 0 auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  height: 30px !important;
+  padding: 0 12px !important;
+  margin: 0 !important;
+  font-size: 10.6px !important;
+  font-weight: 700 !important;
+  letter-spacing: .8px !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  color: #9db0ca !important;
+  background: linear-gradient(180deg, rgba(8, 20, 36, .92), rgba(4, 12, 24, .94)) !important;
+  border: 1px solid rgba(84, 159, 218, .28) !important;
+  border-radius: 9px !important;
+}
+body .bp-content .bp-cat-header .nr-chip b {
+  font-family: 'DM Mono', monospace !important;
+  font-size: 12.5px !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: #ffcf5a !important;
+}
+
+/* Narrow window: let the subtitle drop rather than squeeze the controls. */
+@media (max-width: 1100px) {
+  body .bp-content .bp-cat-sub { display: none !important; }
+}
+
+/* --- Resizable window (class set by js/patches/buy_aircraft_resize_v01.js) --- */
+body #modal-content.ae-bp-resizable {
+  resize: both !important;
+  overflow: auto !important;
+  min-width: 640px !important;
+  min-height: 360px !important;
+  max-width: calc(100vw - 2 * var(--ae-popup-gutter, 24px)) !important;
+  max-height: calc(100vh - 2 * var(--ae-popup-gutter, 24px)) !important;
+  box-sizing: border-box !important;
+}
+body #modal-content.ae-bp-resizable::-webkit-resizer {
+  background:
+    linear-gradient(135deg, transparent 0 45%, rgba(82, 216, 255, .55) 45% 55%, transparent 55% 70%, rgba(82, 216, 255, .55) 70% 80%, transparent 80%);
+  border-bottom-right-radius: 9px;
+}
+/* Fill the window: header stays put, nav + list stretch to the dragged height,
+   and the list scrolls inside its own column instead of the whole window. */
+body #modal-content.ae-bp-resizable {
+  display: flex !important;
+  flex-direction: column !important;
+}
+body #modal-content.ae-bp-resizable > .modal-header { flex: 0 0 auto !important; }
+body #modal-content.ae-bp-resizable > .bp-layout {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  grid-template-rows: minmax(0, 1fr) !important;
+}
+body #modal-content.ae-bp-resizable .bp-nav { min-height: 0 !important; overflow-y: auto !important; }
+body #modal-content.ae-bp-resizable .bp-content {
+  max-height: none !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+}
+
+/* --- Compact aircraft cards: quantity buttons become a single row of small
+   pills instead of four stretched tiles, and the card tightens around them. --- */
+body .bp-content .bp-card2 { gap: 12px !important; padding: 10px 12px !important; margin-bottom: 8px !important; border-radius: 10px !important; }
+body .bp-content .bp-photo { width: 104px !important; min-height: 0 !important; align-self: stretch !important; border-radius: 8px !important; }
+body .bp-content .bp-photo-plane { font-size: 34px !important; }
+body .bp-content .bp-card2-top { gap: 12px !important; }
+body .bp-content .bp-plane-name2 { font-size: 18px !important; }
+body .bp-content .bp-identity-line { font-size: 10.5px !important; }
+body .bp-content .bp-statline { font-size: 11.5px !important; margin-top: 4px !important; gap: 7px !important; }
+body .bp-content .bp-desc { font-size: 12px !important; line-height: 1.4 !important; margin-top: 5px !important; }
+body .bp-content .bp-identity-theme { font-size: 11px !important; margin-top: 2px !important; }
+body .bp-content .bp-price2 { font-size: 22px !important; }
+body .bp-content .bp-perunit2 { font-size: 9.5px !important; margin-top: 3px !important; }
+
+body .bp-content .bp-qrow {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin-top: 8px !important;
+}
+body .bp-content .bp-qbtn,
+body.ae-executive-command .bp-content .bp-qbtn {
+  flex: 0 0 auto !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 7px !important;
+  height: 28px !important;
+  padding: 0 11px !important;
+  border-radius: 7px !important;
+  transform: none !important;
+  line-height: 1 !important;
+}
+body .bp-content .bp-qbtn:hover:not(:disabled) { transform: none !important; }
+body .bp-content .bp-qx { font-size: 11.5px !important; letter-spacing: .3px !important; }
+body .bp-content .bp-qt { font-size: 11px !important; }
+body .bp-content .bp-qbtn-lead,
+body.ae-executive-command .bp-content .bp-qbtn-lead {
+  background: linear-gradient(135deg, rgba(38, 150, 255, .26), rgba(151, 91, 255, .24)) !important;
+  border-color: rgba(83, 218, 255, .70) !important;
+}
+body .bp-content .bp-sell-btn2,
+body.ae-executive-command .bp-content .bp-sell-btn2 {
+  grid-column: auto !important;
+  flex: 0 0 auto !important;
+  margin: 0 0 0 auto !important;
+  height: 28px !important;
+  padding: 0 11px !important;
+  font-size: 11px !important;
+  border-radius: 7px !important;
+  width: auto !important;
+}
+body .bp-content .bp-future-note { margin-top: 8px !important; padding: 5px 9px !important; font-size: 11px !important; }
+
+/* --- Price pulled in beside the description instead of parked at the far right --- */
+body .bp-content .bp-card2-top > div[style*="flex:1"] { flex: 0 1 560px !important; width: 560px !important; max-width: 100% !important; min-width: 0 !important; }
+body .bp-content .bp-price-block {
+  flex: 0 0 auto !important;
+  align-self: flex-start !important;
+  margin-left: 4px !important;
+  padding: 2px 0 0 14px !important;
+  border-left: 1px solid rgba(84, 159, 218, .18) !important;
+  text-align: left !important;
+}
+body .bp-content .bp-price2 { font-size: 20px !important; line-height: 1 !important; }
+body .bp-content .bp-perunit2 { margin-top: 3px !important; }
+
+/* --- Thumbnail shrunk to the height of name + tagline + seats line; text moves left --- */
+body .bp-content .bp-card2 { gap: 10px !important; }
+body .bp-content .bp-photo {
+  width: 82px !important;
+  height: 66px !important;
+  min-height: 0 !important;
+  align-self: flex-start !important;
+  border-radius: 7px !important;
+}
+body .bp-content .bp-photo-plane { font-size: 24px !important; }
+body .bp-content .bp-photo img, body .bp-content .bp-photo svg { max-width: 100% !important; max-height: 100% !important; }
+
+/* --- Card grid: thumbnail + name/tagline/seats + price on the top rows;
+   description and quantity buttons run full width beneath, flush left. --- */
+body .bp-content .bp-card2 {
+  display: grid !important;
+  grid-template-columns: 82px 380px auto 1fr !important;
+  grid-auto-rows: auto !important;
+  column-gap: 12px !important;
+  row-gap: 0 !important;
+  align-items: start !important;
+}
+body .bp-content .bp-card2-body,
+body .bp-content .bp-card2-top,
+body .bp-content .bp-card2-top > div[style*="flex:1"] { display: contents !important; }
+
+body .bp-content .bp-photo        { grid-column: 1; grid-row: 1 / span 3; }
+body .bp-content .bp-name-row     { grid-column: 2; grid-row: 1; }
+body .bp-content .bp-identity-line{ grid-column: 2; grid-row: 2; }
+body .bp-content .bp-statline     { grid-column: 2; grid-row: 3; }
+body .bp-content .bp-price-block  { grid-column: 3; grid-row: 1 / span 3; margin-left: 6px !important; padding-left: 12px !important; }
+body .bp-content .bp-desc         { grid-column: 1 / -1; grid-row: 4; max-width: none !important; margin-top: 8px !important; }
+body .bp-content .bp-identity-theme { grid-column: 1 / -1; grid-row: 5; }
+body .bp-content .bp-qrow         { grid-column: 1 / -1; grid-row: 6; }
+body .bp-content .bp-future-note  { grid-column: 1 / -1; grid-row: 7; }
+
+/* --- Card box hugs its content: no empty run-out to the right of the price --- */
+body .bp-content .bp-card2 {
+  grid-template-columns: 82px 380px auto !important;
+  width: max-content !important;
+  max-width: 100% !important;
+}
+body .bp-content .bp-desc, body .bp-content .bp-identity-theme { max-width: 596px !important; }
+
+/* --- Range band hugs its cards; window default width follows suit --- */
+body .bp-content .bp-band { width: max-content !important; max-width: 100% !important; }
+body .bp-content .bp-band-head { min-width: 0 !important; }
+body .bp-content .bp-band-body { padding: 4px 10px 10px !important; }
+body #modal-content.ae-bp-resizable:not([style*="width"]) { width: 812px !important; }
+
+/* --- Uniform card width + window hugs content (height-only resize) --- */
+body .bp-content .bp-card2 { grid-template-columns: 82px 380px 118px !important; width: 100% !important; }
+body .bp-content .bp-band { width: 100% !important; }
+body .bp-content .bp-content, body .bp-content { width: max-content !important; }
+body #modal-content.ae-bp-resizable,
+body #modal-content.ae-bp-resizable:not([style*="width"]) {
+  width: max-content !important;
+  min-width: 0 !important;
+  resize: vertical !important;
+}
+body #modal-content.ae-bp-resizable > .bp-layout { grid-template-columns: 130px max-content !important; }
+
+/* =====================================================================
+   YOUR FLEET tab — same treatment as Buy Aircraft
+   ===================================================================== */
+/* Header: title div has no inline flex style here, so target by position. */
+body .bp-content .bp-cat-header > div:nth-child(2) { flex: 1 1 auto !important; min-width: 0 !important; }
+body .bp-content .bp-cat-header .bp-cash {
+  flex: 0 0 auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  height: 30px !important;
+  padding: 0 12px !important;
+  margin: 0 !important;
+  font-size: 10.6px !important;
+  font-weight: 700 !important;
+  letter-spacing: .8px !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  text-align: left !important;
+  color: #9db0ca !important;
+  background: linear-gradient(180deg, rgba(8, 20, 36, .92), rgba(4, 12, 24, .94)) !important;
+  border: 1px solid rgba(84, 159, 218, .28) !important;
+  border-radius: 9px !important;
+}
+body .bp-content .bp-cat-header .bp-cash br { display: none !important; }
+body .bp-content .bp-cat-header .bp-cash b {
+  font-family: 'DM Mono', monospace !important;
+  font-size: 12.5px !important;
+  letter-spacing: 0 !important;
+  color: #ffcf5a !important;
+}
+
+/* Both tabs share one window width. */
+body .bp-content { min-width: 636px !important; }
+
+/* Fleet rows: same box look as the Buy cards, compact. */
+body .bp-content .bp-card {
+  width: 100% !important;
+  border-radius: 10px !important;
+  margin-bottom: 8px !important;
+  background: rgba(255, 255, 255, .02) !important;
+  border: 1px solid rgba(84, 159, 218, .18) !important;
+  transform: none !important;
+}
+body .bp-content .bp-card::before { display: none !important; }
+body .bp-content .bp-card.owned { border-color: rgba(83, 218, 255, .35) !important; }
+body .bp-content .bp-card:hover { transform: none !important; border-color: rgba(83, 218, 255, .55) !important; box-shadow: 0 0 16px rgba(82, 216, 255, .10) !important; }
+body .bp-content .bp-card-head { padding: 9px 12px !important; gap: 10px !important; }
+body .bp-content .bp-plane-name { font-size: 14px !important; }
+body .bp-content .bp-plane-specs { font-size: 10.5px !important; margin-top: 2px !important; }
+body .bp-content .bp-plane-right { padding-left: 12px !important; }
+body .bp-content .bp-detail { padding: 8px 12px 10px !important; }
+
+/* Expanded row controls: 28px pills, one line. */
+body .bp-content .bp-buy-row { gap: 6px !important; }
+body .bp-content .bp-qty-label { font-size: 10.6px !important; letter-spacing: .8px !important; text-transform: uppercase !important; font-weight: 700 !important; color: #9db0ca !important; margin-right: 2px !important; }
+body .bp-content .bp-qty-btn,
+body.ae-executive-command .bp-content .bp-qty-btn {
+  width: auto !important; min-width: 34px !important; height: 28px !important;
+  padding: 0 10px !important; border-radius: 7px !important;
+  font-size: 11.5px !important; font-weight: 800 !important;
+}
+body .bp-content .bp-qty-btn.bp-qty-active,
+body.ae-executive-command .bp-content .bp-qty-btn.bp-qty-active {
+  color: #fff !important;
+  background: linear-gradient(135deg, rgba(38, 150, 255, .26), rgba(151, 91, 255, .24)) !important;
+  border-color: rgba(83, 218, 255, .70) !important;
+}
+body .bp-content .bp-buy-btn,
+body.ae-executive-command .bp-content .bp-buy-btn,
+body .bp-content .bp-sell-btn,
+body.ae-executive-command .bp-content .bp-sell-btn {
+  flex: 0 0 auto !important; width: auto !important; height: 28px !important;
+  padding: 0 11px !important; border-radius: 7px !important;
+  font-size: 11px !important; font-weight: 700 !important; letter-spacing: .5px !important;
+  line-height: 1 !important; white-space: nowrap !important;
+}
+body .bp-content .bp-buy-btn,
+body.ae-executive-command .bp-content .bp-buy-btn {
+  color: #fff !important;
+  background: linear-gradient(135deg, rgba(38, 150, 255, .26), rgba(151, 91, 255, .24)) !important;
+  border: 1px solid rgba(83, 218, 255, .70) !important;
+}
+body .bp-content .bp-sell-btn,
+body.ae-executive-command .bp-content .bp-sell-btn {
+  margin-left: auto !important;
+  color: #ff6f87 !important;
+  background: rgba(255, 111, 135, .08) !important;
+  border: 1px solid rgba(255, 111, 135, .35) !important;
+}
+
+/* =====================================================================
+   AIRCRAFT IDENTITY GUIDE — list box fills the window
+   ===================================================================== */
+body #modal-content.ae-ac-guide { width: 920px !important; }
+body #modal-content.ae-ac-guide > .modal-body {
+  max-width: none !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 16px 20px 20px !important;
+  max-height: calc(100vh - 2 * var(--ae-popup-gutter, 24px) - 70px) !important;
+}
+body #modal-content.ae-ac-guide .fleet-item { width: 100% !important; box-sizing: border-box !important; }
