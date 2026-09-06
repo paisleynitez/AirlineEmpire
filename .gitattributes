@@ -1,0 +1,39 @@
+# Line-ending rules — override each contributor's core.autocrlf so shell scripts
+# and batch files always land with the correct endings on every OS.
+
+# Default: let Git detect text vs binary and normalize text on commit.
+* text=auto
+
+# Shell scripts must stay LF — CRLF breaks the shebang on Linux/macOS.
+*.sh   text eol=lf
+
+# Batch and PowerShell files are Windows-only — pin to CRLF.
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+*.ps1  text eol=crlf
+
+# Common source types — normalize to LF in the repo, checkout native.
+*.js   text
+*.cjs  text
+*.mjs  text
+*.json text
+*.html text
+*.css  text
+*.md   text
+*.yml  text
+*.yaml text
+
+# Binaries — never touch line endings.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.svg  text
+*.ico  binary
+*.pdf  binary
+*.zip  binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
