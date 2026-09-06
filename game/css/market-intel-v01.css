@@ -1,0 +1,85 @@
+/* MARKET_INTEL_v01 — styling for the Market Intelligence window
+   (markup from js/patches/market_intel_v01.js). Executive-command skin;
+   30x30 close, no bold (max 600), compact rhythm, arrow cursor sitewide. */
+
+body.ae-executive-command #modal-content .miv1-head{
+  display:flex !important;align-items:center !important;gap:14px !important;
+  padding:10px 48px 8px 14px !important;min-height:48px !important;position:static !important;
+}
+body.ae-executive-command #modal-content:has(.miv1-head){position:relative !important}
+body.ae-executive-command #modal-content:has(.miv1-head) .modal-close{
+  position:absolute !important;top:9px !important;right:9px !important;
+  width:30px !important;height:30px !important;margin:0 !important;padding:0 !important;
+  display:grid !important;place-items:center !important;border-radius:9px !important;z-index:40 !important;
+}
+body.ae-executive-command #modal-content .miv1-title .modal-title{font-size:clamp(15px,1.2vw,18px) !important;font-weight:600 !important;letter-spacing:1.6px !important}
+body.ae-executive-command #modal-content .miv1-sub{font-size:8.4px;color:var(--muted2);letter-spacing:1.6px;margin-top:1px}
+body.ae-executive-command #modal-content .miv1-cash{margin-left:auto;margin-right:34px;display:flex;flex-direction:column;align-items:flex-end;padding:2px 9px;border:1px solid rgba(120,190,230,.16);border-radius:7px;background:rgba(8,18,30,.55)}
+body.ae-executive-command #modal-content .miv1-cash small{font-size:7.6px;color:var(--muted2);letter-spacing:.8px}
+body.ae-executive-command #modal-content .miv1-cash b{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--warn)}
+body.ae-executive-command #modal-content .miv1-body{padding:9px 12px 12px !important;max-height:80vh;overflow-y:auto}
+
+/* tab cards */
+body.ae-executive-command #modal-content .miv1-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:7px}
+body.ae-executive-command #modal-content .miv1-tabcard{display:flex;gap:8px;align-items:center;padding:7px 10px;border:1px solid rgba(120,190,230,.2);border-radius:10px;background:rgba(9,19,32,.55)}
+body.ae-executive-command #modal-content .miv1-tabcard.on{border-color:rgba(94,190,230,.7);background:linear-gradient(180deg,rgba(20,54,84,.75),rgba(11,30,50,.8));box-shadow:0 0 12px rgba(94,190,230,.14)}
+body.ae-executive-command #modal-content .miv1-tabcard b{display:block;font-size:10px;font-weight:600;letter-spacing:.7px;color:#fff}
+body.ae-executive-command #modal-content .miv1-tabcard small{display:block;font-size:8.4px;color:var(--muted2)}
+
+/* stat strip */
+body.ae-executive-command #modal-content .miv1-stats{display:flex;gap:7px;margin-bottom:8px}
+body.ae-executive-command #modal-content .miv1-stats>span{flex:1;display:flex;flex-direction:column;align-items:center;padding:6px;border:1px solid rgba(120,190,230,.16);border-radius:10px;background:rgba(8,18,30,.5)}
+body.ae-executive-command #modal-content .miv1-stats b{font-family:'DM Mono',monospace;font-size:15px;font-weight:500;color:#fff}
+body.ae-executive-command #modal-content .miv1-stats b.hi{color:var(--profit)}
+body.ae-executive-command #modal-content .miv1-stats small{font-size:8.4px;color:var(--muted2);margin-top:1px}
+
+/* filters */
+body.ae-executive-command #modal-content .miv1-filters{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:5px 8px;margin-bottom:7px;border:1px solid rgba(120,190,230,.14);border-radius:9px;background:rgba(8,18,30,.5)}
+body.ae-executive-command #modal-content .miv1-flbl{font-size:8px;font-weight:600;letter-spacing:.9px;color:var(--muted2)}
+body.ae-executive-command #modal-content .miv1-sel{background:rgba(10,22,36,.8);color:var(--text);border:1px solid rgba(120,190,230,.22);border-radius:7px;font-size:9.6px;padding:2px 5px}
+body.ae-executive-command #modal-content .miv1-chip{padding:2px 9px;border:1px solid rgba(120,190,230,.22);border-radius:99px;background:rgba(10,22,36,.6);color:var(--muted);font-size:9.4px}
+body.ae-executive-command #modal-content .miv1-chip.on{color:#04121e;background:linear-gradient(180deg,#67d9f7,#3fb9e8);border-color:transparent;font-weight:600}
+body.ae-executive-command #modal-content .miv1-uns{margin-left:auto;display:flex;gap:4px;align-items:center;font-size:9.4px;color:var(--muted)}
+
+/* opportunity cards */
+body.ae-executive-command #modal-content .miv1-op{border:1px solid rgba(120,190,230,.18);border-radius:11px;padding:7px 10px;margin-bottom:6px;background:rgba(9,19,32,.5)}
+body.ae-executive-command #modal-content .miv1-oprow1{display:flex;align-items:center;gap:9px}
+body.ae-executive-command #modal-content .miv1-oprow1>b{font-size:12.6px;font-weight:600;color:#fff}
+body.ae-executive-command #modal-content .miv1-badge{padding:1px 8px;border-radius:99px;font-size:7.6px;font-weight:600;letter-spacing:.7px}
+body.ae-executive-command #modal-content .miv1-badge.hi{color:#3fe8a0;border:1px solid rgba(63,232,160,.45)}
+body.ae-executive-command #modal-content .miv1-badge.med{color:var(--warn);border:1px solid rgba(255,207,90,.45)}
+body.ae-executive-command #modal-content .miv1-badge.low{color:var(--muted);border:1px solid rgba(150,170,190,.35)}
+body.ae-executive-command #modal-content .miv1-scb{margin-left:auto;display:flex;align-items:center;gap:7px}
+body.ae-executive-command #modal-content .miv1-scb b{font-family:'DM Mono',monospace;font-size:13px;font-weight:500}
+body.ae-executive-command #modal-content .miv1-scb span{width:88px;height:6px;border-radius:99px;background:rgba(120,190,230,.12);overflow:hidden;display:block}
+body.ae-executive-command #modal-content .miv1-scb i{display:block;height:100%;border-radius:99px}
+body.ae-executive-command #modal-content .miv1-oprow2{display:flex;align-items:center;gap:14px;margin-top:5px;flex-wrap:wrap}
+body.ae-executive-command #modal-content .miv1-oprow2>span{display:flex;flex-direction:column}
+body.ae-executive-command #modal-content .miv1-oprow2 small{font-size:7.4px;letter-spacing:.7px;color:var(--muted2)}
+body.ae-executive-command #modal-content .miv1-oprow2 b{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:#fff}
+body.ae-executive-command #modal-content .miv1-oprow2 em{font-style:normal;font-size:8.2px;color:var(--muted2)}
+body.ae-executive-command #modal-content .miv1-go{
+  margin-left:auto !important;min-height:0 !important;padding:5px 12px !important;
+  border-radius:99px !important;border:1px solid rgba(94,190,230,.45) !important;
+  background:linear-gradient(180deg,rgba(24,64,100,.85),rgba(14,38,64,.9)) !important;
+  color:#cfeeff !important;font-size:9px !important;font-weight:600 !important;letter-spacing:.6px !important;
+}
+body.ae-executive-command #modal-content .miv1-go:hover{border-color:rgba(94,190,230,.85) !important;color:#fff !important}
+
+/* heat map */
+body.ae-executive-command #modal-content .miv1-heathead{font-size:9.6px;color:var(--muted);margin:2px 2px 7px}
+body.ae-executive-command #modal-content .miv1-heat{display:flex;align-items:center;gap:10px;padding:5px 9px;margin-bottom:5px;border:1px solid rgba(120,190,230,.14);border-radius:9px;background:rgba(9,19,32,.45)}
+body.ae-executive-command #modal-content .miv1-heat>b{flex:0 0 110px;font-size:10.6px;font-weight:600;color:#fff}
+body.ae-executive-command #modal-content .miv1-hbar{flex:1;height:8px;border-radius:99px;background:rgba(120,190,230,.1);overflow:hidden}
+body.ae-executive-command #modal-content .miv1-hbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#3fb9e8,#ff9e5e)}
+body.ae-executive-command #modal-content .miv1-heat em{font-style:normal;flex:0 0 auto;font-size:8.8px;color:var(--muted2)}
+body.ae-executive-command #modal-content .miv1-heat u{color:var(--warn);text-decoration:none}
+
+/* rival watch */
+body.ae-executive-command #modal-content .miv1-riv{border:1px solid rgba(120,190,230,.18);border-radius:11px;padding:7px 10px;margin-bottom:6px;background:rgba(9,19,32,.5)}
+body.ae-executive-command #modal-content .miv1-rivtop{display:flex;align-items:center;gap:9px}
+body.ae-executive-command #modal-content .miv1-rivtop b{font-size:12px;font-weight:600;color:#fff}
+body.ae-executive-command #modal-content .miv1-rivmeta{font-size:9.4px;color:var(--muted);margin-top:2px}
+body.ae-executive-command #modal-content .miv1-rivact{display:flex;margin-top:5px}
+
+body.ae-executive-command #modal-content .miv1-empty{padding:18px;text-align:center;font-size:10.6px;color:var(--muted);border:1px dashed rgba(120,190,230,.22);border-radius:10px}

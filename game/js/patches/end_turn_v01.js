@@ -30,7 +30,7 @@
     const link=document.createElement('link');
     link.id='ae-end-turn-v01-style';
     link.rel='stylesheet';
-    link.href='./css/end-turn-v01.css?v=2';
+    link.href='./css/end-turn-v01.css?v=3';
     document.head.appendChild(link);
   }
 
@@ -88,8 +88,8 @@
   }
 
   // Transport (rev B): ONE cycling speed button (▸ → ▸▸ → ▸▸▸ → ▸); pause removed — no pausing during gameplay.
-  const CYCLE=['normal','fast','turbo'];
-  const GLYPH={normal:'\u25B8',fast:'\u25B8\u25B8',turbo:'\u25B8\u25B8\u25B8'};
+  const CYCLE=['relaxed','normal','fast','turbo'];
+  const GLYPH={relaxed:'\u25B8',normal:'\u25B8\u25B8',fast:'\u25B8\u25B8\u25B8',turbo:'\u25B8\u25B8\u25B8\u25B8'};
   function syncCycleBtn(){
     const b=document.getElementById('ae-speed-cycle'); if(!b) return;
     const s=state();

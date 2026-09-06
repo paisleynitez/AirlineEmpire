@@ -129,4 +129,47 @@
     try { return render(); }
     catch(e){ console.error('[MarketingCenter]', e); return nativeBuild ? nativeBuild() : ''; }
   };
+
+  /* COMPACT rev B: the resize-grip memory stamps inline width/height on the
+     frame; when the Marketing Center is showing, force height to content
+     (max 86vh) and clear our overrides when any other window takes the modal. */
+  var SIZED = ['width', 'max-width', 'height', 'max-height', 'margin'];
+  function mkcSizeFrame(){
+    var m = document.getElementById('modal-content');
+    if (!m) return;
+    if (m.querySelector('.mkc')) {
+      m.style.setProperty('width', 'min(94vw, 780px)', 'important');
+      m.style.setProperty('max-width', 'min(94vw, 780px)', 'important');
+      m.style.setProperty('height', 'auto', 'important');
+      m.style.setProperty('max-height', '86vh', 'important');
+      /* drop dragged/resized offsets, then pin toward the top of the overlay */
+      ['left', 'top', 'right', 'bottom', 'transform', 'position'].forEach(function(p){ m.style.removeProperty(p); });
+      m.style.setProperty('margin', '15.5vh auto auto', 'important');
+      m._mkcSized = true;
+    } else if (m._mkcSized) {
+      SIZED.forEach(function(p){ m.style.removeProperty(p); });
+      m._mkcSized = false;
+    }
+  }
+  function hookModal(){
+    if (typeof window.openModal !== 'function') { setTimeout(hookModal, 300); return; }
+    var o = window.openModal;
+    if (!o.__aeMkc) {
+      var wo = function(){ var r = o.apply(this, arguments); setTimeout(mkcSizeFrame, 0); return r; };
+      wo.__aeMkc = true; window.openModal = wo;
+    }
+    var c = window.closeModal;
+    if (typeof c === 'function' && !c.__aeMkc) {
+      var wc = function(){ var r = c.apply(this, arguments); setTimeout(mkcSizeFrame, 0); return r; };
+      wc.__aeMkc = true; window.closeModal = wc;
+    }
+    /* LOCK rev C: any re-render (tab switch, launch, refresh) restamps the
+       frame, so the window never moves between Region/City/Route/Venture. */
+    var mc = document.getElementById('modal-content');
+    if (mc && !mc.__aeMkcObs) {
+      mc.__aeMkcObs = true;
+      new MutationObserver(function(){ mkcSizeFrame(); }).observe(mc, { childList: true });
+    }
+  }
+  hookModal();
 })();

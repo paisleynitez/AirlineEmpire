@@ -42,7 +42,7 @@
     <!-- ROUTE_MANAGER_UICLEAN_v01 — Route Manager matches the Fleet window treatment: compact centered KPI boxes, no bold fonts, 30×30 corner close -->
     <link rel="stylesheet" href="css/route-manager-uiclean-v01.css?v=5">
     <!-- MARKETING_CENTER_v01 — Advertising window rebuilt as the Marketing Center concept (stat boxes, pill tabs, campaign cards); markup from js/patches/marketing_center_v01.js -->
-    <link rel="stylesheet" href="css/marketing-center-v01.css">
+    <link rel="stylesheet" href="css/marketing-center-v01.css?v=3">
     <!-- NEW_ROUTE_COMPACT_v01 — New Route window opens tighter (smaller frame, denser rhythm) -->
     <link rel="stylesheet" href="css/new-route-compact-v01.css?v=13">
     <!-- BUY_AIRCRAFT_v02 — route-flow Buy Aircraft rebuilt to concept (stat header, filters, rich cards, compare, summary bar); markup from js/patches/buy_aircraft_v02.js -->
@@ -57,6 +57,10 @@
     <link rel="stylesheet" href="css/hotkeys-v01.css">
     <!-- FLEET_COMPACT_v01 — Fleet & Aircraft page: smaller centered stat boxes (label clip fixed), tighter header/tabs/footer -->
     <link rel="stylesheet" href="css/fleet-compact-v01.css">
+    <!-- CURSOR_ARROW_v01 — house rule: never the hand cursor; arrow pointer on all clickables (text fields keep I-beam, grips keep resize) -->
+    <link rel="stylesheet" href="css/cursor-arrow-v01.css">
+    <!-- MARKET_INTEL_v01 — Market Intelligence window (route opportunities, heat map, rival watch); markup from js/patches/market_intel_v01.js -->
+    <link rel="stylesheet" href="css/market-intel-v01.css">
 </head>
 <body class="ae-executive-command">
 
@@ -680,7 +684,7 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <!-- SCENARIO_SELECT_v01: scenario card stat strip, selection badge, rail summary (setup page 2). Injects its own stylesheet. -->
 <script defer src="./js/patches/scenario_select_v01.js"></script>
 <!-- END_TURN_v01: header END TURN reliability, report/clock hand-off, three switchable prototypes (Ctrl+click to cycle). Injects its own stylesheet. -->
-<script defer src="./js/patches/end_turn_v01.js?v=2"></script>
+<script defer src="./js/patches/end_turn_v01.js?v=3"></script>
 <!-- NEW_ROUTE_FILTERS_v01: New Route region/subregion pills become Slot-Negotiations-style dropdowns -->
 <script defer src="./js/patches/new_route_filters_v01.js"></script>
 <!-- HUB_REGION_DROPDOWNS_v01: setup step 3 hub region pills become New-Route-style Region/Subregion dropdowns -->
@@ -710,7 +714,7 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <script defer src="./js/patches/research_redirect_v01.js"></script>
 
 <!-- MARKETING_CENTER_v01: Advertising window re-rendered as the Marketing Center concept; gameplay functions untouched -->
-<script defer src="./js/patches/marketing_center_v01.js"></script>
+<script defer src="./js/patches/marketing_center_v01.js?v=9"></script>
 <!-- ROUTE_MANAGER_EMPTY_v01: zero-routes Route Manager renders as the compact 460px centered dialog (Option C); frame sized from JS to beat resize memory -->
 <script defer src="./js/patches/route_manager_empty_v01.js?v=2"></script>
 <!-- NEW_ROUTE_TEXT_v01: strips placeholder labels from the New Route strip (UI-only wrapper around nrRouteHero) -->
@@ -731,6 +735,8 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <script defer src="./js/patches/weather_paths_v01.js"></script>
 <!-- NIGHT_MAP_v01: NASA Black Marble night texture replaces the daytime satellite base (fetched once, cached in localStorage) -->
 <script defer src="./js/patches/night_map_v01.js"></script>
+<!-- MARKET_INTEL_v01: implements the stubbed openMarketIntel — Market Intelligence window (real-data opportunity scoring; no fake systems) -->
+<script defer src="./js/patches/market_intel_v01.js?v=2"></script>
 <!-- DEV_CONSOLE_v01: "Dev" tab in the Tune panel — pages, windows, clock/turn controls, kill switches -->
 <script defer src="./js/patches/dev_console_v01.js"></script>
 

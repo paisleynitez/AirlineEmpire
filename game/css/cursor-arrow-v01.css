@@ -1,0 +1,24 @@
+/* CURSOR_ARROW_v01 — house rule: never show the hand cursor. All clickable
+   elements use the standard arrow pointer. Text fields keep the I-beam and
+   resize grips keep their resize arrows so affordances aren't lost. */
+
+body.ae-executive-command,
+body.ae-executive-command *,
+body.ae-executive-command *:hover {
+  cursor: default !important;
+}
+
+/* keep functional cursors where they carry meaning */
+body.ae-executive-command input[type="text"],
+body.ae-executive-command input[type="number"],
+body.ae-executive-command input[type="search"],
+body.ae-executive-command textarea {
+  cursor: text !important;
+}
+body.ae-executive-command .popup-resize-grip,
+body.ae-executive-command [class*="resize-grip"] {
+  cursor: nwse-resize !important;
+}
+body.ae-executive-command input[type="range"] {
+  cursor: ew-resize !important;
+}
