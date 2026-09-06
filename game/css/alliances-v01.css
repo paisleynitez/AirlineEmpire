@@ -1,0 +1,96 @@
+/* ALLIANCES_v01 — window styling (markup from js/patches/alliances_v01.js).
+   Executive-command skin; 30x30 close, no bold (max 600), compact rhythm. */
+
+body.ae-executive-command #modal-content .alv1-head{
+  display:flex !important;align-items:center !important;gap:14px !important;
+  padding:10px 48px 8px 14px !important;min-height:48px !important;position:static !important;
+}
+body.ae-executive-command #modal-content:has(.alv1-head){position:relative !important}
+body.ae-executive-command #modal-content:has(.alv1-head) .modal-close{
+  position:absolute !important;top:9px !important;right:9px !important;
+  width:30px !important;height:30px !important;margin:0 !important;padding:0 !important;
+  display:grid !important;place-items:center !important;border-radius:9px !important;z-index:40 !important;
+}
+body.ae-executive-command #modal-content .alv1-title .modal-title{font-size:clamp(16px,1.3vw,20px) !important;font-weight:600 !important;letter-spacing:1.8px !important}
+body.ae-executive-command #modal-content .alv1-sub{font-size:8.6px;color:var(--muted2);letter-spacing:1.6px;margin-top:1px}
+body.ae-executive-command #modal-content .alv1-cash{margin-left:auto;margin-right:34px;display:flex;flex-direction:column;align-items:flex-end;padding:2px 9px;border:1px solid rgba(120,190,230,.16);border-radius:7px;background:rgba(8,18,30,.55)}
+body.ae-executive-command #modal-content .alv1-cash small{font-size:7.6px;color:var(--muted2);letter-spacing:.8px}
+body.ae-executive-command #modal-content .alv1-cash b{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--warn)}
+body.ae-executive-command #modal-content .alv1-body{padding:10px 12px 12px !important;max-height:78vh;overflow-y:auto}
+
+/* locked state */
+body.ae-executive-command #modal-content .alv1-locked{display:flex;flex-direction:column;align-items:center;text-align:center;gap:7px;padding:34px 20px}
+body.ae-executive-command #modal-content .alv1-lockic{font-size:26px;opacity:.8}
+body.ae-executive-command #modal-content .alv1-locked b{font-size:15px;font-weight:600;letter-spacing:2px;color:#fff}
+body.ae-executive-command #modal-content .alv1-locked span{font-size:11px;color:var(--warn)}
+body.ae-executive-command #modal-content .alv1-locked em{font-style:normal;font-size:10.6px;color:var(--muted);max-width:40ch;line-height:1.5}
+
+/* section labels */
+body.ae-executive-command #modal-content .alv1-seclbl{font-size:9px;font-weight:600;letter-spacing:1.1px;color:var(--muted2);margin:9px 2px 5px}
+body.ae-executive-command #modal-content .alv1-seclbl small{font-weight:500;letter-spacing:.4px;text-transform:none}
+body.ae-executive-command #modal-content .alv1-none{padding:12px;text-align:center;font-size:10.4px;color:var(--muted);border:1px dashed rgba(120,190,230,.22);border-radius:10px}
+
+/* active agreements */
+body.ae-executive-command #modal-content .alv1-active{border:1px solid rgba(87,224,184,.32);border-radius:10px;padding:7px 10px;margin-bottom:6px;background:rgba(10,26,22,.35)}
+body.ae-executive-command #modal-content .alv1-actop{display:flex;align-items:center;gap:8px}
+body.ae-executive-command #modal-content .alv1-actop b{font-size:11.6px;font-weight:600;color:#fff}
+body.ae-executive-command #modal-content .alv1-actop span{font-size:10px;color:var(--muted)}
+body.ae-executive-command #modal-content .alv1-actop i{font-style:normal;color:var(--accent2)}
+body.ae-executive-command #modal-content .alv1-cancel{
+  margin-left:auto !important;min-height:0 !important;padding:2px 9px !important;
+  border:1px solid rgba(255,111,125,.35) !important;border-radius:99px !important;background:rgba(40,12,18,.4) !important;
+  color:#ff9aa5 !important;font-size:8.8px !important;font-weight:600 !important;cursor:pointer !important;
+}
+body.ae-executive-command #modal-content .alv1-acmeta{font-size:9.4px;color:var(--muted);margin:3px 0 4px}
+body.ae-executive-command #modal-content .alv1-acmeta b{font-family:'DM Mono',monospace;font-weight:500;color:var(--accent2)}
+body.ae-executive-command #modal-content .alv1-bar{height:5px;border-radius:99px;background:rgba(120,190,230,.12);overflow:hidden}
+body.ae-executive-command #modal-content .alv1-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#3fb9e8,#57e0b8)}
+
+/* partner grid */
+body.ae-executive-command #modal-content .alv1-partners{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+body.ae-executive-command #modal-content .alv1-partner{border:1px solid rgba(120,190,230,.2);border-radius:10px;padding:6px 9px;background:rgba(9,19,32,.5);cursor:pointer}
+body.ae-executive-command #modal-content .alv1-partner.on{border-color:rgba(94,190,230,.75);background:rgba(20,50,80,.5)}
+body.ae-executive-command #modal-content .alv1-partner.dim{opacity:.5;cursor:default}
+body.ae-executive-command #modal-content .alv1-partner b{display:block;font-size:11px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.ae-executive-command #modal-content .alv1-partner span{display:block;font-size:8.6px;color:var(--muted2);margin-top:1px}
+body.ae-executive-command #modal-content .alv1-partner small{display:inline-block;margin-top:3px;font-size:7.4px;font-weight:600;letter-spacing:.6px;padding:1px 6px;border-radius:99px}
+body.ae-executive-command #modal-content .alv1-partner small.ok{color:#3fe8a0;border:1px solid rgba(63,232,160,.4)}
+body.ae-executive-command #modal-content .alv1-partner small.no{color:var(--loss);border:1px solid rgba(255,111,125,.4)}
+
+/* agreement types */
+body.ae-executive-command #modal-content .alv1-types{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+body.ae-executive-command #modal-content .alv1-type{border:1px solid rgba(120,190,230,.2);border-radius:10px;padding:7px 10px;background:rgba(9,19,32,.5);cursor:pointer}
+body.ae-executive-command #modal-content .alv1-type.on{border-color:rgba(94,190,230,.75);background:rgba(20,50,80,.5);box-shadow:0 0 10px rgba(94,190,230,.12)}
+body.ae-executive-command #modal-content .alv1-type b{display:block;font-size:11.2px;font-weight:600;color:#fff}
+body.ae-executive-command #modal-content .alv1-type em{display:block;font-style:normal;font-size:9.2px;color:var(--muted);margin:2px 0 3px;line-height:1.35}
+body.ae-executive-command #modal-content .alv1-type span{display:block;font-size:8.6px;color:var(--muted2);font-family:'DM Mono',monospace}
+
+/* chips (region / route pickers) */
+body.ae-executive-command #modal-content .alv1-chips{display:flex;flex-wrap:wrap;gap:5px}
+body.ae-executive-command #modal-content .alv1-chip{
+  padding:3px 10px;border:1px solid rgba(120,190,230,.24);border-radius:99px;
+  background:rgba(10,22,36,.6);color:var(--muted);font-size:9.8px;cursor:pointer;
+}
+body.ae-executive-command #modal-content .alv1-chip.on{color:#04121e;background:linear-gradient(180deg,#67d9f7,#3fb9e8);border-color:transparent;font-weight:600}
+
+/* sign row */
+body.ae-executive-command #modal-content .alv1-signrow{display:flex;align-items:center;gap:10px;margin-top:10px;padding-top:8px;border-top:1px solid rgba(120,190,230,.14)}
+body.ae-executive-command #modal-content .alv1-signrow>span{font-size:9.4px;color:var(--muted);line-height:1.4}
+body.ae-executive-command #modal-content .alv1-sign{
+  margin-left:auto !important;flex-shrink:0 !important;min-height:0 !important;padding:7px 16px !important;
+  border-radius:99px !important;border:1px solid rgba(87,224,184,.5) !important;
+  background:linear-gradient(180deg,rgba(17,52,44,.9),rgba(9,30,26,.92)) !important;
+  color:#bdf5e2 !important;font-size:10.4px !important;font-weight:600 !important;letter-spacing:.7px !important;cursor:pointer !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 0 12px rgba(87,224,184,.12) !important;
+}
+body.ae-executive-command #modal-content .alv1-sign:hover:not(:disabled){border-color:rgba(87,224,184,.85) !important;color:#eafff7 !important}
+body.ae-executive-command #modal-content .alv1-sign:disabled{opacity:.35 !important;cursor:not-allowed !important}
+
+/* rivals-page launcher */
+body.ae-executive-command #tab-rivals #alv1-open-btn{
+  display:block;width:calc(100% - 4px);margin:2px 2px 8px;padding:7px 12px;
+  border:1px solid rgba(94,190,230,.4);border-radius:10px;cursor:pointer;
+  background:linear-gradient(180deg,rgba(16,40,62,.8),rgba(9,22,38,.85));
+  color:#cfeeff;font-size:11px;font-weight:600;letter-spacing:1.2px;text-align:center;
+}
+body.ae-executive-command #tab-rivals #alv1-open-btn:hover{border-color:rgba(94,190,230,.8);color:#fff}

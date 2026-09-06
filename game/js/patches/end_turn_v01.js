@@ -30,7 +30,7 @@
     const link=document.createElement('link');
     link.id='ae-end-turn-v01-style';
     link.rel='stylesheet';
-    link.href='./css/end-turn-v01.css';
+    link.href='./css/end-turn-v01.css?v=2';
     document.head.appendChild(link);
   }
 
@@ -87,10 +87,45 @@
     runEndTurn();
   }
 
-  // Transport cluster: pause/play uses the glyph only (quiet button); speeds read as chevrons.
+  // Transport (rev B): ONE cycling speed button (▸ → ▸▸ → ▸▸▸ → ▸); pause removed — no pausing during gameplay.
+  const CYCLE=['normal','fast','turbo'];
+  const GLYPH={normal:'\u25B8',fast:'\u25B8\u25B8',turbo:'\u25B8\u25B8\u25B8'};
+  function syncCycleBtn(){
+    const b=document.getElementById('ae-speed-cycle'); if(!b) return;
+    const s=state();
+    const mode=(s&&GLYPH[s.timerMode])?s.timerMode:'normal';
+    b.textContent=GLYPH[mode];
+    b.setAttribute('aria-label','Game speed: '+mode);
+    b.title='Speed: '+mode+' — click to cycle';
+  }
+  function ensureCycleBtn(){
+    const ctrl=document.getElementById('speed-ctrl');
+    if(!ctrl||document.getElementById('ae-speed-cycle')) return;
+    const b=document.createElement('button');
+    b.id='ae-speed-cycle'; b.type='button';
+    b.addEventListener('click',function(){
+      const s=state();
+      const cur=s?s.timerMode:null;
+      const next=CYCLE.includes(cur)?CYCLE[(CYCLE.indexOf(cur)+1)%CYCLE.length]:'normal';
+      try{ if(typeof window.setSpeed==='function') window.setSpeed(next); }catch(e){}
+      syncCycleBtn();
+    });
+    ctrl.appendChild(b);
+    syncCycleBtn();
+  }
+  function hookSpeedSync(){
+    if(typeof window.setSpeed==='function'&&!window.setSpeed.__aeCycleV01){
+      const nativeSetSpeed=window.setSpeed;
+      const wrapped=function(){ const r=nativeSetSpeed.apply(this,arguments); syncCycleBtn(); return r; };
+      wrapped.__aeCycleV01=true;
+      window.setSpeed=wrapped;
+    }
+  }
   // Mapping keeps every mode reachable from the Settings modal; the header shows three speeds.
   const SPEED_LABELS={'spd-relaxed':null,'spd-normal':'\u25B8','spd-fast':'\u25B8\u25B8','spd-turbo':'\u25B8\u25B8\u25B8'};
   function styleTransport(){
+    ensureCycleBtn();
+    hookSpeedSync();
     Object.keys(SPEED_LABELS).forEach(function(id){
       const el=document.getElementById(id);
       if(!el||el.dataset.aeChev==='1') return;

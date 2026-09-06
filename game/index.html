@@ -47,6 +47,10 @@
     <link rel="stylesheet" href="css/new-route-compact-v01.css?v=13">
     <!-- BUY_AIRCRAFT_v02 — route-flow Buy Aircraft rebuilt to concept (stat header, filters, rich cards, compare, summary bar); markup from js/patches/buy_aircraft_v02.js -->
     <link rel="stylesheet" href="css/buy-aircraft-v02.css?v=15">
+    <!-- HANGAR_v02 — Hangar window rebuilt to concept (tab cards, stat strip, health detail, action cards); markup from js/patches/hangar_v02.js -->
+    <link rel="stylesheet" href="css/hangar-v02.css">
+    <!-- ALLIANCES_v01 — Alliances window (locked state, partner list, agreement picker, contracts); markup from js/patches/alliances_v01.js -->
+    <link rel="stylesheet" href="css/alliances-v01.css">
     <!-- FLEET_COMPACT_v01 — Fleet & Aircraft page: smaller centered stat boxes (label clip fixed), tighter header/tabs/footer -->
     <link rel="stylesheet" href="css/fleet-compact-v01.css">
 </head>
@@ -378,19 +382,19 @@
       <div class="panel-resizer" id="left-resizer" title="Drag to resize"></div>
 
       <!-- pinned save/menu bar — always visible at top -->
-      <div class="pinned-save-bar" style="display:flex;gap:5px;padding:8px 10px 6px;border-bottom:1px solid var(--border);flex-shrink:0">
+      <div class="pinned-save-bar" style="display:flex;gap:4px;padding:5px 8px 4px;border-bottom:1px solid var(--border);flex-shrink:0">
         <button onclick="qsave()" title="Quick save (hotkey: Q · load: L)"
-          style="flex:1;padding:6px;background:rgba(167,137,255,0.1);border:1px solid rgba(167,137,255,0.35);border-radius:6px;color:#fff;font-size:12.4px;font-weight:700;cursor:pointer;font-family:'Inter';transition:background .14s"
+          style="flex:1;padding:4px;background:rgba(167,137,255,0.1);border:1px solid rgba(167,137,255,0.35);border-radius:5px;color:#fff;font-size:10.6px;font-weight:600;cursor:pointer;font-family:'Inter';transition:background .14s"
           onmouseover="this.style.background='rgba(167,137,255,0.2)'" onmouseout="this.style.background='rgba(167,137,255,0.1)'">
           💾 Qsave
         </button>
         <button onclick="openModal('settings')" title="Menu — save slots, revert, settings"
-          style="flex:1;padding:6px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;color:var(--muted);font-size:12.4px;font-weight:700;cursor:pointer;font-family:'Inter';transition:background .14s,color .14s"
+          style="flex:1;padding:4px;background:var(--bg2);border:1px solid var(--border);border-radius:5px;color:var(--muted);font-size:10.6px;font-weight:600;cursor:pointer;font-family:'Inter';transition:background .14s,color .14s"
           onmouseover="this.style.color='var(--text)';this.style.borderColor='var(--border2)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--border)'">
           ☰ Menu
         </button>
         <button onclick="saveAndQuit()" title="Save &amp; quit to menu (hotkey: S)"
-          style="flex:1;padding:6px;background:rgba(212,84,112,0.1);border:1px solid rgba(192,68,90,0.4);border-radius:6px;color:var(--danger);font-size:12.4px;font-weight:700;cursor:pointer;font-family:'Inter';transition:background .14s"
+          style="flex:1;padding:4px;background:rgba(212,84,112,0.1);border:1px solid rgba(192,68,90,0.4);border-radius:5px;color:var(--danger);font-size:10.6px;font-weight:600;cursor:pointer;font-family:'Inter';transition:background .14s"
           onmouseover="this.style.background='rgba(212,84,112,0.2)'" onmouseout="this.style.background='rgba(212,84,112,0.1)'">
           ⏏ Save &amp; Quit
         </button>
@@ -572,7 +576,7 @@
 <script src="./js/cities/cityProfileManager.js"></script>
 <script src="./js/cities/cityRenderer.js"></script>
 <script src="./js/data/aircraftImageManifest.js"></script>
-<script src="./js/core/game.js?v=ops2"></script>
+<script src="./js/core/game.js?v=all1"></script>
 <script src="./js/core/aiAirlineLifecycle.js"></script>
 
 <!-- ═══════════════════════════════════════════════════════════
@@ -672,7 +676,7 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <!-- SCENARIO_SELECT_v01: scenario card stat strip, selection badge, rail summary (setup page 2). Injects its own stylesheet. -->
 <script defer src="./js/patches/scenario_select_v01.js"></script>
 <!-- END_TURN_v01: header END TURN reliability, report/clock hand-off, three switchable prototypes (Ctrl+click to cycle). Injects its own stylesheet. -->
-<script defer src="./js/patches/end_turn_v01.js"></script>
+<script defer src="./js/patches/end_turn_v01.js?v=2"></script>
 <!-- NEW_ROUTE_FILTERS_v01: New Route region/subregion pills become Slot-Negotiations-style dropdowns -->
 <script defer src="./js/patches/new_route_filters_v01.js"></script>
 <!-- HUB_REGION_DROPDOWNS_v01: setup step 3 hub region pills become New-Route-style Region/Subregion dropdowns -->
@@ -711,6 +715,10 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <script defer src="./js/patches/new_route_fare_fx_v01.js?v=3"></script>
 <!-- BUY_AIRCRAFT_v02: route-flow Buy Aircraft rebuilt to the concept; native buyPlaneForRoute untouched -->
 <script defer src="./js/patches/buy_aircraft_v02.js?v=11"></script>
+<!-- HANGAR_v02: Hangar window rebuilt to the concept; native maintenance/insurance functions untouched -->
+<script defer src="./js/patches/hangar_v02.js"></script>
+<!-- ALLIANCES_v01: Alliances window; engine lives in core/game.js (signAlliance/cancelAlliance/tickAlliances) -->
+<script defer src="./js/patches/alliances_v01.js"></script>
 <!-- NIGHT_MAP_v01: NASA Black Marble night texture replaces the daytime satellite base (fetched once, cached in localStorage) -->
 <script defer src="./js/patches/night_map_v01.js"></script>
 <!-- DEV_CONSOLE_v01: "Dev" tab in the Tune panel — pages, windows, clock/turn controls, kill switches -->

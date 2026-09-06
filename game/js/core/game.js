@@ -1479,6 +1479,7 @@ function defaultState() {
     crewIncidents: [],   // incident log {id, type, crewId, month, year, resolved, demandHit}
     _crewMoraleCache: 1, // last-computed morale multiplier (0.7–1.15)
     events: [], competitors: [],
+    alliances: [], _allianceLockout: {}, // ALLIANCES_v01 contract state + cancelled-partner cooldowns
     activeCampaigns: [],               // targeted ad campaigns (region/city/route/venture)
     charters: [], _charterSeq: 0, _acqSelected: null,  // M&A: charter companies on the market
     fuelMod: 1, viewRegion: 'N America',
@@ -5935,6 +5936,16 @@ const ECON = {
     jumbo:      [[2, 10], [3, 14], [5, 18]],
     supersonic: [[2, 10], [3, 14], [5, 18]]
   },
+  // ALLIANCES_v01: four agreement types. Effects ramp in over rampMonths and fluctuate
+  // monthly (0.85–1.15×). Fees monthly; early cancel pays penaltyX × fee and locks the
+  // partner for 12 months. Cap on simultaneous alliances scales with rival count.
+  allianceTypes: {
+    codeshare:   { name:'Codeshare',              feeMo:4, term:24, penaltyX:3, demand:0.08 },
+    regional:    { name:'Regional Partnership',   feeMo:6, term:18, penaltyX:3 },
+    operational: { name:'Operational Partnership',feeMo:5, term:24, penaltyX:3, costCut:0.10 },
+    jv:          { name:'Joint Venture',          feeMo:3, term:36, penaltyX:4, demand:0.22, revShare:0.12, maxRoutes:3 }
+  },
+  allianceRampMonths: 4,
   rivalSplit: 0.42,
   fuelPerSeatMile: 0.05,
   // Fleet wear & heritage (replaces the design-year age surcharge):
@@ -7471,6 +7482,7 @@ function processRoute(r) {
   const loyaltyFactor = 1 + Math.max(0, (avgLoad - 60) / 100) * 0.08;
   demand *= rampFactor * loyaltyFactor;
   demand *= allianceBonus(r);
+  demand *= aeAllianceDemandMult(r);   // ALLIANCES_v01: codeshare/JV demand (ramped + fluctuating)
   const _connMult = connectingTrafficMult(r);
   demand *= _connMult;                                       // hub network transfer traffic
   const svc = SERVICE_TIERS[r.service || 'economy'] || SERVICE_TIERS.economy;
@@ -7485,7 +7497,7 @@ function processRoute(r) {
   const refFare = E.refFareBase + dist*E.refFareDist;
   const fareAdj = Math.max(0.12, Math.min(1.75, 1 + (refFare - r.fare)/refFare * E.fareElastic));
   demand *= fareAdj;
-  const rivals = STATE.competitors.filter(c=>c.regionsEntered.includes(ct.region)).length;
+  const rivals = Math.max(0, STATE.competitors.filter(c=>c.regionsEntered.includes(ct.region)).length - aeAllianceRivalExempt(ct.region));  // ALLIANCES_v01: regional partners don't split you
   const rivalSplitEff = E.rivalSplit * (1 - execBonus('strategy','rivalShield')) * (1 - regionRivalShield(ct.region));
   demand *= 1/(1 + rivals*rivalSplitEff);
   // ⚔ AIRLINE WAR: targeted rival siege bleeds extra demand on THIS pair (bleed-only, never closes the route)
@@ -7524,7 +7536,7 @@ function processRoute(r) {
   const transferPax = _connMult > 1 ? Math.round(pax * (1 - 1/_connMult)) : 0;
   const load = capacity>0 ? Math.round(pax/capacity*100) : 0;
   const planeAge = Math.max(0, (STATE.year||1970) - (plane.era||1960)); // for display
-  const revenue   = pax * r.fare * timedRevenueMod(r);
+  const revenue   = pax * r.fare * timedRevenueMod(r) * (1 - aeAllianceRevShare(r));  // ALLIANCES_v01: JV partner takes its cut
   const handling  = pax * E.paxHandling;
   const serviceCost = pax * svc.costPerPax;   // in-flight service tier cost per passenger
   const food = resolvedFoodTier(r);
@@ -7539,7 +7551,7 @@ function processRoute(r) {
   const hubCongestion = hubCongestionMult(r.from);
   const destCongestion = destAirportCongestionMult(r.to);
   const cost = (fuelCost + crewCost + handling + serviceCost + lease + ageCost + foodCost + drinkCost)
-    * (1 - invSaving) * hubCongestion * destCongestion * timedCongestionMod(r);
+    * (1 - invSaving) * hubCongestion * destCongestion * timedCongestionMod(r) * aeAllianceCostMult();  // ALLIANCES_v01: operational partnership cost cut
   const mhcSuite = mhcRoutePax(r);
   const profit    = (revenue + foodRevenue + drinkRevenue + mhcSuite.revenue*1e6 - cost - mhcSuite.cost*1e6) / 1e6;
   return {
@@ -14706,6 +14718,9 @@ function tickGateBids() {
   });
 }
 function openAllianceModal() {
+  // ALLIANCES_v01 owns the live Alliances window once its deferred patch loads.
+  // Keep the legacy renderer below as a safe fallback if that patch is absent.
+  if (typeof window.openAlliances === 'function') return window.openAlliances();
   const eligible = STATE.competitors.filter(c => !c.allied && c.cash > 0);
   document.getElementById('modal-overlay').classList.add('open');
   document.getElementById('modal-content').innerHTML = modalHead('✈ AIRLINE ALLIANCES') +
@@ -14752,7 +14767,7 @@ function formAlliance(rivalIdx, fee) {
   showFlash(`✓ Allied with ${c.name}`);
   closeModal(); updateUI();
 }
-function tickAlliances() {
+function tickLegacyAlliances() {
   STATE.competitors.forEach(c => {
     if (c.allied > 0) {
       c.allied--;
@@ -14760,6 +14775,101 @@ function tickAlliances() {
         delete c.allied;
         addEvent('warn', `✈ Alliance with ${c.name} has expired — competing again.`);
       }
+    }
+  });
+}
+// ═══ ALLIANCES_v01 — gradual, fluctuating airline alliances (unlock: Month 7) ═══
+function allianceUnlocked(){ return (STATE._absMonth||0) >= 6; }
+function allianceCap(){ return Math.max(1, Math.min(3, Math.floor((STATE.competitors||[]).length/2))); }
+function activeAlliances(){ return (STATE.alliances||[]).filter(a=>!a.ended); }
+function allianceStrength(a){
+  const age = (STATE._absMonth||0) - a.start;
+  const ramp = Math.min(1, Math.max(0, age) / (ECON.allianceRampMonths||4));
+  return ramp * (a.flux||1);   // gradual ramp-in × monthly fluctuation
+}
+function _allPartnerRegions(name){
+  const c = (STATE.competitors||[]).find(x=>x.name===name);
+  return c ? (c.regionsEntered||[]) : [];
+}
+function aeAllianceDemandMult(r){
+  let m = 1;
+  activeAlliances().forEach(a=>{
+    const t = ECON.allianceTypes[a.type]; if(!t||!t.demand) return;
+    const s = allianceStrength(a); if(!s) return;
+    if(a.type==='codeshare'){
+      const regs = _allPartnerRegions(a.partner);
+      const rTo = CITIES[r.to]?.region, rFrom = CITIES[r.from]?.region;
+      if(regs.includes(rTo)||regs.includes(rFrom)) m *= 1 + t.demand*s;
+    } else if(a.type==='jv'){
+      const hit = (a.routes||[]).some(p=>(p.from===r.from&&p.to===r.to)||(p.from===r.to&&p.to===r.from));
+      if(hit) m *= 1 + t.demand*s;
+    }
+  });
+  return m;
+}
+function aeAllianceRivalExempt(region){
+  return activeAlliances().filter(a=>a.type==='regional' && a.region===region
+    && _allPartnerRegions(a.partner).includes(region) && allianceStrength(a) > .5).length;
+}
+function aeAllianceCostMult(){
+  let m = 1;
+  activeAlliances().forEach(a=>{
+    const t = ECON.allianceTypes[a.type];
+    if(t&&t.costCut) m *= 1 - t.costCut*allianceStrength(a);
+  });
+  return m;
+}
+function aeAllianceRevShare(r){
+  let share = 0;
+  activeAlliances().forEach(a=>{
+    const t = ECON.allianceTypes[a.type]; if(!t||!t.revShare) return;
+    const hit = (a.routes||[]).some(p=>(p.from===r.from&&p.to===r.to)||(p.from===r.to&&p.to===r.from));
+    if(hit) share = Math.max(share, t.revShare);
+  });
+  return share;
+}
+function signAlliance(partner, type, opts){
+  opts = opts||{};
+  const t = ECON.allianceTypes[type];
+  if(!t) return showFlash('⚠ Unknown agreement type');
+  if(!allianceUnlocked()) return showFlash('⚠ Alliances unlock in Month 7');
+  if(activeAlliances().length >= allianceCap()) return showFlash(`⚠ Alliance cap reached (${allianceCap()} — grows with rival count)`);
+  if(activeAlliances().some(a=>a.partner===partner)) return showFlash('⚠ Already allied with '+partner);
+  const lock = (STATE._allianceLockout||{})[partner];
+  if(lock && lock > (STATE._absMonth||0)) return showFlash(`⚠ ${partner} refuses talks for ${lock-(STATE._absMonth||0)} more months`);
+  if(type==='regional' && !opts.region) return showFlash('⚠ Pick a region for the partnership');
+  if(type==='jv' && !(opts.routes&&opts.routes.length)) return showFlash('⚠ Pick up to '+t.maxRoutes+' routes for the venture');
+  STATE.alliances = STATE.alliances||[];
+  STATE.alliances.push({ id:'al'+Date.now(), partner, type, region:opts.region||null,
+    routes:(opts.routes||[]).slice(0, t.maxRoutes||0), start:STATE._absMonth||0, flux:1 });
+  STATE._everAllied = true;
+  addEvent('good', `🤝 ${t.name} signed with ${partner} — $${t.feeMo}M/mo, ${t.term} months`);
+  showFlash(`✓ ${t.name} with ${partner} — benefits ramp in over ${ECON.allianceRampMonths} months`);
+  updateUI();
+}
+function cancelAlliance(id){
+  const a = (STATE.alliances||[]).find(x=>x.id===id && !x.ended);
+  if(!a) return;
+  const t = ECON.allianceTypes[a.type];
+  const penalty = t.feeMo * t.penaltyX;
+  STATE.cash -= penalty;
+  a.ended = true;
+  STATE._allianceLockout = STATE._allianceLockout||{};
+  STATE._allianceLockout[a.partner] = (STATE._absMonth||0) + 12;
+  addEvent('bad', `💔 ${t.name} with ${a.partner} cancelled early — $${penalty}M penalty; talks frozen 12 months`);
+  showFlash(`Alliance cancelled — $${penalty}M penalty`);
+  updateUI();
+}
+function tickAlliances(){
+  tickLegacyAlliances(); // keep pre-v01 save contracts counting down normally
+  const now = STATE._absMonth||0;
+  activeAlliances().forEach(a=>{
+    const t = ECON.allianceTypes[a.type]; if(!t) return;
+    STATE.cash -= t.feeMo;                                   // monthly fee
+    a.flux = 0.85 + Math.random()*0.30;                      // fluctuating benefit this month
+    if(now - a.start >= t.term){
+      a.ended = true;
+      addEvent('neutral', `🤝 ${t.name} with ${a.partner} expired after ${t.term} months`);
     }
   });
 }
