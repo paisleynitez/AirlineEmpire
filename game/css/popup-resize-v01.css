@@ -1,0 +1,66 @@
+/* POPUP_RESIZE_v01 — the one resize control for every popup window.
+   A diagonal-line grip pinned to each window's LOWER-RIGHT corner (fixed-position,
+   tracked by js/patches/popup_resize_v01.js so it never scrolls away with content).
+   Approved look: prototypes/hr-window rev 4. */
+
+.ae-rs-grip {
+  position: fixed;
+  width: 22px;
+  height: 22px;
+  z-index: 10050;
+  cursor: nwse-resize;
+  display: none;
+}
+.ae-rs-grip svg {
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  width: 14px;
+  height: 14px;
+  opacity: .7;
+  transition: opacity .12s ease;
+}
+.ae-rs-grip:hover svg { opacity: 1; }
+.ae-rs-grip svg line {
+  stroke: var(--accent, #a789ff);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+/* Native CSS resize is OFF everywhere: the grip is the only resize control.
+   (Route Manager's resize:both wrote inline sizes onto the shared #modal-content,
+   stretching it near-fullscreen and bleeding sizes into other windows.)
+   Buy Aircraft (.ae-bp-resizable) keeps its own dedicated resize. */
+#modal-content:not(.ae-bp-resizable),
+.modal:not(.ae-bp-resizable),
+.lab-card,
+#ac-pop-card {
+  resize: none !important;
+}
+
+/* ── HARD SIZE CAPS, pure CSS ─────────────────────────────────────────────
+   Belt-and-braces alongside the JS clamp in popup_resize_v01.js: even if a
+   script fails or an old inline size sneaks in, no popup can exceed these.
+   Selectors mirror popup-align-v01.css at equal-or-higher specificity and this
+   file loads after it, so these ceilings win. Research Hub (full-page design)
+   and Buy Aircraft (own resize) are exempt. */
+#modal-overlay #modal-content:not(.ae-bp-resizable):not(.modal-research-hub) {
+  max-width:  min(1060px, calc(100vw - 48px)) !important;
+  max-height: min(700px,  calc(100vh - 48px)) !important;
+}
+#modal-overlay #modal-content.modal-route-manager {
+  max-width:  min(1064px, calc(100vw - 48px)) !important;
+  max-height: min(562px,  calc(100vh - 48px)) !important;
+}
+#lab-overlay #lab-content {
+  max-width:  min(1060px, calc(100vw - 48px)) !important;
+  max-height: min(700px,  calc(100vh - 48px)) !important;
+}
+#ac-pop #ac-pop-card {
+  max-width:  min(1060px, calc(100vw - 48px)) !important;
+  max-height: min(700px,  calc(100vh - 48px)) !important;
+}
+
+/* While a resize drag is in progress */
+body.ae-rs-active { cursor: nwse-resize !important; }
+body.ae-rs-active * { user-select: none !important; }

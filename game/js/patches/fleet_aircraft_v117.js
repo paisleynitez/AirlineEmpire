@@ -73,17 +73,11 @@
       '<input class="ae-fleet-search" type="search" placeholder="Search aircraft..." aria-label="Search aircraft">'+
       '<select class="ae-fleet-status" aria-label="Filter aircraft status">'+
         '<option value="all">All Status</option><option value="active">Active</option><option value="operational">Operational</option><option value="maintenance">Maintenance</option><option value="leased">Leased</option>'+ 
-      '</select></div>'+ 
-      '<div class="ae-fleet-tools-right"><button class="ae-fleet-view active" type="button" data-view="list" aria-pressed="true">☷</button><button class="ae-fleet-view" type="button" data-view="grid" aria-pressed="false">▦</button></div>';
+      '</select></div>';
     body.insertBefore(toolbar,table);
 
     toolbar.addEventListener('input',()=>applyFilters(flp));
     toolbar.addEventListener('change',()=>applyFilters(flp));
-    toolbar.addEventListener('click',function(event){
-      const button=event.target.closest('.ae-fleet-view');
-      if(!button) return;
-      setView(flp,button.dataset.view||'list');
-    });
   }
 
   function applyFilters(flp){
@@ -94,17 +88,6 @@
     flp.querySelectorAll('#flp-rows > .flp-row').forEach(function(row){
       const text=String(row.textContent||'').toLowerCase();
       row.style.display=((!q||text.includes(q))&&(status==='all'||text.includes(status)))?'':'none';
-    });
-  }
-
-  function setView(flp,mode){
-    const m=modal();
-    if(!m) return;
-    m.classList.toggle('fleet-grid-view',mode==='grid');
-    flp.querySelectorAll('.ae-fleet-view').forEach(function(btn){
-      const active=btn.dataset.view===mode;
-      btn.classList.toggle('active',active);
-      btn.setAttribute('aria-pressed',String(active));
     });
   }
 

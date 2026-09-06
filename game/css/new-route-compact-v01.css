@@ -1,0 +1,262 @@
+/* NEW_ROUTE_COMPACT_v01 (rev C — hardened) — compacts the New Route builder.
+   Scope: executive-command skin, ID-anchored. Declarations carry !important
+   because later skin layers (readability/neon) set nr sizes with !important,
+   and the frame can carry an inline size from the resize-grip memory.
+   UI-only: no gameplay logic touched. House standards: 30×30 close @10px,
+   no bold (max 600). */
+
+/* ---- window ---- */
+body.ae-executive-command #modal-content.modal-new-route {
+  width: min(960px, calc(100vw - 48px)) !important;
+  border-radius: 16px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .modal-header {
+  padding: 9px 14px 7px !important;
+  min-height: 46px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .modal-title {
+  font-size: clamp(15px, 1.2vw, 18px) !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.6px !important;
+}
+/* X anchors to the window corner itself: header made static so the absolute
+   close positions against the modal frame, clear of the body scrollbar */
+body.ae-executive-command #modal-content.modal-new-route { position: relative !important; }
+body.ae-executive-command #modal-content.modal-new-route .modal-header { position: static !important; }
+body.ae-executive-command #modal-content.modal-new-route .modal-close {
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  width: 30px !important;
+  height: 30px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  line-height: 1 !important;
+  border-radius: 9px !important;
+  z-index: 40 !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-progress { padding: 0 16px !important; }
+body.ae-executive-command #modal-content.modal-new-route .modal-body { padding: 8px 10px !important; }
+
+/* ---- panes / grid ---- */
+/* pane titles removed per request: "Create a route" + "87 cities" pill (left), "Build the flight" (right) */
+body.ae-executive-command #modal-content.modal-new-route .nr-destination-pane .nr-pane-heading,
+body.ae-executive-command #modal-content.modal-new-route .nr-plan-pane .nr-pane-heading,
+body.ae-executive-command #modal-content.modal-new-route #nr-destination-count { display: none !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(255px, .9fr) !important;
+  gap: 6px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-pane {
+  padding: 8px 9px !important;
+  border-radius: 11px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-card-label,
+body.ae-executive-command #modal-content.modal-new-route .nr-origin-label {
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.15px !important;
+}
+
+/* ---- origin / filters ---- */
+body.ae-executive-command #modal-content.modal-new-route .nr-hub-row { margin: 0 0 7px !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-hub-banner {
+  min-height: 36px !important;
+  padding: 6px 10px !important;
+  border-radius: 9px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-hub-name { font-size: 13.5px !important; font-weight: 600 !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-hub-iata { font-size: 12.5px !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-region-row { margin: 0 0 5px !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-subregion-row { margin: 0 0 7px !important; }
+body.ae-executive-command #modal-content.modal-new-route .region-tab {
+  min-width: 48px !important;
+  padding: 4px 7px !important;
+  font-size: 10.4px !important;
+  font-weight: 500 !important;
+}
+
+/* ---- featured destination card ---- */
+body.ae-executive-command #modal-content.modal-new-route .nr-featured {
+  min-height: 50px !important;
+  margin: 2px 0 6px !important;
+  border-radius: 10px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-featured-copy small {
+  font-size: 9.3px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.05px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-featured-copy strong {
+  font-size: 14.5px !important;
+  font-weight: 600 !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-featured-copy > span { font-size: 10.5px !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-featured-code { font-size: 12px !important; font-weight: 600 !important; }
+
+/* ---- city cards ---- */
+body.ae-executive-command #modal-content.modal-new-route .nr-city-grid { gap: 6px !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-city-card {
+  padding: 5px 8px !important;
+  border-radius: 9px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-city-top strong {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-city-top b {
+  font-size: 10px !important;
+  font-weight: 500 !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-city-demand { margin: 3px 0 3px !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-city-demand em { font-size: 9.8px !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-city-bottom b {
+  font-size: 9px !important;
+  font-weight: 600 !important;
+  letter-spacing: .75px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-city-bottom small { font-size: 9.8px !important; }
+
+/* ---- route plan pane ---- */
+body.ae-executive-command #modal-content.modal-new-route .nr-route-hero {
+  padding: 4px 10px !important;
+  border-radius: 9px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-route-place strong {
+  font-size: 14.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-route-place small { font-size: 9.4px !important; letter-spacing: 1px !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-route-line small { font-size: 10px !important; }
+
+/* aircraft rows */
+body.ae-executive-command #modal-content.modal-new-route .nr-plane-row {
+  position: relative !important;
+  padding: 5px 8px !important;
+  border-radius: 9px !important;
+  gap: 6px !important;
+}
+/* pill out of the flex flow — it was crushing the name column at narrow width */
+body.ae-executive-command #modal-content.modal-new-route .nr-rec-pill {
+  position: absolute !important;
+  top: 3px !important;
+  right: 5px !important;
+  margin: 0 !important;
+  padding: 1px 5px !important;
+  font-size: 7.8px !important;
+  font-weight: 600 !important;
+  letter-spacing: .55px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-plane-row.rec {
+  padding-top: 16px !important;
+}
+/* name + meta lines (inline-styled by the builder — attribute-matched) */
+body.ae-executive-command #modal-content.modal-new-route .nr-plane-row div[style*="font-weight:700"] {
+  font-weight: 600 !important;
+  font-size: 11.8px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-plane-row div[style*="10.7px"] {
+  font-size: 9.8px !important;
+  line-height: 1.35 !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-plane-art {
+  flex: 0 0 68px !important;
+  width: 68px !important;
+  height: 30px !important;
+  border-radius: 5px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-plane-row strong {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-plane-row small { font-size: 10.2px !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-rec-pill,
+body.ae-executive-command #modal-content.modal-new-route .nr-plane-row small { font-size: 7.8px !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-step {
+  width: 19px !important;
+  height: 19px !important;
+  border-radius: 5px !important;
+  font-size: 11px !important;
+}
+/* stepper cluster: tighter gap + smaller count (inline-styled — attribute-matched) */
+body.ae-executive-command #modal-content.modal-new-route .nr-plane-row div[style*="flex-shrink:0"] { gap: 4px !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-plane-row span[style*="14.7px"] {
+  font-size: 12px !important;
+  min-width: 13px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-plane-summary {
+  margin-top: 5px !important;
+  font-size: 10.4px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-plane-summary b { font-weight: 600 !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-buy-link {
+  margin-top: 6px !important;
+  padding: 7px 10px !important;
+  border-radius: 9px !important;
+  font-size: 11.2px !important;
+  font-weight: 500 !important;
+}
+
+/* fare card */
+body.ae-executive-command #modal-content.modal-new-route .nr-fare-section {
+  margin-top: 6px !important;
+  padding: 5px 10px 6px !important;
+  border-radius: 10px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-fare-heading {
+  margin: 0 0 2px !important;
+  align-items: center !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-fare-section input[type="range"] {
+  margin: 2px 0 !important;
+  height: 16px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-fare-heading span {
+  font-size: 9.6px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.05px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-fare-heading strong {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-fare-marks { margin-top: 2px !important; font-size: 9.2px !important; line-height: 1.3 !important; }
+/* predicted fare-effect line (from js/patches/new_route_fare_fx_v01.js) */
+body.ae-executive-command #modal-content.modal-new-route #nr-fare-fx {
+  margin-top: 4px !important;
+  padding-top: 4px !important;
+  border-top: 1px solid rgba(120,190,230,.14) !important;
+  font-size: 10.2px !important;
+  line-height: 1.35 !important;
+  color: var(--muted) !important;
+}
+body.ae-executive-command #modal-content.modal-new-route #nr-fare-fx b { font-weight: 600 !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-fare-marks b { font-size: 10.4px !important; font-weight: 500 !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-tip { margin-top: 6px !important; font-size: 10.4px !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-tip b { font-weight: 600 !important; }
+
+/* route preview stat boxes (EXPECTED LOAD / PASSENGERS / REVENUE) */
+body.ae-executive-command #modal-content.modal-new-route #route-preview { font-size: 11px !important; }
+
+/* ---- footer ---- */
+body.ae-executive-command #modal-content.modal-new-route .nr-footer { padding: 7px 12px !important; }
+body.ae-executive-command #modal-content.modal-new-route .nr-footer-summary small {
+  font-size: 9.4px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.05px !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-footer-summary strong {
+  font-size: 11.6px !important;
+  font-weight: 500 !important;
+}
+body.ae-executive-command #modal-content.modal-new-route .nr-add-btn,
+body.ae-executive-command #modal-content.modal-new-route .nr-open-btn {
+  padding: 6px 11px !important;
+  border-radius: 8px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: .35px !important;
+}

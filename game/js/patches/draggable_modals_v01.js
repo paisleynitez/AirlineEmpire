@@ -94,6 +94,7 @@
     if(event.button!==0) return;
     const popup=popupFor(event.target);
     if(!popup) return;
+    if(popup.querySelector?.('.bav2-head')) return; // BUY_AIRCRAFT_v02 view: not draggable (its controls sit in the top band)
 
     const explicit=event.target.closest?.(HANDLE_SELECTOR);
     const rectBefore=popup.getBoundingClientRect();

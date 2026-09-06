@@ -1,0 +1,210 @@
+/* BUY_AIRCRAFT_v02 — styling for the rebuilt route-flow Buy Aircraft window
+   (markup from js/patches/buy_aircraft_v02.js). Scoped to the modal; sized to
+   live inside the compact 645px New Route frame. House standards: no bold
+   (max 600), 30x30 corner back button (inherited from new-route rules). */
+
+body.ae-executive-command #modal-content .bav2-head{
+  display:flex!important;align-items:center!important;gap:14px!important;
+  padding:9px 48px 7px 14px!important;min-height:46px!important;
+}
+body.ae-executive-command #modal-content .bav2-title{display:flex;flex-direction:column;gap:1px;min-width:0;flex-shrink:1}
+body.ae-executive-command #modal-content .bav2-subtitle{font-size:9.4px;color:var(--muted2);letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.ae-executive-command #modal-content .bav2-stats{display:flex !important;gap:6px !important;margin-left:auto !important;margin-right:34px !important;flex-shrink:0 !important}
+body.ae-executive-command #modal-content .bav2-stats span{
+  display:flex;flex-direction:column;align-items:flex-end;gap:0;
+  padding:2px 7px;border:1px solid rgba(120,190,230,.16);border-radius:7px;background:rgba(8,18,30,.55);
+}
+body.ae-executive-command #modal-content .bav2-stats small{font-size:7.4px;color:var(--muted2);letter-spacing:.7px;text-transform:uppercase}
+body.ae-executive-command #modal-content .bav2-stats b{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:#fff}
+/* back arrow sized to the compact header */
+body.ae-executive-command #modal-content .bav2-head .modal-close{
+  width:26px !important;height:26px !important;top:8px !important;right:8px !important;
+  font-size:12px !important;border-radius:8px !important;
+}
+
+body.ae-executive-command #modal-content .bav2-body{padding:8px 10px 10px!important;max-height:64vh;overflow-y:auto}
+
+/* filter / sort bar */
+body.ae-executive-command #modal-content .bav2-bar{
+  display:flex;align-items:center;gap:4px;flex-wrap:wrap;
+  padding:4px 7px;margin-bottom:6px;
+  border:1px solid rgba(120,190,230,.14);border-radius:9px;background:rgba(8,18,30,.5);
+}
+body.ae-executive-command #modal-content .bav2-barlbl{font-size:8.2px;font-weight:600;letter-spacing:.9px;color:var(--muted2)}
+body.ae-executive-command #modal-content .bav2-chipbtn{
+  padding:2px 8px !important;border:1px solid rgba(120,190,230,.2) !important;border-radius:99px !important;
+  background:rgba(10,22,36,.6) !important;color:var(--muted) !important;font-size:9.4px !important;font-weight:500 !important;
+  min-height:0 !important;line-height:1.5 !important;cursor:pointer !important;
+}
+body.ae-executive-command #modal-content .bav2-chipbtn.on{
+  color:#04121e !important;background:linear-gradient(180deg,#67d9f7,#3fb9e8) !important;border-color:transparent !important;font-weight:600 !important;
+}
+body.ae-executive-command #modal-content .bav2-sort{
+  background:rgba(10,22,36,.8);color:var(--text);border:1px solid rgba(120,190,230,.22);
+  border-radius:7px;font-size:9.6px;padding:2px 5px;
+}
+body.ae-executive-command #modal-content .bav2-aff{display:flex;gap:4px;align-items:center;font-size:9.4px;color:var(--muted);cursor:pointer}
+
+body.ae-executive-command #modal-content .bav2-route{
+  font-size:10.4px;color:var(--muted);margin:0 0 7px 2px;
+}
+body.ae-executive-command #modal-content .bav2-route b{color:#fff;font-weight:500}
+
+/* cards */
+body.ae-executive-command #modal-content .bav2-card{
+  display:flex;gap:9px;padding:7px 9px;margin-bottom:6px;align-items:flex-start;
+  border:1px solid rgba(120,190,230,.28);border-radius:10px;background:rgba(10,22,36,.5);
+}
+body.ae-executive-command #modal-content .bav2-card.dim{opacity:.5;border-color:rgba(120,190,230,.14)}
+body.ae-executive-command #modal-content .bav2-art{
+  flex:0 0 84px !important;display:flex !important;flex-direction:column !important;gap:0 !important;align-items:center !important;padding-top:2px !important;
+}
+body.ae-executive-command #modal-content .bav2-art svg,
+body.ae-executive-command #modal-content .bav2-art img{
+  width:84px !important;height:40px !important;object-fit:cover !important;display:block !important;
+  border-radius:6px !important;border:1px solid rgba(120,190,230,.18) !important;
+}
+body.ae-executive-command #modal-content .bav2-cmp{
+  display:flex !important;gap:4px !important;align-items:center !important;justify-content:center !important;
+  width:84px !important;margin-top:5px !important;
+  font-size:8.6px !important;color:var(--muted2) !important;cursor:pointer !important;
+}
+body.ae-executive-command #modal-content .bav2-cmp input{margin:0 !important;width:10px !important;height:10px !important}
+body.ae-executive-command #modal-content .bav2-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+body.ae-executive-command #modal-content .bav2-nm{font-size:12px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.ae-executive-command #modal-content .bav2-theme{font-size:8.2px;color:var(--accent);letter-spacing:.9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.ae-executive-command #modal-content .bav2-mm{font-size:9.4px;color:var(--muted2);letter-spacing:0;text-transform:none}
+body.ae-executive-command #modal-content .bav2-model{font-size:9.4px;color:var(--muted2);line-height:1.4;white-space:nowrap}
+body.ae-executive-command #modal-content .bav2-fitline{font-size:9.4px;line-height:1.35}
+/* details chevron + collapsible spec line */
+body.ae-executive-command #modal-content .bav2-chev{
+  background:none !important;border:none !important;box-shadow:none !important;
+  margin:0 0 0 3px !important;padding:0 3px !important;min-height:0 !important;
+  color:var(--accent) !important;font-size:9px !important;line-height:1 !important;cursor:pointer !important;
+  display:inline-block !important;vertical-align:middle !important;
+  transition:transform .15s !important;transform:rotate(-90deg);
+}
+body.ae-executive-command #modal-content .bav2-chev.open{transform:rotate(0deg)}
+body.ae-executive-command #modal-content .bav2-chev:hover{color:#9fe9ff !important}
+body.ae-executive-command #modal-content .bav2-details{
+  font-size:9.2px;color:var(--muted);line-height:1.5;
+  padding:2px 0 1px 8px;border-left:2px solid rgba(79,210,247,.25);margin:1px 0 1px 1px;
+}
+body.ae-executive-command #modal-content .bav2-fit{font-size:9.8px}
+body.ae-executive-command #modal-content .bav2-fit.ok{color:var(--profit)}
+body.ae-executive-command #modal-content .bav2-fit.no{color:var(--loss)}
+body.ae-executive-command #modal-content .bav2-fits{font-size:9.4px;color:var(--muted)}
+/* right rail: price over ownership, both right-aligned */
+body.ae-executive-command #modal-content .bav2-rail{
+  flex:0 0 auto;display:flex;flex-direction:column;gap:6px;align-items:flex-end;text-align:right;padding-top:2px;min-width:86px;
+}
+body.ae-executive-command #modal-content .bav2-own{display:flex;flex-direction:column;gap:1px;text-align:right}
+body.ae-executive-command #modal-content .bav2-own span{font-size:9.8px;color:var(--muted)}
+body.ae-executive-command #modal-content .bav2-own b{color:#fff;font-weight:500;font-family:'DM Mono',monospace}
+body.ae-executive-command #modal-content .bav2-own small{font-size:8.8px;color:var(--muted2)}
+body.ae-executive-command #modal-content .bav2-price b{display:block;color:var(--warn);font-weight:500;font-size:12.8px;font-family:'DM Mono',monospace}
+body.ae-executive-command #modal-content .bav2-price small{font-size:8.2px;color:var(--muted2)}
+/* buy row: slim segmented stepper + jewel buy pill (hardened — skin button chrome uses !important) */
+body.ae-executive-command #modal-content .bav2-buyrow{display:flex !important;gap:7px !important;align-items:center !important;margin-top:4px !important}
+body.ae-executive-command #modal-content .bav2-stepper{
+  display:inline-flex !important;align-items:stretch !important;height:20px !important;
+  border:1px solid rgba(120,190,230,.28) !important;border-radius:99px !important;overflow:hidden !important;
+  background:linear-gradient(180deg,rgba(16,34,54,.9),rgba(9,20,34,.9)) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05) !important;
+}
+body.ae-executive-command #modal-content .bav2-st{
+  width:20px !important;height:100% !important;min-height:0 !important;min-width:0 !important;
+  margin:0 !important;padding:0 !important;border:none !important;border-radius:0 !important;
+  background:transparent !important;box-shadow:none !important;
+  display:grid !important;place-items:center !important;
+  color:var(--muted) !important;font-size:11px !important;font-weight:500 !important;line-height:1 !important;cursor:pointer !important;
+}
+body.ae-executive-command #modal-content .bav2-st:disabled{opacity:.3 !important;cursor:default !important}
+body.ae-executive-command #modal-content .bav2-st:hover:not(:disabled){color:#9fe9ff !important;background:rgba(79,210,247,.12) !important;transform:none !important}
+body.ae-executive-command #modal-content .bav2-qn{
+  min-width:17px !important;display:grid !important;place-items:center !important;text-align:center !important;
+  font-family:'DM Mono',monospace !important;font-size:10.4px !important;font-weight:500 !important;color:#fff !important;
+  border-left:1px solid rgba(120,190,230,.16) !important;border-right:1px solid rgba(120,190,230,.16) !important;
+  background:rgba(6,14,24,.5) !important;padding:0 3px !important;
+}
+body.ae-executive-command #modal-content .bav2-cardbuy{
+  height:20px !important;min-height:0 !important;margin:0 !important;padding:0 12px !important;
+  border-radius:99px !important;cursor:pointer !important;width:auto !important;
+  display:inline-flex !important;align-items:center !important;gap:4px !important;
+  border:1px solid rgba(87,224,184,.45) !important;
+  background:linear-gradient(180deg,rgba(17,52,44,.85),rgba(9,30,26,.9)) !important;
+  color:#bdf5e2 !important;font-size:9px !important;font-weight:600 !important;letter-spacing:.9px !important;line-height:1 !important;
+  text-transform:none !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 0 10px rgba(87,224,184,.10) !important;
+  transition:box-shadow .15s,border-color .15s,color .15s !important;
+}
+body.ae-executive-command #modal-content .bav2-cardbuy i{font-style:normal !important;color:rgba(189,245,226,.4) !important}
+body.ae-executive-command #modal-content .bav2-cardbuy em{font-style:normal !important;font-family:'DM Mono',monospace !important;font-size:9.6px !important;color:#57e0b8 !important;letter-spacing:.2px !important}
+body.ae-executive-command #modal-content .bav2-off{
+  font-style:normal !important;font-weight:600 !important;font-size:8.2px !important;
+  color:#04121e !important;background:#57e0b8 !important;border-radius:99px !important;
+  padding:1px 5px !important;margin-left:2px !important;letter-spacing:.3px !important;
+}
+body.ae-executive-command #modal-content .bav2-tier{font-size:8.6px;color:var(--muted2);font-family:'DM Mono',monospace;white-space:nowrap}
+body.ae-executive-command #modal-content .bav2-sumstat s{color:var(--muted2);font-size:9.6px;font-weight:400;margin-left:4px}
+body.ae-executive-command #modal-content .bav2-cardbuy:hover:not(:disabled){
+  border-color:rgba(87,224,184,.85) !important;color:#eafff7 !important;transform:none !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 0 16px rgba(87,224,184,.28) !important;
+}
+body.ae-executive-command #modal-content .bav2-cardbuy:disabled{opacity:.35 !important;cursor:not-allowed !important;box-shadow:none !important}
+body.ae-executive-command #modal-content .bav2-cant{font-size:10px;color:var(--muted2);margin-top:5px}
+body.ae-executive-command #modal-content .bav2-cant.warn{color:var(--warn)}
+/* empty-filter state */
+body.ae-executive-command #modal-content .bav2-empty{
+  padding:18px 12px;text-align:center;font-size:10.8px;color:var(--muted);
+  border:1px dashed rgba(120,190,230,.22);border-radius:10px;margin:4px 0 6px;
+}
+body.ae-executive-command #modal-content .bav2-empty button{
+  background:none !important;border:none !important;box-shadow:none !important;min-height:0 !important;
+  padding:0 2px !important;color:var(--accent) !important;font-size:10.8px !important;
+  text-decoration:underline !important;cursor:pointer !important;
+}
+
+/* compare */
+body.ae-executive-command #modal-content .bav2-comparewrap{
+  border:1px solid rgba(120,190,230,.2);border-radius:10px;padding:8px 10px;margin-top:4px;background:rgba(8,18,30,.55);
+}
+body.ae-executive-command #modal-content .bav2-comparehead{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:9.6px;font-weight:600;letter-spacing:1px;color:var(--accent);margin-bottom:5px;
+}
+body.ae-executive-command #modal-content .bav2-comparehead button{
+  background:none;border:none;color:var(--muted2);font-size:9.6px;cursor:pointer;text-decoration:underline;
+}
+body.ae-executive-command #modal-content .bav2-compare{width:100%;border-collapse:collapse;font-size:10.2px}
+body.ae-executive-command #modal-content .bav2-compare td{padding:3px 8px;border-top:1px solid rgba(120,190,230,.1);color:var(--muted)}
+body.ae-executive-command #modal-content .bav2-compare td b{color:#fff;font-weight:500;font-family:'DM Mono',monospace;font-size:10px}
+body.ae-executive-command #modal-content .bav2-compare tr:first-child td{border-top:none}
+
+/* summary bar */
+body.ae-executive-command #modal-content .bav2-sum{
+  display:flex;align-items:center;gap:12px;
+  padding:8px 12px;border-top:1px solid rgba(120,190,230,.2);
+  background:linear-gradient(180deg,rgba(10,22,36,.95),rgba(7,16,27,.98));
+}
+body.ae-executive-command #modal-content .bav2-sumleft{display:flex;flex-direction:column;gap:1px;min-width:0}
+body.ae-executive-command #modal-content .bav2-sumleft b{font-size:11.8px;font-weight:600;color:#fff;white-space:nowrap}
+body.ae-executive-command #modal-content .bav2-rm{
+  background:none;border:none;color:var(--muted2);font-size:9.4px;cursor:pointer;text-align:left;padding:0;text-decoration:underline;
+}
+body.ae-executive-command #modal-content .bav2-sumstat{display:flex;flex-direction:column;gap:0;flex-shrink:0}
+body.ae-executive-command #modal-content .bav2-sumstat small{font-size:8.6px;color:var(--muted2);letter-spacing:.7px;text-transform:uppercase}
+body.ae-executive-command #modal-content .bav2-sumstat b{font-size:12.6px;font-weight:500;font-family:'DM Mono',monospace}
+body.ae-executive-command #modal-content .bav2-sumbtns{display:flex;gap:7px;margin-left:auto}
+body.ae-executive-command #modal-content .bav2-assign,
+body.ae-executive-command #modal-content .bav2-buy{
+  padding:7px 13px;border-radius:9px;font-size:10.8px;font-weight:600;letter-spacing:.35px;cursor:pointer;
+}
+body.ae-executive-command #modal-content .bav2-assign{
+  border:1px solid rgba(79,160,255,.55);background:linear-gradient(180deg,rgba(48,110,220,.85),rgba(30,74,160,.9));color:#fff;
+}
+body.ae-executive-command #modal-content .bav2-buy{
+  border:1px solid rgba(63,232,160,.5);background:linear-gradient(180deg,rgba(30,160,96,.9),rgba(18,110,66,.92));color:#fff;
+}
+body.ae-executive-command #modal-content .bav2-assign:disabled,
+body.ae-executive-command #modal-content .bav2-buy:disabled{opacity:.4;cursor:not-allowed}

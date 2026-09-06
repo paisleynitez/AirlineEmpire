@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HR Prototype A — Compact Tabbed</title>
+<style>
+  :root {
+    --bg:#0d061c; --bg2:#140a28; --surface:#1e103a; --surface2:#28164c; --surface3:#331d60;
+    --border:#422c6e; --border2:#604499;
+    --accent:#a789ff; --accent2:#ffcf5a; --purple:#9d8ee0;
+    --danger:#ff5d72; --warn:#ffb74a;
+    --text:#faf9fb; --muted:#eef1f0; --muted2:#cad2d0;
+    --profit:#5fe0a0; --loss:#ff6a7e;
+    --shadow:0 4px 20px rgba(0,0,0,0.5); --radius:7px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter',system-ui,sans-serif;
+    background:linear-gradient(160deg,#140c24 0%,#0d0816 100%);
+    color:var(--muted); height:100vh; overflow:hidden;
+  }
+  .proto-tag { position:fixed; top:10px; left:12px; font-size:11px; letter-spacing:1.5px; color:var(--muted2); text-transform:uppercase; }
+  .reopen { position:fixed; top:34px; left:12px; display:none; padding:8px 14px; border-radius:8px;
+    border:1px solid var(--accent); background:rgba(167,137,255,.14); color:#fff; font-weight:700; cursor:pointer; }
+
+  /* ── Window chrome: centered, draggable, resizable ── */
+  .hr-win {
+    position:fixed; width:600px; height:520px;
+    min-width:480px; min-height:380px; max-width:92vw; max-height:92vh;
+    background:var(--surface); border:1px solid var(--border2); border-radius:14px;
+    box-shadow:0 10px 40px rgba(0,0,0,.65); display:flex; flex-direction:column; overflow:hidden;
+  }
+  .hr-head {
+    flex:0 0 auto; display:flex; align-items:center; justify-content:space-between;
+    padding:12px 16px; background:var(--surface2); border-bottom:1px solid var(--border);
+    cursor:move; user-select:none;
+  }
+  .hr-title { font-size:13.5px; letter-spacing:1.6px; color:#fff; font-weight:700; text-transform:uppercase; }
+  .hr-close { background:var(--bg2); border:1px solid var(--border); border-radius:9px; color:var(--muted2);
+    width:30px; height:30px; font-size:15px; cursor:pointer; line-height:1; }
+  .hr-close:hover { color:var(--danger); border-color:var(--danger); }
+  .hr-body { flex:1 1 auto; overflow-y:auto; padding:14px 16px 10px; }
+  .hr-grip { position:absolute; right:0; bottom:0; width:18px; height:18px; cursor:nwse-resize; }
+  .hr-grip::after { content:''; position:absolute; right:4px; bottom:4px; width:9px; height:9px;
+    border-right:2px solid var(--border2); border-bottom:2px solid var(--border2); border-radius:0 0 3px 0; }
+  .edge { position:absolute; }
+  .edge.r { top:0; right:-3px; width:6px; height:100%; cursor:ew-resize; }
+  .edge.b { left:0; bottom:-3px; height:6px; width:100%; cursor:ns-resize; }
+
+  /* ── Slim stat strip (one row, no scroll cost) ── */
+  .stat-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:12px; }
+  .stat { background:rgba(255,255,255,0.025); border:1px solid var(--border); border-radius:10px;
+    padding:9px 8px; text-align:center; }
+  .stat b { display:block; font-family:'DM Mono',monospace; font-size:19px; font-weight:800; line-height:1; }
+  .stat span { display:block; font-size:10.6px; color:var(--muted2); margin-top:4px; line-height:1.25; }
+
+  /* ── Tabs ── */
+  .tabs { display:flex; gap:0; border-bottom:1px solid var(--border); margin-bottom:10px; }
+  .tab { padding:7px 13px; font-size:11.3px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+    cursor:pointer; border:none; border-bottom:2px solid transparent; background:transparent; color:var(--muted2); }
+  .tab .pill { border-radius:8px; padding:1px 5px; font-size:10px; margin-left:3px; }
+  .tab.active { color:var(--accent); border-bottom-color:var(--accent); }
+
+  .section { background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:10px;
+    padding:11px 13px; margin-bottom:10px; }
+  .section-k { font-size:11px; font-weight:800; color:var(--accent2); letter-spacing:1.2px; margin-bottom:8px; }
+  .budget-row { display:flex; gap:8px; margin-bottom:7px; }
+  .budget-btn { flex:1; padding:9px 6px; font-size:12.5px; font-weight:700; border-radius:8px; cursor:pointer;
+    background:var(--surface2); border:1px solid var(--border); color:var(--muted2); }
+  .budget-btn.active { background:rgba(167,137,255,0.13); border-color:var(--accent); color:#fff; }
+  .note { font-size:11.3px; color:var(--muted2); }
+  .hint { background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:8px 12px;
+    display:flex; align-items:center; gap:9px; cursor:pointer; margin-bottom:10px; }
+  .hint div { flex:1; font-size:11.3px; color:var(--muted); }
+  .cand { display:flex; align-items:center; gap:10px; background:var(--surface2); border:1px solid var(--border);
+    border-radius:8px; padding:8px 12px; margin-bottom:7px; font-size:12px; }
+  .cand .who { flex:1; } .cand .who b { color:#fff; display:block; font-size:12.5px; }
+  .cand .who span { color:var(--muted2); font-size:11px; }
+  .mini { padding:5px 11px; font-size:11px; font-weight:700; border-radius:7px; cursor:pointer;
+    border:1px solid var(--border); background:var(--surface3); color:var(--muted); }
+  .mini.ok { border-color:var(--profit); color:var(--profit); }
+  .empty { text-align:center; color:var(--muted2); font-size:12px; padding:16px 0; }
+</style>
+</head>
+<body>
+<div class="proto-tag">Prototype A · Compact Tabbed · drag header · resize edges/corner · dbl-click header = recenter/reset</div>
+<button class="reopen" id="reopen" onclick="reopenWin()">Reopen HR window</button>
+
+<div class="hr-win" id="win">
+  <div class="hr-head" id="head">
+    <div class="hr-title">👔 Human Resources</div>
+    <button class="hr-close" onclick="closeWin()">✕</button>
+  </div>
+  <div class="hr-body">
+    <div class="stat-strip">
+      <div class="stat"><b style="color:var(--accent2)">65%</b><span>Avg Morale · Moderate</span></div>
+      <div class="stat"><b style="color:var(--danger)">-2%</b><span>Demand Effect<br>Low morale drag</span></div>
+      <div class="stat"><b style="color:var(--profit)">-0%</b><span>Crew Cost<br>vs. base rate</span></div>
+      <div class="stat"><b style="color:var(--profit)">0</b><span>Open Incidents<br>All clear</span></div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="overview" onclick="setTab('overview')">Overview</button>
+      <button class="tab" data-tab="recruit" onclick="setTab('recruit')">Recruit <span class="pill" style="background:rgba(95,224,160,0.15);color:var(--profit)">4</span></button>
+      <button class="tab" data-tab="incidents" onclick="setTab('incidents')">Incidents</button>
+    </div>
+
+    <div id="tab-overview">
+      <div class="hint" title="Opens Roster in the game">
+        <span style="font-size:16px">👨‍✈️</span>
+        <div>Manage active pilots &amp; cabin crew — training &amp; recognition — on the <b style="color:var(--accent2)">Roster</b>.</div>
+        <span style="font-size:11.3px;color:#fff;white-space:nowrap">Open Roster ▸</span>
+      </div>
+      <div class="section">
+        <div class="section-k">CREW BUDGET</div>
+        <div class="budget-row">
+          <button class="budget-btn" onclick="setBudget(this,'Lean')">🔻 Lean</button>
+          <button class="budget-btn active" onclick="setBudget(this,'Standard')">✅ Standard</button>
+          <button class="budget-btn" onclick="setBudget(this,'Generous')">💚 Generous</button>
+        </div>
+        <div class="note" id="budget-note">Standard · Morale drift: +0/month · <span style="color:var(--accent2)">Upgrade to Generous for +4/mo</span></div>
+      </div>
+      <div class="section">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <div style="font-size:11px;font-weight:800;color:#f5c842;letter-spacing:1px">🏆 RECOGNITION</div>
+          <div style="font-size:11px;color:var(--muted2)">0 awards given</div>
+        </div>
+        <div class="note">No awards yet. Recognise standout crew on the Roster (🏆 on each card), or let HR auto-award a top performer each quarter.</div>
+      </div>
+    </div>
+
+    <div id="tab-recruit" style="display:none">
+      <div class="cand"><span style="font-size:17px">🧑‍✈️</span><div class="who"><b>M. Okafor — Pilot</b><span>Skill 62 · $18k signing</span></div><button class="mini ok">Approve</button><button class="mini">Pass</button></div>
+      <div class="cand"><span style="font-size:17px">🧑‍✈️</span><div class="who"><b>J. Lindqvist — Pilot</b><span>Skill 55 · $14k signing</span></div><button class="mini ok">Approve</button><button class="mini">Pass</button></div>
+      <div class="cand"><span style="font-size:17px">🙋</span><div class="who"><b>A. Reyes — Cabin</b><span>Skill 60 · $8k signing</span></div><button class="mini ok">Approve</button><button class="mini">Pass</button></div>
+      <div class="cand"><span style="font-size:17px">🙋</span><div class="who"><b>K. Tanaka — Cabin</b><span>Skill 48 · $6k signing</span></div><button class="mini ok">Approve</button><button class="mini">Pass</button></div>
+    </div>
+
+    <div id="tab-incidents" style="display:none">
+      <div class="empty">✅ No open incidents — all clear.</div>
+    </div>
+  </div>
+  <div class="edge r" data-dir="r"></div>
+  <div class="edge b" data-dir="b"></div>
+  <div class="hr-grip" data-dir="rb"></div>
+</div>
+
+<script>
+(function(){
+  const win  = document.getElementById('win');
+  const head = document.getElementById('head');
+  const DEFAULT = { w:600, h:520 };
+
+  function center(){
+    const r = win.getBoundingClientRect();
+    win.style.left = Math.max(8,(innerWidth - r.width)/2) + 'px';
+    win.style.top  = Math.max(8,(innerHeight - r.height)/2) + 'px';
+  }
+  function reset(){
+    win.style.width = DEFAULT.w+'px'; win.style.height = DEFAULT.h+'px'; center();
+  }
+  window.addEventListener('load', reset);
+  window.addEventListener('resize', () => {
+    const r = win.getBoundingClientRect();
+    win.style.left = Math.min(parseFloat(win.style.left)||0, Math.max(0,innerWidth-r.width))+'px';
+    win.style.top  = Math.min(parseFloat(win.style.top)||0,  Math.max(0,innerHeight-r.height))+'px';
+  });
+  head.addEventListener('dblclick', reset);
+
+  // Drag
+  let drag = null;
+  head.addEventListener('mousedown', e => {
+    if (e.target.closest('.hr-close')) return;
+    const r = win.getBoundingClientRect();
+    drag = { dx:e.clientX-r.left, dy:e.clientY-r.top };
+    e.preventDefault();
+  });
+  // Resize
+  let rs = null;
+  document.querySelectorAll('.edge,.hr-grip').forEach(h => {
+    h.addEventListener('mousedown', e => {
+      const r = win.getBoundingClientRect();
+      rs = { dir:h.dataset.dir, x:e.clientX, y:e.clientY, w:r.width, h:r.height };
+      e.preventDefault(); e.stopPropagation();
+    });
+  });
+  document.addEventListener('mousemove', e => {
+    if (drag) {
+      win.style.left = Math.min(Math.max(0, e.clientX - drag.dx), innerWidth - 60) + 'px';
+      win.style.top  = Math.min(Math.max(0, e.clientY - drag.dy), innerHeight - 40) + 'px';
+    } else if (rs) {
+      if (rs.dir.includes('r')) win.style.width  = Math.max(480, rs.w + e.clientX - rs.x) + 'px';
+      if (rs.dir.includes('b')) win.style.height = Math.max(380, rs.h + e.clientY - rs.y) + 'px';
+    }
+  });
+  document.addEventListener('mouseup', () => { drag = null; rs = null; });
+
+  // Tabs / budget / close
+  window.setTab = function(t){
+    ['overview','recruit','incidents'].forEach(x => {
+      document.getElementById('tab-'+x).style.display = x===t ? '' : 'none';
+      document.querySelector('.tab[data-tab="'+x+'"]').classList.toggle('active', x===t);
+    });
+  };
+  window.setBudget = function(btn,label){
+    document.querySelectorAll('.budget-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const drift = label==='Generous' ? '+4' : label==='Standard' ? '+0' : '-2';
+    document.getElementById('budget-note').innerHTML =
+      label+' · Morale drift: '+drift+'/month'+(label!=='Generous'?' · <span style="color:var(--accent2)">Upgrade to Generous for +4/mo</span>':'');
+  };
+  window.closeWin  = function(){ win.style.display='none'; document.getElementById('reopen').style.display='block'; };
+  window.reopenWin = function(){ win.style.display='flex'; document.getElementById('reopen').style.display='none'; reset(); };
+})();
+</script>
+</body>
+</html>

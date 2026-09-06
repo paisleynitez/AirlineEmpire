@@ -5923,6 +5923,18 @@ const ECON = {
   refFareBase: 130,
   refFareDist: 0.09,   // ref fare grows ~$90 per 1000mi — calibrated to real-world domestic/intl fares
   fareElastic: 0.85,
+  overpriceSpill: 0.7,   // OVERPRICE_SPILL_v01: fares above market suppress realized fill: fill = 1 - (fare/ref - 1)*spill
+  overpriceFloor: 0.3,   // OVERPRICE_SPILL_v01: fill never drops below this from overpricing alone
+  // BULK_DISCOUNT_v01: volume discounts on aircraft purchases, per airframe class.
+  // Tiers are [minQty, pctOff]; the largest qualifying tier applies. No tier under 7%.
+  // Bigger metal earns discounts sooner and deeper (real-world widebody order economics).
+  bulkDiscount: {
+    short:      [[3, 7], [5, 10], [8, 14]],
+    medium:     [[3, 7], [5, 11], [8, 15]],
+    long:       [[2, 8], [4, 12], [6, 16]],
+    jumbo:      [[2, 10], [3, 14], [5, 18]],
+    supersonic: [[2, 10], [3, 14], [5, 18]]
+  },
   rivalSplit: 0.42,
   fuelPerSeatMile: 0.05,
   // Fleet wear & heritage (replaces the design-year age surcharge):
@@ -7506,7 +7518,9 @@ function processRoute(r) {
     const acAgeSurcharge = wearSur + heritageSur;
     ageCost += (sm * E.fuelPerSeatMile * effic * fuelMult + fl*E.weeksPerMonth*E.crewPerFlight + fl*E.weeksPerMonth*dist*E.crewPerMile + ac.seats*fl*E.leasePerSeatMonth) * acAgeSurcharge * (1 - Math.max(regionMaintCut(ct.region), regionMaintCut(cf.region)));
   });
-  const pax = Math.round(Math.min(capacity, demand));
+  // OVERPRICE_SPILL_v01: fares above market suppress realized fill even on capacity-constrained routes
+  const overpriceFill = r.fare > refFare ? Math.max(E.overpriceFloor, 1 - (r.fare/refFare - 1) * E.overpriceSpill) : 1;
+  const pax = Math.round(Math.min(capacity, demand) * overpriceFill);
   const transferPax = _connMult > 1 ? Math.round(pax * (1 - 1/_connMult)) : 0;
   const load = capacity>0 ? Math.round(pax/capacity*100) : 0;
   const planeAge = Math.max(0, (STATE.year||1970) - (plane.era||1960)); // for display
@@ -11922,7 +11936,10 @@ function updateRoutePreview(){
     const refFare = E.refFareBase + dist*E.refFareDist;
     estDemand *= Math.max(0.12, Math.min(1.75, 1+(refFare-fare)/refFare*E.fareElastic));
   }
-  const estLoad = cap > 0 ? Math.min(100, Math.round(estDemand / cap * 100)) : 0;
+  // OVERPRICE_SPILL_v01: preview mirrors the tick's overprice fill suppression
+  const refFareP = E.refFareBase + dist*E.refFareDist;
+  const opFill = fare > refFareP ? Math.max(E.overpriceFloor, 1 - (fare/refFareP - 1) * E.overpriceSpill) : 1;
+  const estLoad = cap > 0 ? Math.min(100, Math.round(estDemand * opFill / cap * 100)) : 0;
   const loadColor = estLoad > 70 ? 'var(--profit)' : estLoad > 45 ? 'var(--warn)' : 'var(--loss)';
   const refFare2 = E.refFareBase + dist*E.refFareDist;
   // fare rail markers + tip follow the live market reference
@@ -11932,7 +11949,7 @@ function updateRoutePreview(){
   if(btn) btn.disabled = !canOpen;
   if(btnA) btnA.disabled = !canOpen;
   if(openCostEl) openCostEl.textContent = `· $${openCost}M`;
-  const estPax = canFly ? Math.round(Math.min(cap, estDemand)).toLocaleString() : '—';
+  const estPax = canFly ? Math.round(Math.min(cap, estDemand) * opFill).toLocaleString() : '—';
   // collect warnings (only the active ones)
   const warns = [];
   if (!canFly)       warns.push(`<span style="color:var(--danger)">⚠ ${outRangeTypes.join(', ')} can't reach ${to} (${dist.toLocaleString()}mi)</span>`);
@@ -11947,7 +11964,7 @@ function updateRoutePreview(){
   let dLabel='Low', dColor='var(--loss)';
   if (demandRatio >= 0.85)      { dLabel='High';   dColor='var(--profit)'; }
   else if (demandRatio >= 0.55) { dLabel='Medium'; dColor='var(--warn)'; }
-  const weeklyRev = canFly ? Math.round(Math.min(cap, estDemand) * fare / E.weeksPerMonth) : 0;
+  const weeklyRev = canFly ? Math.round(Math.min(cap, estDemand) * opFill * fare / E.weeksPerMonth) : 0;
   const wkRevStr = canFly ? '$' + weeklyRev.toLocaleString() : '—';
   el.innerHTML = `
     <div class="nr-est3">
@@ -12121,14 +12138,15 @@ function buildBuyPlanesForRoute(from, to) {
 }
 function buyPlaneForRoute(name, qty, from, to) {
   const a = AIRCRAFT[name];
-  const total = a.cost * qty;
+  const _bulk = bulkPlaneDiscount(name, qty);
+  const total = _bulk.total;
   if (STATE.cash < total) return showFlash(`⚠ Need $${total}M`);
   STATE.cash -= total;
   if (!STATE.planes[name]) STATE.planes[name] = { ...a, owned: 0, assigned: 0 };
   STATE.planes[name].owned += qty;
   stampAcquisition(STATE.planes[name], qty);
-  addEvent('neutral', `Bought ${qty}× ${name} for $${total}M`);
-  showFlash(`✓ ${qty}× ${name} acquired — return to route`);
+  addEvent('neutral', `Bought ${qty}× ${name} for $${total}M${_bulk.pct ? ` (bulk −${_bulk.pct}%)` : ''}`);
+  showFlash(`✓ ${qty}× ${name} acquired${_bulk.pct ? ` — ${_bulk.pct}% bulk discount` : ''} — return to route`);
   guideStep(2);
   updateUI(); renderFleet();
   document.getElementById('modal-content').innerHTML = buildNewRoute(from, to);
@@ -12977,8 +12995,18 @@ function stampAcquisition(p, qty, acqYear){
     ? (p._acqYear * prev + y * qty) / (prev + qty)
     : y;
 }
+// BULK_DISCOUNT_v01: largest qualifying tier for this type/quantity; pct is 0 or >= 7.
+function bulkPlaneDiscount(name, qty) {
+  const a = AIRCRAFT[name];
+  if (!a || !qty) return { pct: 0, total: 0, base: 0 };
+  const base = a.cost * qty;
+  const tiers = (ECON.bulkDiscount || {})[a.type] || [];
+  let pct = 0;
+  tiers.forEach(t => { if (qty >= t[0]) pct = t[1]; });
+  return { pct, total: Math.round(base * (1 - pct / 100)), base };
+}
 function buyPlaneQty(n, q) {
-  const a = AIRCRAFT[n], total = a.cost * q;
+  const a = AIRCRAFT[n], _bulk = bulkPlaneDiscount(n, q), total = _bulk.total;
   if (STATE.cash < total) return showFlash(`⚠ Need $${total}M`);
   if (a.era > STATE.year+3) return showFlash(`⚠ ${n} not available until ${a.era}`);
   if(!spendAction('Buy aircraft')) return;
@@ -12986,8 +13014,8 @@ function buyPlaneQty(n, q) {
   if (!STATE.planes[n]) STATE.planes[n] = {...a, owned:0, assigned:0, leased:0};
   STATE.planes[n].owned += q;
   stampAcquisition(STATE.planes[n], q);
-  addEvent('neutral', `Bought ${q}× ${n} for $${total}M`);
-  showFlash(`✓ ${q}× ${n} acquired`);
+  addEvent('neutral', `Bought ${q}× ${n} for $${total}M${_bulk.pct ? ` (bulk −${_bulk.pct}%)` : ''}`);
+  showFlash(`✓ ${q}× ${n} acquired${_bulk.pct ? ` — ${_bulk.pct}% bulk discount` : ''}`);
   guideStep(2);
   updateUI(); renderFleet();
   document.getElementById('modal-content').innerHTML = buildBuyPlanes();

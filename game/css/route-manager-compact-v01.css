@@ -1,0 +1,27 @@
+/* ROUTE_MANAGER_COMPACT_v01 — Route Manager: compact fixed-size window.
+   Sized down on request (850×460 → 765×414 → 690×375), dead space trimmed hard,
+   and the window is NOT resizable: js/patches/popup_resize_v01.js lists it in
+   NO_RESIZE (no grip), css/popup-resize-v01.css disables native resize, and the
+   hard CSS caps there still apply as a backstop. Loads after main.css so these
+   sizes win; content beyond the fixed height scrolls internally. */
+
+.modal.modal-route-manager {
+  width: 690px !important;
+  height: 375px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+.modal-route-manager .modal-header { padding: 10px 16px !important; }
+
+/* Empty state: tight padding, balanced columns, no forced tall centring */
+.modal-route-manager .rm-empty--routes {
+  padding: 12px 18px 14px !important;
+  gap: 14px !important;
+  min-height: 0 !important;
+  grid-template-columns: minmax(0, 1.1fr) minmax(170px, .9fr) !important;
+}
+.modal-route-manager .rm-empty:not(.rm-empty--routes) {
+  padding: 16px 22px !important;
+  gap: 10px !important;
+  min-height: 0 !important;
+}

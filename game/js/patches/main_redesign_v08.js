@@ -6,7 +6,7 @@
     if(document.getElementById('ae-draggable-popups-v01')) return;
     const script=document.createElement('script');
     script.id='ae-draggable-popups-v01';
-    script.src='./js/patches/draggable_modals_v01.js';
+    script.src='./js/patches/draggable_modals_v01.js?v=2';
     document.head.appendChild(script);
   }
 

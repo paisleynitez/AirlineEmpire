@@ -1,0 +1,198 @@
+/* ROUTE_MANAGER_UICLEAN_v01 — Route Manager window brought in line with the
+   Fleet & Aircraft cleanup (same ongoing window treatment):
+   • KPI stat boxes: smaller, content centered, mono values at Fleet scale
+     (no oversized display type), consistent 11px radius.
+   • No bold fonts in chips, hints, or inline emphasis — emphasis stays via
+     color only, matching the de-bolded Fleet tabs.
+   • Close × pinned inside the top-right corner as a true 30×30 square,
+     10px in from the corner — identical to the Fleet window's close.
+   Anchored on #modal-content.modal-route-manager (same decisive-specificity
+   pattern as fleet-aircraft-v117.css) so skin layers cannot outrank it.
+   Loads after route-manager-compact-v01.css. UI-only. */
+
+/* --- Close button: 30×30, 10px into the corner (Fleet standard) --- */
+body.ae-executive-command #modal-content.modal-route-manager .modal-header{
+  position:relative!important;
+  padding-right:52px!important;
+}
+body.ae-executive-command #modal-content.modal-route-manager .modal-close{
+  position:absolute!important;
+  top:10px!important;
+  right:10px!important;
+  width:30px!important;
+  height:30px!important;
+  min-width:30px!important;
+  min-height:30px!important;
+  max-width:30px!important;
+  max-height:30px!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:0!important;
+  margin:0!important;
+  border-radius:8px!important;
+  font-size:19px!important;
+  line-height:1!important;
+  z-index:6!important;
+}
+
+/* --- KPI stat boxes: compact, centered, Fleet-scale values --- */
+body.ae-executive-command #modal-content.modal-route-manager .rm-kpis{
+  gap:9px!important;
+  margin:4px 0 10px!important;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rm-kpi{
+  min-height:51px!important;
+  padding:6px 7px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  border-radius:11px!important;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rm-kpi .rk-v{
+  font-family:'DM Mono',monospace!important;
+  font-size:clamp(16px,1.23vw,21px)!important;
+  font-weight:500!important;
+  line-height:1!important;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rm-kpi .rk-k{
+  margin-top:3px!important;
+  font-size:9px!important;
+  font-weight:400!important;
+  letter-spacing:.12em!important;
+}
+
+/* --- Filter / sort chips: never bold, active state keeps color emphasis --- */
+body.ae-executive-command #modal-content.modal-route-manager .rm-fbtn,
+body.ae-executive-command #modal-content.modal-route-manager .rm-sbtn,
+body.ae-executive-command #modal-content.modal-route-manager .rm-fbtn.active,
+body.ae-executive-command #modal-content.modal-route-manager .rm-sbtn.active{
+  font-weight:400!important;
+}
+
+/* --- Inline emphasis de-bolded (color carries the emphasis) --- */
+body.ae-executive-command #modal-content.modal-route-manager .rm-hint,
+body.ae-executive-command #modal-content.modal-route-manager .rm-hint b,
+body.ae-executive-command #modal-content.modal-route-manager .rm-summary b{
+  font-weight:400!important;
+}
+
+/* --- Row pair label: normal weight, mono already provides distinction --- */
+body.ae-executive-command #modal-content.modal-route-manager .rm-pair{
+  font-weight:400!important;
+}
+
+/* ===== EMPTY_STATE Option C (rev C) — markup from js/patches/route_manager_empty_v01.js.
+   The .rm-empty-* rules below are inert now (stock empty markup replaced) and kept only
+   as fallback if the patch ever fails. Frame size/position is set by the patch itself. */
+body.ae-executive-command #modal-content.modal-route-manager .rme-c{
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  gap:8px;padding:16px 18px 18px;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rme-kick{
+  display:flex;align-items:center;gap:6px;
+  color:#57e0b8;font-size:9.5px;font-weight:600;letter-spacing:1.3px;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rme-kick i{
+  width:6px;height:6px;border-radius:50%;background:#57e0b8;display:inline-block;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rme-title{
+  font-size:18px;font-weight:600;color:#fff;line-height:1.15;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rme-sub{
+  font-size:11.5px;color:#9fb3c2;max-width:34ch;line-height:1.4;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rme-stats{
+  display:flex;justify-content:center;margin-top:2px;
+  border-top:1px solid rgba(120,190,230,.14);border-bottom:1px solid rgba(120,190,230,.14);
+}
+body.ae-executive-command #modal-content.modal-route-manager .rme-stats>div{
+  display:flex;gap:7px;align-items:baseline;padding:7px 14px;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rme-stats>div+div{
+  border-left:1px solid rgba(120,190,230,.14);
+}
+body.ae-executive-command #modal-content.modal-route-manager .rme-stats b{
+  font-family:'DM Mono',Consolas,monospace;font-size:13px;font-weight:500;color:#fff;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rme-stats span{
+  font-size:10.5px;color:#8ea4b2;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rme-cta{
+  width:auto!important;min-height:0!important;margin-top:6px!important;
+  padding:8px 18px!important;border-radius:9px!important;
+  font-size:12px!important;font-weight:600!important;
+  display:inline-flex!important;align-items:center!important;gap:10px!important;
+}
+
+/* ===== EMPTY_STATE_COMPACT (rev B) — "Your network starts here" panel ===== */
+body.ae-executive-command #modal-content.modal-route-manager .rm-empty{
+  gap:10px!important;
+  padding:10px 12px!important;
+  min-height:0!important;
+  grid-template-columns:1.15fr .85fr!important;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rm-empty-content{
+  gap:7px!important;
+  padding:6px 0!important;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rm-empty-kicker{
+  font-size:9.6px!important;
+  font-weight:600!important;
+  letter-spacing:1.2px!important;
+  margin:0 0 2px!important;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rm-empty-title{
+  font-size:clamp(16px,1.5vw,21px)!important;
+  font-weight:600!important;
+  line-height:1.15!important;
+  margin:0 0 2px!important;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rm-empty-text{
+  font-size:11.6px!important;
+  line-height:1.4!important;
+  max-width:34ch!important;
+  margin:0 0 6px!important;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rm-empty-readiness{
+  margin:0 0 8px!important;
+  padding:6px 0!important;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rm-empty-readiness > div{
+  padding:2px 12px 2px 0!important;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rm-empty-readiness b{
+  font-size:13px!important;
+  font-weight:500!important;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rm-empty-readiness span{
+  font-size:10.6px!important;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rm-empty-action{
+  min-height:0!important;
+  padding:8px 16px!important;
+  border-radius:10px!important;
+  font-size:12px!important;
+  font-weight:600!important;
+  width:auto!important;
+  max-width:240px!important;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rm-empty-visual{
+  min-height:0!important;
+  max-height:230px!important;
+  padding:6px!important;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rm-empty-art svg,
+body.ae-executive-command #modal-content.modal-route-manager .rm-empty-art img{
+  max-width:160px!important;
+  max-height:92px!important;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rm-empty-model{
+  padding:5px 10px!important;
+  font-size:10px!important;
+}
+body.ae-executive-command #modal-content.modal-route-manager .rm-empty-model b{
+  font-size:11px!important;
+  font-weight:500!important;
+}

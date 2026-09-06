@@ -30,7 +30,7 @@
     b.title = 'Temporary — starts a default scenario run, bypassing the wizard';
     b.setAttribute('onclick', 'devSkipToGame()');
     b.style.cssText = [
-      'position:absolute', 'left:18px', 'bottom:18px', 'z-index:50',
+      'position:absolute', 'left:18px', 'top:18px', 'z-index:50',
       'height:30px', 'padding:0 12px', 'border-radius:8px', 'cursor:pointer',
       "font-family:'Inter',system-ui,sans-serif", 'font-size:10.6px', 'font-weight:800', 'letter-spacing:1px',
       'color:#ffcf5a', 'background:rgba(8,20,36,.92)', 'border:1px dashed rgba(255,207,90,.55)'

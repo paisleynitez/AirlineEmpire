@@ -33,6 +33,22 @@
     <link rel="stylesheet" href="css/buy-aircraft-v01.css">
     <!-- SLOT_WINDOW_CHROME_v01: Slot Negotiations header matches other windows (grip dots, pin, minimize hidden) -->
     <link rel="stylesheet" href="css/slot-window-chrome-v01.css">
+    <!-- POPUP_RESIZE_v01 — lower-right resize grip on every popup window -->
+    <link rel="stylesheet" href="css/popup-resize-v01.css">
+    <!-- HR_COMPACT_v01 — compact two-column Human Resources window -->
+    <link rel="stylesheet" href="css/hr-compact-v01.css">
+    <!-- ROUTE_MANAGER_COMPACT_v01 — Route Manager opens compact; empty-state dead space trimmed; max capped in popup_resize_v01.js -->
+    <link rel="stylesheet" href="css/route-manager-compact-v01.css">
+    <!-- ROUTE_MANAGER_UICLEAN_v01 — Route Manager matches the Fleet window treatment: compact centered KPI boxes, no bold fonts, 30×30 corner close -->
+    <link rel="stylesheet" href="css/route-manager-uiclean-v01.css?v=5">
+    <!-- MARKETING_CENTER_v01 — Advertising window rebuilt as the Marketing Center concept (stat boxes, pill tabs, campaign cards); markup from js/patches/marketing_center_v01.js -->
+    <link rel="stylesheet" href="css/marketing-center-v01.css">
+    <!-- NEW_ROUTE_COMPACT_v01 — New Route window opens tighter (smaller frame, denser rhythm) -->
+    <link rel="stylesheet" href="css/new-route-compact-v01.css?v=13">
+    <!-- BUY_AIRCRAFT_v02 — route-flow Buy Aircraft rebuilt to concept (stat header, filters, rich cards, compare, summary bar); markup from js/patches/buy_aircraft_v02.js -->
+    <link rel="stylesheet" href="css/buy-aircraft-v02.css?v=15">
+    <!-- FLEET_COMPACT_v01 — Fleet & Aircraft page: smaller centered stat boxes (label clip fixed), tighter header/tabs/footer -->
+    <link rel="stylesheet" href="css/fleet-compact-v01.css">
 </head>
 <body class="ae-executive-command">
 
@@ -556,7 +572,7 @@
 <script src="./js/cities/cityProfileManager.js"></script>
 <script src="./js/cities/cityRenderer.js"></script>
 <script src="./js/data/aircraftImageManifest.js"></script>
-<script src="./js/core/game.js"></script>
+<script src="./js/core/game.js?v=ops2"></script>
 <script src="./js/core/aiAirlineLifecycle.js"></script>
 
 <!-- ═══════════════════════════════════════════════════════════
@@ -621,7 +637,7 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 - Preserved v07 command rail, ops feed, map, fleet, route, save/load, and market systems.
 -->
 
-<script defer src="./js/patches/main_redesign_v08.js"></script>
+<script defer src="./js/patches/main_redesign_v08.js?v=2"></script>
 
 
 
@@ -669,8 +685,34 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <script defer src="./js/patches/real_dev_v01.js"></script>
 <!-- WINDOW_CHROME_v01: single × close on every window (adds × to Fleet & Aircraft page) -->
 <script defer src="./js/patches/window_chrome_v01.js"></script>
+
+<!-- HR_COMPACT_v01 — Human Resources window in the approved compact two-column
+     layout (prototypes/hr-window rev 4). UI-only: rearranges rendered nodes. -->
+<script defer src="./js/patches/hr_compact_v01.js"></script>
+
+<!-- POPUP_RESIZE_v01 — every popup window: lower-right resize grip only,
+     minimum = opened size (content never malforms), capped maximum,
+     dbl-click header resets. Buy Aircraft keeps its own resize. -->
+<script defer src="./js/patches/popup_resize_v01.js"></script>
+
+<!-- FLEET_ROW_CLEANUP_v01 — Fleet rows: profit unit matches footer ($M), utilization
+     bar empty at 0.0. Layout fixes in css/fleet-compact-v01.css. UI-only wrapper. -->
+<script defer src="./js/patches/fleet_row_cleanup_v01.js"></script>
 <!-- RESEARCH_REDIRECT_v01: TEMPORARY — sidebar Research opens RESEARCH & UPGRADES directly (skips the Research Hub page). Delete this line to restore. -->
 <script defer src="./js/patches/research_redirect_v01.js"></script>
+
+<!-- MARKETING_CENTER_v01: Advertising window re-rendered as the Marketing Center concept; gameplay functions untouched -->
+<script defer src="./js/patches/marketing_center_v01.js"></script>
+<!-- ROUTE_MANAGER_EMPTY_v01: zero-routes Route Manager renders as the compact 460px centered dialog (Option C); frame sized from JS to beat resize memory -->
+<script defer src="./js/patches/route_manager_empty_v01.js?v=2"></script>
+<!-- NEW_ROUTE_TEXT_v01: strips placeholder labels from the New Route strip (UI-only wrapper around nrRouteHero) -->
+<script defer src="./js/patches/new_route_text_v01.js?v=5"></script>
+<!-- NEW_ROUTE_FARE_FX_v01: predicted demand/yield effect line under the fare slider (wraps updateRoutePreview; engine math reused) -->
+<script defer src="./js/patches/new_route_fare_fx_v01.js?v=3"></script>
+<!-- BUY_AIRCRAFT_v02: route-flow Buy Aircraft rebuilt to the concept; native buyPlaneForRoute untouched -->
+<script defer src="./js/patches/buy_aircraft_v02.js?v=11"></script>
+<!-- NIGHT_MAP_v01: NASA Black Marble night texture replaces the daytime satellite base (fetched once, cached in localStorage) -->
+<script defer src="./js/patches/night_map_v01.js"></script>
 <!-- DEV_CONSOLE_v01: "Dev" tab in the Tune panel — pages, windows, clock/turn controls, kill switches -->
 <script defer src="./js/patches/dev_console_v01.js"></script>
 

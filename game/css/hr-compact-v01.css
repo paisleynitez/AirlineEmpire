@@ -1,0 +1,124 @@
+/* HR_COMPACT_v01 — compact two-column Human Resources window
+   (approved layout: prototypes/hr-window, Prototype B rev 4).
+   Applies only while #modal-content carries .ae-hr-compact, which
+   js/patches/hr_compact_v01.js toggles for the HR view alone.
+   Left column: slim one-line stat rows + Crew Budget + Recognition.
+   Right column: Roster link + Recruit/Incidents tabs; only the tab pane scrolls. */
+
+/* ── Window: opens compact, centred by popup-align-v01.css; grows via the grip ── */
+#modal-content.ae-hr-compact {
+  width: 760px;
+  height: 540px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;              /* columns scroll, never the whole window */
+}
+#modal-content.ae-hr-compact .modal-header { flex: 0 0 auto; padding: 11px 16px; }
+#modal-content.ae-hr-compact .modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 12px 14px !important;
+  line-height: 1.45;
+}
+
+/* ── Two columns ── */
+.ae-hr-compact .hrc-wrap {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 0;
+  height: 100%;
+  min-height: 0;
+}
+.ae-hr-compact .hrc-left {
+  border-right: 1px solid var(--border);
+  padding-right: 12px;
+  overflow-y: auto;
+  min-height: 0;
+}
+.ae-hr-compact .hrc-right {
+  padding-left: 12px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* ── Slim one-line stat rows (replaces the big centred stat cards) ── */
+.ae-hr-compact .hr-stat-grid {
+  display: flex !important;
+  flex-direction: column;
+  gap: 6px !important;
+  margin-bottom: 10px !important;
+}
+.ae-hr-compact .hr-stat {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  column-gap: 8px;
+  align-items: center;
+  text-align: left;
+  padding: 6px 9px;
+  border-radius: 8px;
+}
+.ae-hr-compact .hr-stat-v {
+  grid-row: 1 / 3;
+  font-size: 15px;
+  text-align: right;
+  line-height: 1;
+}
+.ae-hr-compact .hr-stat-l { font-size: 11px; margin-top: 0; }
+.ae-hr-compact .hr-stat-s { font-size: 9.8px; margin-top: 0; }
+
+/* ── Crew Budget: tighter ── */
+.ae-hr-compact .hr-section { padding: 9px 10px; margin-bottom: 8px; border-radius: 9px; }
+.ae-hr-compact .hr-section-k { font-size: 10.5px; margin-bottom: 7px; }
+.ae-hr-compact .hr-budget-row { gap: 5px; margin-bottom: 6px; }
+.ae-hr-compact .hr-budget-btn { padding: 7px 4px; font-size: 10.8px; border-radius: 7px; }
+.ae-hr-compact .hr-budget-note { font-size: 10.4px; line-height: 1.4; }
+
+/* ── Recognition strip (inline-styled in game.js; rein in the type only) ── */
+.ae-hr-compact .hrc-left > div:last-child { margin-bottom: 0 !important; }
+.ae-hr-compact .hrc-left { font-size: 11px; }
+
+/* ── Right column: hint, tabs, scrolling tab pane ── */
+.ae-hr-compact .hrc-right > [onclick*="openModal('crew')"] { flex: 0 0 auto; }
+.ae-hr-compact .hrc-right > div { flex: 0 0 auto; }
+.ae-hr-compact #crew-tab-content {
+  flex: 1 1 auto !important;
+  overflow-y: auto;
+  min-height: 0;
+  padding-right: 2px;
+}
+
+/* ── Recruit candidate cards: collapsed rows with a chevron ──
+   hr_compact_v01.js splits each card into header / .hrc-cand-details / actions.
+   Collapsed by default: one compact header line + the action buttons.
+   The chevron (or the header itself) expands skills and trait details. */
+.ae-hr-compact .hrc-cand { padding: 8px 11px !important; margin-bottom: 7px !important; }
+.ae-hr-compact .hrc-cand > div:first-child { margin-bottom: 0 !important; align-items: center !important; }
+.ae-hr-compact .hrc-cand .hrc-cand-details { display: none; margin-top: 9px; }
+.ae-hr-compact .hrc-cand.open .hrc-cand-details { display: block; }
+.ae-hr-compact .hrc-cand > div:last-child { margin-top: 8px; }
+.ae-hr-compact .hrc-cand .hrc-cand-details > div { margin-bottom: 8px !important; }
+
+.ae-hr-compact .hrc-chev {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  margin-left: 6px;
+  display: inline-grid;
+  place-items: center;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted2);
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+}
+.ae-hr-compact .hrc-chev:hover { color: var(--text); border-color: var(--border2); }
+
+/* Collapsed avatar shrinks so the row stays slim */
+.ae-hr-compact .hrc-cand:not(.open) > div:first-child > div:first-child {
+  width: 30px !important;
+  height: 30px !important;
+  font-size: 11.5px !important;
+}
