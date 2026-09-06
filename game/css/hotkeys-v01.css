@@ -1,0 +1,101 @@
+/* HOTKEYS_v01 — keyboard shortcut help popup styling.
+   Standalone lightweight overlay (does not use #modal-overlay). */
+#ae-hotkeys-help {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: aehk-fade 140ms ease-out both;
+}
+@keyframes aehk-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+#ae-hotkeys-help .aehk-shell {
+  min-width: 340px;
+  max-width: 480px;
+  background: #0e1a2c;
+  border: 1px solid #1e3448;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  font-family: 'Inter', 'IBM Plex Sans', sans-serif;
+  color: #e0eaf5;
+  overflow: hidden;
+}
+#ae-hotkeys-help .aehk-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #1e3448;
+  background: linear-gradient(180deg, rgba(61, 139, 255, 0.10), transparent);
+}
+#ae-hotkeys-help .aehk-head b {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+#ae-hotkeys-help .aehk-x {
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  color: #90a8bd;
+  padding: 0 6px;
+  border-radius: 4px;
+  transition: color 120ms, background 120ms;
+}
+#ae-hotkeys-help .aehk-x:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+#ae-hotkeys-help .aehk-body {
+  padding: 8px 0;
+}
+#ae-hotkeys-help .aehk-row {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  font-size: 12.5px;
+}
+#ae-hotkeys-help .aehk-row:hover {
+  background: rgba(61, 139, 255, 0.06);
+}
+#ae-hotkeys-help .aehk-row kbd {
+  display: inline-block;
+  padding: 3px 9px;
+  min-width: 20px;
+  text-align: center;
+  background: #1a2a3d;
+  border: 1px solid #2a3f57;
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+}
+#ae-hotkeys-help .aehk-row span {
+  color: #d0dbe8;
+  font-weight: 500;
+}
+#ae-hotkeys-help .aehk-row em {
+  font-style: normal;
+  color: #7a90a8;
+  font-size: 11px;
+}
+#ae-hotkeys-help .aehk-foot {
+  padding: 8px 16px 10px;
+  border-top: 1px solid #1a2a3d;
+  color: #7a90a8;
+  font-size: 11px;
+  text-align: center;
+  letter-spacing: 0.3px;
+}

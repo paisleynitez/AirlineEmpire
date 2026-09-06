@@ -51,6 +51,10 @@
     <link rel="stylesheet" href="css/hangar-v02.css">
     <!-- ALLIANCES_v01 — Alliances window (locked state, partner list, agreement picker, contracts); markup from js/patches/alliances_v01.js -->
     <link rel="stylesheet" href="css/alliances-v01.css">
+    <!-- FREQUENT_FLYER_v01 — per-route FF tier badge on Route Manager cards (Bronze/Silver/Gold/Platinum + VIP) -->
+    <link rel="stylesheet" href="css/frequent-flyer-v01.css">
+    <!-- HOTKEYS_v01 — keyboard shortcut help popup (R Routes, F Fleet, C Close, ? Help) -->
+    <link rel="stylesheet" href="css/hotkeys-v01.css">
     <!-- FLEET_COMPACT_v01 — Fleet & Aircraft page: smaller centered stat boxes (label clip fixed), tighter header/tabs/footer -->
     <link rel="stylesheet" href="css/fleet-compact-v01.css">
 </head>
@@ -719,6 +723,12 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <script defer src="./js/patches/hangar_v02.js"></script>
 <!-- ALLIANCES_v01: Alliances window; engine lives in core/game.js (signAlliance/cancelAlliance/tickAlliances) -->
 <script defer src="./js/patches/alliances_v01.js"></script>
+<!-- FREQUENT_FLYER_v01: per-route FF tier system (Bronze→Platinum) + VIP passengers; hooks processRoute/endTurn/renderRoutesList; demand bonus hook lives in core/game.js at loyaltyFactor line -->
+<script defer src="./js/patches/frequent_flyer_v01.js"></script>
+<!-- HOTKEYS_v01: keyboard shortcuts (R Routes, F Fleet dashboard-only; C closes any modal; ? shows help). Extend DASH_SHORTCUTS in the patch to add more. -->
+<script defer src="./js/patches/hotkeys_v01.js"></script>
+<!-- WEATHER_PATHS_v01: great-circle cross-track math for path-crossing weather. Overflying storms cut demand 15%; endpoint closures stay at 100% (mod=0). Consumed by game.js timedDemandMod & routeDisruptions. -->
+<script defer src="./js/patches/weather_paths_v01.js"></script>
 <!-- NIGHT_MAP_v01: NASA Black Marble night texture replaces the daytime satellite base (fetched once, cached in localStorage) -->
 <script defer src="./js/patches/night_map_v01.js"></script>
 <!-- DEV_CONSOLE_v01: "Dev" tab in the Tune panel — pages, windows, clock/turn controls, kill switches -->

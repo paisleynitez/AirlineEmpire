@@ -121,9 +121,9 @@ The connector is text-only, so binary files are delivered as a zip:
 
 1. Claude builds the zip, always rooted at repo layout (`assets\...`, `game\...`),
    verifies its contents, and attaches it in chat.
-2. Save the download to `C:\GitHub\AirlineEmpire\images_to_apply\<filename>.zip`.
+2. Save the download to `C:\GitHub\AirlineEmpire\_images_to_apply\<filename>.zip`.
 3. From the base directory `C:\GitHub\AirlineEmpire`, run:
-   `unzip -o .\images_to_apply\<filename>.zip`
+   `unzip -o .\_images_to_apply\<filename>.zip`
    (`-o` overwrites in place — Claude's zips are always intentional overwrites and
    contain nothing outside their stated paths.)
 4. Reply "applied".
@@ -132,14 +132,14 @@ The connector is text-only, so binary files are delivered as a zip:
 
 ### Images / binary files (ChatGPT → repo)
 
-Generated images for Claude to integrate go into `C:\GitHub\AirlineEmpire\images_to_apply\`
+Generated images for Claude to integrate go into `C:\GitHub\AirlineEmpire\_images_to_apply\`
 (following the request README there when one exists). Claude routes them into the game
 from that folder and updates the relevant manifests.
 
 ### File removal
 
 Claude cannot delete files. When a file should be removed from the working copy, Claude
-moves it to `C:\GitHub\AirlineEmpire\claude_for_delete\`, appending a timestamp before the
+moves it to `C:\GitHub\AirlineEmpire\_claude_for_delete\`, appending a timestamp before the
 extension — `fleet_aircraft_v112.js` → `fleet_aircraft_v112_1512.js` (24h HHMM; seconds added
 only if needed to avoid a collision) — and states in chat what was moved and why. Scotty
 handles the actual cleanup of that folder. Claude also removes any loader/manifest references

@@ -23,6 +23,6 @@ inside an 8px safe margin of the 512x512 frame, so nothing clips in the logo car
 - manifest-extra.json / manifest-extra.csv
 
 ## Destination
-Extract into `C:\GitHub\AirlineEmpire\images_to_apply\logos-extra\`. These are new
+Extract into `C:\GitHub\AirlineEmpire\_images_to_apply\logos-extra\`. These are new
 categories (not part of approved-250), so wiring them to AI rivals / dice names in-game
 is a separate task when wanted.

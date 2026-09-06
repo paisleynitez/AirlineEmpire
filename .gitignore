@@ -31,4 +31,7 @@ game/screenshots/*
 /dev/
 
 # File Claude cannot delete
-claude_for_delete/
+_claude_for_delete/
+
+# if images aren't applied don't ship them.
+_images_to_apply/

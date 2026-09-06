@@ -7479,7 +7479,8 @@ function processRoute(r) {
   const age = r._age || 0;
   const avgLoad = r._avgLoad || 50;
   const rampFactor = Math.min(1, 0.78 + age * 0.037);
-  const loyaltyFactor = 1 + Math.max(0, (avgLoad - 60) / 100) * 0.08;
+  const loyaltyFactor = 1 + Math.max(0, (avgLoad - 60) / 100) * 0.08
+    + (window.AEFF && typeof window.AEFF.tierDemandBonus === 'function' ? window.AEFF.tierDemandBonus(r) : 0); // FREQUENT_FLYER_v01: FF tier demand bonus
   demand *= rampFactor * loyaltyFactor;
   demand *= allianceBonus(r);
   demand *= aeAllianceDemandMult(r);   // ALLIANCES_v01: codeshare/JV demand (ramped + fluctuating)
@@ -9194,6 +9195,14 @@ function runCompetitorTurns(playerMonthPax) {
       (STATE.timedEffects || []).forEach(e => {
         if (e.fx === 'recession' || e.fx === 'pandemic') demand *= e.mag;
         if (e.fx === 'macro_boom') demand *= e.mag;
+        // WEATHER_PATHS_v01: rivals eat the same weather cuts the player does
+        if (e.fx === 'weather_closure' || e.fx === 'runway_closure' || e.fx === 'terminal_fire') {
+          if (e.city && (r.from === e.city || r.to === e.city)) { demand = 0; return; }
+          if (e.fx === 'weather_closure' && e.city && window.AEWX
+              && window.AEWX.routePathPassesNear(r.from, r.to, e.city, window.AEWX.OVERFLIGHT_RADIUS_KM)) {
+            demand *= window.AEWX.OVERFLIGHT_MOD;
+          }
+        }
       });
       const playerOnRoute = STATE.routes.some(r2 =>
         (r2.from === r.from && r2.to === r.to) || (r2.from === r.to && r2.to === r.from));
@@ -9543,7 +9552,13 @@ function timedDemandMod(r) {
     const affectsRegion = e.region && ((cf && cf.region === e.region) || (ct && ct.region === e.region));
     switch(e.fx) {
       case 'runway_closure': case 'terminal_fire': case 'weather_closure':
-        if (affectsCity) mod = 0; break;
+        if (affectsCity) { mod = 0; break; }
+        // WEATHER_PATHS_v01: routes overflying a weather storm take a softer demand cut
+        if (e.fx === 'weather_closure' && e.city && window.AEWX
+            && window.AEWX.routePathPassesNear(r.from, r.to, e.city, window.AEWX.OVERFLIGHT_RADIUS_KM)) {
+          mod *= window.AEWX.OVERFLIGHT_MOD;
+        }
+        break;
       case 'sanctions': case 'nationalise':
         if (affectsCity) mod *= e.mag; break;
       case 'city_econ_drop':
@@ -10183,7 +10198,13 @@ function routeDisruptions(r){
     const up  = m => `+${Math.round((m-1)*100)}%`;
     switch(e.fx){
       case 'weather_closure': case 'runway_closure': case 'terminal_fire':
-        if(aCity) out.push({o:0,icon:'\ud83d\udeab',label:'CLOSED',col:'var(--loss)',tip:`${e.city} airport closed`}); break;
+        if(aCity) { out.push({o:0,icon:'\ud83d\udeab',label:'CLOSED',col:'var(--loss)',tip:`${e.city} airport closed`}); break; }
+        // WEATHER_PATHS_v01: overflight badge for routes crossing near a weather storm
+        if (e.fx === 'weather_closure' && e.city && window.AEWX
+            && window.AEWX.routePathPassesNear(r.from, r.to, e.city, window.AEWX.OVERFLIGHT_RADIUS_KM)) {
+          out.push({o:1,icon:'\u26c8',label:'OVERFLIGHT \u221215%',col:'var(--warn)',tip:`Route overflies storm near ${e.city} \u2014 demand cut`});
+        }
+        break;
       case 'city_strike': case 'atc_strike':
         if(aCity||aReg) out.push({o:0,icon:'\ud83d\udeab',label:'GROUNDED',col:'var(--loss)',tip:'Strike \u2014 operations halted'}); break;
       case 'sanctions':
