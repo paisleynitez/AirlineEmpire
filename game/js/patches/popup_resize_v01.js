@@ -82,6 +82,9 @@
         if (el && !visible(el)) clearSize(el);   // popup closed → forget its inline size
         return;
       }
+      // Fixed-size windows (dataset.aeFixed) size themselves: no clamp, no grip,
+      // no header reset — nothing here may move or resize them. Jump-proof.
+      if (el.dataset.aeFixed === '1'){ g.style.display = 'none'; return; }
       // The opened-size clamp applies to EVERY visible popup, grip or not.
       if (!el.dataset.aeRsW){                    // first frame visible → clamp + record opened size
         const r0 = el.getBoundingClientRect();
@@ -111,6 +114,7 @@
   }
 
   function resetSize(el){
+    if (el && el.dataset.aeFixed === '1') return;   // fixed-size window: never reset
     // Back to the window's own opened size; overlay flex centering takes over again.
     ['position','left','top','margin','transform','width','height']
       .forEach(p => el.style.removeProperty(p));
@@ -158,7 +162,10 @@
     if (!head) return;
     for (const id of TARGET_IDS){
       const el = document.getElementById(id);
-      if (el && el.contains(head)){ resetSize(el); break; }
+      if (el && el.contains(head)){
+        if (el.dataset.aeFixed === '1') break;   // fixed-size window: header dbl-click is inert
+        resetSize(el); break;
+      }
     }
   }
 

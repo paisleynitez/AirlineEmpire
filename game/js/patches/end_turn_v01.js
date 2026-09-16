@@ -30,7 +30,7 @@
     const link=document.createElement('link');
     link.id='ae-end-turn-v01-style';
     link.rel='stylesheet';
-    link.href='./css/end-turn-v01.css?v=3';
+    link.href='./css/end-turn-v01.css?v=4';
     document.head.appendChild(link);
   }
 

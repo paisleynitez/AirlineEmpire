@@ -1,0 +1,42 @@
+/* TYPE_FLOOR_v01 — readability audit pass.
+   House type scale (rem-free, px, matches existing rhythm):
+     16px  window titles
+     13px  key values / large numbers
+     11px  card names, primary row text
+     9.5px secondary text, meta lines
+     8px   FLOOR — micro-labels (kickers, chip labels, tags)
+   Nothing readable may sit below 8px. This file loads LAST in <head> and
+   raises every known sub-8px label to the floor without changing layout.
+   (Values keep their compact look; this is +0.4\u20130.6px on micro-labels only.) */
+
+/* Buy Aircraft (buy-aircraft-v02.css) */
+body.ae-executive-command #modal-content .bav2-stats small{font-size:8px !important}
+
+/* Hangar (hangar-v02.css) */
+body.ae-executive-command #modal-content .hgv2-cash small{font-size:8px !important}
+body.ae-executive-command #modal-content .hgv2-tag{font-size:8px !important}
+body.ae-executive-command #modal-content .hgv2-tiles small{font-size:8px !important}
+
+/* Alliances (alliances-v01.css) */
+body.ae-executive-command #modal-content .alv1-cash small{font-size:8px !important}
+body.ae-executive-command #modal-content .alv1-partner small{font-size:8px !important}
+
+/* Market Intelligence (market-intel-v01.css) */
+body.ae-executive-command #modal-content .miv1-cash small{font-size:8px !important}
+body.ae-executive-command #modal-content .miv1-badge{font-size:8px !important}
+body.ae-executive-command #modal-content .miv1-oprow2 small{font-size:8px !important}
+
+/* Marketing Center (marketing-center-v01.css) */
+body.ae-executive-command .mkc-k{font-size:8px !important}
+
+/* Live status tiles above the map (main.css LIVETILES_COMPACT_v01) */
+#mock-livetiles .mlt-l{font-size:8px !important}
+
+/* Universal body-text color: off-white instead of pure #fff reduces contrast
+   shock on the dark navy base (the audit's one color change). Scoped to the
+   value/name classes that currently hard-code #fff at small sizes. */
+body.ae-executive-command #modal-content .bav2-nm,
+body.ae-executive-command #modal-content .hgv2-acmid b,
+body.ae-executive-command #modal-content .alv1-partner b,
+body.ae-executive-command #modal-content .miv1-oprow1 > b,
+body.ae-executive-command #modal-content .miv1-oprow2 b{color:#e8eef4 !important}

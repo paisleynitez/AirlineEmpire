@@ -1,0 +1,77 @@
+/* FONTS_BODY_SEGOE_v01 — sitewide readability correction.
+   Segoe UI Variable is used for interface copy and tabular data. The compact
+   Bebas face remains only on the Airline Empire wordmarks. */
+
+:root {
+  --ae-font-ui: "Segoe UI Variable Text", "Segoe UI Variable", "Segoe UI", Arial, sans-serif;
+  --ae-font-data: "Segoe UI Variable Text", "Segoe UI Variable", "Segoe UI", Arial, sans-serif;
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--ae-font-ui) !important;
+  font-kerning: normal;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Override legacy Inter, DM Mono, and condensed-display declarations in UI
+   components without editing each modular screen stylesheet. */
+body.ae-executive-command *,
+body.ae-executive-command #game-ui *,
+body.ae-executive-command #setup *,
+body.ae-executive-command #intro *,
+body.ae-executive-command #cinematic *,
+body.ae-executive-command #modal-overlay * {
+  font-family: var(--ae-font-ui) !important;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+/* Keep the decorative face only where it functions as the game wordmark. */
+body.ae-executive-command .wz-title,
+body.ae-executive-command #intro .sp-h1,
+body.ae-executive-command #intro .home-logo-txt,
+body.ae-executive-command #game-ui #header .ae-title,
+body.ae-executive-command #game-ui #header #brand-sky-title,
+body.ae-executive-command #game-ui .rh-brand b {
+  font-family: var(--ae-font-display) !important;
+  font-variant-numeric: normal;
+  font-feature-settings: normal;
+}
+
+/* Shadows on small text soften glyph edges on dark panels. */
+body.ae-executive-command :is(
+  p,
+  li,
+  td,
+  th,
+  label,
+  small,
+  button,
+  input,
+  select,
+  textarea,
+  .mn-l,
+  .mn-s,
+  .value,
+  .label,
+  .modal-body
+) {
+  text-shadow: none !important;
+}
+
+/* Preserve a clear hierarchy without making every line heavy. */
+body.ae-executive-command :is(p, li, td, label, small, .mn-s, .muted, .subtext) {
+  font-weight: 400;
+}
+
+body.ae-executive-command :is(button, .mn-l, strong, b) {
+  font-weight: 600;
+}

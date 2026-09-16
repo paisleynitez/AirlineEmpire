@@ -41,7 +41,7 @@ body.ae-executive-command #modal-content:has(.flp) .flp-head{
   margin:0!important;
   border-bottom:1px solid rgba(102,190,224,.18)!important;
   background:linear-gradient(180deg,rgba(8,30,48,.78),rgba(5,18,31,.58))!important;
-  cursor:grab!important;
+  cursor:default!important; /* house rule: never the hand/grab cursor */
   user-select:none!important;
   touch-action:none!important;
 }
@@ -64,7 +64,7 @@ body.ae-executive-command #modal-content:has(.flp) .flp-head .ae-flp-close{
   z-index:6!important;
 }
 
-body.ae-executive-command #modal-content.ae-fleet-dragging:has(.flp) .flp-head{cursor:grabbing!important}
+body.ae-executive-command #modal-content.ae-fleet-dragging:has(.flp) .flp-head{cursor:default!important}
 
 body.ae-executive-command #modal-content:has(.flp) .flp-title-wrap{
   display:flex!important;

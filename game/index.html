@@ -12,7 +12,7 @@
 
 
 
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main.css?v=2">
     <link rel="stylesheet" href="css/route-overview-v111.css">
     <link rel="stylesheet" href="css/executive-command-v111.css">
     <link rel="stylesheet" href="css/compact-command-density-v111.css">
@@ -23,10 +23,6 @@
     <link rel="stylesheet" href="css/popup-align-v01.css">
     <!-- READABILITY_v01: sitewide type clarity floor + New Route window balance -->
     <link rel="stylesheet" href="css/readability-v01.css">
-    <!-- FONTS_MONO_SWAP_v01: JetBrains Mono served under the 'DM Mono' family name for all numeric/code labels -->
-    <link rel="stylesheet" href="css/fonts-mono-swap-v01.css">
-    <!-- FONTS_BODY_ATKINSON_v01: Atkinson Hyperlegible served under the 'Inter' family name for all UI text -->
-    <link rel="stylesheet" href="css/fonts-body-atkinson-v01.css">
     <!-- REGION_BAR_v01: map screen region selector restyled as one segmented control; last so it wins over skin layers -->
     <link rel="stylesheet" href="css/region-bar-v01.css">
     <!-- BUY_AIRCRAFT_v01: Buy Aircraft window header fix (Identity Guide button no longer stretches full width) -->
@@ -47,8 +43,8 @@
     <link rel="stylesheet" href="css/new-route-compact-v01.css?v=13">
     <!-- BUY_AIRCRAFT_v02 — route-flow Buy Aircraft rebuilt to concept (stat header, filters, rich cards, compare, summary bar); markup from js/patches/buy_aircraft_v02.js -->
     <link rel="stylesheet" href="css/buy-aircraft-v02.css?v=15">
-    <!-- HANGAR_v02 — Hangar window rebuilt to concept (tab cards, stat strip, health detail, action cards); markup from js/patches/hangar_v02.js -->
-    <link rel="stylesheet" href="css/hangar-v02.css">
+    <!-- HANGAR_v04 — Hangar rebuilt 1:1 to the Financial-Log mock anatomy (flat badge rows with inline expanding maintenance detail); markup from js/patches/hangar_v04.js. Replaces HANGAR_v03. -->
+    <link rel="stylesheet" href="css/hangar-v04.css?v=11">
     <!-- ALLIANCES_v01 — Alliances window (locked state, partner list, agreement picker, contracts); markup from js/patches/alliances_v01.js -->
     <link rel="stylesheet" href="css/alliances-v01.css">
     <!-- FREQUENT_FLYER_v01 — per-route FF tier badge on Route Manager cards (Bronze/Silver/Gold/Platinum + VIP) -->
@@ -58,9 +54,15 @@
     <!-- FLEET_COMPACT_v01 — Fleet & Aircraft page: smaller centered stat boxes (label clip fixed), tighter header/tabs/footer -->
     <link rel="stylesheet" href="css/fleet-compact-v01.css">
     <!-- CURSOR_ARROW_v01 — house rule: never the hand cursor; arrow pointer on all clickables (text fields keep I-beam, grips keep resize) -->
-    <link rel="stylesheet" href="css/cursor-arrow-v01.css">
+    <link rel="stylesheet" href="css/cursor-arrow-v01.css?v=4">
+    <!-- CURSOR_GUARD_v01 — runtime enforcement of the arrow-only rule: any element showing a hand cursor is forced to the arrow the instant the mouse touches it (inline !important beats every stylesheet, cached or not); sweeps script-set hand cursors; suppresses native drag ghosts. -->
+    <script defer src="./js/patches/cursor_guard_v01.js?v=1"></script>
     <!-- MARKET_INTEL_v01 — Market Intelligence window (route opportunities, heat map, rival watch); markup from js/patches/market_intel_v01.js -->
     <link rel="stylesheet" href="css/market-intel-v01.css">
+    <!-- TYPE_FLOOR_v01 — readability audit: 8px micro-label floor + off-white body text; documents the house type scale (8/9.5/11/13/16). Loads last so it wins. -->
+    <link rel="stylesheet" href="css/type-floor-v01.css">
+    <!-- FONTS_BODY_SEGOE_v01: crisp Windows-native UI type; deliberately last so explicit legacy font calls cannot override it -->
+    <link rel="stylesheet" href="css/fonts-body-segoe-v01.css">
 </head>
 <body class="ae-executive-command">
 
@@ -649,7 +651,7 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 - Preserved v07 command rail, ops feed, map, fleet, route, save/load, and market systems.
 -->
 
-<script defer src="./js/patches/main_redesign_v08.js?v=2"></script>
+<script defer src="./js/patches/main_redesign_v08.js?v=3"></script>
 
 
 
@@ -684,7 +686,7 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <!-- SCENARIO_SELECT_v01: scenario card stat strip, selection badge, rail summary (setup page 2). Injects its own stylesheet. -->
 <script defer src="./js/patches/scenario_select_v01.js"></script>
 <!-- END_TURN_v01: header END TURN reliability, report/clock hand-off, three switchable prototypes (Ctrl+click to cycle). Injects its own stylesheet. -->
-<script defer src="./js/patches/end_turn_v01.js?v=3"></script>
+<script defer src="./js/patches/end_turn_v01.js?v=4"></script>
 <!-- NEW_ROUTE_FILTERS_v01: New Route region/subregion pills become Slot-Negotiations-style dropdowns -->
 <script defer src="./js/patches/new_route_filters_v01.js"></script>
 <!-- HUB_REGION_DROPDOWNS_v01: setup step 3 hub region pills become New-Route-style Region/Subregion dropdowns -->
@@ -705,7 +707,17 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <!-- POPUP_RESIZE_v01 — every popup window: lower-right resize grip only,
      minimum = opened size (content never malforms), capped maximum,
      dbl-click header resets. Buy Aircraft keeps its own resize. -->
-<script defer src="./js/patches/popup_resize_v01.js"></script>
+<script defer src="./js/patches/popup_resize_v01.js?v=2"></script>
+
+<!-- POPUP_STABILITY_v01 — house rule: no popup window may jump. Scroll positions
+     survive every re-render, and each window's top edge is frozen where it opens
+     (content growth expands downward instead of re-centering). Covers the main
+     modal system, the aircraft purchase popup, and the lab overlay — including
+     windows added in the future. -->
+<script defer src="./js/patches/popup_stability_v01.js?v=6"></script>
+
+<!-- DEBUG_CURSOR_PROBE_v01 — TEMPORARY diagnostic: press F9 in-game to toggle a readout of the element/cursor under the mouse and any window/page movement. Delete this line (and the file) once the Firefox issue is diagnosed. -->
+<script defer src="./js/patches/debug_cursor_probe_v01.js?v=1"></script>
 
 <!-- FLEET_ROW_CLEANUP_v01 — Fleet rows: profit unit matches footer ($M), utilization
      bar empty at 0.0. Layout fixes in css/fleet-compact-v01.css. UI-only wrapper. -->
@@ -723,8 +735,8 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <script defer src="./js/patches/new_route_fare_fx_v01.js?v=3"></script>
 <!-- BUY_AIRCRAFT_v02: route-flow Buy Aircraft rebuilt to the concept; native buyPlaneForRoute untouched -->
 <script defer src="./js/patches/buy_aircraft_v02.js?v=11"></script>
-<!-- HANGAR_v02: Hangar window rebuilt to the concept; native maintenance/insurance functions untouched -->
-<script defer src="./js/patches/hangar_v02.js"></script>
+<!-- HANGAR_v04: Hangar rebuilt 1:1 to the Financial-Log mock anatomy; native maintenance/insurance functions untouched. Replaces HANGAR_v03. -->
+<script defer src="./js/patches/hangar_v04.js?v=7"></script>
 <!-- ALLIANCES_v01: Alliances window; engine lives in core/game.js (signAlliance/cancelAlliance/tickAlliances) -->
 <script defer src="./js/patches/alliances_v01.js"></script>
 <!-- FREQUENT_FLYER_v01: per-route FF tier system (Bronze→Platinum) + VIP passengers; hooks processRoute/endTurn/renderRoutesList; demand bonus hook lives in core/game.js at loyaltyFactor line -->

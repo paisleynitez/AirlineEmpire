@@ -15,13 +15,13 @@
       const link=document.createElement('link');
       link.id='ae-fleet-aircraft-v117-style';
       link.rel='stylesheet';
-      link.href='./css/fleet-aircraft-v117.css?v=117';
+      link.href='./css/fleet-aircraft-v117.css?v=118';
       document.head.appendChild(link);
     }
     if(!document.getElementById('ae-fleet-aircraft-v117-script')){
       const script=document.createElement('script');
       script.id='ae-fleet-aircraft-v117-script';
-      script.src='./js/patches/fleet_aircraft_v117.js?v=117';
+      script.src='./js/patches/fleet_aircraft_v117.js?v=118';
       document.head.appendChild(script);
     }
   }

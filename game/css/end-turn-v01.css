@@ -30,7 +30,7 @@ body.ae-executive-command #game-ui #header #end-turn-btn.hdr-endturn {
   line-height: 1 !important;
   text-transform: uppercase !important;
   white-space: nowrap !important;
-  cursor: pointer !important;
+  cursor: default !important; /* house rule: never the hand cursor */
   user-select: none !important;
   animation: none !important;
   transition: transform .12s ease, box-shadow .18s ease, filter .18s ease, background .18s ease, border-color .18s ease !important;

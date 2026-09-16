@@ -2,6 +2,18 @@
    elements use the standard arrow pointer. Text fields keep the I-beam and
    resize grips keep their resize arrows so affordances aren't lost. */
 
+/* skin-class-independent fallback: even on screens/states where the body
+   class is absent, links and controls never show the browser's hand */
+html body, html body *, html body *:hover, html body *:active {
+  cursor: default;
+}
+/* native drags (image/selection ghosts) show an OS drag cursor that CSS
+   cannot restyle — suppress them entirely */
+html body img, html body svg, html body canvas {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
 body.ae-executive-command,
 body.ae-executive-command *,
 body.ae-executive-command *:hover {
@@ -21,4 +33,34 @@ body.ae-executive-command [class*="resize-grip"] {
 }
 body.ae-executive-command input[type="range"] {
   cursor: ew-resize !important;
+}
+
+/* ADDENDUM — offenders that were beating the global rule above with their own
+   higher-specificity !important declarations. Each is re-killed here with
+   greater specificity so the arrow always wins. Found by scanning the live
+   page for computed cursor:pointer. */
+html body.ae-executive-command button#end-turn-btn,
+html body.ae-executive-command button#end-turn-btn:hover,
+html body.ae-executive-command .region-tab.region-tab,
+html body.ae-executive-command .region-tab.region-tab:hover,
+html body.ae-executive-command .region-tab.active,
+html body.ae-executive-command .flp-head.flp-head,
+html body.ae-executive-command .modal-header.modal-header,
+html body.ae-executive-command #modal-content .modal-header,
+html body.ae-executive-command .modal-close.modal-close,
+html body.ae-executive-command .modal-close.modal-close:hover,
+html body.ae-executive-command #modal-content .modal-close,
+html body.ae-executive-command .ae-flp-close.ae-flp-close {
+  cursor: default !important;
+}
+/* the three holdouts sit under deeper ID-scoped !important rules — the
+   repeated-ID chain outranks any plausible selector they can carry */
+html body.ae-executive-command #end-turn-btn#end-turn-btn#end-turn-btn,
+html body.ae-executive-command #end-turn-btn#end-turn-btn#end-turn-btn:hover,
+html body.ae-executive-command #region-tabs#region-tabs#region-tabs .region-tab,
+html body.ae-executive-command #region-tabs#region-tabs#region-tabs .region-tab:hover,
+html body.ae-executive-command #region-tabs#region-tabs#region-tabs .region-tab.active,
+html body.ae-executive-command #game-ui#game-ui#game-ui .flp-head,
+html body.ae-executive-command #game-ui#game-ui#game-ui .flp-head:hover {
+  cursor: default !important;
 }

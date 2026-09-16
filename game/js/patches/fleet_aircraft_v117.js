@@ -122,24 +122,35 @@
     const m=modal();
     if(!head||!m||!m.contains(head)) return;
     if(event.target.closest('button,input,select,a,[role="button"]')) return;
-    const r=m.getBoundingClientRect();
-    m.style.position='fixed';
-    m.style.left=r.left+'px';
-    m.style.top=r.top+'px';
-    m.style.right='auto';
-    m.style.bottom='auto';
-    m.style.margin='0';
-    m.style.transform='none';
-    m.classList.add('ae-fleet-dragging');
-    drag={pointerId:event.pointerId,dx:event.clientX-r.left,dy:event.clientY-r.top};
-    head.setPointerCapture?.(event.pointerId);
-    event.preventDefault();
+    if(m.dataset.aeFixed==='1') return;      /* fixed-size windows never drag */
+    /* record only — the window is NOT touched until real movement happens.
+       House rule: a plain click must never move a window; the drag engages
+       in moveDrag only after the pointer travels past the threshold. */
+    drag={pointerId:event.pointerId,startX:event.clientX,startY:event.clientY,head:head,live:false,dx:0,dy:0};
   }
+
+  const DRAG_THRESHOLD=5;                    /* px of travel before a drag is real */
 
   function moveDrag(event){
     if(!drag||event.pointerId!==drag.pointerId) return;
     const m=modal();
     if(!m) return;
+    if(!drag.live){
+      if(Math.abs(event.clientX-drag.startX)<DRAG_THRESHOLD&&Math.abs(event.clientY-drag.startY)<DRAG_THRESHOLD) return;
+      const r0=m.getBoundingClientRect();
+      m.style.position='fixed';
+      m.style.left=r0.left+'px';
+      m.style.top=r0.top+'px';
+      m.style.right='auto';
+      m.style.bottom='auto';
+      m.style.margin='0';
+      m.style.transform='none';
+      m.classList.add('ae-fleet-dragging');
+      drag.dx=drag.startX-r0.left;
+      drag.dy=drag.startY-r0.top;
+      drag.head.setPointerCapture?.(drag.pointerId);
+      drag.live=true;
+    }
     const r=m.getBoundingClientRect();
     const pad=10;
     const maxLeft=Math.max(pad,innerWidth-r.width-pad);

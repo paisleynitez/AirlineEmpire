@@ -7043,3 +7043,29 @@ body.ae-executive-command #game-ui #mock-livetiles .mlt-s:empty { min-height: 0 
 /* Logo picker grid fit v03: rows size to content (container forced 142px rows; that, not card height, was clipping names) */
 #setup #logo-pick-row.ae4-logogrid{grid-template-rows:none!important;grid-auto-rows:auto!important;}
 #setup #logo-pick-row .logo-pick.logo-card.image-logo-card{height:auto!important;min-height:142px!important;padding-bottom:9px!important;}
+
+/* LIVETILES_COMPACT_v01: the six live status tiles above the map (Aircraft In Air /
+   On-Time / Daily Revenue / Demand Index / Fuel Price / Weather Impact) — roughly
+   40% smaller: tighter padding, smaller type, slimmer row. */
+#mock-livetiles{gap:6px!important;margin:0 0 6px!important}
+#mock-livetiles .mlt{
+  padding:5px 9px 5px!important;
+  min-height:0!important;
+  border-radius:9px!important;
+}
+#mock-livetiles .mlt-l{
+  font-size:7.4px!important;
+  letter-spacing:.9px!important;
+  line-height:1.25!important;
+  margin:0 0 2px!important;
+}
+#mock-livetiles .mlt-v{
+  font-size:13px!important;
+  line-height:1.15!important;
+  font-weight:500!important;
+}
+#mock-livetiles .mlt-s{
+  font-size:8.2px!important;
+  line-height:1.2!important;
+  margin-top:1px!important;
+}
