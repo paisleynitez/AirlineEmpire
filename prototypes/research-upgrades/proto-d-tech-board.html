@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Research & Upgrades — Prototype D: Tech Board</title>
+<style>/* Research & Upgrades prototypes — shared look, matched to the current AE window theme
+   (near-black framed window, white text, blue accents, Inter/Segoe UI) */
+*{box-sizing:border-box}
+html,body{margin:0;background:#050510;color:#fff;font:14px/1.45 Inter,'Segoe UI',Arial,sans-serif;min-height:100vh}
+body{display:flex;align-items:flex-start;justify-content:center;padding:28px 16px;
+  background:radial-gradient(1200px 600px at 50% -10%,#141a33 0%,#050510 60%)}
+.win{width:1180px;max-width:100%;border:1px solid rgba(120,128,168,.3);border-radius:18px;overflow:hidden;
+  background:linear-gradient(180deg,#0d0f1a,#0a0b14);box-shadow:0 30px 80px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.04)}
+.tbar{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid rgba(120,128,168,.22)}
+.tbar h1{margin:0;font-size:17px;font-weight:800;letter-spacing:3px}
+.tbar .x{margin-left:auto;width:40px;height:40px;border-radius:10px;border:1px solid rgba(120,128,168,.4);background:#0a0b15;color:#fff;font-size:18px;font-weight:700;cursor:default}
+.sub{display:flex;align-items:center;gap:18px;padding:12px 18px;border-bottom:1px solid rgba(120,128,168,.18);background:#0a0b15}
+.sub .k{font-size:11px;letter-spacing:2.2px;color:#4ea8de;font-weight:800}
+.sub .t{font-size:16px;font-weight:600;white-space:nowrap}
+.sub .stat{margin-left:auto;display:flex;gap:22px}
+.stat div{display:flex;align-items:baseline;gap:8px;white-space:nowrap}
+.stat small{font-size:10.5px;letter-spacing:2px;color:#c9cde0;font-weight:700}
+.stat b{font-size:17px}
+.stat .gold{color:#ffcf5a}.stat .lime{color:#35d47f}
+.slots{display:inline-flex;gap:4px;margin-left:6px}
+.slots i{width:12px;height:12px;border:1px solid #4ea8de;border-radius:3px;display:inline-block}
+.slots i.on{background:#4ea8de;box-shadow:0 0 8px rgba(78,168,222,.6)}
+.body{display:grid;grid-template-columns:230px 1fr;gap:16px;padding:16px 18px 18px;min-height:560px}
+.panel{background:linear-gradient(180deg,#0a0b15,#080912);border:1px solid rgba(120,128,168,.22);border-radius:14px;padding:14px 16px}
+.nav{display:flex;flex-direction:column;gap:8px}
+.nav button{all:unset;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:11px;border:1px solid rgba(120,128,168,.24);background:#0e1020;cursor:default}
+.nav button.on{border-color:#4ea8de;box-shadow:0 0 0 1px #4ea8de,0 0 16px rgba(78,168,222,.25);background:#12182c}
+.nav .nm{font-weight:700;font-size:14px}.nav .sm{font-size:11px;color:#c9cde0}
+.nav .cnt{margin-left:auto;font-size:11px;font-weight:800;color:#4ea8de;font-family:'DM Mono',Consolas,monospace}
+.tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:2px;color:#4ea8de}
+.tag.up{color:#ffcf5a}.tag.done{color:#35d47f}.tag.run{color:#ff8fd5}
+.card{display:flex;align-items:center;gap:14px;border:1px solid rgba(120,128,168,.22);border-radius:12px;background:linear-gradient(180deg,#0e1020,#090a14);padding:12px 14px}
+.card.hl{border-color:rgba(78,168,222,.55)}
+.card.locked{opacity:.55}
+.ic{width:44px;height:44px;border-radius:11px;background:#05060c;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:20px;flex:0 0 44px}
+.card .txt{flex:1;min-width:0}
+.card h3{margin:2px 0 2px;font-size:15px;font-weight:700}
+.card p{margin:0;font-size:12.5px;color:#e6e8f2}
+.card .fx{display:flex;gap:12px;margin-top:5px;font-size:11.5px;color:#ffcf5a;font-weight:600}
+.card .fx .m{color:#c9cde0}
+.btn{border:1px solid rgba(78,168,222,.75);background:linear-gradient(180deg,#0f1a33,#0a1224);color:#fff;border-radius:10px;padding:9px 16px;font:800 12px/1.2 Inter,'Segoe UI',Arial,sans-serif;letter-spacing:1px;text-align:center;min-width:112px;cursor:default;box-shadow:0 0 0 1px rgba(78,168,222,.18)}
+.btn b{display:block;font-size:14px;letter-spacing:0;margin-bottom:2px}
+.btn.ghost{border-color:rgba(120,128,168,.35);background:#0a0b15;box-shadow:none}
+.btn.done{border-color:rgba(53,212,127,.6);color:#35d47f;background:#0a1512}
+.btn:disabled{opacity:.45}
+.bar{height:6px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#4ea8de,#8fd3ff);border-radius:3px}
+.hd{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.hd .k{font-size:11px;letter-spacing:2.2px;color:#4ea8de;font-weight:800}
+.hd h2{margin:0;font-size:20px;font-weight:700}
+.hd .r{margin-left:auto;display:flex;gap:8px}
+.list{display:flex;flex-direction:column;gap:10px}
+.tabs{display:flex;gap:8px}
+.tabs button{all:unset;padding:8px 16px;border-radius:9px;border:1px solid rgba(120,128,168,.3);font-weight:800;font-size:12px;letter-spacing:1.5px;background:#0a0b15;cursor:default}
+.tabs button.on{border-color:#4ea8de;background:#12182c;box-shadow:0 0 0 1px #4ea8de}
+.note{font-size:11.5px;color:#c9cde0;margin-top:14px;padding-top:10px;border-top:1px solid rgba(120,128,168,.18)}
+
+.body{grid-template-columns:1fr 320px}
+.board{display:grid;grid-template-columns:150px repeat(5,1fr);gap:8px;align-items:stretch}
+.board .rowh{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 10px;border:1px solid rgba(120,128,168,.22);border-radius:11px;background:#0e1020}
+.board .rowh b{font-size:13px}.board .rowh small{font-size:10.5px;color:#c9cde0}
+.board .colh{font-size:10px;letter-spacing:2px;color:#4ea8de;font-weight:800;text-align:center;padding:4px 0}
+.node{border:1px solid rgba(120,128,168,.22);border-radius:11px;background:#0e1020;padding:8px 10px;min-height:84px;display:flex;flex-direction:column;gap:3px;cursor:default;position:relative}
+.node h4{margin:0;font-size:12.5px;line-height:1.2}.node small{font-size:10.5px;color:#e6e8f2}
+.node.done{border-color:rgba(53,212,127,.55)}.node.run{border-color:#ff8fd5;box-shadow:0 0 0 1px #ff8fd5}.node.next{border-color:rgba(78,168,222,.6)}.node.locked{opacity:.45}.node.sel{box-shadow:0 0 0 2px #4ea8de}
+.node .st{font-size:9.5px;font-weight:800;letter-spacing:1.5px}
+.node .bar{margin-top:auto}
+.drawer .card{flex-direction:column;align-items:stretch;gap:8px}
+.kv{display:flex;justify-content:space-between;font-size:12px;color:#e6e8f2}.kv b{color:#fff}
+</style></head><body>
+<div class="win">
+  <div class="tbar"><span>🔬</span><h1>RESEARCH &amp; UPGRADES</h1><button class="x">✕</button></div>
+  <div class="sub"><div><div class="k">TECH BOARD</div><div class="t">Every track on one board. Click a node for details.</div></div>
+    <div class="stat"><div><small>RESEARCH POINTS</small><b id="rp"></b></div><div><small>SLOTS</small><b id="slots"></b><span class="slots" id="slotdots"></span></div><div><small>CASH</small><b class="lime" id="cash"></b></div></div></div>
+  <div class="body">
+    <div class="panel">
+      <div class="hd"><div><div class="k">ALL TRACKS · LEVELS 1–5</div><h2>Technology board</h2></div><div class="r"><button class="btn ghost" onclick="tick()">NEXT MONTH ›</button></div></div>
+      <div class="board" id="board"></div>
+      <div class="note">Implementation D — the whole ladder system at a glance: rows are tracks, columns are levels. Green = done, pink = running, blue outline = next available, dim = locked. Selecting a node opens the drawer on the right where you start research or install the upgrade that node unlocks. Good for players who want to plan several months ahead without clicking through tracks.</div>
+    </div>
+    <div class="panel drawer" id="drawer"></div>
+  </div>
+</div>
+<script>// Research & Upgrades — shared catalogue for the three prototypes.
+// RESEARCH = time-gated programs paid in research points (RP); they unlock know-how airline-wide.
+// UPGRADES = one-time cash purchases (facility, fleet retrofit or software) that apply to a hub, an aircraft type, or the airline.
+// Nothing here touches marketing, branding or advertising — aircraft, software, process, parts, hangars only.
+const TRACKS = [
+  {id:'airframe', name:'Airframe & Engines', sm:'Fuel burn, range, payload', icon:'✈'},
+  {id:'avionics', name:'Avionics & Software', sm:'Dispatch, scheduling, health data', icon:'🖥'},
+  {id:'mro',      name:'Maintenance & Parts', sm:'Checks, spares, incidents', icon:'🔧'},
+  {id:'ops',      name:'Flight Ops Process',  sm:'Procedures crews fly every day', icon:'📋'},
+  {id:'facility', name:'Hangars & Facilities', sm:'What you build at hubs', icon:'🏗'},
+];
+const RESEARCH = [
+  {id:'r_composite', track:'airframe', lvl:2, name:'Composite Airframe Materials', desc:'Lighter structures on new deliveries.', fx:['−4% fuel burn (new aircraft)','+2% payload'], rp:1400, months:4},
+  {id:'r_winglet',   track:'airframe', lvl:1, name:'Winglet Retrofit Program',      desc:'Blended winglets for narrowbodies already in the fleet.', fx:['−3% fuel burn (short/medium)'], rp:900, months:2},
+  {id:'r_engine',    track:'airframe', lvl:4, name:'Next-Gen Engine Cores',         desc:'Geared-fan cores with higher bypass ratio.', fx:['−8% fuel burn','+6% range'], rp:2600, months:8},
+  {id:'r_saf',       track:'airframe', lvl:3, name:'Sustainable Fuel Blending',     desc:'Certify the fleet for 30% SAF blends.', fx:['Fuel shocks −25% impact','Emission events cleared'], rp:1800, months:6},
+  {id:'r_predict',   track:'avionics', lvl:2, name:'Predictive Maintenance AI',     desc:'Sensor data flags failures before they ground a jet.', fx:['−20% unscheduled incidents'], rp:1500, months:4},
+  {id:'r_crewopt',   track:'avionics', lvl:1, name:'Crew Scheduling Optimizer',     desc:'Pairing software that cuts hotel nights and deadheads.', fx:['−6% crew cost','+3 morale'], rp:1000, months:2},
+  {id:'r_twin',      track:'avionics', lvl:3, name:'Digital Twin Fleet Monitoring', desc:'Live health model of every airframe.', fx:['Aircraft health degrades 15% slower'], rp:2000, months:6},
+  {id:'r_cda',       track:'ops',      lvl:1, name:'Continuous Descent Approach',   desc:'Idle-thrust descents at every hub that allows it.', fx:['−2% fuel burn','−5% noise complaints'], rp:800, months:2},
+  {id:'r_taxi',      track:'ops',      lvl:2, name:'Single-Engine Taxi Procedure',  desc:'Taxi out on one engine after a cold-start check.', fx:['−1.5% fuel burn','Engine hours −3%'], rp:1100, months:3},
+  {id:'r_turn',      track:'ops',      lvl:3, name:'Rapid Turnaround Standard',     desc:'Choreographed 25-minute turns for short-haul.', fx:['+1 daily rotation on short routes'], rp:1900, months:5},
+];
+const UPGRADES = [
+  {id:'u_hangar',  track:'facility', scope:'Per hub',           name:'Heavy Maintenance Hangar',  desc:'C-checks done in-house instead of at a contractor.', fx:['−25% C-check cost at hub','−2 days downtime'], cash:140, upkeep:0.9},
+  {id:'u_engine',  track:'facility', scope:'Per hub',           name:'Engine Overhaul Shop',       desc:'Full teardown and rebuild capability.', fx:['−30% engine overhaul cost','Spare engine pool'], cash:180, upkeep:1.2},
+  {id:'u_parts',   track:'mro',      scope:'Airline-wide',      name:'Rotable Spares Pool',        desc:'Shared inventory of high-failure parts.', fx:['Grounded days −40%'], cash:65, upkeep:0.4},
+  {id:'u_sim',     track:'facility', scope:'Per hub',           name:'Flight Simulator Center',    desc:'Type-rating sims for every aircraft you fly.', fx:['−30% training cost','+2 crew skill/yr'], cash:95, upkeep:0.5},
+  {id:'u_occ',     track:'avionics', scope:'Airline-wide',      name:'Operations Control Center',  desc:'24/7 dispatch desk with live weather and slot data.', fx:['+4% on-time','Disruption recovery 1 turn faster'], cash:110, upkeep:0.7},
+  {id:'u_deice',   track:'facility', scope:'Per hub',           name:'Winter Operations Kit',      desc:'De-icing trucks, glycol recovery, heated stands.', fx:['Weather impact −30% at hub'], cash:48, upkeep:0.3},
+  {id:'u_cabin',   track:'airframe', scope:'Per aircraft type', name:'Cabin Retrofit',             desc:'New slimline seats, lighting and IFE screens.', fx:['+4% load factor on type','+1 comfort tier'], cash:22, upkeep:0, per:'aircraft'},
+  {id:'u_wifi',    track:'avionics', scope:'Per aircraft type', name:'Satellite Connectivity',     desc:'Ku-band Wi-Fi across the type.', fx:['+2% yield on type','Ancillary revenue'], cash:9, upkeep:0.05, per:'aircraft'},
+  {id:'u_erp',     track:'avionics', scope:'Airline-wide',      name:'Airline Operating System',   desc:'Replace the patchwork of spreadsheets with one ERP.', fx:['−5% admin overhead','Reports one turn earlier'], cash:70, upkeep:0.6},
+  {id:'u_gate',    track:'facility', scope:'Per hub',           name:'Electric Ground Equipment',  desc:'Ground power units and e-tugs at every gate.', fx:['−5 min turnaround','−1% fuel (no APU burn)'], cash:36, upkeep:0.2},
+];
+const fmt = n => '$' + n + 'M';
+
+const S={rp:4200,cash:640,slots:2,done:new Set(['r_winglet','r_cda']),run:{},owned:new Set(),sel:'r_composite'};
+const unlocks={r_composite:'u_cabin',r_engine:'u_engine',r_predict:'u_parts',r_twin:'u_occ',r_crewopt:'u_erp',r_cda:'u_gate',r_taxi:'u_sim',r_turn:'u_deice',r_saf:null,r_winglet:'u_hangar'};
+const rows=TRACKS.filter(t=>RESEARCH.some(r=>r.track===t.id));
+function render(){
+  document.getElementById('rp').textContent=S.rp.toLocaleString()+' RP';const running=Object.keys(S.run).length;
+  document.getElementById('slots').textContent=running+' / '+S.slots;document.getElementById('slotdots').innerHTML=Array.from({length:S.slots},(_,i)=>`<i class="${i<running?'on':''}"></i>`).join('');document.getElementById('cash').textContent=fmt(S.cash);
+  let h='<div></div>'+[1,2,3,4,5].map(l=>`<div class="colh">LEVEL ${l}</div>`).join('');
+  rows.forEach(t=>{const rs=RESEARCH.filter(r=>r.track===t.id).sort((a,b)=>a.lvl-b.lvl);h+=`<div class="rowh"><b>${t.icon} ${t.name}</b><small>${t.sm}</small></div>`;
+    for(let l=1;l<=5;l++){const r=rs.find(x=>x.lvl===l);if(!r){h+='<div class="node locked"><h4>Reserved</h4><small>Future node</small></div>';continue}
+      const done=S.done.has(r.id),run=S.run[r.id],next=!done&&!run&&rs.filter(x=>x.lvl<l).every(x=>S.done.has(x.id));
+      h+=`<div class="node ${done?'done':run?'run':next?'next':'locked'} ${S.sel===r.id?'sel':''}" onclick="S.sel='${r.id}';render()"><span class="st" style="color:${done?'#35d47f':run?'#ff8fd5':next?'#4ea8de':'#c9cde0'}">${done?'DONE':run?run+' MO':next?'READY':'LOCKED'}</span><h4>${r.name}</h4><small>${r.fx[0]}</small>${run?`<div class="bar"><i style="width:${100-run/r.months*100}%"></i></div>`:''}</div>`}});
+  document.getElementById('board').innerHTML=h;
+  const r=RESEARCH.find(x=>x.id===S.sel),T=TRACKS.find(t=>t.id===r.track),done=S.done.has(r.id),run=S.run[r.id];
+  const rs=RESEARCH.filter(x=>x.track===r.track);const ready=!done&&!run&&rs.filter(x=>x.lvl<r.lvl).every(x=>S.done.has(x.id));
+  const u=unlocks[r.id]?UPGRADES.find(x=>x.id===unlocks[r.id]):null;
+  document.getElementById('drawer').innerHTML=`<div class="hd"><div><div class="k">${T.name.toUpperCase()} · LEVEL ${r.lvl}</div><h2 style="font-size:18px">${r.name}</h2></div></div>
+    <div class="list"><div class="card"><p>${r.desc}</p><div class="fx" style="flex-wrap:wrap">${r.fx.map(f=>`<span>${f}</span>`).join('')}</div>
+      <div class="kv"><span>Cost</span><b>${r.rp.toLocaleString()} RP</b></div><div class="kv"><span>Duration</span><b>${r.months} months</b></div><div class="kv"><span>Requires</span><b>${r.lvl>1?(rs.find(x=>x.lvl===r.lvl-1)||{name:'—'}).name:'Nothing'}</b></div>
+      ${done?'<div class="btn done">COMPLETED</div>':run?`<div class="btn ghost">${run} MO LEFT</div>`:`<button class="btn" ${ready&&running<S.slots&&S.rp>=r.rp?'':'disabled'} onclick="start('${r.id}')"><b>${r.rp.toLocaleString()} RP</b>START RESEARCH</button>`}</div>
+    ${u?`<div class="card"><span class="tag up">UNLOCKS UPGRADE · ${u.scope.toUpperCase()}</span><h3>${u.name}</h3><p>${u.desc}</p><div class="fx" style="flex-wrap:wrap">${u.fx.map(f=>`<span>${f}</span>`).join('')}<span class="m">${fmt(u.upkeep)}/mo upkeep</span></div>${S.owned.has(u.id)?'<div class="btn done">INSTALLED</div>':`<button class="btn" ${done&&S.cash>=u.cash?'':'disabled'} onclick="buy('${u.id}')"><b>${fmt(u.cash)}</b>${done?'INSTALL':'NEEDS RESEARCH'}</button>`}</div>`:''}</div>`;
+}
+function start(id){const r=RESEARCH.find(x=>x.id===id);S.rp-=r.rp;S.run[id]=r.months;render()}
+function buy(id){const u=UPGRADES.find(x=>x.id===id);S.cash-=u.cash;S.owned.add(id);render()}
+function tick(){S.rp+=350;for(const id in S.run){S.run[id]--;if(S.run[id]<=0){delete S.run[id];S.done.add(id)}}render()}
+render();
+</script></body></html>

@@ -81,7 +81,7 @@ test('every completed month creates a checkpoint and autosave', () => {
   assert.ok(endTurn.indexOf('autoSave()') > endTurn.indexOf('STATE.month'));
 });
 
-test('the nine-card picker includes approved and regional identities', () => {
+test('the nine-card picker uses the canonical approved catalog and keeps regional identities available', () => {
   const logoPanel = { dataset: {} };
   const context = {
     window: { getSetupLogoRegion: () => 'N America' },
@@ -95,15 +95,18 @@ test('the nine-card picker includes approved and regional identities', () => {
     CSS: { escape: value => value },
   };
   vm.createContext(context);
-  vm.runInContext(read('assets/airline-identities/approved-250/catalog.js'), context);
+  vm.runInContext(read('game/assets/airline-identities/approved-250/catalog.js'), context);
   vm.runInContext(read('game/js/data/curatedAirlineIdentities.js'), context);
   vm.runInContext(read('game/js/generator/airlineIdentityGenerator.js'), context);
 
   const logos = context.window.AIRLINE_LOGOS;
   assert.equal(context.window.AirlineIdentityGenerator.approvedCount, 250);
   assert.equal(logos.length, 9);
-  assert.equal(logos.filter(logo => logo.source === 'curated').length, 3);
-  assert.equal(logos.filter(logo => logo.sourceKind).length, 6);
+  assert.equal(logos.filter(logo => logo.sourceKind).length, 9);
+
+  const regional = context.window.AirlineIdentityGenerator.createCuratedIdentity(null, 'N America');
+  assert.equal(regional.source, 'curated');
+  assert.ok(regional.regions.includes('N America'));
 
   for (const logo of logos) {
     const target = path.resolve(root, 'game', logo.image);

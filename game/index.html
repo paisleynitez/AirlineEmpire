@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AIRLINE EMPIRE — v1.0.2 Home Balance</title>
+<title>AIRLINE EMPIRE — v1.1.11</title>
 <!-- WORKING-AIRCRAFT-IDENTITY-001 BUILD MARKER -->
 <!-- HOME_BALANCE_LAVENDER_ROUTES_v01 · VERSION 1.0.2 -->
 
@@ -59,10 +59,19 @@
     <script defer src="./js/patches/cursor_guard_v01.js?v=1"></script>
     <!-- MARKET_INTEL_v01 — Market Intelligence window (route opportunities, heat map, rival watch); markup from js/patches/market_intel_v01.js -->
     <link rel="stylesheet" href="css/market-intel-v01.css">
+    <!-- RELEASE_READINESS_v112 — compact 1024px navigation rail and hard hiding for disabled development controls -->
+    <link rel="stylesheet" href="css/release-readiness-v112.css">
     <!-- TYPE_FLOOR_v01 — readability audit: 8px micro-label floor + off-white body text; documents the house type scale (8/9.5/11/13/16). Loads last so it wins. -->
     <link rel="stylesheet" href="css/type-floor-v01.css">
     <!-- FONTS_BODY_SEGOE_v01: crisp Windows-native UI type; deliberately last so explicit legacy font calls cannot override it -->
     <link rel="stylesheet" href="css/fonts-body-segoe-v01.css">
+    <link rel="stylesheet" href="css/found-airline-v01.css?v=1">
+    <link rel="stylesheet" href="css/research-board-v01.css?v=2">
+<link rel="stylesheet" href="css/hr-window-v02.css?v=1">
+<link rel="stylesheet" href="css/buy-aircraft-v04.css?v=2">
+<link rel="stylesheet" href="css/fleet-page-v118.css?v=2">
+<link rel="stylesheet" href="css/cargo-window-v01.css?v=3">
+<link rel="stylesheet" href="css/map-vibrance-v01.css?v=2">
 </head>
 <body class="ae-executive-command">
 
@@ -586,6 +595,8 @@
 <script src="./js/cities/cityProfileManager.js"></script>
 <script src="./js/cities/cityRenderer.js"></script>
 <script src="./js/data/aircraftImageManifest.js"></script>
+<script src="./js/data/researchCatalog.js?v=2"></script>
+<script src="./js/data/cargoCatalog.js?v=3"></script>
 <script src="./js/core/game.js?v=all1"></script>
 <script src="./js/core/aiAirlineLifecycle.js"></script>
 
@@ -597,9 +608,9 @@
      ════════════════════════════════════════════════════════ -->
 
 
-<button id="dt-launch" class="dt-gone" onclick="dtToggle()" title="Open the tuning panel (or press ~)">⚙ Tune</button>
+<button id="dt-launch" class="dt-gone" onclick="dtToggle()" title="Open the tuning panel (or press ~)" hidden>⚙ Tune</button>
 
-<div id="dev-tuner" class="dt-hidden">
+<div id="dev-tuner" class="dt-hidden" hidden>
   <div id="dt-header">
     <span id="dt-title">⚙ DEV TUNER</span>
     <button id="dt-min" onclick="dtToggle()" title="Hide">✕</button>
@@ -619,8 +630,6 @@
     <button class="dt-btn primary" onclick="dtExport()">Export JSON</button>
   </div>
 </div>
-
-<script defer src="./js/tools/dev_tuner.js"></script>
 
 <!-- WORKING-UI-003: logo glyph + compact hub cards + separate airline preview screen -->
 <!-- LOGO_EXPANSION_v09: replaced logo picker with 34 airline identity themes -->
@@ -693,16 +702,21 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <script defer src="./js/patches/hub_region_dropdowns_v01.js"></script>
 <!-- BUY_AIRCRAFT_RESIZE_v01: Buy Aircraft window resizable from its bottom-right corner; size remembered across launches -->
 <script defer src="./js/patches/buy_aircraft_resize_v01.js"></script>
-<!-- DEV_SKIP_v01: TEMPORARY dev button on the home screen that jumps straight into a default game. Delete this line to remove. -->
-<script defer src="./js/patches/dev_skip_v01.js"></script>
-<!-- REAL_DEV_v01: "Real Dev" tab in the Tune panel — live-edit cash, loan, reputation, fuel multiplier, aircraft prices, rival aggression, budget sliders -->
-<script defer src="./js/patches/real_dev_v01.js"></script>
+<!-- BUY_AIRCRAFT_v04: sidebar Buy Aircraft window rebuilt as the Hangar Browser (list + spec sheet + order panel). Supersedes v03 (files left on disk, unwired). -->
+<script defer src="./js/patches/buy_aircraft_v04.js?v=2"></script>
 <!-- WINDOW_CHROME_v01: single × close on every window (adds × to Fleet & Aircraft page) -->
 <script defer src="./js/patches/window_chrome_v01.js"></script>
 
 <!-- HR_COMPACT_v01 — Human Resources window in the approved compact two-column
      layout (prototypes/hr-window rev 4). UI-only: rearranges rendered nodes. -->
 <script defer src="./js/patches/hr_compact_v01.js"></script>
+<!-- HR_WINDOW_v02: Human Resources window on the approved mockup; decorates hr_compact_v01's structure (fixed frame, icons, sizes). -->
+<script defer src="./js/patches/hr_window_v02.js?v=1"></script>
+<!-- FLEET_PAGE_v118: Fleet & Aircraft page condensed onto the sitewide skin (fixed compact frame, line icons, labeled actions; selling stays on the page) -->
+<script defer src="./js/patches/fleet_page_v118.js?v=2"></script>
+<!-- CARGO_v01: freight economy (demand model, freighter fleet, conversions, belly cargo, contract board, market events, Cargo & Freight tech track) + Cargo Network window -->
+<script defer src="./js/patches/cargo_engine_v01.js?v=4"></script>
+<script defer src="./js/patches/cargo_window_v01.js?v=4"></script>
 
 <!-- POPUP_RESIZE_v01 — every popup window: lower-right resize grip only,
      minimum = opened size (content never malforms), capped maximum,
@@ -716,14 +730,12 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
      windows added in the future. -->
 <script defer src="./js/patches/popup_stability_v01.js?v=6"></script>
 
-<!-- DEBUG_CURSOR_PROBE_v01 — TEMPORARY diagnostic: press F9 in-game to toggle a readout of the element/cursor under the mouse and any window/page movement. Delete this line (and the file) once the Firefox issue is diagnosed. -->
-<script defer src="./js/patches/debug_cursor_probe_v01.js?v=1"></script>
-
 <!-- FLEET_ROW_CLEANUP_v01 — Fleet rows: profit unit matches footer ($M), utilization
      bar empty at 0.0. Layout fixes in css/fleet-compact-v01.css. UI-only wrapper. -->
 <script defer src="./js/patches/fleet_row_cleanup_v01.js"></script>
 <!-- RESEARCH_REDIRECT_v01: TEMPORARY — sidebar Research opens RESEARCH & UPGRADES directly (skips the Research Hub page). Delete this line to restore. -->
-<script defer src="./js/patches/research_redirect_v01.js"></script>
+<!-- RESEARCH_BOARD_v01: real research system + Tech Board window; sidebar Research opens it (wraps the redirect above). -->
+<script defer src="./js/patches/research_board_v01.js?v=2"></script>
 
 <!-- MARKETING_CENTER_v01: Advertising window re-rendered as the Marketing Center concept; gameplay functions untouched -->
 <script defer src="./js/patches/marketing_center_v01.js?v=9"></script>
@@ -747,10 +759,12 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <script defer src="./js/patches/weather_paths_v01.js"></script>
 <!-- NIGHT_MAP_v01: NASA Black Marble night texture replaces the daytime satellite base (fetched once, cached in localStorage) -->
 <script defer src="./js/patches/night_map_v01.js"></script>
+<!-- MAP_VIBRANCE_v01: day/night terminator, city lights, hub halos, flowing routes, ocean sheen, vignette, richer colour grade -->
+<script defer src="./js/patches/map_vibrance_v01.js?v=2"></script>
 <!-- MARKET_INTEL_v01: implements the stubbed openMarketIntel — Market Intelligence window (real-data opportunity scoring; no fake systems) -->
 <script defer src="./js/patches/market_intel_v01.js?v=2"></script>
-<!-- DEV_CONSOLE_v01: "Dev" tab in the Tune panel — pages, windows, clock/turn controls, kill switches -->
-<script defer src="./js/patches/dev_console_v01.js"></script>
+<!-- DEV_BOOTSTRAP_v112: development tools load only after explicit ?dev=1 opt-in. -->
+<script defer src="./js/tools/dev_bootstrap_v112.js?v=2"></script>
 
 </body>
 <!-- FLEETART_ECON_v02 CHANGELOG (base: LOGO_EXPANSION_v09)

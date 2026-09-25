@@ -5,7 +5,6 @@ const root = path.resolve(__dirname, '..');
 const copies = [
   ['game/js', 'dist/game/js'],
   ['game/assets', 'dist/game/assets'],
-  ['assets/airline-identities/approved-250', 'dist/assets/airline-identities/approved-250'],
   ['version.dat', 'dist/version.dat'],
 ];
 
@@ -16,4 +15,4 @@ for (const [from, to] of copies) {
   fs.cpSync(source, target, { recursive: true, force: true });
 }
 
-console.log('Copied classic runtime scripts and external asset catalogs into dist.');
+console.log('Copied classic runtime scripts and game asset catalogs into dist.');

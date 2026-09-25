@@ -1,0 +1,18 @@
+/* MAP_VIBRANCE_v01 — world map colour grade and motion. Pairs with js/patches/map_vibrance_v01.js.
+   The satellite raster gets a richer, cooler grade (overrides night_map_v01's inline filter), the
+   graticule becomes a visible dashed grid on the theme's cyan, routes get a soft glow, hub rings
+   breathe, and the flowing dashes along routes animate. All visual — no layout or gameplay. */
+#world-map image.sat-img{filter:brightness(.88) saturate(1.3) contrast(1.1)!important}
+#world-map rect.night-tint{fill:#061a3a!important}
+#world-map .map-grid-line{stroke:rgba(82,216,255,.16)!important;stroke-width:.7!important;stroke-dasharray:3 9}
+#world-map .map-grid-equator{stroke:rgba(82,216,255,.3)!important;stroke-width:.9!important;stroke-dasharray:6 6}
+#world-map g.routes{filter:drop-shadow(0 0 5px rgba(82,216,255,.45))}
+#world-map g.cities .hub-ring{stroke-width:2.2;filter:drop-shadow(0 0 6px rgba(82,216,255,.7))}
+#world-map g.cities .city-label{letter-spacing:1.2px}
+#world-map g.cities .city-dot .cmark>circle:nth-child(1){filter:blur(2px)}
+#world-map .aemv-dash{animation:aemvFlow 1.6s linear infinite}
+@keyframes aemvFlow{from{stroke-dashoffset:48}to{stroke-dashoffset:0}}
+#world-map g.planes path{filter:drop-shadow(0 0 3px rgba(255,255,255,.55))}
+#map-container{background:radial-gradient(1200px 700px at 50% 40%,#0b1f3d 0%,#050b18 70%)}
+@media(prefers-reduced-motion:reduce){#world-map .aemv-dash{animation:none}}
+body.ae-reduced-motion #world-map .aemv-dash{animation:none}body.ae-reduced-motion #world-map .aemv-halos circle:nth-child(even),body.ae-reduced-motion #world-map .aemv-sheen{display:none}

@@ -1,0 +1,152 @@
+/* FOUND_AIRLINE_v01 — Setup step 3 "Found Airline" reskin to the framed-window mockup:
+   one bordered window frame around all three panels + footer, neutral near-black panels,
+   compact logo tiles, tighter hub cards so four rows show, hub panel stretches to match the
+   left column, dropdown filters in panel styling, blue selection accents.
+   CSS only. Existing markup, ids and handlers untouched — no gameplay change. */
+
+/* ── Window frame ─────────────────────────────────────────────── */
+#setup #wz-p3.wz-page{max-width:1180px!important;min-height:0!important}
+#setup #wz-p3 .ae4-grid{
+  grid-template-columns:400px 1fr!important;
+  gap:16px!important;
+  align-items:stretch!important;
+  box-sizing:border-box;
+  padding:18px 18px 16px!important;
+  border-radius:18px!important;
+  border:1px solid rgba(120,128,168,.28)!important;
+  background:linear-gradient(180deg,#0d0f1a 0%,#0a0b14 100%)!important;
+  box-shadow:0 30px 80px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.04)!important;
+}
+
+/* ── Panels ───────────────────────────────────────────────────── */
+#setup #wz-p3 .ae4-left,#setup #wz-p3 .ae4-right{gap:14px!important;min-height:0}
+#setup #wz-p3 .ae4-panel,#setup #wz-p3 .ae4-right .ae4-panel{
+  background:linear-gradient(180deg,#0a0b15,#080912)!important;
+  border:1px solid rgba(120,128,168,.22)!important;
+  border-radius:14px!important;
+  padding:15px 16px 16px!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025)!important;
+}
+#setup #wz-p3 .ae4-right{position:relative!important;min-height:0!important}
+/* the hub panel is taken out of flow so it never grows the row: the left column sets the window height */
+#setup #wz-p3 .ae4-right .ae4-panel{position:absolute!important;inset:0!important;display:flex!important;flex-direction:column!important;min-height:0!important;box-sizing:border-box!important}
+#setup #wz-p3 .ae4-logo-panel{flex:1 1 auto!important}
+
+#setup #wz-p3 .ae4-ptitle{
+  font-size:15.5px!important;font-weight:800!important;letter-spacing:3px!important;
+  color:#fff!important;margin-bottom:13px!important;gap:12px!important;
+}
+#setup #wz-p3 .ae4-num{
+  width:24px!important;height:24px!important;border-radius:50%!important;
+  border:1px solid rgba(190,170,255,.7)!important;background:rgba(150,120,255,.14)!important;
+  color:#fff!important;font-size:13px!important;box-shadow:0 0 10px rgba(150,120,255,.25)!important;
+}
+
+/* ── Airline name row ─────────────────────────────────────────── */
+#setup #wz-p3 .ae4-input,#setup #wz-p3 #nh-name-input{
+  background:#07080f!important;border:1px solid rgba(120,128,168,.28)!important;border-radius:10px!important;
+  padding:11px 86px 11px 14px!important;font-size:15.5px!important;font-weight:600!important;letter-spacing:.4px!important;
+  color:#fff!important;text-transform:none!important;
+}
+#setup #wz-p3 .ae4-input:focus{border-color:rgba(78,168,222,.75)!important;box-shadow:0 0 0 1px rgba(78,168,222,.35)!important}
+#setup #wz-p3 .ae4-dice{
+  width:30px!important;height:30px!important;border-radius:8px!important;
+  border:1px solid rgba(120,128,168,.35)!important;background:rgba(120,128,168,.12)!important;font-size:15px!important;
+}
+#setup #wz-p3 .ae4-namecheck.ok{width:24px!important;height:24px!important;border:1px solid rgba(53,212,127,.7)!important;background:rgba(53,212,127,.12)!important}
+
+/* ── Logo grid: nine compact tiles ────────────────────────────── */
+#setup #wz-p3 .ae4-logo-title .ae-logo-toolbar button{
+  border:1px solid rgba(78,168,222,.55)!important;background:rgba(78,168,222,.14)!important;color:#fff!important;
+  font:700 12px/1 Inter,'Segoe UI',Arial,sans-serif!important;letter-spacing:.06em!important;padding:8px 14px!important;border-radius:9px!important;
+}
+#setup #wz-p3 .ae4-logogrid{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  grid-template-rows:repeat(3,140px)!important;
+  gap:10px!important;padding:0!important;overflow:hidden!important;
+}
+#setup #wz-p3 .ae4-logogrid .logo-pick.logo-card.image-logo-card{
+  height:140px!important;min-height:140px!important;padding:10px 6px 8px!important;
+  border-radius:12px!important;gap:7px!important;
+  background:linear-gradient(180deg,#0f1020,#0a0b16)!important;
+  border:1px solid rgba(120,128,168,.28)!important;box-shadow:none!important;
+}
+#setup #wz-p3 .ae4-logogrid .logo-pick.logo-card.image-logo-card:hover{
+  border-color:rgba(78,168,222,.6)!important;box-shadow:0 0 0 1px rgba(78,168,222,.25)!important;transform:translateY(-1px)!important;
+}
+#setup #wz-p3 .ae4-logogrid .logo-pick.logo-card.image-logo-card.selected{
+  border-color:#4ea8de!important;background:linear-gradient(180deg,#12182c,#0b0f1c)!important;
+  box-shadow:0 0 0 1px #4ea8de,0 0 22px rgba(78,168,222,.28)!important;
+}
+#setup #wz-p3 .ae4-logogrid .logo-card-image-wrap{
+  width:76px!important;height:76px!important;min-height:76px!important;flex:0 0 76px!important;
+  border-radius:12px!important;background:#05060c!important;border:1px solid rgba(255,255,255,.08)!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;
+}
+#setup #wz-p3 .ae4-logogrid .logo-card-image,#setup #wz-p3 .ae4-logogrid .logo-card-image-wrap img{
+  width:76px!important;height:76px!important;max-height:76px!important;object-fit:cover!important;border-radius:12px!important;
+}
+#setup #wz-p3 .ae4-logogrid .logo-card-name{
+  font-size:11.6px!important;font-weight:700!important;line-height:1.15!important;letter-spacing:.3px!important;
+  min-height:27px!important;color:#fff!important;text-transform:uppercase!important;
+}
+
+/* ── Hub filters (Region / Subregion dropdowns) ───────────────── */
+#setup #wz-p3 #hub-region-tabs.hub-filter-row{gap:10px!important;margin:0 0 12px!important;flex:0 0 auto}
+#setup #wz-p3 #hub-region-tabs .hub-filter-select{
+  height:40px!important;border-radius:10px!important;padding:0 12px!important;
+  background:#0a0b15!important;border:1px solid rgba(120,128,168,.3)!important;
+  color:#fff!important;font:600 13.5px Inter,'Segoe UI',Arial,sans-serif!important;
+}
+#setup #wz-p3 #hub-region-tabs .hub-filter-select option{background:#0a0b15;color:#fff}
+
+/* ── Hub grid: panel stretches to the left column, four rows visible ── */
+#setup #wz-p3 .ae4-hubgrid{
+  flex:1 1 auto!important;min-height:0!important;max-height:none!important;height:auto!important;
+  overflow-y:auto!important;gap:12px!important;padding:2px 6px 2px 2px!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;grid-auto-rows:max-content!important;align-content:start!important;
+  scrollbar-width:thin;scrollbar-color:rgba(120,128,168,.45) rgba(8,9,18,.6);
+}
+#setup #wz-p3 .ae4-hub,#setup #wz-p3 .ae4-hub.compact{
+  border-radius:12px!important;border:1px solid rgba(120,128,168,.22)!important;
+  background:linear-gradient(180deg,#0e1020,#090a14)!important;box-shadow:none!important;
+}
+#setup #wz-p3 .ae4-hub:hover{border-color:rgba(78,168,222,.55)!important;transform:translateY(-1px)!important;box-shadow:0 8px 20px rgba(0,0,0,.35)!important}
+#setup #wz-p3 .ae4-hub.selected{border-color:#4ea8de!important;box-shadow:0 0 0 1px #4ea8de,0 0 18px rgba(78,168,222,.25)!important}
+#setup #wz-p3 .ae4-hub .ae4-check{background:#4ea8de!important;color:#061018!important;box-shadow:0 0 10px rgba(78,168,222,.6)!important;top:7px!important;right:7px!important;width:20px!important;height:20px!important;font-size:12px!important}
+#setup #wz-p3 .ae4-hub.compact .ae4-thumb,#setup #wz-p3 .ae4-hub .ae4-thumb{height:62px!important;opacity:1!important}
+#setup #wz-p3 .ae4-hub-topline{padding:8px 9px 8px 10px!important;gap:6px!important}
+#setup #wz-p3 .ae4-hub-city{font-size:14.5px!important;font-weight:700!important;letter-spacing:0!important;line-height:1.2!important}
+#setup #wz-p3 .ae4-hub-idline{gap:6px!important;margin-top:2px!important}
+#setup #wz-p3 .ae4-hub-iata{font-size:12.5px!important;color:#fff!important}
+#setup #wz-p3 .ae4-hub-airport-mini{font-size:11px!important;color:#c9cde0!important}
+#setup #wz-p3 .ae4-hub-chev{
+  width:20px!important;height:20px!important;border-radius:50%!important;border:1px solid rgba(78,168,222,.55)!important;
+  color:#4ea8de!important;background:transparent!important;font-size:11px!important;line-height:1!important;flex:0 0 20px!important;
+}
+#setup #wz-p3 .ae4-hub-chev:hover{background:rgba(78,168,222,.15)!important}
+#setup #wz-p3 .ae4-hub-details{padding:0 10px 10px!important}
+
+/* ── Footer inside the frame ──────────────────────────────────── */
+#setup #wz-p3 .ae4-footer{gap:12px!important;margin-top:2px!important}
+#setup #wz-p3 .ae4-back{
+  padding:0 20px!important;min-width:96px!important;border-radius:10px!important;
+  border:1px solid rgba(120,128,168,.35)!important;background:#0a0b15!important;color:#fff!important;
+  font:700 13px Inter,'Segoe UI',Arial,sans-serif!important;letter-spacing:1.5px!important;
+}
+#setup #wz-p3 .ae4-back:hover{border-color:rgba(78,168,222,.6)!important}
+#setup #wz-p3 .ae4-launch{
+  padding:16px!important;border-radius:11px!important;
+  border:1px solid rgba(78,168,222,.75)!important;
+  background:linear-gradient(180deg,#0f1a33,#0a1224)!important;
+  color:#fff!important;font-size:16px!important;font-weight:800!important;letter-spacing:3.5px!important;
+  box-shadow:0 0 0 1px rgba(78,168,222,.18),0 0 24px rgba(78,168,222,.18)!important;
+}
+#setup #wz-p3 .ae4-launch:hover{filter:brightness(1.12)!important;transform:translateY(-1px)!important;box-shadow:0 0 0 1px rgba(78,168,222,.35),0 0 32px rgba(78,168,222,.3)!important}
+
+/* ── Narrow screens: stack, keep the frame ───────────────────── */
+@media(max-width:1000px){
+  #setup #wz-p3 .ae4-grid{grid-template-columns:1fr!important;padding:14px!important}
+  #setup #wz-p3 .ae4-right .ae4-panel{position:static!important}
+  #setup #wz-p3 .ae4-hubgrid{max-height:420px!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}

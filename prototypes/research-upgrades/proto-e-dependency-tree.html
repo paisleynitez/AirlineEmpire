@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Research & Upgrades — Prototype E: Dependency Tree</title>
+<style>/* Research & Upgrades prototypes — shared look, matched to the current AE window theme
+   (near-black framed window, white text, blue accents, Inter/Segoe UI) */
+*{box-sizing:border-box}
+html,body{margin:0;background:#050510;color:#fff;font:14px/1.45 Inter,'Segoe UI',Arial,sans-serif;min-height:100vh}
+body{display:flex;align-items:flex-start;justify-content:center;padding:28px 16px;
+  background:radial-gradient(1200px 600px at 50% -10%,#141a33 0%,#050510 60%)}
+.win{width:1180px;max-width:100%;border:1px solid rgba(120,128,168,.3);border-radius:18px;overflow:hidden;
+  background:linear-gradient(180deg,#0d0f1a,#0a0b14);box-shadow:0 30px 80px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.04)}
+.tbar{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid rgba(120,128,168,.22)}
+.tbar h1{margin:0;font-size:17px;font-weight:800;letter-spacing:3px}
+.tbar .x{margin-left:auto;width:40px;height:40px;border-radius:10px;border:1px solid rgba(120,128,168,.4);background:#0a0b15;color:#fff;font-size:18px;font-weight:700;cursor:default}
+.sub{display:flex;align-items:center;gap:18px;padding:12px 18px;border-bottom:1px solid rgba(120,128,168,.18);background:#0a0b15}
+.sub .k{font-size:11px;letter-spacing:2.2px;color:#4ea8de;font-weight:800}
+.sub .t{font-size:16px;font-weight:600;white-space:nowrap}
+.sub .stat{margin-left:auto;display:flex;gap:22px}
+.stat div{display:flex;align-items:baseline;gap:8px;white-space:nowrap}
+.stat small{font-size:10.5px;letter-spacing:2px;color:#c9cde0;font-weight:700}
+.stat b{font-size:17px}
+.stat .gold{color:#ffcf5a}.stat .lime{color:#35d47f}
+.slots{display:inline-flex;gap:4px;margin-left:6px}
+.slots i{width:12px;height:12px;border:1px solid #4ea8de;border-radius:3px;display:inline-block}
+.slots i.on{background:#4ea8de;box-shadow:0 0 8px rgba(78,168,222,.6)}
+.body{display:grid;grid-template-columns:230px 1fr;gap:16px;padding:16px 18px 18px;min-height:560px}
+.panel{background:linear-gradient(180deg,#0a0b15,#080912);border:1px solid rgba(120,128,168,.22);border-radius:14px;padding:14px 16px}
+.nav{display:flex;flex-direction:column;gap:8px}
+.nav button{all:unset;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:11px;border:1px solid rgba(120,128,168,.24);background:#0e1020;cursor:default}
+.nav button.on{border-color:#4ea8de;box-shadow:0 0 0 1px #4ea8de,0 0 16px rgba(78,168,222,.25);background:#12182c}
+.nav .nm{font-weight:700;font-size:14px}.nav .sm{font-size:11px;color:#c9cde0}
+.nav .cnt{margin-left:auto;font-size:11px;font-weight:800;color:#4ea8de;font-family:'DM Mono',Consolas,monospace}
+.tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:2px;color:#4ea8de}
+.tag.up{color:#ffcf5a}.tag.done{color:#35d47f}.tag.run{color:#ff8fd5}
+.card{display:flex;align-items:center;gap:14px;border:1px solid rgba(120,128,168,.22);border-radius:12px;background:linear-gradient(180deg,#0e1020,#090a14);padding:12px 14px}
+.card.hl{border-color:rgba(78,168,222,.55)}
+.card.locked{opacity:.55}
+.ic{width:44px;height:44px;border-radius:11px;background:#05060c;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:20px;flex:0 0 44px}
+.card .txt{flex:1;min-width:0}
+.card h3{margin:2px 0 2px;font-size:15px;font-weight:700}
+.card p{margin:0;font-size:12.5px;color:#e6e8f2}
+.card .fx{display:flex;gap:12px;margin-top:5px;font-size:11.5px;color:#ffcf5a;font-weight:600}
+.card .fx .m{color:#c9cde0}
+.btn{border:1px solid rgba(78,168,222,.75);background:linear-gradient(180deg,#0f1a33,#0a1224);color:#fff;border-radius:10px;padding:9px 16px;font:800 12px/1.2 Inter,'Segoe UI',Arial,sans-serif;letter-spacing:1px;text-align:center;min-width:112px;cursor:default;box-shadow:0 0 0 1px rgba(78,168,222,.18)}
+.btn b{display:block;font-size:14px;letter-spacing:0;margin-bottom:2px}
+.btn.ghost{border-color:rgba(120,128,168,.35);background:#0a0b15;box-shadow:none}
+.btn.done{border-color:rgba(53,212,127,.6);color:#35d47f;background:#0a1512}
+.btn:disabled{opacity:.45}
+.bar{height:6px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#4ea8de,#8fd3ff);border-radius:3px}
+.hd{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.hd .k{font-size:11px;letter-spacing:2.2px;color:#4ea8de;font-weight:800}
+.hd h2{margin:0;font-size:20px;font-weight:700}
+.hd .r{margin-left:auto;display:flex;gap:8px}
+.list{display:flex;flex-direction:column;gap:10px}
+.tabs{display:flex;gap:8px}
+.tabs button{all:unset;padding:8px 16px;border-radius:9px;border:1px solid rgba(120,128,168,.3);font-weight:800;font-size:12px;letter-spacing:1.5px;background:#0a0b15;cursor:default}
+.tabs button.on{border-color:#4ea8de;background:#12182c;box-shadow:0 0 0 1px #4ea8de}
+.note{font-size:11.5px;color:#c9cde0;margin-top:14px;padding-top:10px;border-top:1px solid rgba(120,128,168,.18)}
+
+.body{grid-template-columns:1fr 300px}
+.tree{position:relative;height:540px;border:1px solid rgba(120,128,168,.18);border-radius:12px;background:radial-gradient(600px 300px at 30% 20%,rgba(78,168,222,.06),transparent 60%),#090a14;overflow:hidden}
+.tree svg{position:absolute;inset:0;width:100%;height:100%}
+.tree .n{position:absolute;width:148px;transform:translate(-50%,-50%);border:1px solid rgba(120,128,168,.3);border-radius:11px;background:#0e1020;padding:8px 10px;cursor:default}
+.tree .n h4{margin:0;font-size:12px;line-height:1.2}.tree .n small{font-size:10px;color:#e6e8f2;display:block;margin-top:2px}
+.tree .n .lv{font-size:9.5px;letter-spacing:1.5px;font-weight:800;color:#4ea8de}
+.tree .n.done{border-color:rgba(53,212,127,.6)}.tree .n.run{border-color:#ff8fd5;box-shadow:0 0 0 1px #ff8fd5}.tree .n.ready{border-color:#4ea8de}.tree .n.locked{opacity:.45}.tree .n.sel{box-shadow:0 0 0 2px #fff}
+.tree .n.up{border-style:dashed;border-color:rgba(255,207,90,.6)}.tree .n.up .lv{color:#ffcf5a}
+.legend{display:flex;gap:16px;font-size:11px;color:#c9cde0;margin-top:8px}.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.drawer .card{flex-direction:column;align-items:stretch;gap:8px}
+</style></head><body>
+<div class="win">
+  <div class="tbar"><span>🔬</span><h1>RESEARCH &amp; UPGRADES</h1><button class="x">✕</button></div>
+  <div class="sub"><div><div class="k">DEPENDENCY TREE</div><div class="t">Programs unlock each other across tracks.</div></div>
+    <div class="stat"><div><small>RESEARCH POINTS</small><b id="rp"></b></div><div><small>SLOTS</small><b id="slots"></b><span class="slots" id="slotdots"></span></div><div><small>CASH</small><b class="lime" id="cash"></b></div></div></div>
+  <div class="body">
+    <div class="panel">
+      <div class="hd"><div><div class="k">TECH TREE</div><h2>Airline technology</h2></div><div class="r"><button class="btn ghost" onclick="tick()">NEXT MONTH ›</button></div></div>
+      <div class="tree" id="tree"><svg id="links"></svg></div>
+      <div class="legend"><span><i style="background:#35d47f"></i>Completed</span><span><i style="background:#ff8fd5"></i>In progress</span><span><i style="background:#4ea8de"></i>Ready</span><span><i style="border:1px dashed #ffcf5a"></i>Upgrade (cash)</span></div>
+      <div class="note">Implementation E — a true tech tree: prerequisites cross tracks (Predictive Maintenance needs both Crew Scheduling software and the Winglet program's sensor fit-out), and upgrades hang off the research that makes them possible. Lines light up as their source completes. Same slot/RP/months rules as the ladder; the difference is the shape of the unlock graph.</div>
+    </div>
+    <div class="panel drawer" id="drawer"></div>
+  </div>
+</div>
+<script>// Research & Upgrades — shared catalogue for the three prototypes.
+// RESEARCH = time-gated programs paid in research points (RP); they unlock know-how airline-wide.
+// UPGRADES = one-time cash purchases (facility, fleet retrofit or software) that apply to a hub, an aircraft type, or the airline.
+// Nothing here touches marketing, branding or advertising — aircraft, software, process, parts, hangars only.
+const TRACKS = [
+  {id:'airframe', name:'Airframe & Engines', sm:'Fuel burn, range, payload', icon:'✈'},
+  {id:'avionics', name:'Avionics & Software', sm:'Dispatch, scheduling, health data', icon:'🖥'},
+  {id:'mro',      name:'Maintenance & Parts', sm:'Checks, spares, incidents', icon:'🔧'},
+  {id:'ops',      name:'Flight Ops Process',  sm:'Procedures crews fly every day', icon:'📋'},
+  {id:'facility', name:'Hangars & Facilities', sm:'What you build at hubs', icon:'🏗'},
+];
+const RESEARCH = [
+  {id:'r_composite', track:'airframe', lvl:2, name:'Composite Airframe Materials', desc:'Lighter structures on new deliveries.', fx:['−4% fuel burn (new aircraft)','+2% payload'], rp:1400, months:4},
+  {id:'r_winglet',   track:'airframe', lvl:1, name:'Winglet Retrofit Program',      desc:'Blended winglets for narrowbodies already in the fleet.', fx:['−3% fuel burn (short/medium)'], rp:900, months:2},
+  {id:'r_engine',    track:'airframe', lvl:4, name:'Next-Gen Engine Cores',         desc:'Geared-fan cores with higher bypass ratio.', fx:['−8% fuel burn','+6% range'], rp:2600, months:8},
+  {id:'r_saf',       track:'airframe', lvl:3, name:'Sustainable Fuel Blending',     desc:'Certify the fleet for 30% SAF blends.', fx:['Fuel shocks −25% impact','Emission events cleared'], rp:1800, months:6},
+  {id:'r_predict',   track:'avionics', lvl:2, name:'Predictive Maintenance AI',     desc:'Sensor data flags failures before they ground a jet.', fx:['−20% unscheduled incidents'], rp:1500, months:4},
+  {id:'r_crewopt',   track:'avionics', lvl:1, name:'Crew Scheduling Optimizer',     desc:'Pairing software that cuts hotel nights and deadheads.', fx:['−6% crew cost','+3 morale'], rp:1000, months:2},
+  {id:'r_twin',      track:'avionics', lvl:3, name:'Digital Twin Fleet Monitoring', desc:'Live health model of every airframe.', fx:['Aircraft health degrades 15% slower'], rp:2000, months:6},
+  {id:'r_cda',       track:'ops',      lvl:1, name:'Continuous Descent Approach',   desc:'Idle-thrust descents at every hub that allows it.', fx:['−2% fuel burn','−5% noise complaints'], rp:800, months:2},
+  {id:'r_taxi',      track:'ops',      lvl:2, name:'Single-Engine Taxi Procedure',  desc:'Taxi out on one engine after a cold-start check.', fx:['−1.5% fuel burn','Engine hours −3%'], rp:1100, months:3},
+  {id:'r_turn',      track:'ops',      lvl:3, name:'Rapid Turnaround Standard',     desc:'Choreographed 25-minute turns for short-haul.', fx:['+1 daily rotation on short routes'], rp:1900, months:5},
+];
+const UPGRADES = [
+  {id:'u_hangar',  track:'facility', scope:'Per hub',           name:'Heavy Maintenance Hangar',  desc:'C-checks done in-house instead of at a contractor.', fx:['−25% C-check cost at hub','−2 days downtime'], cash:140, upkeep:0.9},
+  {id:'u_engine',  track:'facility', scope:'Per hub',           name:'Engine Overhaul Shop',       desc:'Full teardown and rebuild capability.', fx:['−30% engine overhaul cost','Spare engine pool'], cash:180, upkeep:1.2},
+  {id:'u_parts',   track:'mro',      scope:'Airline-wide',      name:'Rotable Spares Pool',        desc:'Shared inventory of high-failure parts.', fx:['Grounded days −40%'], cash:65, upkeep:0.4},
+  {id:'u_sim',     track:'facility', scope:'Per hub',           name:'Flight Simulator Center',    desc:'Type-rating sims for every aircraft you fly.', fx:['−30% training cost','+2 crew skill/yr'], cash:95, upkeep:0.5},
+  {id:'u_occ',     track:'avionics', scope:'Airline-wide',      name:'Operations Control Center',  desc:'24/7 dispatch desk with live weather and slot data.', fx:['+4% on-time','Disruption recovery 1 turn faster'], cash:110, upkeep:0.7},
+  {id:'u_deice',   track:'facility', scope:'Per hub',           name:'Winter Operations Kit',      desc:'De-icing trucks, glycol recovery, heated stands.', fx:['Weather impact −30% at hub'], cash:48, upkeep:0.3},
+  {id:'u_cabin',   track:'airframe', scope:'Per aircraft type', name:'Cabin Retrofit',             desc:'New slimline seats, lighting and IFE screens.', fx:['+4% load factor on type','+1 comfort tier'], cash:22, upkeep:0, per:'aircraft'},
+  {id:'u_wifi',    track:'avionics', scope:'Per aircraft type', name:'Satellite Connectivity',     desc:'Ku-band Wi-Fi across the type.', fx:['+2% yield on type','Ancillary revenue'], cash:9, upkeep:0.05, per:'aircraft'},
+  {id:'u_erp',     track:'avionics', scope:'Airline-wide',      name:'Airline Operating System',   desc:'Replace the patchwork of spreadsheets with one ERP.', fx:['−5% admin overhead','Reports one turn earlier'], cash:70, upkeep:0.6},
+  {id:'u_gate',    track:'facility', scope:'Per hub',           name:'Electric Ground Equipment',  desc:'Ground power units and e-tugs at every gate.', fx:['−5 min turnaround','−1% fuel (no APU burn)'], cash:36, upkeep:0.2},
+];
+const fmt = n => '$' + n + 'M';
+
+const POS={r_winglet:[10,16],r_cda:[10,50],r_crewopt:[10,84],r_composite:[30,16],r_taxi:[30,50],r_predict:[30,84],r_saf:[50,16],r_turn:[50,50],r_twin:[50,84],r_engine:[70,16],u_hangar:[70,50],u_occ:[70,84],u_cabin:[90,16],u_engine:[90,50],u_parts:[90,84]};
+const REQ={r_composite:['r_winglet'],r_taxi:['r_cda'],r_predict:['r_crewopt','r_winglet'],r_saf:['r_composite'],r_turn:['r_taxi','r_crewopt'],r_twin:['r_predict'],r_engine:['r_saf','r_twin'],u_hangar:['r_taxi'],u_occ:['r_twin','r_turn'],u_cabin:['r_engine'],u_engine:['r_engine','u_hangar'],u_parts:['u_occ']};
+const S={rp:4200,cash:640,slots:2,done:new Set(['r_winglet','r_cda']),run:{},owned:new Set(),sel:'r_composite'};
+const item=id=>RESEARCH.find(r=>r.id===id)||UPGRADES.find(u=>u.id===id);const isUp=id=>id.startsWith('u_');
+const finished=id=>S.done.has(id)||S.owned.has(id);const ready=id=>!finished(id)&&!S.run[id]&&(REQ[id]||[]).every(finished);
+function render(){
+  document.getElementById('rp').textContent=S.rp.toLocaleString()+' RP';const running=Object.keys(S.run).length;
+  document.getElementById('slots').textContent=running+' / '+S.slots;document.getElementById('slotdots').innerHTML=Array.from({length:S.slots},(_,i)=>`<i class="${i<running?'on':''}"></i>`).join('');document.getElementById('cash').textContent=fmt(S.cash);
+  const tree=document.getElementById('tree');tree.querySelectorAll('.n').forEach(n=>n.remove());
+  let lines='';for(const id in REQ)for(const p of REQ[id]){const a=POS[p],b=POS[id];lines+=`<line x1="${a[0]}%" y1="${a[1]}%" x2="${b[0]}%" y2="${b[1]}%" stroke="${finished(p)?'#4ea8de':'rgba(120,128,168,.35)'}" stroke-width="${finished(p)?2:1.2}" ${isUp(id)?'stroke-dasharray="5 4"':''}/>`}
+  document.getElementById('links').innerHTML=lines;
+  for(const id in POS){const it=item(id),u=isUp(id),f=finished(id),run=S.run[id],rd=ready(id);
+    const d=document.createElement('div');d.className=`n ${u?'up':''} ${f?'done':run?'run':rd?'ready':'locked'} ${S.sel===id?'sel':''}`;d.style.left=POS[id][0]+'%';d.style.top=POS[id][1]+'%';
+    d.innerHTML=`<div class="lv">${u?'UPGRADE · '+fmt(it.cash):'L'+it.lvl+' · '+it.rp+' RP · '+it.months+' MO'}${f?' · ✓':run?' · '+run+' MO LEFT':''}</div><h4>${it.name}</h4><small>${it.fx[0]}</small>${run?`<div class="bar"><i style="width:${100-run/it.months*100}%"></i></div>`:''}`;
+    d.onclick=()=>{S.sel=id;render()};tree.appendChild(d)}
+  const it=item(S.sel),u=isUp(S.sel),f=finished(S.sel),run=S.run[S.sel],rd=ready(S.sel);
+  document.getElementById('drawer').innerHTML=`<div class="hd"><div><div class="k">${u?'UPGRADE · '+it.scope.toUpperCase():TRACKS.find(t=>t.id===it.track).name.toUpperCase()+' · LEVEL '+it.lvl}</div><h2 style="font-size:18px">${it.name}</h2></div></div>
+   <div class="list"><div class="card"><p>${it.desc}</p><div class="fx" style="flex-wrap:wrap">${it.fx.map(x=>`<span>${x}</span>`).join('')}</div>
+   <p style="font-size:11.5px;color:#c9cde0">Requires: ${(REQ[S.sel]||[]).map(p=>`<b style="color:${finished(p)?'#35d47f':'#ff8fd5'}">${item(p).name}</b>`).join(', ')||'nothing'}</p>
+   ${f?'<div class="btn done">'+(u?'INSTALLED':'COMPLETED')+'</div>':run?`<div class="btn ghost">${run} MO LEFT</div>`:u?`<button class="btn" ${rd&&S.cash>=it.cash?'':'disabled'} onclick="buy('${S.sel}')"><b>${fmt(it.cash)}</b>INSTALL</button>`:`<button class="btn" ${rd&&running<S.slots&&S.rp>=it.rp?'':'disabled'} onclick="start('${S.sel}')"><b>${it.rp.toLocaleString()} RP</b>START · ${it.months} MO</button>`}</div>
+   <div class="card"><span class="tag">UNLOCKS</span><p>${Object.keys(REQ).filter(k=>REQ[k].includes(S.sel)).map(k=>item(k).name).join(', ')||'End of branch'}</p></div></div>`;
+}
+function start(id){const r=item(id);S.rp-=r.rp;S.run[id]=r.months;render()}
+function buy(id){const u=item(id);S.cash-=u.cash;S.owned.add(id);render()}
+function tick(){S.rp+=350;for(const id in S.run){S.run[id]--;if(S.run[id]<=0){delete S.run[id];S.done.add(id)}}render()}
+render();
+</script></body></html>

@@ -16,7 +16,7 @@ npm run dev
 
 Vite opens `http://localhost:5173/game/`.
 
-For a dependency-free static launch, serve the repository root so both `game/` and the external approved identity catalog are available:
+For a dependency-free static launch, serve the repository root so the `game/` runtime and its bundled assets are available:
 
 ```bash
 cd ~/projects/AirlineEmpire
@@ -24,6 +24,8 @@ python3 -m http.server 8000
 ```
 
 Open `http://localhost:8000/game/`.
+
+Development-only controls are disabled by default. Add `?dev=1` to the game URL when you intentionally need the tuner, skip button, developer console, or cursor probe.
 
 ## Project Layout
 

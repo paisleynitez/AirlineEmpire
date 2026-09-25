@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Cargo — E: Ops Dashboard</title>
+<style>*{box-sizing:border-box}
+html,body{margin:0;background:#050a14;color:#f5f8ff;font:13.5px/1.45 Inter,'Segoe UI',Arial,sans-serif;min-height:100vh}
+body{display:flex;align-items:flex-start;justify-content:center;padding:24px 16px;background:radial-gradient(1000px 500px at 50% -10%,#0f2440 0%,#050a14 60%)}
+:root{--panel:rgba(6,16,29,.94);--panel2:rgba(9,22,38,.92);--panel3:rgba(12,29,48,.86);--edge:rgba(77,164,225,.26);--edge2:rgba(82,206,255,.62);--cyan:#52d8ff;--purple:#9d66ff;--teal:#4de0ba;--orange:#ffac61;--text:#f5f8ff;--muted:#9db0ca;--glow:0 0 0 1px rgba(82,216,255,.18),0 0 22px rgba(82,216,255,.12)}
+.win{width:1100px;max-width:100%;height:760px;display:flex;flex-direction:column;border:1px solid rgba(106,172,255,.4);border-radius:12px;overflow:hidden;background:linear-gradient(180deg,rgba(10,24,42,.985),rgba(4,12,23,.985));box-shadow:0 30px 80px rgba(0,0,0,.68),0 0 0 1px rgba(82,216,255,.06),0 0 34px rgba(87,122,255,.1),inset 0 1px 0 rgba(255,255,255,.055)}
+.tbar{display:flex;align-items:center;gap:10px;padding:15px 18px;border-bottom:1px solid var(--edge);background:linear-gradient(90deg,rgba(82,216,255,.08),rgba(157,102,255,.045) 58%,transparent)}
+.tbar h1{margin:0;font-size:17px;font-weight:800;letter-spacing:3px}
+.tbar .x{margin-left:auto;width:36px;height:36px;border-radius:9px;border:1px solid var(--edge2);background:var(--panel);color:#fff;font-size:16px;font-weight:700}
+.ic{display:inline-flex;width:16px;height:16px;color:var(--cyan);vertical-align:-3px;flex:0 0 auto}.ic svg{width:100%;height:100%}
+.body{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;padding:14px 18px 16px;gap:12px}
+.panel{background:var(--panel2);border:1px solid var(--edge);border-radius:12px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9px;border:1px solid var(--edge);background:var(--panel);font-size:11.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.chip.on{border-color:var(--edge2);background:linear-gradient(180deg,rgba(82,216,255,.16),var(--panel3));color:#fff;box-shadow:var(--glow)}
+.chip b{color:var(--orange);font-size:13px;letter-spacing:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:32px;padding:0 14px;border-radius:16px;border:1px solid var(--edge);background:var(--panel);color:#fff;font:700 12px Inter,'Segoe UI',Arial,sans-serif;white-space:nowrap}
+.btn.pri{border-color:var(--edge2);background:linear-gradient(180deg,rgba(82,216,255,.16),var(--panel3));box-shadow:var(--glow)}
+.btn.sq{border-radius:9px}.btn.sm{height:26px;padding:0 10px;font-size:11px}
+.btn .q{color:var(--cyan);font-weight:800}
+.hero{position:relative;overflow:hidden;border-radius:10px;background:#0a1830;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 46%;transform:scale(1.3)}
+.k{font-size:10.5px;letter-spacing:2px;font-weight:800;color:var(--cyan);text-transform:uppercase}
+.muted{color:var(--muted)}
+.tag{font-size:10.5px;font-weight:800;letter-spacing:1px;padding:3px 8px;border-radius:7px;border:1px solid var(--edge);background:var(--panel3);color:var(--cyan);text-transform:uppercase}
+.tag.val{color:var(--teal);border-color:rgba(77,224,186,.5)}.tag.own{color:var(--teal);border-color:rgba(77,224,186,.5)}.tag.gold{color:var(--orange);border-color:rgba(255,172,97,.5)}
+.price{font-size:20px;font-weight:800}.per{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.scroll{overflow-y:auto;min-height:0;flex:1 1 auto;scrollbar-width:thin;scrollbar-color:rgba(82,216,255,.35) transparent}
+.spec{display:flex;gap:10px;align-items:center;font-size:12px;font-weight:700;flex-wrap:wrap}.spec .s{color:var(--edge2);font-weight:400}
+.note{font-size:11.5px;color:var(--muted);padding-top:10px;border-top:1px solid var(--edge);line-height:1.45}
+.bar{height:5px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden}.bar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--purple),var(--cyan))}
+.stepper{display:inline-flex;align-items:center;border:1px solid var(--edge2);border-radius:16px;overflow:hidden;height:32px}
+.stepper button{all:unset;width:32px;text-align:center;color:var(--cyan);font-weight:800;font-size:16px}.stepper span{min-width:34px;text-align:center;font-weight:800}
+/* cargo additions */
+.tabs{display:flex;gap:6px;align-items:center}
+.tabs .t{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 13px;border-radius:15px;border:1px solid var(--edge);background:var(--panel);font-weight:800;font-size:12px;color:var(--muted)}
+.tabs .t.on{border-color:var(--edge2);background:linear-gradient(180deg,rgba(82,216,255,.16),var(--panel3));color:#fff;box-shadow:var(--glow)}
+.tabs .t .ic{width:14px;height:14px}
+.kpi{display:grid;grid-auto-flow:column;gap:8px}
+.kpi .c{padding:7px 11px;border:1px solid var(--edge);border-radius:10px;background:var(--panel3);min-width:96px;white-space:nowrap}
+.kpi .c .k{font-size:9.5px;letter-spacing:1.6px}.kpi .c .v{font-size:17px;font-weight:800;line-height:1.2}.kpi .c .v small{font-size:10.5px;color:var(--muted);font-weight:700;letter-spacing:0}
+.kpi .c.teal{border-color:rgba(77,224,186,.45)}.kpi .c.teal .v{color:var(--teal)}.kpi .c.purple{border-color:rgba(157,102,255,.5)}.kpi .c.purple .v{color:var(--purple)}.kpi .c.orange{border-color:rgba(255,172,97,.5)}.kpi .c.orange .v{color:var(--orange)}
+.tbl{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:12px}
+.tbl th{text-align:left;font-size:10px;letter-spacing:1.6px;color:var(--muted);text-transform:uppercase;font-weight:800;padding:0 10px 2px}
+.tbl td{padding:8px 10px;background:var(--panel3);border-top:1px solid var(--edge);border-bottom:1px solid var(--edge)}
+.tbl td:first-child{border-left:1px solid var(--edge);border-radius:10px 0 0 10px}.tbl td:last-child{border-right:1px solid var(--edge);border-radius:0 10px 10px 0}
+.tbl tr.on td{border-color:var(--edge2);background:linear-gradient(180deg,rgba(82,216,255,.1),var(--panel3))}
+.tbl .r{text-align:right}.tbl b.t{color:var(--teal)}.tbl b.o{color:var(--orange)}.tbl b.p{color:var(--purple)}
+.mix{display:flex;height:7px;border-radius:4px;overflow:hidden;gap:1px}.mix i{display:block;height:100%}
+.c-gen{background:#6f8db2}.c-exp{background:var(--cyan)}.c-per{background:var(--teal)}.c-pha{background:#e879f9}.c-aut{background:var(--orange)}.c-hvy{background:#ff6b6b}.c-mail{background:var(--purple)}.c-dg{background:#ffe066}
+.leg{display:flex;gap:10px;flex-wrap:wrap;font-size:10.5px;color:var(--muted)}.leg span{display:inline-flex;align-items:center;gap:5px}.leg i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.side{display:flex;flex-direction:column;gap:10px;padding:12px;min-height:0;overflow:auto}
+.side h2{margin:0;font-size:15px;font-weight:800}.side .row{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px dashed rgba(82,216,255,.16)}.side .row b{font-weight:800}
+.badge{font-size:10px;font-weight:800;letter-spacing:1px;padding:2px 7px;border-radius:6px;text-transform:uppercase;border:1px solid}
+.b-fwd{color:var(--cyan);border-color:rgba(82,216,255,.5)}.b-chr{color:var(--orange);border-color:rgba(255,172,97,.5)}.b-int{color:var(--purple);border-color:rgba(157,102,255,.6)}.b-mail{color:var(--teal);border-color:rgba(77,224,186,.5)}
+.pill{display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 9px;border-radius:11px;border:1px solid var(--edge);background:var(--panel);font-size:10.5px;font-weight:800;color:var(--muted)}
+.pill.ok{color:var(--teal);border-color:rgba(77,224,186,.5)}.pill.warn{color:var(--orange);border-color:rgba(255,172,97,.5)}.pill.bad{color:#ff7b7b;border-color:rgba(255,120,120,.5)}
+.mono{font-variant-numeric:tabular-nums}
+.tbl td b.nw{white-space:nowrap}
+
+.main{flex:1;min-height:0;display:grid;grid-template-columns:1.25fr 1fr 1fr;grid-template-rows:1fr auto;gap:10px}
+.blk{display:flex;flex-direction:column;min-height:0;padding:10px 12px;gap:6px}
+.blk .hd{display:flex;align-items:center;gap:8px}.blk .hd .k{margin-right:auto}.blk .hd a{font-size:11px;color:var(--cyan);font-weight:800}
+.ln{display:grid;grid-template-columns:1fr 60px 44px 62px;gap:6px;align-items:center;padding:6px 8px;border:1px solid var(--edge);border-radius:9px;background:var(--panel3);font-size:11.5px}
+.ln b.n{font-size:12px}.ln .mix{margin-top:3px}.ln .r{text-align:right}
+.ct{padding:7px 9px;border:1px solid var(--edge);border-radius:9px;background:var(--panel3);font-size:11.5px}
+.ct .t{display:flex;justify-content:space-between;font-weight:800;font-size:12px;margin:3px 0 2px}.ct .m{display:flex;justify-content:space-between;color:var(--muted);font-size:10.5px}
+.of{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--edge);border-radius:9px;background:var(--panel3);font-size:11.5px}
+.of .t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700}.of .y{color:var(--orange);font-weight:800}
+.hubs{grid-column:1 / -1;display:grid;grid-template-columns:auto repeat(5,1fr);gap:8px;align-items:center;padding:10px 12px}
+.hub{padding:7px 10px;border:1px solid var(--edge);border-radius:9px;background:var(--panel3);font-size:11px}
+.hub b{display:block;font-size:12.5px}.hub .bar{margin:5px 0 3px}.hub .m{display:flex;justify-content:space-between;color:var(--muted);font-size:10px}
+.hub.full{border-color:rgba(255,172,97,.55)}
+</style></head><body><div class="win">
+<div class="tbar"><span class="ic" data-ic="box"></span><h1>CARGO NETWORK</h1><span class="muted" style="font-size:12px;margin-left:6px">Operations overview</span><button class="x">✕</button></div>
+<div class="body">
+ <div style="display:flex;align-items:center;gap:8px">
+  <div class="tabs"><span class="t on"><span class="ic" data-ic="hub"></span>Overview</span><span class="t"><span class="ic" data-ic="lane"></span>Lanes</span><span class="t"><span class="ic" data-ic="doc"></span>Contracts</span><span class="t"><span class="ic" data-ic="plane"></span>Freighters</span><span class="t"><span class="ic" data-ic="map"></span>Market</span></div>
+  <div class="kpi" style="margin-left:auto"><div class="c teal"><div class="k">Tonnes / mo</div><div class="v"><span data-x="LANE_T.toLocaleString()"></span></div></div><div class="c"><div class="k">Load</div><div class="v">84<small>%</small></div></div><div class="c orange"><div class="k">Yield</div><div class="v">$2.94<small>/kg</small></div></div><div class="c purple"><div class="k">Contract</div><div class="v">42<small>%</small></div></div><div class="c teal"><div class="k">Cargo net</div><div class="v">$<span data-x="LANE_NET.toFixed(1)"></span><small>M</small></div></div></div>
+ </div>
+ <div class="main">
+  <div class="panel blk"><div class="hd"><span class="k">Lanes · 6</span><a>Manage ›</a></div><div class="scroll" style="display:flex;flex-direction:column;gap:5px" id="lanes"></div></div>
+  <div class="panel blk"><div class="hd"><span class="k">Active contracts</span><a>Board ›</a></div><div class="scroll" style="display:flex;flex-direction:column;gap:5px" id="act"></div></div>
+  <div class="panel blk"><div class="hd"><span class="k">Opportunities</span><a>Market ›</a></div><div class="scroll" style="display:flex;flex-direction:column;gap:5px" id="off"></div></div>
+  <div class="panel hubs" id="hubs"></div>
+ </div>
+ <div class="note">Concept E — Ops Dashboard. One screen answers "how is cargo doing?": a KPI strip, the lanes with their commodity mix and net, active contracts with delivery progress, the best open opportunities (new offers, hot corridors and market events in one feed), and hub freight throughput against the capacity the Cargo Hub upgrade level allows. Every block links into its full tab. Best as the landing view, with Concepts A–D as the detail tabs behind it.</div>
+</div></div>
+<script>const H='../../game/assets/aircraft-heroes/';
+const CASH=412;
+// cargo commodity types: key, label, css class, $/kg base rate, volatility
+const CT=[['gen','General freight','c-gen',1.6],['exp','E-commerce / Express','c-exp',3.4],['per','Perishables','c-per',2.6],['pha','Pharma / Cold chain','c-pha',5.8],['aut','Automotive / Parts','c-aut',2.1],['hvy','Heavy / Oversize','c-hvy',4.2],['mail','Mail','c-mail',1.9],['dg','Dangerous goods','c-dg',4.9]];
+const CTM=Object.fromEntries(CT.map(c=>[c[0],c]));
+// freighters (new roster entries). payload tonnes, range miles, cost $M
+const FR=[
+ {model:'B747-8F',name:'Titan 8F',id:'TTN-8F',payload:137,range:5100,cost:190,fuel:72,era:2011,type:'jumbo',hero:H+'b747-8i.webp',own:1},
+ {model:'B777F',name:'Horizon F',id:'HRZ-F',payload:102,range:5600,cost:160,fuel:78,era:2009,type:'jumbo',hero:H+'b777-300er.webp',own:2},
+ {model:'A330-200F',name:'Meridian F',id:'MRD-F',payload:65,range:4600,cost:95,fuel:70,era:2010,type:'long',hero:H+'a330-300.webp',own:0},
+ {model:'B767-300F',name:'Voyager F',id:'VYG-F',payload:52,range:3800,cost:60,fuel:64,era:1995,type:'long',hero:H+'b767-300er.webp',own:3},
+ {model:'B737-800BCF',name:'Comet BCF',id:'CMT-BCF',payload:23,range:2300,cost:22,fuel:72,era:2018,type:'medium',hero:H+'b737-800.webp',own:2,conv:true},
+ {model:'A321P2F',name:'Falcon P2F',id:'FLC-P2F',payload:27,range:2500,cost:26,fuel:80,era:2020,type:'medium',hero:H+'a321xlr.webp',own:0,conv:true}
+];
+// passenger-to-freighter conversion programmes
+const P2F=[
+ {from:'B737-800',to:'B737-800BCF',fee:12,months:4,payload:23,avail:4},
+ {from:'A321XLR',to:'A321P2F',fee:16,months:5,payload:27,avail:3},
+ {from:'B767-300ER',to:'B767-300BCF',fee:18,months:5,payload:52,avail:1},
+ {from:'A330-300',to:'A330-300P2F',fee:30,months:6,payload:61,avail:2},
+ {from:'B747-400',to:'B747-400BCF',fee:35,months:6,payload:113,avail:0}
+];
+const CONVERTING=[{plane:'B767-300ER',to:'B767-300BCF',left:2,total:5},{plane:'B737-800',to:'B737-800BCF',left:4,total:4}];
+// cargo lanes (player's freight routes)
+const LANES=[
+ {from:'Frankfurt',to:'Shanghai',plane:'B777F',fpw:5,cap:102,tons:428,lf:.84,yield:2.9,otp:.96,rev:0,mix:{gen:.32,aut:.28,pha:.16,exp:.14,dg:.1}},
+ {from:'Hong Kong',to:'Chicago',plane:'B747-8F',fpw:4,cap:137,tons:512,lf:.93,yield:3.3,otp:.91,rev:0,mix:{exp:.46,gen:.24,aut:.18,hvy:.12}},
+ {from:'Miami',to:'Bogotá',plane:'B767-300F',fpw:7,cap:52,tons:301,lf:.83,yield:2.4,otp:.98,rev:0,mix:{per:.68,gen:.2,exp:.12}},
+ {from:'Tokyo',to:'Los Angeles',plane:'B777F',fpw:3,cap:102,tons:233,lf:.76,yield:2.7,otp:.94,rev:0,mix:{aut:.44,gen:.3,exp:.16,dg:.1}},
+ {from:'Memphis',to:'Cologne',plane:'B767-300F',fpw:6,cap:52,tons:262,lf:.84,yield:3.6,otp:.99,rev:0,mix:{exp:.7,mail:.2,gen:.1}},
+ {from:'Dubai',to:'London',plane:'B737-800BCF',fpw:6,cap:23,tons:96,lf:.7,yield:2.2,otp:.9,rev:0,mix:{gen:.4,exp:.3,pha:.2,mail:.1}}
+];
+LANES.forEach(l=>{l.gross=l.tons*l.yield/1000;l.rev=Math.round(l.gross*0.44*100)/100});
+const LANE_NET=LANES.reduce((s,l)=>s+l.rev,0),LANE_T=LANES.reduce((s,l)=>s+l.tons,0);
+// contract / opportunity board
+const OFFERS=[
+ {kind:'fwd',who:'Meridian Forwarding',title:'Frankfurt → Shanghai block space',tons:180,term:12,rate:3.1,req:'Widebody freighter',due:3,pen:0.4,note:'Guaranteed 180 t/mo. Rate fixed for term.'},
+ {kind:'int',who:'NorthStar Express',title:'Overnight feeder: Cologne ↔ Milan',tons:60,term:24,rate:4.0,req:'Narrowbody freighter, night ops',due:2,pen:0.6,note:'Must depart 23:00–01:00. Integrator provides ULDs.'},
+ {kind:'chr',who:'UN Relief Agency',title:'Charter: Istanbul → Nairobi (relief)',tons:95,term:1,rate:5.2,req:'≥ 90 t single lift',due:1,pen:1.2,note:'One-off. Prestige +2 on completion.'},
+ {kind:'fwd',who:'Pacific Perishables Co-op',title:'Lima → Miami seafood & flowers',tons:140,term:9,rate:2.8,req:'Cold-chain certified',due:4,pen:0.5,note:'Seasonal peak Nov–Feb (+35 % volume).'},
+ {kind:'mail',who:'Royal Postal Service',title:'Domestic mail: London ↔ Edinburgh',tons:40,term:36,rate:1.9,req:'Belly or narrowbody',due:6,pen:0.2,note:'Low yield, very stable. Fits belly capacity.'},
+ {kind:'chr',who:'Orion Motorsport',title:'Charter: race freight, Melbourne → Bahrain',tons:110,term:1,rate:6.1,req:'Main-deck loader, 2 lifts',due:1,pen:1.5,note:'Oversize pallets. Hard deadline.'},
+ {kind:'int',who:'Skyline Parcel',title:'E-commerce: Shenzhen → Los Angeles',tons:320,term:18,rate:3.6,req:'2 × widebody freighters',due:2,pen:0.9,note:'Volume grows 8 %/yr. Peak surcharge in Q4.'},
+ {kind:'fwd',who:'Atlas Pharma Logistics',title:'Basel → Boston cold chain',tons:35,term:12,rate:6.4,req:'Pharma cold-chain certified',due:5,pen:1.0,note:'Highest yield on the board. Requires research: Cold Chain.'}
+];
+const ACTIVE=[
+ {kind:'int',who:'Skyline Parcel',title:'Hong Kong → Chicago express',tons:300,done:.62,left:11,rate:3.4},
+ {kind:'fwd',who:'Meridian Forwarding',title:'Tokyo → Los Angeles auto parts',tons:120,done:.88,left:4,rate:2.6},
+ {kind:'mail',who:'US Postal',title:'Memphis → Cologne mail',tons:50,done:.31,left:29,rate:1.9}
+];
+// market: demand by lane (tonnes / month available, served by you, yield)
+const MKT=[
+ {from:'Shanghai',to:'Frankfurt',demand:1450,served:428,yield:3.0,trend:+6,mix:{gen:.3,aut:.25,exp:.25,pha:.1,dg:.1},hot:true},
+ {from:'Shenzhen',to:'Los Angeles',demand:2100,served:0,yield:3.5,trend:+14,mix:{exp:.6,gen:.25,hvy:.15},hot:true},
+ {from:'Hong Kong',to:'Chicago',demand:1250,served:512,yield:3.3,trend:+3,mix:{exp:.5,gen:.3,aut:.2}},
+ {from:'Lima',to:'Miami',demand:640,served:0,yield:2.7,trend:+22,mix:{per:.8,gen:.2},hot:true},
+ {from:'Basel',to:'Boston',demand:210,served:0,yield:6.2,trend:+4,mix:{pha:.9,gen:.1}},
+ {from:'Nairobi',to:'Amsterdam',demand:520,served:0,yield:2.5,trend:-3,mix:{per:.85,gen:.15}},
+ {from:'Tokyo',to:'Los Angeles',demand:900,served:233,yield:2.7,trend:-5,mix:{aut:.5,gen:.3,exp:.2}},
+ {from:'Dubai',to:'London',demand:780,served:96,yield:2.3,trend:+1,mix:{gen:.5,exp:.3,pha:.2}},
+ {from:'São Paulo',to:'Miami',demand:610,served:0,yield:2.4,trend:+9,mix:{gen:.4,per:.35,aut:.25}},
+ {from:'Chennai',to:'Frankfurt',demand:470,served:0,yield:2.6,trend:+11,mix:{gen:.5,pha:.3,exp:.2}}
+];
+const EVENTS=[['Port strike — Rotterdam','+40 % air freight demand Europe ↔ Asia, 3 months','orange'],['Harvest peak — Andes','Perishables +35 % Lima/Bogotá lanes until Feb','teal'],['E-commerce festival','Express +25 % China → US/EU, 6 weeks','cyan']];
+const mixBar=m=>'<div class="mix">'+Object.entries(m).map(([k,v])=>`<i class="${CTM[k][2]}" style="width:${(v*100).toFixed(0)}%" title="${CTM[k][1]}"></i>`).join('')+'</div>';
+const legend=()=>'<div class="leg">'+CT.map(c=>`<span><i class="${c[2]}"></i>${c[1]}</span>`).join('')+'</div>';
+const kindBadge=k=>({fwd:'<span class="badge b-fwd">Forwarder</span>',chr:'<span class="badge b-chr">Charter</span>',int:'<span class="badge b-int">Integrator</span>',mail:'<span class="badge b-mail">Mail</span>'})[k];
+const pct=v=>(v*100).toFixed(0)+'%';
+const S='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">';
+const I={
+plane:S+'<path d="M3 14l8-2.3V5.5a1 1 0 012 0v6.2l8 2.3v1.8l-8-1.8v3.2l2.3 1.4v1.4L12 19.4 8.7 20v-1.4L11 17.2V14l-8 1.8z"/></svg>',
+box:S+'<path d="M4 8l8-4 8 4v8l-8 4-8-4z"/><path d="M4 8l8 4 8-4M12 12v8"/></svg>',
+lane:S+'<path d="M4 17c4-8 12-8 16-2"/><circle cx="4" cy="17" r="1.6"/><circle cx="20" cy="15" r="1.6"/></svg>',
+doc:S+'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 9h6M9 13h6M9 17h3"/></svg>',
+map:S+'<path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg>',
+wrench:S+'<path d="M14.5 6.5a4 4 0 015 5l-8.2 8.2a2 2 0 01-2.8-2.8l8.2-8.2a4 4 0 01-2.2-2.2z"/><path d="M4 20l3-3"/></svg>',
+scale:S+'<path d="M12 4v16M5 8h14M5 8l-3 6a3 3 0 006 0zM19 8l-3 6a3 3 0 006 0z"/></svg>',
+clock:S+'<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>',
+bolt:S+'<path d="M13 3L5 14h6l-1 7 8-11h-6z"/></svg>',
+snow:S+'<path d="M12 3v18M4 7l16 10M4 17L20 7M12 3l-3 3m3-3l3 3M12 21l-3-3m3 3l3-3"/></svg>',
+truck:S+'<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>',
+cash:S+'<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9h.01M18 15h.01"/></svg>',
+check:S+'<path d="M5 12l4 4L19 7"/></svg>',
+search:S+'<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.3-4.3"/></svg>',
+hub:S+'<circle cx="12" cy="12" r="3"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/></svg>',
+swap:S+'<path d="M4 8h13l-3-3M20 16H7l3 3"/></svg>',
+warn:S+'<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>',
+trend:S+'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>',
+fuel:S+'<rect x="4" y="4" width="10" height="16" rx="2"/><path d="M14 9h2a2 2 0 012 2v5a1.5 1.5 0 003 0V9l-2-2M7 8h4"/></svg>',
+cal:S+'<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>'
+};
+const ic=k=>'<span class="ic">'+I[k]+'</span>';
+const fmt=v=>'$'+(v>=1000?(v/1000).toFixed(1)+'B':v.toFixed(v<10?1:0)+'M');
+
+document.getElementById('lanes').innerHTML=LANES.map(l=>`<div class="ln"><div><b class="n">${l.from} → ${l.to}</b><span class="muted" style="font-size:10.5px"> · ${l.plane} · ${l.fpw}/wk</span>${mixBar(l.mix)}</div><div class="r mono">${l.tons} t</div><div class="r mono">${pct(l.lf)}</div><div class="r mono" style="color:var(--teal);font-weight:800">$${l.rev.toFixed(2)}M</div></div>`).join('');
+document.getElementById('act').innerHTML=ACTIVE.map(a=>`<div class="ct">${kindBadge(a.kind)}<div class="t"><span>${a.title}</span><span style="color:var(--orange)">$${a.rate.toFixed(2)}</span></div><div class="bar"><i style="width:${pct(a.done)}"></i></div><div class="m"><span>${(a.tons*a.done).toFixed(0)} / ${a.tons} t</span><span>${a.left} mo left</span></div></div>`).join('');
+const feed=[...EVENTS.map(e=>`<div class="of" style="border-color:rgba(255,172,97,.45)">${ic('bolt')}<span class="t">${e[0]} — ${e[1]}</span></div>`),...OFFERS.slice(0,4).map(o=>`<div class="of">${kindBadge(o.kind)}<span class="t">${o.title}</span><span class="y">$${o.rate.toFixed(2)}</span><span class="pill warn" style="height:18px">${o.due} mo</span></div>`),...MKT.filter(m=>m.hot).map(m=>`<div class="of">${ic('trend')}<span class="t">${m.from} → ${m.to} · ${m.demand-m.served} t unserved</span><span class="y">${m.trend>0?'+':''}${m.trend}%</span></div>`)];
+document.getElementById('off').innerHTML=feed.join('');
+const HUBS=[['Frankfurt',1180,1400,2],['Hong Kong',940,1000,2],['Miami',520,700,1],['Memphis',410,700,1],['Dubai',150,400,0]];
+document.getElementById('hubs').innerHTML=`<div><div class="k">Hub throughput</div><div class="muted" style="font-size:10.5px">tonnes / mo vs. Cargo Hub level</div></div>`+HUBS.map(h=>`<div class="hub ${h[1]/h[2]>.9?'full':''}"><b>${h[0]} <span class="tag" style="font-size:9px">Hub L${h[3]}</span></b><div class="bar"><i style="width:${(h[1]/h[2]*100).toFixed(0)}%"></i></div><div class="m"><span>${h[1]} / ${h[2]} t</span><span>${h[1]/h[2]>.9?'Upgrade hub':'OK'}</span></div></div>`).join('');
+document.querySelectorAll('[data-ic]').forEach(e=>e.innerHTML=I[e.dataset.ic]);document.querySelectorAll('[data-x]').forEach(e=>{e.outerHTML=eval(e.dataset.x)});</script></body></html>

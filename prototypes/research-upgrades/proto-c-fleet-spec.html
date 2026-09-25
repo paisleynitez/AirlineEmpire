@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Research & Upgrades — Prototype C: Fleet Spec Sheet</title>
+<style>/* Research & Upgrades prototypes — shared look, matched to the current AE window theme
+   (near-black framed window, white text, blue accents, Inter/Segoe UI) */
+*{box-sizing:border-box}
+html,body{margin:0;background:#050510;color:#fff;font:14px/1.45 Inter,'Segoe UI',Arial,sans-serif;min-height:100vh}
+body{display:flex;align-items:flex-start;justify-content:center;padding:28px 16px;
+  background:radial-gradient(1200px 600px at 50% -10%,#141a33 0%,#050510 60%)}
+.win{width:1180px;max-width:100%;border:1px solid rgba(120,128,168,.3);border-radius:18px;overflow:hidden;
+  background:linear-gradient(180deg,#0d0f1a,#0a0b14);box-shadow:0 30px 80px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.04)}
+.tbar{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid rgba(120,128,168,.22)}
+.tbar h1{margin:0;font-size:17px;font-weight:800;letter-spacing:3px}
+.tbar .x{margin-left:auto;width:40px;height:40px;border-radius:10px;border:1px solid rgba(120,128,168,.4);background:#0a0b15;color:#fff;font-size:18px;font-weight:700;cursor:default}
+.sub{display:flex;align-items:center;gap:18px;padding:12px 18px;border-bottom:1px solid rgba(120,128,168,.18);background:#0a0b15}
+.sub .k{font-size:11px;letter-spacing:2.2px;color:#4ea8de;font-weight:800}
+.sub .t{font-size:16px;font-weight:600;white-space:nowrap}
+.sub .stat{margin-left:auto;display:flex;gap:22px}
+.stat div{display:flex;align-items:baseline;gap:8px;white-space:nowrap}
+.stat small{font-size:10.5px;letter-spacing:2px;color:#c9cde0;font-weight:700}
+.stat b{font-size:17px}
+.stat .gold{color:#ffcf5a}.stat .lime{color:#35d47f}
+.slots{display:inline-flex;gap:4px;margin-left:6px}
+.slots i{width:12px;height:12px;border:1px solid #4ea8de;border-radius:3px;display:inline-block}
+.slots i.on{background:#4ea8de;box-shadow:0 0 8px rgba(78,168,222,.6)}
+.body{display:grid;grid-template-columns:230px 1fr;gap:16px;padding:16px 18px 18px;min-height:560px}
+.panel{background:linear-gradient(180deg,#0a0b15,#080912);border:1px solid rgba(120,128,168,.22);border-radius:14px;padding:14px 16px}
+.nav{display:flex;flex-direction:column;gap:8px}
+.nav button{all:unset;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:11px;border:1px solid rgba(120,128,168,.24);background:#0e1020;cursor:default}
+.nav button.on{border-color:#4ea8de;box-shadow:0 0 0 1px #4ea8de,0 0 16px rgba(78,168,222,.25);background:#12182c}
+.nav .nm{font-weight:700;font-size:14px}.nav .sm{font-size:11px;color:#c9cde0}
+.nav .cnt{margin-left:auto;font-size:11px;font-weight:800;color:#4ea8de;font-family:'DM Mono',Consolas,monospace}
+.tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:2px;color:#4ea8de}
+.tag.up{color:#ffcf5a}.tag.done{color:#35d47f}.tag.run{color:#ff8fd5}
+.card{display:flex;align-items:center;gap:14px;border:1px solid rgba(120,128,168,.22);border-radius:12px;background:linear-gradient(180deg,#0e1020,#090a14);padding:12px 14px}
+.card.hl{border-color:rgba(78,168,222,.55)}
+.card.locked{opacity:.55}
+.ic{width:44px;height:44px;border-radius:11px;background:#05060c;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:20px;flex:0 0 44px}
+.card .txt{flex:1;min-width:0}
+.card h3{margin:2px 0 2px;font-size:15px;font-weight:700}
+.card p{margin:0;font-size:12.5px;color:#e6e8f2}
+.card .fx{display:flex;gap:12px;margin-top:5px;font-size:11.5px;color:#ffcf5a;font-weight:600}
+.card .fx .m{color:#c9cde0}
+.btn{border:1px solid rgba(78,168,222,.75);background:linear-gradient(180deg,#0f1a33,#0a1224);color:#fff;border-radius:10px;padding:9px 16px;font:800 12px/1.2 Inter,'Segoe UI',Arial,sans-serif;letter-spacing:1px;text-align:center;min-width:112px;cursor:default;box-shadow:0 0 0 1px rgba(78,168,222,.18)}
+.btn b{display:block;font-size:14px;letter-spacing:0;margin-bottom:2px}
+.btn.ghost{border-color:rgba(120,128,168,.35);background:#0a0b15;box-shadow:none}
+.btn.done{border-color:rgba(53,212,127,.6);color:#35d47f;background:#0a1512}
+.btn:disabled{opacity:.45}
+.bar{height:6px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#4ea8de,#8fd3ff);border-radius:3px}
+.hd{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.hd .k{font-size:11px;letter-spacing:2.2px;color:#4ea8de;font-weight:800}
+.hd h2{margin:0;font-size:20px;font-weight:700}
+.hd .r{margin-left:auto;display:flex;gap:8px}
+.list{display:flex;flex-direction:column;gap:10px}
+.tabs{display:flex;gap:8px}
+.tabs button{all:unset;padding:8px 16px;border-radius:9px;border:1px solid rgba(120,128,168,.3);font-weight:800;font-size:12px;letter-spacing:1.5px;background:#0a0b15;cursor:default}
+.tabs button.on{border-color:#4ea8de;background:#12182c;box-shadow:0 0 0 1px #4ea8de}
+.note{font-size:11.5px;color:#c9cde0;margin-top:14px;padding-top:10px;border-top:1px solid rgba(120,128,168,.18)}
+
+.body{grid-template-columns:250px 1fr}
+.spec{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.spec .tile{border:1px solid rgba(120,128,168,.22);border-radius:12px;background:#0e1020;padding:10px 12px}
+.spec small{font-size:10.5px;letter-spacing:2px;color:#c9cde0;font-weight:700}
+.spec b{display:block;font-size:20px;margin-top:2px}
+.spec em{font-style:normal;font-size:11.5px;color:#35d47f;font-weight:700}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.two .list{max-height:600px;overflow-y:auto;padding-right:6px;scrollbar-width:thin;scrollbar-color:rgba(120,128,168,.45) rgba(8,9,18,.6)}
+.nav .sub2{font-size:11px;color:#4ea8de;font-weight:700}
+</style></head><body>
+<div class="win">
+  <div class="tbar"><span>🔬</span><h1>RESEARCH &amp; UPGRADES</h1><button class="x">✕</button></div>
+  <div class="sub"><div><div class="k">FLEET &amp; FACILITY SPEC</div><div class="t">Pick an aircraft type or a hub — see what research applies and what you can install.</div></div>
+    <div class="stat"><div><small>RESEARCH POINTS</small><b id="rp"></b></div><div><small>SLOTS</small><b id="slots"></b><span class="slots" id="slotdots"></span></div><div><small>CASH</small><b class="lime" id="cash"></b></div></div></div>
+  <div class="body">
+    <div class="panel nav" id="nav"></div>
+    <div class="panel">
+      <div class="hd"><div><div class="k" id="k"></div><h2 id="h"></h2></div><div class="r"><button class="btn ghost" onclick="tick()">NEXT MONTH ›</button></div></div>
+      <div class="spec" id="spec"></div>
+      <div class="two">
+        <div><div class="hd"><div><div class="k">APPLICABLE RESEARCH</div></div></div><div class="list" id="rl"></div></div>
+        <div><div class="hd"><div><div class="k">AVAILABLE UPGRADES</div></div></div><div class="list" id="ul"></div></div>
+      </div>
+      <div class="note">Implementation C — entry point is the asset, not the catalogue. Select a type (A320neo…) or a hub (Chicago…) and the window shows only the research and upgrades that touch it, with a live before/after spec strip. Research completed here is still airline-wide; upgrades install to the selected asset. Good fit for the Hangar window's per-aircraft cards.</div>
+    </div>
+  </div>
+</div>
+<script>// Research & Upgrades — shared catalogue for the three prototypes.
+// RESEARCH = time-gated programs paid in research points (RP); they unlock know-how airline-wide.
+// UPGRADES = one-time cash purchases (facility, fleet retrofit or software) that apply to a hub, an aircraft type, or the airline.
+// Nothing here touches marketing, branding or advertising — aircraft, software, process, parts, hangars only.
+const TRACKS = [
+  {id:'airframe', name:'Airframe & Engines', sm:'Fuel burn, range, payload', icon:'✈'},
+  {id:'avionics', name:'Avionics & Software', sm:'Dispatch, scheduling, health data', icon:'🖥'},
+  {id:'mro',      name:'Maintenance & Parts', sm:'Checks, spares, incidents', icon:'🔧'},
+  {id:'ops',      name:'Flight Ops Process',  sm:'Procedures crews fly every day', icon:'📋'},
+  {id:'facility', name:'Hangars & Facilities', sm:'What you build at hubs', icon:'🏗'},
+];
+const RESEARCH = [
+  {id:'r_composite', track:'airframe', lvl:2, name:'Composite Airframe Materials', desc:'Lighter structures on new deliveries.', fx:['−4% fuel burn (new aircraft)','+2% payload'], rp:1400, months:4},
+  {id:'r_winglet',   track:'airframe', lvl:1, name:'Winglet Retrofit Program',      desc:'Blended winglets for narrowbodies already in the fleet.', fx:['−3% fuel burn (short/medium)'], rp:900, months:2},
+  {id:'r_engine',    track:'airframe', lvl:4, name:'Next-Gen Engine Cores',         desc:'Geared-fan cores with higher bypass ratio.', fx:['−8% fuel burn','+6% range'], rp:2600, months:8},
+  {id:'r_saf',       track:'airframe', lvl:3, name:'Sustainable Fuel Blending',     desc:'Certify the fleet for 30% SAF blends.', fx:['Fuel shocks −25% impact','Emission events cleared'], rp:1800, months:6},
+  {id:'r_predict',   track:'avionics', lvl:2, name:'Predictive Maintenance AI',     desc:'Sensor data flags failures before they ground a jet.', fx:['−20% unscheduled incidents'], rp:1500, months:4},
+  {id:'r_crewopt',   track:'avionics', lvl:1, name:'Crew Scheduling Optimizer',     desc:'Pairing software that cuts hotel nights and deadheads.', fx:['−6% crew cost','+3 morale'], rp:1000, months:2},
+  {id:'r_twin',      track:'avionics', lvl:3, name:'Digital Twin Fleet Monitoring', desc:'Live health model of every airframe.', fx:['Aircraft health degrades 15% slower'], rp:2000, months:6},
+  {id:'r_cda',       track:'ops',      lvl:1, name:'Continuous Descent Approach',   desc:'Idle-thrust descents at every hub that allows it.', fx:['−2% fuel burn','−5% noise complaints'], rp:800, months:2},
+  {id:'r_taxi',      track:'ops',      lvl:2, name:'Single-Engine Taxi Procedure',  desc:'Taxi out on one engine after a cold-start check.', fx:['−1.5% fuel burn','Engine hours −3%'], rp:1100, months:3},
+  {id:'r_turn',      track:'ops',      lvl:3, name:'Rapid Turnaround Standard',     desc:'Choreographed 25-minute turns for short-haul.', fx:['+1 daily rotation on short routes'], rp:1900, months:5},
+];
+const UPGRADES = [
+  {id:'u_hangar',  track:'facility', scope:'Per hub',           name:'Heavy Maintenance Hangar',  desc:'C-checks done in-house instead of at a contractor.', fx:['−25% C-check cost at hub','−2 days downtime'], cash:140, upkeep:0.9},
+  {id:'u_engine',  track:'facility', scope:'Per hub',           name:'Engine Overhaul Shop',       desc:'Full teardown and rebuild capability.', fx:['−30% engine overhaul cost','Spare engine pool'], cash:180, upkeep:1.2},
+  {id:'u_parts',   track:'mro',      scope:'Airline-wide',      name:'Rotable Spares Pool',        desc:'Shared inventory of high-failure parts.', fx:['Grounded days −40%'], cash:65, upkeep:0.4},
+  {id:'u_sim',     track:'facility', scope:'Per hub',           name:'Flight Simulator Center',    desc:'Type-rating sims for every aircraft you fly.', fx:['−30% training cost','+2 crew skill/yr'], cash:95, upkeep:0.5},
+  {id:'u_occ',     track:'avionics', scope:'Airline-wide',      name:'Operations Control Center',  desc:'24/7 dispatch desk with live weather and slot data.', fx:['+4% on-time','Disruption recovery 1 turn faster'], cash:110, upkeep:0.7},
+  {id:'u_deice',   track:'facility', scope:'Per hub',           name:'Winter Operations Kit',      desc:'De-icing trucks, glycol recovery, heated stands.', fx:['Weather impact −30% at hub'], cash:48, upkeep:0.3},
+  {id:'u_cabin',   track:'airframe', scope:'Per aircraft type', name:'Cabin Retrofit',             desc:'New slimline seats, lighting and IFE screens.', fx:['+4% load factor on type','+1 comfort tier'], cash:22, upkeep:0, per:'aircraft'},
+  {id:'u_wifi',    track:'avionics', scope:'Per aircraft type', name:'Satellite Connectivity',     desc:'Ku-band Wi-Fi across the type.', fx:['+2% yield on type','Ancillary revenue'], cash:9, upkeep:0.05, per:'aircraft'},
+  {id:'u_erp',     track:'avionics', scope:'Airline-wide',      name:'Airline Operating System',   desc:'Replace the patchwork of spreadsheets with one ERP.', fx:['−5% admin overhead','Reports one turn earlier'], cash:70, upkeep:0.6},
+  {id:'u_gate',    track:'facility', scope:'Per hub',           name:'Electric Ground Equipment',  desc:'Ground power units and e-tugs at every gate.', fx:['−5 min turnaround','−1% fuel (no APU burn)'], cash:36, upkeep:0.2},
+];
+const fmt = n => '$' + n + 'M';
+
+const ASSETS=[
+  {id:'A320neo',kind:'type',name:'A320neo',sm:'12 in fleet · short/medium',base:{fuel:100,otp:82,maint:100,load:78},tracks:['airframe','avionics','ops']},
+  {id:'B737-8',kind:'type',name:'B737-8',sm:'8 in fleet · short/medium',base:{fuel:100,otp:80,maint:100,load:81},tracks:['airframe','avionics','ops']},
+  {id:'B787-9',kind:'type',name:'B787-9',sm:'4 in fleet · long-haul',base:{fuel:100,otp:85,maint:100,load:74},tracks:['airframe','avionics','ops']},
+  {id:'Chicago',kind:'hub',name:'Chicago · ORD',sm:'Home hub · 24 gates',base:{fuel:100,otp:79,maint:100,load:80},tracks:['facility','mro','ops']},
+  {id:'Denver',kind:'hub',name:'Denver · DEN',sm:'Secondary hub · 9 gates',base:{fuel:100,otp:76,maint:100,load:77},tracks:['facility','mro','ops']},
+];
+const S={sel:'A320neo',rp:4200,cash:640,slots:2,done:new Set(['r_winglet']),run:{},owned:{}};
+const mods={r_winglet:{fuel:-3},r_composite:{fuel:-4},r_engine:{fuel:-8},r_cda:{fuel:-2},r_taxi:{fuel:-1.5},r_predict:{maint:-20},r_twin:{maint:-15},r_turn:{otp:2},r_crewopt:{otp:1},r_saf:{},u_cabin:{load:4},u_wifi:{load:1},u_hangar:{maint:-25},u_engine:{maint:-30},u_parts:{maint:-10},u_occ:{otp:4},u_deice:{otp:3},u_gate:{otp:2,fuel:-1},u_sim:{otp:1},u_erp:{}};
+function applies(item,a){ if(item.per==='aircraft') return a.kind==='type'; if(item.scope==='Per hub') return a.kind==='hub'; if(item.scope==='Airline-wide') return true; return a.tracks.includes(item.track); }
+function render(){
+  const a=ASSETS.find(x=>x.id===S.sel);
+  document.getElementById('rp').textContent=S.rp.toLocaleString()+' RP';
+  const running=Object.keys(S.run).length;document.getElementById('slots').textContent=running+' / '+S.slots;
+  document.getElementById('slotdots').innerHTML=Array.from({length:S.slots},(_,i)=>`<i class="${i<running?'on':''}"></i>`).join('');
+  document.getElementById('cash').textContent=fmt(S.cash);
+  document.getElementById('nav').innerHTML=['type','hub'].map(k=>`<div class="sub2" style="margin:${k==='hub'?'10px':'0'} 0 2px">${k==='type'?'AIRCRAFT TYPES':'HUBS'}</div>`+ASSETS.filter(x=>x.kind===k).map(x=>`<button class="${x.id===S.sel?'on':''}" onclick="S.sel='${x.id}';render()"><span>${k==='type'?'✈':'🏢'}</span><div><div class="nm">${x.name}</div><div class="sm">${x.sm}</div></div></button>`).join('')).join('');
+  document.getElementById('k').textContent=(a.kind==='type'?'AIRCRAFT TYPE':'HUB')+' · SPEC SHEET';document.getElementById('h').textContent=a.name;
+  const cur={...a.base};const own=S.owned[S.sel]||new Set();
+  [...S.done,...own].forEach(id=>{const m=mods[id]||{};for(const k in m)cur[k]+=m[k]});
+  const tile=(k,l,unit,inv)=>{const d=cur[k]-a.base[k];return `<div class="tile"><small>${l}</small><b>${k==='fuel'||k==='maint'?cur[k].toFixed(1)+'%':cur[k].toFixed(0)+unit}</b><em style="color:${d===0?'#c9cde0':(inv?d<0:d>0)?'#35d47f':'#ff8fd5'}">${d===0?'baseline':(d>0?'+':'')+d.toFixed(1)+(unit||'%')+' vs baseline'}</em></div>`};
+  document.getElementById('spec').innerHTML=tile('fuel','FUEL BURN','',true)+tile('maint','MAINT COST','',true)+tile('otp','ON-TIME','%')+tile('load','LOAD FACTOR','%');
+  document.getElementById('rl').innerHTML=RESEARCH.filter(r=>applies(r,a)).map(r=>{const done=S.done.has(r.id),run=S.run[r.id];return `<div class="card ${run?'hl':''}"><div class="txt"><span class="tag ${done?'done':run?'run':''}">${done?'COMPLETED':run?run+' MO LEFT':'LEVEL '+r.lvl+' · '+r.months+' MO'}</span><h3 style="font-size:13.5px">${r.name}</h3><div class="fx">${r.fx.map(f=>`<span>${f}</span>`).join('')}</div>${run?`<div class="bar"><i style="width:${100-run/r.months*100}%"></i></div>`:''}</div>${done?'<div class="btn done">DONE</div>':run?'':`<button class="btn" ${running<S.slots&&S.rp>=r.rp?'':'disabled'} onclick="start('${r.id}')"><b>${r.rp.toLocaleString()} RP</b>START</button>`}</div>`}).join('');
+  document.getElementById('ul').innerHTML=UPGRADES.filter(u=>applies(u,a)).map(u=>{const has=own.has(u.id);return `<div class="card ${has?'hl':''}"><div class="txt"><span class="tag up">${u.scope.toUpperCase()}</span><h3 style="font-size:13.5px">${u.name}</h3><div class="fx">${u.fx.map(f=>`<span>${f}</span>`).join('')}</div></div>${has?'<div class="btn done">INSTALLED</div>':`<button class="btn" ${S.cash>=u.cash?'':'disabled'} onclick="buy('${u.id}')"><b>${fmt(u.cash)}</b>INSTALL</button>`}</div>`}).join('');
+}
+function start(id){const r=RESEARCH.find(x=>x.id===id);S.rp-=r.rp;S.run[id]=r.months;render()}
+function buy(id){const u=UPGRADES.find(x=>x.id===id);S.cash-=u.cash;(S.owned[S.sel]=S.owned[S.sel]||new Set()).add(id);render()}
+function tick(){S.rp+=350;for(const id in S.run){S.run[id]--;if(S.run[id]<=0){delete S.run[id];S.done.add(id)}}render()}
+render();
+</script></body></html>

@@ -1,0 +1,51 @@
+/* RELEASE_READINESS_v112
+   Production-safe development controls and a usable compact navigation rail
+   for desktop viewports where the main grid contracts the sidebar to 80px. */
+
+html:not(.ae-dev-mode) #dt-launch,
+html:not(.ae-dev-mode) #dev-tuner {
+  display: none !important;
+}
+
+@media (min-width: 761px) and (max-width: 1200px) {
+  #left-panel .ae-nav {
+    padding: 10px 6px !important;
+    gap: 5px !important;
+  }
+
+  #left-panel .mock-nav-sec,
+  #left-panel .mn-two,
+  #left-panel .mns-badge,
+  #mock-ceo-card .mcc-meta,
+  #mock-ceo-card .mcc-cashrow,
+  #mock-ceo-card .mcc-gear {
+    display: none !important;
+  }
+
+  #left-panel .ae-nav-item {
+    min-height: 48px !important;
+    padding: 8px 4px !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 0 !important;
+    text-align: center !important;
+  }
+
+  #left-panel .ae-nav-item svg {
+    width: 20px !important;
+    height: 20px !important;
+    margin: 0 !important;
+  }
+
+  #mock-ceo-card {
+    display: grid !important;
+    place-items: center !important;
+    margin: auto 7px 10px !important;
+    padding: 7px !important;
+  }
+
+  #mock-ceo-card .mcc-top {
+    display: grid !important;
+    place-items: center !important;
+  }
+}
