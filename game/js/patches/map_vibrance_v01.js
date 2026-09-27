@@ -3,7 +3,7 @@
    ~8 min per rotation; sun declination follows the game month), city lights on the night side of
    hubs and major cities, a soft glow halo under hub markers with a slow breathing ring, flowing
    dashes along your routes, a faint animated ocean sheen, a cinematic edge vignette, and a
-   warmer satellite colour grade (CSS). Everything is pointer-events:none and purely visual; no
+   warmer satellite colour grade (CSS). v3 adds a Map Layers control (demand heat, weather, day/night, lights, route flow, sheen). Everything is pointer-events:none and purely visual; no
    gameplay values are read except CITIES, STATE.hubs, STATE.routes and STATE.month.
    Layers live inside each of the three pan copies (so they pan/zoom with the map) and are
    re-attached after every renderMap. Styling: css/map-vibrance-v01.css. */
@@ -76,12 +76,28 @@
   function rmSet(v){ try { localStorage.setItem(RM_KEY, v ? '1' : '0'); } catch (e) {} rmApply(); }
   function settingsSection(){ return '<div style="display:flex;align-items:center;gap:9px;margin:20px 0 11px"><span style="font-size:10.7px;font-weight:700;letter-spacing:1.5px;color:var(--muted)">🎞 MOTION</span><span style="flex:1;height:1px;background:var(--border)"></span></div>' +
     '<label style="display:flex;align-items:center;gap:10px;font-size:12.4px;cursor:default"><input type="checkbox" ' + (rmOn() ? 'checked' : '') + ' onchange="AEMapVibrance.setReducedMotion(this.checked)" style="accent-color:var(--accent)"> <span><b>Reduce motion</b><span style="display:block;font-size:11.3px;color:var(--muted)">Stops the flowing route dashes, day/night drift, hub pulse rings and ocean sheen on the map.</span></span></label>'; }
+  /* Map Layers: a small control beside the Demand button — Demand heat, Weather, Day/night, City lights,
+     Route flow. Choices are remembered locally. */
+  const LKEY = 'ae_map_layers';
+  function layers(){ try { return Object.assign({ weather:true, night:true, lights:true, flow:true, sheen:true }, JSON.parse(localStorage.getItem(LKEY) || '{}')); } catch (e) { return { weather:true, night:true, lights:true, flow:true, sheen:true }; } }
+  function setLayer(k, v){ const L = layers(); L[k] = !!v; try { localStorage.setItem(LKEY, JSON.stringify(L)); } catch (e) {} applyLayers(); renderLayersPanel(); }
+  function applyLayers(){ const L = layers(); const b = document.body.classList; b.toggle('ae-ml-noweather', !L.weather); b.toggle('ae-ml-nonight', !L.night); b.toggle('ae-ml-nolights', !L.lights); b.toggle('ae-ml-noflow', !L.flow); b.toggle('ae-ml-nosheen', !L.sheen); }
+  function demandOn(){ const b = document.getElementById('demand-toggle'); return !!(b && b.classList.contains('active')); }
+  function renderLayersPanel(){ const p = document.getElementById('ae-map-layers'); if (!p) return; const L = layers();
+    const row = (k, label, on, fn) => '<label><input type="checkbox" ' + (on ? 'checked' : '') + ' onchange="' + fn + '"><span>' + label + '</span></label>';
+    p.querySelector('.ae-ml-list').innerHTML = row('demand', 'Passenger demand heat', demandOn(), 'toggleDemandOverlay();AEMapVibrance.renderLayersPanel()') + row('weather', 'Weather', L.weather, 'AEMapVibrance.setLayer(\'weather\',this.checked)') + row('night', 'Day / night', L.night, 'AEMapVibrance.setLayer(\'night\',this.checked)') + row('lights', 'City lights', L.lights, 'AEMapVibrance.setLayer(\'lights\',this.checked)') + row('flow', 'Route flow', L.flow, 'AEMapVibrance.setLayer(\'flow\',this.checked)') + row('sheen', 'Ocean sheen', L.sheen, 'AEMapVibrance.setLayer(\'sheen\',this.checked)'); }
+  function mountLayers(){ const mc = document.getElementById('map-container'); if (!mc || document.getElementById('ae-map-layers-btn')) return;
+    const btn = document.createElement('div'); btn.id = 'ae-map-layers-btn'; btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l8 4-8 4-8-4z"/><path d="M4 12l8 4 8-4M4 16l8 4 8-4"/></svg> Layers'; btn.title = 'Map layers';
+    const panel = document.createElement('div'); panel.id = 'ae-map-layers'; panel.innerHTML = '<div class="ae-ml-hd">MAP LAYERS</div><div class="ae-ml-list"></div>';
+    btn.onclick = e => { e.stopPropagation(); panel.classList.toggle('open'); renderLayersPanel(); };
+    panel.onclick = e => e.stopPropagation(); document.addEventListener('click', () => panel.classList.remove('open'));
+    mc.appendChild(btn); mc.appendChild(panel); applyLayers(); }
   function install(){
-    rmApply();
+    rmApply(); mountLayers();
     const obs = window.buildSettings; if (typeof obs === 'function' && !obs.__aeMV) { const w = function(){ let h = obs.apply(this, arguments); try { const i = h.lastIndexOf('DANGER ZONE'); const cut = i > 0 ? h.lastIndexOf('<div', i) : -1; h = cut > 0 ? h.slice(0, cut) + settingsSection() + h.slice(cut) : h.replace('</div>\s*$', settingsSection() + '</div>'); } catch (e) {} return h; }; w.__aeMV = true; window.buildSettings = w; } if (typeof renderMap !== 'function' || !document.getElementById('world-map')) { setTimeout(install, 250); return; }
     const o = window.renderMap; if (!o.__aeMV) { const w = function(){ const r = o.apply(this, arguments); try { decorate(); } catch (e) { console.warn('[map-vibrance]', e); } return r; }; w.__aeMV = true; window.renderMap = w; }
     try { decorate(); } catch (e) {}
     setInterval(() => { if (!document.hidden && !rmOn()) { try { tickSun(); } catch (e) {} } }, 4000); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install); else install();
-  window.AEMapVibrance = { decorate, tickSun, sun, setReducedMotion: rmSet, reducedMotion: rmOn, setSunLon(l){ t0 = Date.now() - ((180 - l) / 360) * ROT_MS; tickSun(); }, version:'v01' };
+  window.AEMapVibrance = { decorate, tickSun, sun, setReducedMotion: rmSet, reducedMotion: rmOn, layers, setLayer, renderLayersPanel, setSunLon(l){ t0 = Date.now() - ((180 - l) / 360) * ROT_MS; tickSun(); }, version:'v01' };
 })();

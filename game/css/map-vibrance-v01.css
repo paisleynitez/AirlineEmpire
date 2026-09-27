@@ -16,3 +16,16 @@
 #map-container{background:radial-gradient(1200px 700px at 50% 40%,#0b1f3d 0%,#050b18 70%)}
 @media(prefers-reduced-motion:reduce){#world-map .aemv-dash{animation:none}}
 body.ae-reduced-motion #world-map .aemv-dash{animation:none}body.ae-reduced-motion #world-map .aemv-halos circle:nth-child(even),body.ae-reduced-motion #world-map .aemv-sheen{display:none}
+/* map layers control */
+#ae-map-layers-btn{position:absolute;left:118px;bottom:14px;z-index:6;display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:7px;border:1px solid rgba(82,216,255,.36);background:rgba(6,16,29,.9);color:#fff;font:600 11.3px Inter,'Segoe UI',Arial,sans-serif}
+#ae-map-layers-btn svg{width:14px;height:14px;color:var(--ae-nm-cyan,#52d8ff)}
+#ae-map-layers{position:absolute;left:118px;bottom:50px;z-index:7;display:none;min-width:200px;padding:10px 12px;border-radius:10px;border:1px solid rgba(82,216,255,.36);background:rgba(6,16,29,.96);box-shadow:0 14px 40px rgba(0,0,0,.5);font:600 12px Inter,'Segoe UI',Arial,sans-serif;color:#fff}
+#ae-map-layers.open{display:block}
+#ae-map-layers .ae-ml-hd{font-size:10px;letter-spacing:2px;color:var(--ae-nm-cyan,#52d8ff);font-weight:800;margin-bottom:6px}
+#ae-map-layers label{display:flex;align-items:center;gap:8px;padding:4px 0}
+#ae-map-layers input{accent-color:var(--ae-nm-cyan,#52d8ff)}
+body.ae-ml-noweather #weather-layer{display:none}
+body.ae-ml-nonight #world-map .aemv-night,body.ae-ml-nonight #world-map .aemv-lights{display:none}
+body.ae-ml-nolights #world-map .aemv-lights{display:none}
+body.ae-ml-noflow #world-map .aemv-flow{display:none}
+body.ae-ml-nosheen #world-map .aemv-sheen{display:none}

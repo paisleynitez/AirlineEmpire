@@ -89,15 +89,24 @@
   function season(k){ const S = st(); const m = ((S && S.month) || 0) + 1; const t = CAT.season[k]; return t && t[m] ? t[m] : 1; }
   function eventMult(a, b, k){ let m = 1; C().events.forEach(e => { const ok = e.all || (e.pair && ((e.a === a && e.b === b) || (e.a === b && e.b === a))) || (e.city && (e.a === a || e.a === b)); if (!ok) return; if (!e.k || e.k === k) m *= e.mult; }); return m; }
   function macroMult(){ let m = 1; const S = st(); ((S && S.timedEffects) || []).forEach(e => { if (e.fx === 'recession') m *= 0.85; if (e.fx === 'pandemic') m *= 1.25; if (e.fx === 'macro_boom') m *= 1.10; }); return m; }
+  /* difficulty (LEVELS 1-4): freight rates and contract penalties scale like fares do */
+  function diff(){ const S = st(); const id = (S && S.level && S.level.id) || 2; return { rate:[1.1, 1, 0.92, 0.85][id - 1] || 1, pen:[0.7, 1, 1.25, 1.5][id - 1] || 1 }; }
+  /* alliance interline: a partner's home regions feed your corridors (+10 % at full strength) */
+  function allianceMult(a, b){ let m = 1; try { if (typeof activeAlliances !== 'function') return 1; activeAlliances().forEach(al => { const s = (typeof allianceStrength === 'function') ? allianceStrength(al) : 1; if (!s) return;
+      const regs = (typeof _allPartnerRegions === 'function') ? _allPartnerRegions(al.partner) : []; const ra = CITIES[a] && CITIES[a].region, rb = CITIES[b] && CITIES[b].region; if (regs.includes(ra) || regs.includes(rb)) m *= 1 + 0.10 * s; }); } catch (e) {} return m; }
+  /* rival airlines fly freight too: each rival takes a slice of any corridor touching its hub or its routes */
+  function rivalShare(a, b){ const S = st(); let share = 0; ((S && S.competitors) || []).forEach(r => { const hub = r.hub === a || r.hub === b;
+      const onRoute = (r.routeList || []).some(x => { const f = Array.isArray(x.from) ? x.from[0] : x.from, t = Array.isArray(x.to) ? x.to[0] : x.to; return (f === a && t === b) || (f === b && t === a); });
+      if (onRoute) share += 0.30 * (0.6 + 0.6 * (r.aggression || 0.5)); else if (hub) share += 0.12 * (0.6 + 0.6 * (r.aggression || 0.5)); }); return Math.min(0.7, share); }
   /* monthly freight demand on corridor a<->b (both directions), tonnes, split by commodity */
   function demand(a, b){ const ca = CITIES[a], cb = CITIES[b]; if (!ca || !cb) return { total:0, by:{}, sellable:0, yield:0 };
     const dist = getDistance(a, b);
     const base = Math.sqrt((ca.econ || 40) * (cb.econ || 40)) * 6.0 * (1 + ((ca.pop || 1) + (cb.pop || 1)) / 40) * (ca.region === cb.region ? 0.8 : 1.0) * (dist < 300 ? 0.25 : 1) * 2;
     const dd = 1 / (1 + dist / 9000); const fx = techFx(); const mix = mixFor(a, b); const c = C();
-    const by = {}; let total = 0, sellable = 0, revPerT = 0;
-    Object.keys(mix).forEach(k => { const t = base * dd * mix[k] * season(k) * eventMult(a, b, k) * macroMult() * fx.demand; by[k] = t; total += t;
-      if (certified(k)) { sellable += t; revPerT += t * COMK[k].rate * c.spot[k] * (fx.yield[k] || 1); } });
-    return { total, by, sellable, mix, yield: sellable ? revPerT / sellable : 0, dist }; }
+    const by = {}; let total = 0, sellable = 0, revPerT = 0; const rs = rivalShare(a, b), am = allianceMult(a, b), df = diff().rate;
+    Object.keys(mix).forEach(k => { const t = base * dd * mix[k] * season(k) * eventMult(a, b, k) * macroMult() * fx.demand * am; by[k] = t; total += t;
+      if (certified(k)) { const tt = t * (1 - rs); sellable += tt; revPerT += tt * COMK[k].rate * c.spot[k] * (fx.yield[k] || 1) * df; } });
+    return { total, by, sellable, mix, yield: sellable ? revPerT / sellable : 0, dist, rival: total * rs, rivalShare: rs, alliance: am }; }
   function hubLevel(city){ const S = st(); const inv = ((S && S.cityInvestments) || {})[city] || {}; return (inv.cargo_hub || {}).level || 0; }
   function hubCap(city){ const lv = clamp(hubLevel(city), 0, CAT.hubTonnes.length - 1); return CAT.hubTonnes[lv] * techFx().hub; }
   function laneCapacity(l){ return payload(l.plane) * (l.flights || 0) * W * 0.9 * 2 * techFx().cap; }
@@ -121,8 +130,9 @@
     const ks = Object.keys(d.by).sort((a, b) => d.by[b] - d.by[a]); let k = ks[0];
     if (kind === 'mail') k = 'mail'; else if (kind === 'int') k = 'exp'; else if (kind === 'chr') k = pick(['hvy','gen','per','dg','aut']);
     const c = COMK[k]; const tons = Math.max(10, Math.round(d.total * rnd(K.share[0], K.share[1]) / 10) * 10);
-    const rate = r2(c.rate * C().spot[k] * rnd(K.rate[0], K.rate[1])); const term = Math.round(rnd(K.term[0], K.term[1]));
-    const o = { id:'c' + Date.now().toString(36) + Math.floor(Math.random() * 1e4).toString(36), kind, who:pick(CAT.shippers[kind]), from, to, k, tons, term, rate, pen:r2(tons * rate / 1000 * K.pen), expires:Math.round(rnd(K.expires[0], K.expires[1])) };
+    const who = pick(CAT.shippers[kind]); const trust = clamp((C().rep[who] || 0), -4, 6);
+    const rate = r2(c.rate * C().spot[k] * rnd(K.rate[0], K.rate[1]) * diff().rate * (1 + 0.025 * trust)); const term = Math.round(rnd(K.term[0], K.term[1]));
+    const o = { id:'c' + Date.now().toString(36) + Math.floor(Math.random() * 1e4).toString(36), kind, who, from, to, k, tons, term, rate, pen:r2(tons * rate / 1000 * K.pen * diff().pen), expires:Math.round(rnd(K.expires[0], K.expires[1])), trust };
     if (kind === 'chr') { o.lifts = tons > 120 ? 2 : 1; o.title = 'Charter: ' + from + ' → ' + to; o.note = pick(['Relief supplies — prestige on completion.','Oversize pallets. Hard deadline.','Event freight, one lift, no second chances.','Project cargo for a plant build.']); }
     else if (kind === 'int') { o.title = 'Overnight express: ' + from + ' ↔ ' + to; o.note = 'Departs 23:00–01:00. Integrator supplies ULDs. Volume grows 8 %/yr.'; }
     else if (kind === 'mail') { o.title = 'Mail: ' + from + ' ↔ ' + to; o.note = 'Low yield, never fails. Fits belly or narrowbody capacity.'; }
@@ -224,7 +234,7 @@
   function market(limit){ const S = st(); const hubs = (S && S.hubs) || []; const rows = []; const seen = {};
     const cands = Object.keys(CITIES).filter(c => (CITIES[c].econ || 0) >= 50);
     hubs.forEach(h => cands.forEach(t => { if (t === h) return; const key = [h, t].sort().join('|'); if (seen[key]) return; seen[key] = 1; const d = demand(h, t); const l = laneFor(h, t); const served = l ? (l.tons || 0) : 0;
-      rows.push({ from:h, to:t, demand:Math.round(d.total), sellable:Math.round(d.sellable), served, unserved:Math.round(Math.max(0, d.sellable - served)), yield:r2(d.yield), mix:d.mix, dist:d.dist, hot: C().events.some(e => e.a === h || e.a === t || e.b === h || e.b === t), lane:!!l }); }));
+      rows.push({ from:h, to:t, demand:Math.round(d.total), sellable:Math.round(d.sellable), rival:Math.round(d.rival || 0), served, unserved:Math.round(Math.max(0, d.sellable - served)), yield:r2(d.yield), mix:d.mix, dist:d.dist, hot: C().events.some(e => e.a === h || e.a === t || e.b === h || e.b === t), lane:!!l }); }));
     rows.sort((a, b) => b.unserved - a.unserved); return rows.slice(0, limit || 40); }
   function plan(from, to){ const d = demand(from, to); const un = Math.max(0, d.sellable - (laneFor(from, to) ? laneFor(from, to).tons || 0 : 0)); const dist = d.dist;
     const cands = Object.keys(FR).filter(m => FR[m].range >= dist && (fleetEntry(m).owned > 0 || (listedFreighter(m) && !FR[m].convOnly))).map(m => ({ model:m, payload:FR[m].payload, owned:fleetEntry(m).owned - fleetEntry(m).assigned, cost:FR[m].cost }));
@@ -260,5 +270,5 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install); else install();
 
   window.AECargo = { C, lanes, FR, COM, COMK, CAT, techFx, certified, certName, isFreighter, spec, payload, ident, hero, listedFreighter, fleetEntry, freeCount, fleetList, freighterCount, laneAircraftChoices,
-    demand, estimate, mixFor, hubLevel, hubCap, laneCapacity, reservedOn, laneFor, offerCheck, accept, cancel, refreshOffers, convFee, convMonths, convert, buy, sell, openLane, closeLane, setFlights, swapPlane, market, plan, tick, version:'v01' };
+    demand, estimate, mixFor, hubLevel, diff, rivalShare, allianceMult, trust:who => clamp((C().rep[who] || 0), -4, 6), hubCap, laneCapacity, reservedOn, laneFor, offerCheck, accept, cancel, refreshOffers, convFee, convMonths, convert, buy, sell, openLane, closeLane, setFlights, swapPlane, market, plan, tick, version:'v01' };
 })();

@@ -136,3 +136,5 @@
 .modal-cargo .cg-ev .e.quiet{border-color:var(--ae-nm-edge,rgba(77,164,225,.26));color:var(--ae-nm-muted,#9db0ca)}
 .modal-cargo .cg-ev .e b{display:block;font-size:12px;color:#fff}
 @media(max-width:1000px){.modal-cargo .cg-main{grid-template-columns:1fr}.modal-cargo .cg-main.contracts{grid-template-columns:1fr}.modal-cargo .cg-kpi{display:none}}
+.modal-cargo .cg-trust{display:inline-flex;gap:2px;margin-left:6px;vertical-align:middle}.modal-cargo .cg-trust i{width:6px;height:6px;border-radius:2px;background:rgba(255,255,255,.12);display:inline-block}.modal-cargo .cg-trust i.on{background:var(--ae-nm-teal,#4de0ba)}
+.modal-cargo .cg-bar b.rv{position:absolute;top:0;bottom:0;background:rgba(157,102,255,.55)}

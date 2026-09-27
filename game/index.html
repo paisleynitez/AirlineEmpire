@@ -70,8 +70,8 @@
 <link rel="stylesheet" href="css/hr-window-v02.css?v=1">
 <link rel="stylesheet" href="css/buy-aircraft-v04.css?v=2">
 <link rel="stylesheet" href="css/fleet-page-v118.css?v=2">
-<link rel="stylesheet" href="css/cargo-window-v01.css?v=3">
-<link rel="stylesheet" href="css/map-vibrance-v01.css?v=2">
+<link rel="stylesheet" href="css/cargo-window-v01.css?v=4">
+<link rel="stylesheet" href="css/map-vibrance-v01.css?v=3">
 </head>
 <body class="ae-executive-command">
 
@@ -715,8 +715,8 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <!-- FLEET_PAGE_v118: Fleet & Aircraft page condensed onto the sitewide skin (fixed compact frame, line icons, labeled actions; selling stays on the page) -->
 <script defer src="./js/patches/fleet_page_v118.js?v=2"></script>
 <!-- CARGO_v01: freight economy (demand model, freighter fleet, conversions, belly cargo, contract board, market events, Cargo & Freight tech track) + Cargo Network window -->
-<script defer src="./js/patches/cargo_engine_v01.js?v=4"></script>
-<script defer src="./js/patches/cargo_window_v01.js?v=4"></script>
+<script defer src="./js/patches/cargo_engine_v01.js?v=5"></script>
+<script defer src="./js/patches/cargo_window_v01.js?v=5"></script>
 
 <!-- POPUP_RESIZE_v01 — every popup window: lower-right resize grip only,
      minimum = opened size (content never malforms), capped maximum,
@@ -736,6 +736,8 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <!-- RESEARCH_REDIRECT_v01: TEMPORARY — sidebar Research opens RESEARCH & UPGRADES directly (skips the Research Hub page). Delete this line to restore. -->
 <!-- RESEARCH_BOARD_v01: real research system + Tech Board window; sidebar Research opens it (wraps the redirect above). -->
 <script defer src="./js/patches/research_board_v01.js?v=2"></script>
+<!-- RESEARCH_TWEAKS_v01: third research slot at track level 3; freighters earn research points -->
+<script defer src="./js/patches/research_tweaks_v01.js?v=1"></script>
 
 <!-- MARKETING_CENTER_v01: Advertising window re-rendered as the Marketing Center concept; gameplay functions untouched -->
 <script defer src="./js/patches/marketing_center_v01.js?v=9"></script>
@@ -760,7 +762,7 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <!-- NIGHT_MAP_v01: NASA Black Marble night texture replaces the daytime satellite base (fetched once, cached in localStorage) -->
 <script defer src="./js/patches/night_map_v01.js"></script>
 <!-- MAP_VIBRANCE_v01: day/night terminator, city lights, hub halos, flowing routes, ocean sheen, vignette, richer colour grade -->
-<script defer src="./js/patches/map_vibrance_v01.js?v=2"></script>
+<script defer src="./js/patches/map_vibrance_v01.js?v=3"></script>
 <!-- MARKET_INTEL_v01: implements the stubbed openMarketIntel — Market Intelligence window (real-data opportunity scoring; no fake systems) -->
 <script defer src="./js/patches/market_intel_v01.js?v=2"></script>
 <!-- DEV_BOOTSTRAP_v112: development tools load only after explicit ?dev=1 opt-in. -->
