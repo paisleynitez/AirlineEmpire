@@ -1807,9 +1807,20 @@ function aeCompDots(name, c) {
 function aeCityThumbSVG(name, region) {
   const skyline = window.AECitySkylineManifest && window.AECitySkylineManifest.get(name);
   if (skyline && skyline.src) {
-    return `<img class="ae4-thumb ae4-thumb-photo" src="${skyline.src}" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">${aeCityThumbFallbackSVG(name, region, true)}`;
+    // PERF: the procedural fallback skyline (AECityRenderer.render, ~49 landmark shapes) used to
+    // be generated for every card up front and left hidden in the DOM even when the real photo
+    // loaded fine. On screens with many city cards (Slot Negotiations / Airports tab) that meant
+    // dozens to 80+ wasted full landmark drawings on every single render. Now it's only built if
+    // the photo actually fails to load.
+    return `<img class="ae4-thumb ae4-thumb-photo" src="${skyline.src}" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="aeCityThumbPhotoFailed(this,'${name.replace(/'/g,"\\'")}','${region}')">`;
   }
   return aeCityThumbFallbackSVG(name, region, false);
+}
+function aeCityThumbPhotoFailed(img, name, region) {
+  if (!img || img.dataset.aeFallbackApplied) return;
+  img.dataset.aeFallbackApplied = '1';
+  img.insertAdjacentHTML('afterend', aeCityThumbFallbackSVG(name, region, false));
+  img.style.display = 'none';
 }
 function aeCityThumbFallbackSVG(name, region, hidden) {
   const hiddenStyle = hidden ? ' style="display:none"' : '';
@@ -2545,7 +2556,7 @@ const GUIDE_CONTENT = {
           ['📊','Load Factor',     'economics', 'Seats with passengers ÷ total seats × 100. 100% = full, 0% = empty. Aim for 75–85% on profitable routes.'],
           ['📉','Breakeven Load',  'economics', 'Minimum load % to cover all costs. Shown as the amber marker on route load bars.'],
           ['💵','Reference Fare',  'economics', 'Expected fare for that distance ($65 + $0.048/mi). Demand falls sharply when you price above it.'],
-          ['📈','Fare Elasticity', 'economics', 'A 10% fare hike cuts demand ~8.5%. A 10% cut grows it. Price near the reference fare to stay full.'],
+          ['📈','Fare Elasticity', 'economics', 'A 10% fare hike cuts demand ~10%; a 10% cut grows it ~13%. Price near the reference fare to stay full.'],
           ['🚪','Hub Gate',        'operations','One gate = one route from this hub. Capacity = 16 + city level × 2. At 95%+, costs spike severely.'],
           ['⏳','Route Maturity',  'operations','New routes start at 78% potential demand and ramp to 100% over 6 months. Be patient early on.'],
           ['💎','Loyalty Factor',  'operations','Routes with >60% avg load earn up to +8% extra demand from repeat passengers over time.'],
@@ -4214,7 +4225,7 @@ function openCityModal(name) {
     const canBuildHub = !isHub && !isHome && c.major &&
       STATE.routes.some(r=>r.to===name||r.from===name);
     const hubCost = Math.round(((c.econ+c.tourism)*0.7+25) * (1 - execBonus('strategy','hubCut')));
-    const negCost  = Math.round((c.econ+c.tourism)*0.25+4);
+    const negCost  = slotNegotiationCost(c);   // SKYLINE_ECON_v01
     let html = `<div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:12px">
       Investments and opportunities at <b style="color:var(--text)">${name}</b>.
     </div>`;
@@ -5923,7 +5934,14 @@ const ECON = {
   distDecay: 8500,     // longer pairs thin out: factor = 1/(1+dist/distDecay)
   refFareBase: 130,
   refFareDist: 0.09,   // ref fare grows ~$90 per 1000mi — calibrated to real-world domestic/intl fares
-  fareElastic: 0.85,
+  fareElastic: 1.15,   // SKYLINE_ECON_v01: true price elasticity — demand × (fare/ref)^-elastic (was linear 0.85)
+  // SKYLINE_ECON_v01: condition-driven incident risk. Multiplier on incident odds by fleet-health band.
+  // Flat-ish above 70%, steepening below, cliff under 30%. 50% health = today's baseline (1.0).
+  conditionRisk: [[90,0.3],[80,0.45],[70,0.6],[60,0.8],[50,1.0],[40,1.3],[30,1.7],[0,3.0]],
+  facilityPerSeat: 220,     // SKYLINE_ECON_v01: $/owned seat/month for gates, hangars, ground kit (idle seats included)
+  facilityScaleSeats: 6000, // SKYLINE_ECON_v01: facility bill grows by (1 + seats/this) — big fleets need big yards
+  slotCostBase: 4,          // SKYLINE_ECON_v01: $M floor for a slot negotiation
+  slotCostLevelSq: 1.2,     // SKYLINE_ECON_v01: $M × city level² — big airports are disproportionately dear
   overpriceSpill: 0.7,   // OVERPRICE_SPILL_v01: fares above market suppress realized fill: fill = 1 - (fare/ref - 1)*spill
   overpriceFloor: 0.3,   // OVERPRICE_SPILL_v01: fill never drops below this from overpricing alone
   // BULK_DISCOUNT_v01: volume discounts on aircraft purchases, per airframe class.
@@ -5969,6 +5987,38 @@ const ECON = {
   intelHeavyShare: 0.32, // network-average demand-loss share above which the competitive picture reads "CONTESTED"
   commSpillShare: 0.12,  // Commercial/Demand: route demand-spill share (turned-away pax / demand) above which a route is flagged
 };
+// ── SKYLINE_ECON_v01 helpers ──────────────────────────────────────────────
+// Fare → demand multiplier. Constant-elasticity curve, clamped to the historic 0.12–1.75 band.
+function fareDemandMult(fare, refFare){
+  const E = ECON;
+  if(!(refFare > 0) || !(fare > 0)) return 1;
+  return Math.max(0.12, Math.min(1.75, Math.pow(fare / refFare, -E.fareElastic)));
+}
+// Fleet-health → incident-risk multiplier (see ECON.conditionRisk).
+function conditionRiskMult(health){
+  const t = ECON.conditionRisk || [];
+  const h = Number.isFinite(health) ? health : 100;
+  for(const [min, mult] of t){ if(h >= min) return mult; }
+  return t.length ? t[t.length-1][1] : 1;
+}
+// Monthly facility bill ($M) across every owned seat, assigned or parked.
+function facilityMonthlyCost(){
+  const E = ECON;
+  let seats = 0;
+  Object.entries(STATE.planes||{}).forEach(([n,p])=>{
+    const owned = p.owned||0; if(owned<=0) return;
+    const a = AIRCRAFT[n] || p;
+    seats += (a.seats||p.seats||0) * owned;
+  });
+  if(seats<=0) return 0;
+  return seats * E.facilityPerSeat * (1 + seats/E.facilityScaleSeats) / 1e6;
+}
+// Slot negotiation price ($M) — grows with the square of city level.
+function slotNegotiationCost(ci){
+  const E = ECON;
+  const lvl = Math.max(1, (ci && ci.level) || 1);
+  return Math.round(E.slotCostBase + E.slotCostLevelSq * lvl * lvl);
+}
 const BOARD_ROLES = {
   cfo: {
     name: 'Chief Financial Officer', short: 'CFO', icon: '🏦', cls: 'qb-role-cfo',
@@ -7496,7 +7546,7 @@ function processRoute(r) {
   demand *= regionDemandMult(ct.region);                    // regional capital projects (mega-hub, lounge, marketing)
   if (cf.region !== ct.region) demand *= regionDemandMult(cf.region);
   const refFare = E.refFareBase + dist*E.refFareDist;
-  const fareAdj = Math.max(0.12, Math.min(1.75, 1 + (refFare - r.fare)/refFare * E.fareElastic));
+  const fareAdj = fareDemandMult(r.fare, refFare);   // SKYLINE_ECON_v01
   demand *= fareAdj;
   const rivals = Math.max(0, STATE.competitors.filter(c=>c.regionsEntered.includes(ct.region)).length - aeAllianceRivalExempt(ct.region));  // ALLIANCES_v01: regional partners don't split you
   const rivalSplitEff = E.rivalSplit * (1 - execBonus('strategy','rivalShield')) * (1 - regionRivalShield(ct.region));
@@ -7708,7 +7758,7 @@ function maintTick() {
     if (maintIsGrounded(planeName)) return;
 
     // Incident probability: low health + high age + active = more likely
-    const healthFactor = Math.max(0.3, (100 - h.health) / 100);
+    const healthFactor = conditionRiskMult(h.health) * 0.5;   // SKYLINE_ECON_v01: banded curve; 50% health ≈ old baseline
     const ageFactor    = 1 + Math.min(1.8, designYrs2 * 0.09);
 
     for (const inc of MAINTENANCE_INCIDENTS) {
@@ -8325,12 +8375,15 @@ function endTurn() {
   // Aircraft lease payments (monthly)
   const _leaseCost = runEndTurnStep('Aircraft lease calculation', () => (typeof leaseMonthlyCost==='function' ? leaseMonthlyCost() : 0) * _mpt) || 0;
   if (_leaseCost > 0) { STATE.cash -= _leaseCost; expenses += _leaseCost; }
+  // SKYLINE_ECON_v01: facilities — gates, hangars, ground equipment per owned seat
+  const _facCost = runEndTurnStep('Facility upkeep', () => facilityMonthlyCost() * _mpt) || 0;
+  if (_facCost > 0) { STATE.cash -= _facCost; expenses += _facCost; }
   { // ── capture realised cash flow for the Budget panel ──
     const _mCost = (STATE._maintTotalCost||0) - _maintStart;
     let _invI=0; Object.values(STATE.cityInvestments||{}).forEach(bld=>{ (typeof CITY_BUILDINGS!=='undefined'?CITY_BUILDINGS:[]).forEach(def=>{ const lv=(bld[def.id]||{}).level||0; if(def.passiveIncome&&lv>0) _invI+=def.passiveIncome*lv; }); });
     let _spI=0; Object.values(STATE.sponsorships||{}).forEach(sp=>{ if(sp.monthsLeft>0&&sp.monthlyReturn>0) _spI+=sp.monthlyReturn; });
     const _inc=[['Routes',_cfRoutesRev0*_mpt],['Businesses',bizIncome],['Cargo',cargoIncome],['Investments',_invI],['Sponsorships',_spI]].filter(x=>Math.abs(x[1])>0.001);
-    const _exp=[['Route ops',_cfRoutesCost0*_mpt],['Department spending',_cfBudget0*_mpt],['Hub overhead',_cfHub0*_mpt],['Loan interest',_cfInt0*_mpt],['Advisor salaries',_cfBoard0*_mpt],['Maintenance & repairs',_mCost],['Insurance',_insCost],['Aircraft leases',(typeof leaseMonthlyCost==='function'?leaseMonthlyCost()*_mpt:0)]].filter(x=>Math.abs(x[1])>0.001);
+    const _exp=[['Route ops',_cfRoutesCost0*_mpt],['Department spending',_cfBudget0*_mpt],['Hub overhead',_cfHub0*_mpt],['Loan interest',_cfInt0*_mpt],['Advisor salaries',_cfBoard0*_mpt],['Maintenance & repairs',_mCost],['Insurance',_insCost],['Aircraft leases',(typeof leaseMonthlyCost==='function'?leaseMonthlyCost()*_mpt:0)],['Facilities',_facCost]].filter(x=>Math.abs(x[1])>0.001);
     const _iT=_inc.reduce((a,x)=>a+x[1],0), _eT=_exp.reduce((a,x)=>a+x[1],0);
     const _realNet = STATE.cash - _cashStart, _other = _realNet - (_iT - _eT);
     if (_other > 0.05) _inc.push(['Other / adjustments', _other]); else if (_other < -0.05) _exp.push(['Other / adjustments', -_other]);
@@ -11967,7 +12020,7 @@ function updateRoutePreview(){
     const rivals = STATE.competitors.filter(c=>c.regionsEntered.includes(ct.region)).length;
     estDemand *= 1/(1+rivals*E.rivalSplit);
     const refFare = E.refFareBase + dist*E.refFareDist;
-    estDemand *= Math.max(0.12, Math.min(1.75, 1+(refFare-fare)/refFare*E.fareElastic));
+    estDemand *= fareDemandMult(fare, refFare);   // SKYLINE_ECON_v01
   }
   // OVERPRICE_SPILL_v01: preview mirrors the tick's overprice fill suppression
   const refFareP = E.refFareBase + dist*E.refFareDist;
@@ -13284,8 +13337,11 @@ function buyBiz(name, city, stake){
 let _negRegion = 'ALL';
 let _negSubregion = {};
 let _negOpen = {};
+const NEG_PAGE_SIZE = 24; // PERF: city cards revealed per open region before "Show more" is needed
+let _negRevealCount = {}; // PERF: per-region reveal count for Slot Negotiations paging
 let _negPreselectCity = null; // city to jump to when opening from city modal
 function negToggleRegion(reg, cur){ _negOpen[reg] = !cur; negRerender(); }
+function negShowMore(reg){ _negRevealCount[reg] = (_negRevealCount[reg] || NEG_PAGE_SIZE) + NEG_PAGE_SIZE; negRerender(); }
 function setNegSubregion(reg, key){ _negSubregion[reg] = key; _negPending = null; negRerender(); }
 function setNegRegion(r){
   _negRegion = r;
@@ -13342,7 +13398,7 @@ function buildNegotiations(){
   }
 
   function cityCard([c, ci], idx) {
-    const cost = Math.round((ci.econ + ci.tourism) * 0.25 + 4);
+    const cost = slotNegotiationCost(ci);   // SKYLINE_ECON_v01
     const estRev = Math.round((ci.econ + ci.tourism) * 0.25 + ci.pop * 0.5);
     const neg = STATE.negotiating[c];
     const hasRoute = STATE.routes.some(r=>r.from===c||r.to===c);
@@ -13475,6 +13531,15 @@ function buildNegotiations(){
       for(const s of subs) if(s.test(ci.lat,ci.lon,cn)) return s.key===activeSub;
       return false;
     }) : list;
+    // PERF: cap how many full city cards render per open region instead of building all of them
+    // (e.g. N America alone runs ~88 cities) on every single click. "Show more" reveals another
+    // page; nothing above the cap is generated until asked for.
+    const revealCount = open ? (_negRevealCount[reg] || NEG_PAGE_SIZE) : 0;
+    const visibleList = filteredList.slice(0, revealCount);
+    const remaining = filteredList.length - visibleList.length;
+    const showMoreHtml = remaining > 0
+      ? `<div style="text-align:center;margin:6px 0 4px"><button class="action-btn" style="padding:9px 18px;font-size:12px" onclick="event.stopPropagation();negShowMore('${reg}')">Show more (${remaining} left)</button></div>`
+      : '';
     return `<div style="margin-bottom:9px;border:1px solid var(--border);border-radius:10px;overflow:hidden">
       <div onclick="negToggleRegion('${reg}',${open})" style="display:flex;align-items:center;gap:9px;padding:11px 13px;cursor:pointer;border-left:3px solid ${rc};background:${open?'rgba(255,255,255,0.03)':'transparent'}">
         <span style="display:inline-block;transform:rotate(${open?90:0}deg);transition:transform .15s;color:${rc};font-size:16.9px;font-weight:700;line-height:1">\u203a</span>
@@ -13482,7 +13547,7 @@ function buildNegotiations(){
         ${yr?`<span style="font-size:10.2px;background:rgba(167,137,255,0.12);color:#fff;padding:1px 6px;border-radius:4px;font-weight:700">\u2708 ${yr}</span>`:''}
         <span style="margin-left:auto;font-size:11.3px;color:var(--muted2);background:rgba(255,255,255,0.06);padding:2px 9px;border-radius:10px">${list.length} cit${list.length!==1?'ies':'y'}</span>
       </div>
-      ${open?`<div style="padding:10px 12px 3px">${subTabsHtml}${filteredList.map((item,i)=>cityCard(item,i)).join('')}</div>`:''}
+      ${open?`<div style="padding:10px 12px 3px">${subTabsHtml}${visibleList.map((item,i)=>cityCard(item,i)).join('')}${showMoreHtml}</div>`:''}
     </div>`;
   }).join('');
   return modalHead('🤝 SLOT NEGOTIATIONS') + `<div class="modal-body">
@@ -13550,7 +13615,7 @@ function negRerender(){
 }
 function negAsk(c){ _negPending = c; _negDone = null; negRerender(); }
 function negCancel(){ _negPending = null; negRerender(); }
-function negToggle(c){ if(STATE.negotiating[c]||STATE.slotFreeze?.[c]) return; const ci=CITIES[c]; const cost=Math.round((ci.econ+ci.tourism)*0.25+4); if(STATE.cash<cost) return; _negPending=(_negPending===c?null:c); negRerender(); }
+function negToggle(c){ if(STATE.negotiating[c]||STATE.slotFreeze?.[c]) return; const ci=CITIES[c]; const cost=slotNegotiationCost(ci); if(STATE.cash<cost) return; _negPending=(_negPending===c?null:c); negRerender(); }
 function negotiate(c,cost){
   if(STATE.cash<cost) return showFlash(`⚠ Need $${cost}M`);
   if(STATE.negotiating[c]) return showFlash('Already negotiating');
@@ -13591,6 +13656,8 @@ function budgetBreakdown(){
   if(salary>0.001) exp.push(['Board salaries', salary]);
   const ins = (typeof maintInsuranceCostPerMonth==='function'?maintInsuranceCostPerMonth():0);
   if(ins>0.001) exp.push(['Maintenance insurance', ins]);
+  const fac = facilityMonthlyCost();   // SKYLINE_ECON_v01
+  if(fac>0.001) exp.push(['Facilities', fac]);
   const incTot=inc.reduce((s,x)=>s+x[1],0), expTot=exp.reduce((s,x)=>s+x[1],0);
   return {inc, exp, incTot, expTot, net:incTot-expTot};
 }

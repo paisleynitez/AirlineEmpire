@@ -17,7 +17,7 @@
     return Object.entries(CITIES)
       .filter(([name])=>!(STATE.hubs||[]).includes(name))
       .map(([name,ci])=>{
-        const cost=Math.round((ci.econ+ci.tourism)*0.25+4);
+        const cost=(typeof slotNegotiationCost==='function')?slotNegotiationCost(ci):Math.round((ci.econ+ci.tourism)*0.25+4);   // SKYLINE_ECON_v01
         const revenue=Math.round((ci.econ+ci.tourism)*0.25+ci.pop*0.5);
         const load=Math.round((ci.econ+ci.tourism)/40);
         const active=(STATE.negotiating||{})[name]||0;
