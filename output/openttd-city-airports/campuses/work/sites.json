@@ -1,0 +1,35 @@
+[
+  {
+    "name": "Hunninghall",
+    "x": 982,
+    "y": 751,
+    "w": 28,
+    "h": 28,
+    "level": 2,
+    "source_airport": 0,
+    "town": 883,
+    "airport_type": 1
+  },
+  {
+    "name": "Pedingworth",
+    "x": 1021,
+    "y": 775,
+    "w": 28,
+    "h": 28,
+    "level": 2,
+    "source_airport": 113,
+    "town": 811,
+    "airport_type": 3
+  },
+  {
+    "name": "Wradtown",
+    "x": 920,
+    "y": 913,
+    "w": 28,
+    "h": 28,
+    "level": 1,
+    "source_airport": 177,
+    "town": 250,
+    "airport_type": 4
+  }
+]

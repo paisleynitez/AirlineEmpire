@@ -19,7 +19,7 @@
     var E = ECON;
     var dist = getDistance(from, to);
     var refFare = E.refFareBase + dist * E.refFareDist;
-    var mult = Math.max(0.12, Math.min(1.75, 1 + (refFare - fare) / refFare * E.fareElastic));
+    var mult = (typeof fareDemandMult==='function') ? fareDemandMult(fare, refFare) : Math.max(0.12, Math.min(1.75, 1 + (refFare - fare) / refFare * E.fareElastic));   // SKYLINE_ECON_v01
     var demand = (cf.pop + ct.pop) * E.demandPop + (cf.econ + ct.econ) * E.demandEcon + (cf.tourism + ct.tourism) * E.demandTour;
     demand *= 1 / (1 + dist / E.distDecay);
     demand *= seasonalFactor(ct.region, STATE.month);

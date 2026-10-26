@@ -1,0 +1,465 @@
+grf { grfid: "HCP1"; name: string(STR_GRF_NAME); desc: string(STR_GRF_DESC); version: 1; min_compatible_version: 1; }
+cargotable { PASS, MAIL, GOOD }
+spriteset(spr_skyline_hotel_0_0, "gfx/skyline_hotel.png") { [8,8,64,128,-31,-96] }
+spritelayout lay_skyline_hotel_0_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_skyline_hotel_0_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_skyline_hotel_0_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_skyline_hotel_0_0; } }
+spriteset(spr_skyline_hotel_1_0, "gfx/skyline_hotel.png") { [80,8,64,128,-31,-96] }
+spritelayout lay_skyline_hotel_1_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_skyline_hotel_1_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_skyline_hotel_1_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_skyline_hotel_1_0; } }
+spriteset(spr_skyline_hotel_2_0, "gfx/skyline_hotel.png") { [152,8,64,128,-31,-96] }
+spritelayout lay_skyline_hotel_2_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_skyline_hotel_2_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_skyline_hotel_2_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_skyline_hotel_2_0; } }
+spriteset(spr_skyline_hotel_3_0, "gfx/skyline_hotel.png") { [224,8,64,128,-31,-96] }
+spritelayout lay_skyline_hotel_3_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_skyline_hotel_3_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_skyline_hotel_3_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_skyline_hotel_3_0; } }
+spriteset(spr_skyline_hotel_0_1, "gfx/skyline_hotel.png") { [296,8,64,128,-31,-96] }
+spritelayout lay_skyline_hotel_0_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_skyline_hotel_0_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_skyline_hotel_0_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_skyline_hotel_0_1; } }
+spriteset(spr_skyline_hotel_1_1, "gfx/skyline_hotel.png") { [368,8,64,128,-31,-96] }
+spritelayout lay_skyline_hotel_1_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_skyline_hotel_1_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_skyline_hotel_1_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_skyline_hotel_1_1; } }
+spriteset(spr_skyline_hotel_2_1, "gfx/skyline_hotel.png") { [440,8,64,128,-31,-96] }
+spritelayout lay_skyline_hotel_2_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_skyline_hotel_2_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_skyline_hotel_2_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_skyline_hotel_2_1; } }
+spriteset(spr_skyline_hotel_3_1, "gfx/skyline_hotel.png") { [512,8,64,128,-31,-96] }
+spritelayout lay_skyline_hotel_3_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_skyline_hotel_3_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_skyline_hotel_3_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_skyline_hotel_3_1; } }
+spriteset(spr_skyline_hotel_0_2, "gfx/skyline_hotel.png") { [8,144,64,128,-31,-96] }
+spritelayout lay_skyline_hotel_0_2 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_skyline_hotel_0_2; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_skyline_hotel_0_2) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_skyline_hotel_0_2; } }
+spriteset(spr_skyline_hotel_1_2, "gfx/skyline_hotel.png") { [80,144,64,128,-31,-96] }
+spritelayout lay_skyline_hotel_1_2 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_skyline_hotel_1_2; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_skyline_hotel_1_2) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_skyline_hotel_1_2; } }
+spriteset(spr_skyline_hotel_2_2, "gfx/skyline_hotel.png") { [152,144,64,128,-31,-96] }
+spritelayout lay_skyline_hotel_2_2 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_skyline_hotel_2_2; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_skyline_hotel_2_2) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_skyline_hotel_2_2; } }
+spriteset(spr_skyline_hotel_3_2, "gfx/skyline_hotel.png") { [224,144,64,128,-31,-96] }
+spritelayout lay_skyline_hotel_3_2 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_skyline_hotel_3_2; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_skyline_hotel_3_2) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_skyline_hotel_3_2; } }
+spriteset(spr_skyline_hotel_0_3, "gfx/skyline_hotel.png") { [296,144,64,128,-31,-96] }
+spritelayout lay_skyline_hotel_0_3 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_skyline_hotel_0_3; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_skyline_hotel_0_3) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_skyline_hotel_0_3; } }
+spriteset(spr_skyline_hotel_1_3, "gfx/skyline_hotel.png") { [368,144,64,128,-31,-96] }
+spritelayout lay_skyline_hotel_1_3 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_skyline_hotel_1_3; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_skyline_hotel_1_3) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_skyline_hotel_1_3; } }
+spriteset(spr_skyline_hotel_2_3, "gfx/skyline_hotel.png") { [440,144,64,128,-31,-96] }
+spritelayout lay_skyline_hotel_2_3 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_skyline_hotel_2_3; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_skyline_hotel_2_3) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_skyline_hotel_2_3; } }
+spriteset(spr_skyline_hotel_3_3, "gfx/skyline_hotel.png") { [512,144,64,128,-31,-96] }
+spritelayout lay_skyline_hotel_3_3 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_skyline_hotel_3_3; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_skyline_hotel_3_3) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_skyline_hotel_3_3; } }
+tilelayout layout_skyline_hotel {
+ 0,0: tile_skyline_hotel_0_0;
+ 1,0: tile_skyline_hotel_1_0;
+ 2,0: tile_skyline_hotel_2_0;
+ 3,0: tile_skyline_hotel_3_0;
+ 0,1: tile_skyline_hotel_0_1;
+ 1,1: tile_skyline_hotel_1_1;
+ 2,1: tile_skyline_hotel_2_1;
+ 3,1: tile_skyline_hotel_3_1;
+ 0,2: tile_skyline_hotel_0_2;
+ 1,2: tile_skyline_hotel_1_2;
+ 2,2: tile_skyline_hotel_2_2;
+ 3,2: tile_skyline_hotel_3_2;
+ 0,3: tile_skyline_hotel_0_3;
+ 1,3: tile_skyline_hotel_1_3;
+ 2,3: tile_skyline_hotel_2_3;
+ 3,3: tile_skyline_hotel_3_3;
+}
+produce(tick_skyline_hotel, [], [PASS: 14; MAIL: 4;], 0)
+produce(arrival_skyline_hotel, [PASS: incoming_cargo_waiting("PASS"); MAIL: incoming_cargo_waiting("MAIL"); GOOD: incoming_cargo_waiting("GOOD");], [PASS: incoming_cargo_waiting("PASS");], 0)
+item(FEAT_INDUSTRIES, skyline_hotel, 0) { property { substitute: 0; life_type: IND_LIFE_TYPE_PROCESSING; layouts: [layout_skyline_hotel];
+ cargo_types: [accept_cargo("PASS"),accept_cargo("MAIL"),accept_cargo("GOOD"),produce_cargo("PASS",0),produce_cargo("MAIL",0)]; min_cargo_distr: 1;
+ spec_flags: 0; name: string(STR_SKYLINE_HOTEL); nearby_station_name: string(STR_SKYLINE_HOTEL); fund_cost_multiplier: 40; remove_cost_multiplier: 0; prob_map_gen: 0; prob_in_game: 0; map_colour: 0x8A;
+ } graphics { produce_cargo_arrival: arrival_skyline_hotel; produce_256_ticks: tick_skyline_hotel; monthly_prod_change: CB_RESULT_IND_PROD_NO_CHANGE; random_prod_change: CB_RESULT_IND_PROD_NO_CHANGE; } }
+spriteset(spr_grand_hotel_0_0, "gfx/grand_hotel.png") { [8,8,64,128,-31,-96] }
+spritelayout lay_grand_hotel_0_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_0_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_0_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_0_0; } }
+spriteset(spr_grand_hotel_1_0, "gfx/grand_hotel.png") { [80,8,64,128,-31,-96] }
+spritelayout lay_grand_hotel_1_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_1_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_1_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_1_0; } }
+spriteset(spr_grand_hotel_2_0, "gfx/grand_hotel.png") { [152,8,64,128,-31,-96] }
+spritelayout lay_grand_hotel_2_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_2_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_2_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_2_0; } }
+spriteset(spr_grand_hotel_3_0, "gfx/grand_hotel.png") { [224,8,64,128,-31,-96] }
+spritelayout lay_grand_hotel_3_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_3_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_3_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_3_0; } }
+spriteset(spr_grand_hotel_4_0, "gfx/grand_hotel.png") { [296,8,64,128,-31,-96] }
+spritelayout lay_grand_hotel_4_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_4_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_4_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_4_0; } }
+spriteset(spr_grand_hotel_5_0, "gfx/grand_hotel.png") { [368,8,64,128,-31,-96] }
+spritelayout lay_grand_hotel_5_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_5_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_5_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_5_0; } }
+spriteset(spr_grand_hotel_0_1, "gfx/grand_hotel.png") { [440,8,64,128,-31,-96] }
+spritelayout lay_grand_hotel_0_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_0_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_0_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_0_1; } }
+spriteset(spr_grand_hotel_1_1, "gfx/grand_hotel.png") { [512,8,64,128,-31,-96] }
+spritelayout lay_grand_hotel_1_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_1_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_1_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_1_1; } }
+spriteset(spr_grand_hotel_2_1, "gfx/grand_hotel.png") { [8,144,64,128,-31,-96] }
+spritelayout lay_grand_hotel_2_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_2_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_2_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_2_1; } }
+spriteset(spr_grand_hotel_3_1, "gfx/grand_hotel.png") { [80,144,64,128,-31,-96] }
+spritelayout lay_grand_hotel_3_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_3_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_3_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_3_1; } }
+spriteset(spr_grand_hotel_4_1, "gfx/grand_hotel.png") { [152,144,64,128,-31,-96] }
+spritelayout lay_grand_hotel_4_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_4_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_4_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_4_1; } }
+spriteset(spr_grand_hotel_5_1, "gfx/grand_hotel.png") { [224,144,64,128,-31,-96] }
+spritelayout lay_grand_hotel_5_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_5_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_5_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_5_1; } }
+spriteset(spr_grand_hotel_0_2, "gfx/grand_hotel.png") { [296,144,64,128,-31,-96] }
+spritelayout lay_grand_hotel_0_2 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_0_2; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_0_2) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_0_2; } }
+spriteset(spr_grand_hotel_1_2, "gfx/grand_hotel.png") { [368,144,64,128,-31,-96] }
+spritelayout lay_grand_hotel_1_2 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_1_2; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_1_2) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_1_2; } }
+spriteset(spr_grand_hotel_2_2, "gfx/grand_hotel.png") { [440,144,64,128,-31,-96] }
+spritelayout lay_grand_hotel_2_2 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_2_2; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_2_2) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_2_2; } }
+spriteset(spr_grand_hotel_3_2, "gfx/grand_hotel.png") { [512,144,64,128,-31,-96] }
+spritelayout lay_grand_hotel_3_2 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_3_2; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_3_2) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_3_2; } }
+spriteset(spr_grand_hotel_4_2, "gfx/grand_hotel.png") { [8,280,64,128,-31,-96] }
+spritelayout lay_grand_hotel_4_2 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_4_2; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_4_2) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_4_2; } }
+spriteset(spr_grand_hotel_5_2, "gfx/grand_hotel.png") { [80,280,64,128,-31,-96] }
+spritelayout lay_grand_hotel_5_2 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_5_2; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_5_2) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_5_2; } }
+spriteset(spr_grand_hotel_0_3, "gfx/grand_hotel.png") { [152,280,64,128,-31,-96] }
+spritelayout lay_grand_hotel_0_3 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_0_3; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_0_3) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_0_3; } }
+spriteset(spr_grand_hotel_1_3, "gfx/grand_hotel.png") { [224,280,64,128,-31,-96] }
+spritelayout lay_grand_hotel_1_3 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_1_3; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_1_3) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_1_3; } }
+spriteset(spr_grand_hotel_2_3, "gfx/grand_hotel.png") { [296,280,64,128,-31,-96] }
+spritelayout lay_grand_hotel_2_3 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_2_3; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_2_3) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_2_3; } }
+spriteset(spr_grand_hotel_3_3, "gfx/grand_hotel.png") { [368,280,64,128,-31,-96] }
+spritelayout lay_grand_hotel_3_3 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_3_3; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_3_3) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_3_3; } }
+spriteset(spr_grand_hotel_4_3, "gfx/grand_hotel.png") { [440,280,64,128,-31,-96] }
+spritelayout lay_grand_hotel_4_3 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_4_3; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_4_3) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_4_3; } }
+spriteset(spr_grand_hotel_5_3, "gfx/grand_hotel.png") { [512,280,64,128,-31,-96] }
+spritelayout lay_grand_hotel_5_3 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_grand_hotel_5_3; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_grand_hotel_5_3) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_grand_hotel_5_3; } }
+tilelayout layout_grand_hotel {
+ 0,0: tile_grand_hotel_0_0;
+ 1,0: tile_grand_hotel_1_0;
+ 2,0: tile_grand_hotel_2_0;
+ 3,0: tile_grand_hotel_3_0;
+ 4,0: tile_grand_hotel_4_0;
+ 5,0: tile_grand_hotel_5_0;
+ 0,1: tile_grand_hotel_0_1;
+ 1,1: tile_grand_hotel_1_1;
+ 2,1: tile_grand_hotel_2_1;
+ 3,1: tile_grand_hotel_3_1;
+ 4,1: tile_grand_hotel_4_1;
+ 5,1: tile_grand_hotel_5_1;
+ 0,2: tile_grand_hotel_0_2;
+ 1,2: tile_grand_hotel_1_2;
+ 2,2: tile_grand_hotel_2_2;
+ 3,2: tile_grand_hotel_3_2;
+ 4,2: tile_grand_hotel_4_2;
+ 5,2: tile_grand_hotel_5_2;
+ 0,3: tile_grand_hotel_0_3;
+ 1,3: tile_grand_hotel_1_3;
+ 2,3: tile_grand_hotel_2_3;
+ 3,3: tile_grand_hotel_3_3;
+ 4,3: tile_grand_hotel_4_3;
+ 5,3: tile_grand_hotel_5_3;
+}
+produce(tick_grand_hotel, [], [PASS: 18; MAIL: 5;], 0)
+produce(arrival_grand_hotel, [PASS: incoming_cargo_waiting("PASS"); MAIL: incoming_cargo_waiting("MAIL"); GOOD: incoming_cargo_waiting("GOOD");], [PASS: incoming_cargo_waiting("PASS");], 0)
+item(FEAT_INDUSTRIES, grand_hotel, 1) { property { substitute: 0; life_type: IND_LIFE_TYPE_PROCESSING; layouts: [layout_grand_hotel];
+ cargo_types: [accept_cargo("PASS"),accept_cargo("MAIL"),accept_cargo("GOOD"),produce_cargo("PASS",0),produce_cargo("MAIL",0)]; min_cargo_distr: 1;
+ spec_flags: 0; name: string(STR_GRAND_HOTEL); nearby_station_name: string(STR_GRAND_HOTEL); fund_cost_multiplier: 40; remove_cost_multiplier: 0; prob_map_gen: 0; prob_in_game: 0; map_colour: 0x8A;
+ } graphics { produce_cargo_arrival: arrival_grand_hotel; produce_256_ticks: tick_grand_hotel; monthly_prod_change: CB_RESULT_IND_PROD_NO_CHANGE; random_prod_change: CB_RESULT_IND_PROD_NO_CHANGE; } }
+spriteset(spr_lagoon_resort_0_0, "gfx/lagoon_resort.png") { [8,8,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_0_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_0_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_0_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_0_0; } }
+spriteset(spr_lagoon_resort_1_0, "gfx/lagoon_resort.png") { [80,8,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_1_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_1_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_1_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_1_0; } }
+spriteset(spr_lagoon_resort_2_0, "gfx/lagoon_resort.png") { [152,8,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_2_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_2_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_2_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_2_0; } }
+spriteset(spr_lagoon_resort_3_0, "gfx/lagoon_resort.png") { [224,8,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_3_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_3_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_3_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_3_0; } }
+spriteset(spr_lagoon_resort_4_0, "gfx/lagoon_resort.png") { [296,8,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_4_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_4_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_4_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_4_0; } }
+spriteset(spr_lagoon_resort_5_0, "gfx/lagoon_resort.png") { [368,8,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_5_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_5_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_5_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_5_0; } }
+spriteset(spr_lagoon_resort_0_1, "gfx/lagoon_resort.png") { [440,8,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_0_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_0_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_0_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_0_1; } }
+spriteset(spr_lagoon_resort_1_1, "gfx/lagoon_resort.png") { [512,8,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_1_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_1_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_1_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_1_1; } }
+spriteset(spr_lagoon_resort_2_1, "gfx/lagoon_resort.png") { [8,144,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_2_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_2_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_2_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_2_1; } }
+spriteset(spr_lagoon_resort_3_1, "gfx/lagoon_resort.png") { [80,144,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_3_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_3_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_3_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_3_1; } }
+spriteset(spr_lagoon_resort_4_1, "gfx/lagoon_resort.png") { [152,144,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_4_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_4_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_4_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_4_1; } }
+spriteset(spr_lagoon_resort_5_1, "gfx/lagoon_resort.png") { [224,144,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_5_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_5_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_5_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_5_1; } }
+spriteset(spr_lagoon_resort_0_2, "gfx/lagoon_resort.png") { [296,144,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_0_2 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_0_2; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_0_2) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_0_2; } }
+spriteset(spr_lagoon_resort_1_2, "gfx/lagoon_resort.png") { [368,144,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_1_2 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_1_2; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_1_2) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_1_2; } }
+spriteset(spr_lagoon_resort_2_2, "gfx/lagoon_resort.png") { [440,144,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_2_2 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_2_2; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_2_2) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_2_2; } }
+spriteset(spr_lagoon_resort_3_2, "gfx/lagoon_resort.png") { [512,144,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_3_2 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_3_2; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_3_2) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_3_2; } }
+spriteset(spr_lagoon_resort_4_2, "gfx/lagoon_resort.png") { [8,280,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_4_2 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_4_2; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_4_2) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_4_2; } }
+spriteset(spr_lagoon_resort_5_2, "gfx/lagoon_resort.png") { [80,280,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_5_2 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_5_2; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_5_2) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_5_2; } }
+spriteset(spr_lagoon_resort_0_3, "gfx/lagoon_resort.png") { [152,280,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_0_3 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_0_3; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_0_3) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_0_3; } }
+spriteset(spr_lagoon_resort_1_3, "gfx/lagoon_resort.png") { [224,280,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_1_3 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_1_3; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_1_3) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_1_3; } }
+spriteset(spr_lagoon_resort_2_3, "gfx/lagoon_resort.png") { [296,280,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_2_3 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_2_3; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_2_3) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_2_3; } }
+spriteset(spr_lagoon_resort_3_3, "gfx/lagoon_resort.png") { [368,280,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_3_3 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_3_3; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_3_3) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_3_3; } }
+spriteset(spr_lagoon_resort_4_3, "gfx/lagoon_resort.png") { [440,280,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_4_3 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_4_3; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_4_3) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_4_3; } }
+spriteset(spr_lagoon_resort_5_3, "gfx/lagoon_resort.png") { [512,280,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_5_3 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_5_3; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_5_3) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_5_3; } }
+spriteset(spr_lagoon_resort_0_4, "gfx/lagoon_resort.png") { [8,416,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_0_4 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_0_4; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_0_4) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_0_4; } }
+spriteset(spr_lagoon_resort_1_4, "gfx/lagoon_resort.png") { [80,416,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_1_4 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_1_4; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_1_4) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_1_4; } }
+spriteset(spr_lagoon_resort_2_4, "gfx/lagoon_resort.png") { [152,416,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_2_4 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_2_4; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_2_4) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_2_4; } }
+spriteset(spr_lagoon_resort_3_4, "gfx/lagoon_resort.png") { [224,416,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_3_4 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_3_4; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_3_4) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_3_4; } }
+spriteset(spr_lagoon_resort_4_4, "gfx/lagoon_resort.png") { [296,416,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_4_4 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_4_4; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_4_4) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_4_4; } }
+spriteset(spr_lagoon_resort_5_4, "gfx/lagoon_resort.png") { [368,416,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_5_4 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_5_4; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_5_4) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_5_4; } }
+spriteset(spr_lagoon_resort_0_5, "gfx/lagoon_resort.png") { [440,416,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_0_5 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_0_5; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_0_5) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_0_5; } }
+spriteset(spr_lagoon_resort_1_5, "gfx/lagoon_resort.png") { [512,416,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_1_5 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_1_5; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_1_5) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_1_5; } }
+spriteset(spr_lagoon_resort_2_5, "gfx/lagoon_resort.png") { [8,552,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_2_5 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_2_5; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_2_5) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_2_5; } }
+spriteset(spr_lagoon_resort_3_5, "gfx/lagoon_resort.png") { [80,552,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_3_5 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_3_5; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_3_5) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_3_5; } }
+spriteset(spr_lagoon_resort_4_5, "gfx/lagoon_resort.png") { [152,552,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_4_5 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_4_5; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_4_5) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_4_5; } }
+spriteset(spr_lagoon_resort_5_5, "gfx/lagoon_resort.png") { [224,552,64,128,-31,-96] }
+spritelayout lay_lagoon_resort_5_5 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_lagoon_resort_5_5; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_lagoon_resort_5_5) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_lagoon_resort_5_5; } }
+tilelayout layout_lagoon_resort {
+ 0,0: tile_lagoon_resort_0_0;
+ 1,0: tile_lagoon_resort_1_0;
+ 2,0: tile_lagoon_resort_2_0;
+ 3,0: tile_lagoon_resort_3_0;
+ 4,0: tile_lagoon_resort_4_0;
+ 5,0: tile_lagoon_resort_5_0;
+ 0,1: tile_lagoon_resort_0_1;
+ 1,1: tile_lagoon_resort_1_1;
+ 2,1: tile_lagoon_resort_2_1;
+ 3,1: tile_lagoon_resort_3_1;
+ 4,1: tile_lagoon_resort_4_1;
+ 5,1: tile_lagoon_resort_5_1;
+ 0,2: tile_lagoon_resort_0_2;
+ 1,2: tile_lagoon_resort_1_2;
+ 2,2: tile_lagoon_resort_2_2;
+ 3,2: tile_lagoon_resort_3_2;
+ 4,2: tile_lagoon_resort_4_2;
+ 5,2: tile_lagoon_resort_5_2;
+ 0,3: tile_lagoon_resort_0_3;
+ 1,3: tile_lagoon_resort_1_3;
+ 2,3: tile_lagoon_resort_2_3;
+ 3,3: tile_lagoon_resort_3_3;
+ 4,3: tile_lagoon_resort_4_3;
+ 5,3: tile_lagoon_resort_5_3;
+ 0,4: tile_lagoon_resort_0_4;
+ 1,4: tile_lagoon_resort_1_4;
+ 2,4: tile_lagoon_resort_2_4;
+ 3,4: tile_lagoon_resort_3_4;
+ 4,4: tile_lagoon_resort_4_4;
+ 5,4: tile_lagoon_resort_5_4;
+ 0,5: tile_lagoon_resort_0_5;
+ 1,5: tile_lagoon_resort_1_5;
+ 2,5: tile_lagoon_resort_2_5;
+ 3,5: tile_lagoon_resort_3_5;
+ 4,5: tile_lagoon_resort_4_5;
+ 5,5: tile_lagoon_resort_5_5;
+}
+produce(tick_lagoon_resort, [], [PASS: 24; MAIL: 6;], 0)
+produce(arrival_lagoon_resort, [PASS: incoming_cargo_waiting("PASS"); MAIL: incoming_cargo_waiting("MAIL"); GOOD: incoming_cargo_waiting("GOOD");], [PASS: incoming_cargo_waiting("PASS");], 0)
+item(FEAT_INDUSTRIES, lagoon_resort, 2) { property { substitute: 0; life_type: IND_LIFE_TYPE_PROCESSING; layouts: [layout_lagoon_resort];
+ cargo_types: [accept_cargo("PASS"),accept_cargo("MAIL"),accept_cargo("GOOD"),produce_cargo("PASS",0),produce_cargo("MAIL",0)]; min_cargo_distr: 1;
+ spec_flags: 0; name: string(STR_LAGOON_RESORT); nearby_station_name: string(STR_LAGOON_RESORT); fund_cost_multiplier: 40; remove_cost_multiplier: 0; prob_map_gen: 0; prob_in_game: 0; map_colour: 0x8A;
+ } graphics { produce_cargo_arrival: arrival_lagoon_resort; produce_256_ticks: tick_lagoon_resort; monthly_prod_change: CB_RESULT_IND_PROD_NO_CHANGE; random_prod_change: CB_RESULT_IND_PROD_NO_CHANGE; } }
+spriteset(spr_campus_mail_0_0, "gfx/campus_mail.png") { [8,8,64,128,-31,-96] }
+spritelayout lay_campus_mail_0_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_campus_mail_0_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_campus_mail_0_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_campus_mail_0_0; } }
+spriteset(spr_campus_mail_1_0, "gfx/campus_mail.png") { [80,8,64,128,-31,-96] }
+spritelayout lay_campus_mail_1_0 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_campus_mail_1_0; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_campus_mail_1_0) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_campus_mail_1_0; } }
+spriteset(spr_campus_mail_0_1, "gfx/campus_mail.png") { [152,8,64,128,-31,-96] }
+spritelayout lay_campus_mail_0_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_campus_mail_0_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_campus_mail_0_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_campus_mail_0_1; } }
+spriteset(spr_campus_mail_1_1, "gfx/campus_mail.png") { [224,8,64,128,-31,-96] }
+spritelayout lay_campus_mail_1_1 { ground { sprite: GROUNDSPRITE_NORMAL; } building { sprite: spr_campus_mail_1_1; xextent: 16; yextent: 16; zextent: 90; } }
+item(FEAT_INDUSTRYTILES, tile_campus_mail_1_1) { property { substitute: 0; accepted_cargos: [[PASS,8],[MAIL,8],[GOOD,4]]; } graphics { default: lay_campus_mail_1_1; } }
+tilelayout layout_campus_mail {
+ 0,0: tile_campus_mail_0_0;
+ 1,0: tile_campus_mail_1_0;
+ 0,1: tile_campus_mail_0_1;
+ 1,1: tile_campus_mail_1_1;
+}
+produce(tick_campus_mail, [], [PASS: 3; MAIL: 12;], 0)
+produce(arrival_campus_mail, [PASS: incoming_cargo_waiting("PASS"); MAIL: incoming_cargo_waiting("MAIL"); GOOD: incoming_cargo_waiting("GOOD");], [PASS: incoming_cargo_waiting("PASS");], 0)
+item(FEAT_INDUSTRIES, campus_mail, 3) { property { substitute: 0; life_type: IND_LIFE_TYPE_PROCESSING; layouts: [layout_campus_mail];
+ cargo_types: [accept_cargo("PASS"),accept_cargo("MAIL"),accept_cargo("GOOD"),produce_cargo("PASS",0),produce_cargo("MAIL",0)]; min_cargo_distr: 1;
+ spec_flags: 0; name: string(STR_CAMPUS_MAIL); nearby_station_name: string(STR_CAMPUS_MAIL); fund_cost_multiplier: 40; remove_cost_multiplier: 0; prob_map_gen: 0; prob_in_game: 0; map_colour: 0x8A;
+ } graphics { produce_cargo_arrival: arrival_campus_mail; produce_256_ticks: tick_campus_mail; monthly_prod_change: CB_RESULT_IND_PROD_NO_CHANGE; random_prod_change: CB_RESULT_IND_PROD_NO_CHANGE; } }
+template deptstore_tmpl_tile(n) { [8 + n * 72, 8, 64, 66, -31, -34] }
+
+spriteset(deptstore_spr_back_a,  "gfx/deptstore.png") { deptstore_tmpl_tile(0) }
+spriteset(deptstore_spr_back_b,  "gfx/deptstore.png") { deptstore_tmpl_tile(1) }
+spriteset(deptstore_spr_front_a, "gfx/deptstore.png") { deptstore_tmpl_tile(2) }
+spriteset(deptstore_spr_front_b, "gfx/deptstore.png") { deptstore_tmpl_tile(3) }
+
+spritelayout deptstore_lay_back_a  { ground { sprite: 1420; } building { sprite: deptstore_spr_back_a;  xoffset: 0; yoffset: 0; zoffset: 0; xextent: 16; yextent: 16; zextent: 34; } }
+spritelayout deptstore_lay_back_b  { ground { sprite: 1420; } building { sprite: deptstore_spr_back_b;  xoffset: 0; yoffset: 0; zoffset: 0; xextent: 16; yextent: 16; zextent: 34; } }
+spritelayout deptstore_lay_front_a { ground { sprite: 1420; } building { sprite: deptstore_spr_front_a; xoffset: 0; yoffset: 0; zoffset: 0; xextent: 16; yextent: 16; zextent: 20; } }
+spritelayout deptstore_lay_front_b { ground { sprite: 1420; } building { sprite: deptstore_spr_front_b; xoffset: 0; yoffset: 0; zoffset: 0; xextent: 16; yextent: 16; zextent: 20; } }
+
+item(FEAT_INDUSTRYTILES, deptstore_tile_back_a)  { property { substitute: 0; accepted_cargos: [[PASS, 8], [GOOD, 4]]; } graphics { default: deptstore_lay_back_a; } }
+item(FEAT_INDUSTRYTILES, deptstore_tile_back_b)  { property { substitute: 0; accepted_cargos: [[PASS, 8], [GOOD, 4]]; } graphics { default: deptstore_lay_back_b; } }
+item(FEAT_INDUSTRYTILES, deptstore_tile_front_a) { property { substitute: 0; accepted_cargos: [[PASS, 8], [GOOD, 4]]; } graphics { default: deptstore_lay_front_a; } }
+item(FEAT_INDUSTRYTILES, deptstore_tile_front_b) { property { substitute: 0; accepted_cargos: [[PASS, 8], [GOOD, 4]]; } graphics { default: deptstore_lay_front_b; } }
+
+/* 2x2 */
+tilelayout deptstore_main_layout {
+    0, 0: deptstore_tile_back_a;
+    1, 0: deptstore_tile_back_b;
+    0, 1: deptstore_tile_front_a;
+    1, 1: deptstore_tile_front_b;
+}
+
+/* Every visitor delivered goes home again later; other cargo is simply taken in. */
+produce(deptstore_on_arrival,
+    [PASS: incoming_cargo_waiting("PASS"); GOOD: incoming_cargo_waiting("GOOD");],
+    [PASS: incoming_cargo_waiting("PASS");],
+    0)
+
+/* Staff: a small steady trickle whether or not anyone is delivered. */
+produce(deptstore_on_monthly, [], [PASS: 2;], 0)
+
+item(FEAT_INDUSTRIES, deptstore, 4) {
+    property {
+        substitute: 0;
+        life_type: IND_LIFE_TYPE_PROCESSING;
+        layouts: [deptstore_main_layout];
+        cargo_types: [accept_cargo("PASS"), accept_cargo("GOOD"), produce_cargo("PASS", 0)];
+        min_cargo_distr: 1;
+        spec_flags: 0;
+        name: string(STR_DEPTSTORE);
+        nearby_station_name: string(STR_DEPTSTORE);
+        fund_cost_multiplier: 30;
+        remove_cost_multiplier: 0;
+        prob_map_gen: 0;
+        prob_in_game: 0;
+        map_colour: 0x8A;
+    }
+    graphics {
+        produce_cargo_arrival: deptstore_on_arrival;
+        produce_256_ticks: deptstore_on_monthly;
+    }
+}
+
+template grill_tmpl_tile(n) { [8 + n * 72, 8, 64, 66, -31, -34] }
+
+spriteset(grill_spr_back_a,  "gfx/grill.png") { grill_tmpl_tile(0) }
+spriteset(grill_spr_back_b,  "gfx/grill.png") { grill_tmpl_tile(1) }
+spriteset(grill_spr_front_a, "gfx/grill.png") { grill_tmpl_tile(2) }
+spriteset(grill_spr_front_b, "gfx/grill.png") { grill_tmpl_tile(3) }
+
+spritelayout grill_lay_back_a  { ground { sprite: 1420; } building { sprite: grill_spr_back_a;  xoffset: 0; yoffset: 0; zoffset: 0; xextent: 16; yextent: 16; zextent: 32; } }
+spritelayout grill_lay_back_b  { ground { sprite: 1420; } building { sprite: grill_spr_back_b;  xoffset: 0; yoffset: 0; zoffset: 0; xextent: 16; yextent: 16; zextent: 32; } }
+spritelayout grill_lay_front_a { ground { sprite: 1420; } building { sprite: grill_spr_front_a; xoffset: 0; yoffset: 0; zoffset: 0; xextent: 16; yextent: 16; zextent: 20; } }
+spritelayout grill_lay_front_b { ground { sprite: 1420; } building { sprite: grill_spr_front_b; xoffset: 0; yoffset: 0; zoffset: 0; xextent: 16; yextent: 16; zextent: 20; } }
+
+item(FEAT_INDUSTRYTILES, grill_tile_back_a)  { property { substitute: 0; accepted_cargos: [[PASS, 8], [GOOD, 4]]; } graphics { default: grill_lay_back_a; } }
+item(FEAT_INDUSTRYTILES, grill_tile_back_b)  { property { substitute: 0; accepted_cargos: [[PASS, 8], [GOOD, 4]]; } graphics { default: grill_lay_back_b; } }
+item(FEAT_INDUSTRYTILES, grill_tile_front_a) { property { substitute: 0; accepted_cargos: [[PASS, 8], [GOOD, 4]]; } graphics { default: grill_lay_front_a; } }
+item(FEAT_INDUSTRYTILES, grill_tile_front_b) { property { substitute: 0; accepted_cargos: [[PASS, 8], [GOOD, 4]]; } graphics { default: grill_lay_front_b; } }
+
+/* 2x2 */
+tilelayout grill_main_layout {
+    0, 0: grill_tile_back_a;
+    1, 0: grill_tile_back_b;
+    0, 1: grill_tile_front_a;
+    1, 1: grill_tile_front_b;
+}
+
+/* Every visitor delivered goes home again later; other cargo is simply taken in. */
+produce(grill_on_arrival,
+    [PASS: incoming_cargo_waiting("PASS"); GOOD: incoming_cargo_waiting("GOOD");],
+    [PASS: incoming_cargo_waiting("PASS");],
+    0)
+
+/* Staff: a small steady trickle whether or not anyone is delivered. */
+produce(grill_on_monthly, [], [PASS: 2;], 0)
+
+item(FEAT_INDUSTRIES, grill, 5) {
+    property {
+        substitute: 0;
+        life_type: IND_LIFE_TYPE_PROCESSING;
+        layouts: [grill_main_layout];
+        cargo_types: [accept_cargo("PASS"), accept_cargo("GOOD"), produce_cargo("PASS", 0)];
+        min_cargo_distr: 1;
+        spec_flags: 0;
+        name: string(STR_GRILL);
+        nearby_station_name: string(STR_GRILL);
+        fund_cost_multiplier: 30;
+        remove_cost_multiplier: 0;
+        prob_map_gen: 0;
+        prob_in_game: 0;
+        map_colour: 0x4A;
+    }
+    graphics {
+        produce_cargo_arrival: grill_on_arrival;
+        produce_256_ticks: grill_on_monthly;
+    }
+}

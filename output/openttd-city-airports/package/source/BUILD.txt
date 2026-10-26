@@ -1,0 +1,20 @@
+The four airport folders each contain a complete editable source:
+  <airport>.nml
+  lang/english.lng
+  gfx/<original artwork>.png
+
+Requires Python with NML 0.9.0 and Pillow installed.
+From the root of the unpacked package run:
+  python source/rebuild.py
+
+The command recompiles all four files into newgrf/airports within this package.
+It does not copy anything into OpenTTD or alter saved games.
+
+Alternatively, enter an individual airport source folder and run:
+  nmlc --grf output.grf <airport>.nml
+
+For airport_grand.nml add -c to preserve the original sprite-cropping option.
+
+Airfield movement tiles and coordinates intentionally match OpenTTD's original
+layouts. Changing runway, stand, taxiway or hangar coordinates requires matching
+aircraft movement support; those changes are not implemented by this source.

@@ -1,0 +1,28 @@
+{
+  "zip": "City-and-Major-Airports-1.0.0.zip",
+  "sha256": "e7fde1a2cc0eeeb590f5dc78aceeb5dcfb77a778180d2843d54d0384fb53b140",
+  "bytes": 959627,
+  "zip_crc_pass": true,
+  "every_packaged_file_matches": true,
+  "grf_count": 4,
+  "source_airport_count": 4,
+  "preview_image_count": 5,
+  "packaged_source_rebuild": [
+    {
+      "file": "newgrf/airports/city_metro.grf",
+      "rebuild_exact_match": true
+    },
+    {
+      "file": "newgrf/airports/city_grand.grf",
+      "rebuild_exact_match": true
+    },
+    {
+      "file": "newgrf/airports/city_skyline.grf",
+      "rebuild_exact_match": true
+    },
+    {
+      "file": "newgrf/airports/airport_grand.grf",
+      "rebuild_exact_match": true
+    }
+  ]
+}

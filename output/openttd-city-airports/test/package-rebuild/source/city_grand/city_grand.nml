@@ -1,0 +1,121 @@
+grf {
+    grfid: "HCA2";
+    name: string(STR_GRF_NAME);
+    desc: string(STR_GRF_DESC);
+    version: 1;
+    min_compatible_version: 1;
+}
+
+spriteset(sprite_tile_0_0, "gfx/airport_grand.png") { [224, 8, 64, 72, -31, -40] }
+spritelayout layout_tile_0_0 {
+    ground { sprite: 2634; }
+    building { sprite: sprite_tile_0_0; xoffset: 0; yoffset: 0; zoffset: 0; xextent: 16; yextent: 16; zextent: 40; }
+}
+item(FEAT_AIRPORTTILES, tile_0_0) {
+    property { substitute: 23; }
+    graphics { default: layout_tile_0_0; }
+}
+
+spriteset(sprite_tile_0_1, "gfx/airport_grand.png") { [296, 8, 64, 72, -31, -40] }
+spritelayout layout_tile_0_1 {
+    ground { sprite: 2634; }
+    building { sprite: sprite_tile_0_1; xoffset: 0; yoffset: 0; zoffset: 0; xextent: 16; yextent: 16; zextent: 40; }
+}
+item(FEAT_AIRPORTTILES, tile_0_1) {
+    property { substitute: 19; }
+    graphics { default: layout_tile_0_1; }
+}
+
+spriteset(sprite_tile_2_1, "gfx/airport_grand.png") { [440, 8, 64, 72, -31, -40] }
+spritelayout layout_tile_2_1 {
+    ground { sprite: 2634; }
+    building { sprite: sprite_tile_2_1; xoffset: 0; yoffset: 0; zoffset: 0; xextent: 16; yextent: 16; zextent: 40; }
+}
+item(FEAT_AIRPORTTILES, tile_2_1) {
+    property { substitute: 21; }
+    graphics { default: layout_tile_2_1; }
+}
+
+spriteset(sprite_tile_0_2, "gfx/airport_grand.png") { [368, 8, 64, 72, -31, -40] }
+spritelayout layout_tile_0_2 {
+    ground { sprite: 2634; }
+    building { sprite: sprite_tile_0_2; xoffset: 0; yoffset: 0; zoffset: 0; xextent: 16; yextent: 16; zextent: 40; }
+}
+item(FEAT_AIRPORTTILES, tile_0_2) {
+    property { substitute: 22; }
+    graphics { default: layout_tile_0_2; }
+}
+
+spriteset(sprite_tile_0_3, "gfx/airport_grand.png") { [512, 8, 64, 72, -31, -40] }
+spritelayout layout_tile_0_3 {
+    ground { sprite: 2634; }
+    building { sprite: sprite_tile_0_3; xoffset: 0; yoffset: 0; zoffset: 0; xextent: 16; yextent: 16; zextent: 40; }
+}
+item(FEAT_AIRPORTTILES, tile_0_3) {
+    property { substitute: 52; }
+    graphics { default: layout_tile_0_3; }
+}
+
+spriteset(sprite_tile_5_3, "gfx/airport_grand.png") { [152, 8, 64, 72, -31, -40] }
+spritelayout layout_tile_5_3 {
+    ground { sprite: 2634; }
+    building { sprite: sprite_tile_5_3; xoffset: 0; yoffset: 0; zoffset: 0; xextent: 16; yextent: 16; zextent: 40; }
+}
+item(FEAT_AIRPORTTILES, tile_5_3) {
+    property { substitute: 20; }
+    graphics { default: layout_tile_5_3; }
+}
+
+tilelayout airport_layout {
+    rotation: DIRECTION_NORTH;
+    0, 0: tile_0_0;
+    1, 0: 1;
+    2, 0: 25;
+    3, 0: 1;
+    4, 0: 1;
+    5, 0: 24;
+    0, 1: tile_0_1;
+    1, 1: 28;
+    2, 1: tile_2_1;
+    3, 1: 26;
+    4, 1: 0;
+    5, 1: 2;
+    0, 2: tile_0_2;
+    1, 2: 3;
+    2, 2: 27;
+    3, 2: 5;
+    4, 2: 12;
+    5, 2: 13;
+    0, 3: tile_0_3;
+    1, 3: 0;
+    2, 3: 0;
+    3, 3: 0;
+    4, 3: 0;
+    5, 3: tile_5_3;
+    0, 4: 45;
+    1, 4: 46;
+    2, 4: 46;
+    3, 4: 46;
+    4, 4: 46;
+    5, 4: 45;
+    0, 5: 18;
+    1, 5: 15;
+    2, 5: 15;
+    3, 5: 15;
+    4, 5: 15;
+    5, 5: 18;
+}
+
+item(FEAT_AIRPORTS, city_grand) {
+    property {
+        override: 3;
+        name: string(STR_AIRPORT_NAME);
+        layouts: [airport_layout];
+        years_available: [1960, 65535];
+        ttd_airport_type: AIRPORTTYPE_LARGE;
+        catchment_area: 6;
+        noise_level: 8;
+        maintenance_cost: 28;
+    }
+    graphics { additional_text: string(STR_ADDITIONAL); }
+}
