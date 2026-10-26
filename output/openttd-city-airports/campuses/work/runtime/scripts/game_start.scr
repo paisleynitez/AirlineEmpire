@@ -1,4 +1,0 @@
-script build-console.log
-debug_level script=4,grf=0,sl=0,misc=0
-unpause
-schedule on-next-calendar-month scripts/month.scr
