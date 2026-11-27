@@ -1,7 +1,6 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const http = require('node:http');
-const os = require('node:os');
 const path = require('node:path');
 const { spawn } = require('node:child_process');
 const test = require('node:test');
@@ -59,6 +58,9 @@ function createServer(){
         response.writeHead(error.code === 'ENOENT' ? 404 : 500).end();
         return;
       }
+      if (pathname === '/game/index.html' && new URL(request.url, 'http://localhost').searchParams.has('cycle')) {
+        body = Buffer.from(body.toString().replace('</body>', '<script src="/tests/fixtures/month-end-cycle.js"></script></body>'));
+      }
       response.writeHead(200, { 'Content-Type': contentType(filename) });
       response.end(body);
     });
@@ -76,8 +78,8 @@ function close(server){
   return new Promise((resolve, reject) => server.close(error => error ? reject(error) : resolve()));
 }
 
-function dumpDom(browser, url){
-  const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'airline-empire-browser-'));
+function dumpDom(browser, url, savedProfile){
+  const profile = savedProfile || fs.mkdtempSync(path.join(root, 'output-browser-'));
   return new Promise((resolve, reject) => {
     const child = spawn(browser, [
       '--headless=new',
@@ -104,12 +106,12 @@ function dumpDom(browser, url){
     child.stderr.on('data', chunk => { stderr += chunk; });
     child.once('error', error => {
       clearTimeout(timeout);
-      fs.rmSync(profile, { recursive: true, force: true });
+      if (!savedProfile) fs.rmSync(profile, { recursive: true, force: true });
       reject(error);
     });
     child.once('close', code => {
       clearTimeout(timeout);
-      fs.rmSync(profile, { recursive: true, force: true });
+      if (!savedProfile) fs.rmSync(profile, { recursive: true, force: true });
       if (code !== 0) {
         reject(new Error(`Browser exited with code ${code}: ${stderr.slice(-1200)}`));
         return;
@@ -121,7 +123,7 @@ function dumpDom(browser, url){
 
 const browser = findBrowser();
 
-test('browser runtime keeps dev controls gated until explicit opt-in', {
+test('browser runtime honors explicit dev control opt-out and opt-in', {
   skip: browser ? false : 'No supported Chromium browser found',
   timeout: 75000,
 }, async () => {
@@ -129,7 +131,7 @@ test('browser runtime keeps dev controls gated until explicit opt-in', {
   const port = await listen(server);
   try {
     const base = `http://127.0.0.1:${port}/game/`;
-    const defaultDom = await dumpDom(browser, base);
+    const defaultDom = await dumpDom(browser, `${base}?dev=0`);
     assert.match(defaultDom, /<div id="intro"/);
     assert.doesNotMatch(defaultDom, /<html[^>]*class="[^"]*ae-dev-mode/);
     assert.doesNotMatch(defaultDom, /id="dev-skip-btn"/);
@@ -140,5 +142,26 @@ test('browser runtime keeps dev controls gated until explicit opt-in', {
     assert.match(devDom, /id="dt-launch"[^>]*>.*Tune/s);
   } finally {
     await close(server);
+  }
+});
+
+
+test('month-end gameplay survives a fresh browser save/reload cycle', {
+  skip: browser ? false : 'No supported Chromium browser found',
+  timeout: 75000,
+}, async () => {
+  const server = createServer();
+  const port = await listen(server);
+  const profile = fs.mkdtempSync(path.join(root, 'output-browser-cycle-'));
+  try {
+    for (const stage of ['save', 'reload']) {
+      const dom = await dumpDom(browser, `http://127.0.0.1:${port}/game/?dev=0&cycle=${stage}`, profile);
+      const result = dom.match(/<pre id="cycle-result">([^<]*)<\/pre>/);
+      assert.ok(result, `No cycle result for ${stage}: ${dom.slice(-1500)}`);
+      assert.equal(result[1], `PASS ${stage}`, result[1]);
+    }
+  } finally {
+    await close(server);
+    fs.rmSync(profile, { recursive: true, force: true });
   }
 });

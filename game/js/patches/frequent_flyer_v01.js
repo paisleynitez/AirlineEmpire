@@ -115,19 +115,7 @@
     };
   }
 
-  // ── Tier progression: wrap endTurn to run after routes are processed ──
-  var _origEndTurn = window.endTurn;
-  if (typeof _origEndTurn === 'function') {
-    window.endTurn = function () {
-      var result = _origEndTurn.apply(this, arguments);
-      try {
-        if (window.STATE && Array.isArray(STATE.routes)) {
-          STATE.routes.forEach(updateTier);
-        }
-      } catch (e) { /* never let a tier update crash a turn */ }
-      return result;
-    };
-  }
+  // Tier progression runs in the core turn before reports, checkpoints and saving.
 
   // ── Badge injection: wrap renderRoutesList to add tier badge after each render ──
   var _origRenderRoutesList = window.renderRoutesList;

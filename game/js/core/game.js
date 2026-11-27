@@ -8321,6 +8321,7 @@ function endTurn() {
     income += res.revenue; expenses += res.cost;
     monthPax += res.pax;
   });
+  if (window.AEFF) STATE.routes.forEach(window.AEFF.updateTier);
   const _cfRoutesRev0 = income, _cfRoutesCost0 = expenses;
   let bizIncome = 0;
   const _bizBoost = 1 + execBonus('cfo','bizBoost');
@@ -8331,7 +8332,8 @@ function endTurn() {
   expenses += (STATE.hubs.length-1) * 1.2;
   expenses += loanGrossInterest() * (1 - execBonus('cfo','interestCut'));
   expenses += boardSalary();
-  expenses += (typeof projectsUpkeep==='function'?projectsUpkeep():0);  // regional project upkeep
+  const _projectUpkeep = typeof projectsUpkeep==='function' ? projectsUpkeep() : 0;
+  expenses += _projectUpkeep;  // regional project upkeep
   const _cfBudget0=((STATE.budget.repair-1)+(STATE.budget.ad-1)+(STATE.budget.service-1))*0.09, _cfHub0=Math.max(0,(STATE.hubs.length-1))*1.2, _cfInt0=loanGrossInterest()*(1-execBonus('cfo','interestCut')), _cfBoard0=boardSalary();
   Object.keys(STATE.negotiating).forEach(city => {
     STATE.negotiating[city]--;
@@ -8361,7 +8363,7 @@ function endTurn() {
   income += cargoIncome;
   STATE.cash += cargoIncome;
   STATE.profitThisYear += cargoIncome;
-  const monthProfit = income - expenses;
+  const _profitBeforeLateCosts = income - expenses;
   runEndTurnStep('Gate bids', () => tickGateBids());
   runEndTurnStep('Alliances', () => tickAlliances());
   runEndTurnStep('Timed effects', () => tickTimedEffects());
@@ -8378,15 +8380,32 @@ function endTurn() {
   // SKYLINE_ECON_v01: facilities — gates, hangars, ground equipment per owned seat
   const _facCost = runEndTurnStep('Facility upkeep', () => facilityMonthlyCost() * _mpt) || 0;
   if (_facCost > 0) { STATE.cash -= _facCost; expenses += _facCost; }
+  // Complete research after operating this period; new bonuses apply next period.
+  // Settle upkeep before profit, year-end totals, reports, checkpoints and autosaving.
+  const _researchUpkeep = window.AEResearchBoard ? window.AEResearchBoard.monthTick(_mpt) : 0;
+  expenses += _researchUpkeep;
+  STATE.cash -= _researchUpkeep;
+  const _maintenanceCost = (STATE._maintTotalCost||0) - _maintStart;
+  expenses += _maintenanceCost; // maintenance already deducted its cash during maintTick
+  const monthProfit = income - expenses;
+  STATE.profitThisYear += monthProfit - _profitBeforeLateCosts;
   { // ── capture realised cash flow for the Budget panel ──
     const _mCost = (STATE._maintTotalCost||0) - _maintStart;
     let _invI=0; Object.values(STATE.cityInvestments||{}).forEach(bld=>{ (typeof CITY_BUILDINGS!=='undefined'?CITY_BUILDINGS:[]).forEach(def=>{ const lv=(bld[def.id]||{}).level||0; if(def.passiveIncome&&lv>0) _invI+=def.passiveIncome*lv; }); });
     let _spI=0; Object.values(STATE.sponsorships||{}).forEach(sp=>{ if(sp.monthsLeft>0&&sp.monthlyReturn>0) _spI+=sp.monthlyReturn; });
     const _inc=[['Routes',_cfRoutesRev0*_mpt],['Businesses',bizIncome],['Cargo',cargoIncome],['Investments',_invI],['Sponsorships',_spI]].filter(x=>Math.abs(x[1])>0.001);
-    const _exp=[['Route ops',_cfRoutesCost0*_mpt],['Department spending',_cfBudget0*_mpt],['Hub overhead',_cfHub0*_mpt],['Loan interest',_cfInt0*_mpt],['Advisor salaries',_cfBoard0*_mpt],['Maintenance & repairs',_mCost],['Insurance',_insCost],['Aircraft leases',(typeof leaseMonthlyCost==='function'?leaseMonthlyCost()*_mpt:0)],['Facilities',_facCost]].filter(x=>Math.abs(x[1])>0.001);
-    const _iT=_inc.reduce((a,x)=>a+x[1],0), _eT=_exp.reduce((a,x)=>a+x[1],0);
+    const _exp=[['Route ops',_cfRoutesCost0*_mpt],['Department spending',_cfBudget0*_mpt],['Hub overhead',_cfHub0*_mpt],['Loan interest',_cfInt0*_mpt],['Advisor salaries',_cfBoard0*_mpt],['Maintenance & repairs',_mCost],['Insurance',_insCost],['Aircraft leases',(typeof leaseMonthlyCost==='function'?leaseMonthlyCost()*_mpt:0)],['Facilities',_facCost],['Regional project upkeep',_projectUpkeep*_mpt],['Research upgrade upkeep',_researchUpkeep]].filter(x=>Math.abs(x[1])>0.001);
+    if (window.AECargo && window.AECargo.cashflowLines) {
+      const i = _inc.findIndex(x => x[0] === 'Cargo');
+      const parts = window.AECargo.cashflowLines().map(([label, amount]) => [label, amount * _mpt]);
+      if (i >= 0 && parts.length) _inc.splice(i, 1, ...parts);
+      const penalties = (STATE.cargo.last.penalties || 0) * _mpt;
+      if (penalties) _exp.push(['Cargo contract penalties', penalties]);
+    }
+    let _iT=_inc.reduce((a,x)=>a+x[1],0), _eT=_exp.reduce((a,x)=>a+x[1],0);
     const _realNet = STATE.cash - _cashStart, _other = _realNet - (_iT - _eT);
-    if (_other > 0.05) _inc.push(['Other / adjustments', _other]); else if (_other < -0.05) _exp.push(['Other / adjustments', -_other]);
+    if (_other > 1e-9) _inc.push(['Other / adjustments', _other]); else if (_other < -1e-9) _exp.push(['Other / adjustments', -_other]);
+    _iT = _inc.reduce((a,x)=>a+x[1],0); _eT = _exp.reduce((a,x)=>a+x[1],0);
     STATE._cashflow = { label:`${MONTHS[STATE.month]} ${STATE.year}`, inc:_inc, exp:_exp, net:_realNet };
     // ⬢ dashboard strip: rolling financial history (v46)
     (STATE._finHist = STATE._finHist || []).push({ label:`${MONTHS[STATE.month].slice(0,3)} '${String(STATE.year).slice(2)}`, income:_iT, costs:_eT, net:_realNet });
@@ -8436,7 +8455,7 @@ function endTurn() {
     }
     runAdvisorReport();
   }
-  logFinance(income, expenses, monthProfit, bizIncome, cargoIncome, monthPax);
+  logFinance(income, expenses, monthProfit, bizIncome, cargoIncome, monthPax, endedMonthLabel);
   showQuarterBanner(monthProfit, monthPax, income, expenses, bizIncome, endedMonthLabel);
   // ── Resolution theatre: reveal what the pre-turn stakes resolved to ──
   try {
@@ -15397,15 +15416,16 @@ function applySave(str){
     doRender();
   }
 }
-function logFinance(income, expenses, profit, bizIncome, cargoIncome, monthPax){
+function logFinance(income, expenses, profit, bizIncome, cargoIncome, monthPax, endedMonthLabel){
   if (typeof recalcCompanyValue === 'function') recalcCompanyValue();
   STATE.financeLog = STATE.financeLog || [];
   const r2 = x => Math.round((x||0)*100)/100;
   const sum = k => (STATE.routes||[]).reduce((s,r)=>s+(r['_'+k]||0),0);
   STATE.financeLog.push({
     absMonth: STATE._absMonth||0,
-    label: `${MONTHS[STATE.month]} ${STATE.year}`,
-    month: STATE.month, year: STATE.year,
+    label: endedMonthLabel || `${MONTHS[STATE.month]} ${STATE.year}`,
+    month: endedMonthLabel ? MONTHS.indexOf(endedMonthLabel.split(' ')[0]) : STATE.month,
+    year: endedMonthLabel ? Number(endedMonthLabel.split(' ')[1]) : STATE.year,
     cash: r2(STATE.cash), value: Math.round(STATE.companyValue||0), loan: r2(STATE.loan||0),
     income: r2(income), expenses: r2(expenses), profit: r2(profit),
     routeRev: r2(income - (bizIncome||0) - (cargoIncome||0)),

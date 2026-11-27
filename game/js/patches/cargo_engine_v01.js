@@ -246,6 +246,8 @@
     const cap = laneCapacity(l); const tons = Math.min(cap, d.sellable); const rev = tons * d.yield * 1000 / 1e6; const k = costs(l, tons); const dist = d.dist;
     return { cap:Math.round(cap), tons:Math.round(tons), demand:Math.round(d.sellable), lf:cap ? tons / cap : 0, yield:r2(d.yield), rev:r2(rev), cost:r2(k.fuel + k.crew + k.handling), net:r2(rev - k.fuel - k.crew - k.handling), setup:Math.round(dist * 0.02 + 3), dist:Math.round(dist), inRange:spec(plane).range >= dist, mix:d.mix, needs:Object.keys(d.by).filter(x => !certified(x)) }; }
 
+  function cargoLines(){ const l = C().last || {}; const out = []; if (l.lanes) out.push(['Cargo lanes', l.lanes]); if (l.belly) out.push(['Belly cargo', l.belly]); if (l.contracts) out.push(['Cargo contracts', l.contracts]); if (l.charters) out.push(['Cargo charters', l.charters]); return out; }
+
   /* ── install ────────────────────────────────────────────────── */
   function install(){
     if (typeof processCargoRoutes !== 'function' || typeof STATE === 'undefined') { setTimeout(install, 200); return; }
@@ -256,11 +258,6 @@
     // so its old flat "belly-cargo revenue" is trimmed rather than paid on top of the new model.
     try { if (typeof CITY_BUILDINGS !== 'undefined') { const b = CITY_BUILDINGS.find(x => x.id === 'cargo_hub'); if (b && !b.__aeCargo) { b.__aeCargo = true; b.passiveIncome = 1.5;
       b.desc = 'Freight terminal capacity: raises how many tonnes a month this hub can move (' + CAT.hubTonnes.join(' / ') + ' t) and adds a small handling income. Belly cargo on routes through here pays on its own.'; } } } catch (e) {}
-    // Finance: split the single "Cargo" line into what the engine actually recorded this month.
-    function cargoLines(){ const l = C().last || {}; const out = []; if (l.lanes) out.push(['Cargo lanes', l.lanes]); if (l.belly) out.push(['Belly cargo', l.belly]); if (l.contracts) out.push(['Cargo contracts', l.contracts]); if (l.charters) out.push(['Cargo charters', l.charters]); return out; }
-    const oe = window.endTurn; if (typeof oe === 'function' && !oe.__aeCargo) { const w = function(){ const r = oe.apply(this, arguments);
-      try { const cf = st() && st()._cashflow; if (cf && Array.isArray(cf.inc)) { const i = cf.inc.findIndex(x => x[0] === 'Cargo'); if (i >= 0) { const l = C().last || {}; const parts = cargoLines(); if (parts.length) { cf.inc.splice(i, 1, ...parts); if (l.penalties) cf.exp.push(['Cargo contract penalties', l.penalties]); } } } } catch (e) {}
-      return r; }; w.__aeCargo = true; window.endTurn = w; }
     const ob = window.budgetBreakdown; if (typeof ob === 'function' && !ob.__aeCargo) { const w = function(){ const r = ob.apply(this, arguments);
       try { const i = r.inc.findIndex(x => /^Cargo routes/.test(x[0])); const parts = cargoLines(); const l = C().last || {};
         if (parts.length) { if (i >= 0) r.inc.splice(i, 1, ...parts); else r.inc.push(...parts); if (l.penalties) r.exp.push(['Cargo contract penalties', l.penalties]); r.incTot = r.inc.reduce((s, x) => s + x[1], 0); r.expTot = r.exp.reduce((s, x) => s + x[1], 0); r.net = r.incTot - r.expTot; } } catch (e) {}
@@ -269,6 +266,6 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install); else install();
 
-  window.AECargo = { C, lanes, FR, COM, COMK, CAT, techFx, certified, certName, isFreighter, spec, payload, ident, hero, listedFreighter, fleetEntry, freeCount, fleetList, freighterCount, laneAircraftChoices,
+  window.AECargo = { cashflowLines:cargoLines, C, lanes, FR, COM, COMK, CAT, techFx, certified, certName, isFreighter, spec, payload, ident, hero, listedFreighter, fleetEntry, freeCount, fleetList, freighterCount, laneAircraftChoices,
     demand, estimate, mixFor, hubLevel, diff, rivalShare, allianceMult, trust:who => clamp((C().rep[who] || 0), -4, 6), hubCap, laneCapacity, reservedOn, laneFor, offerCheck, accept, cancel, refreshOffers, convFee, convMonths, convert, buy, sell, openLane, closeLane, setFlights, swapPlane, market, plan, tick, version:'v01' };
 })();

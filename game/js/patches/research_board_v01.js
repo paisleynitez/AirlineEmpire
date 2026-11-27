@@ -5,8 +5,8 @@
    Engine (this file, data in js/data/researchCatalog.js):
      • STATE.research = { done:[], run:{id:monthsLeft}, owned:[] }  (lazy, save-compatible)
      • STATE.researchPoints is the balance; income each month = rpBase + rpPerAircraft × fleet + upgrade bonus
-     • endTurn wrapper: applies modifiers, then (only if the month advanced) counts down running
-       programs, completes them, pays research income, charges upgrade upkeep
+     • endTurn wrapper: applies modifiers, the core turn calls monthTick before accounting and saving
+       to advance programs, pay research income and return upgrade upkeep
      • Modifiers are applied by scaling the live tunables (ECON fuel/crew, check costs, incident odds)
        relative to the last applied multiplier, so Dev Tuner edits still stick; demand, health wear,
        grounding length and storm overflight go through small wrappers.
@@ -91,20 +91,21 @@
     const o = window.endTurn; if (typeof o !== 'function' || o.__aeRB) return;
     const w = function(){
       applyMods();
-      const S = st(); const abs0 = S ? (S._absMonth || 0) : 0;
-      const r = o.apply(this, arguments);
-      try { if (S && (S._absMonth || 0) > abs0) monthTick(); } catch (e) { console.error('[research-board] monthTick', e); }
-      return r;
+      return o.apply(this, arguments);
     }; w.__aeRB = true; window.endTurn = w;
   }
-  function monthTick(){
-    const S = st(); const r = R();
-    Object.keys(r.run).forEach(id => { r.run[id] -= 1; if (r.run[id] <= 0) { delete r.run[id]; if (!r.done.includes(id)) r.done.push(id);
-      const it = byId[id]; if (it && typeof addEvent === 'function') addEvent('good', '🔬 Research complete: ' + it.name + ' — ' + it.fxText.join(', '));
-      if (it && typeof showFlash === 'function') showFlash('🔬 ' + it.name + ' complete'); } });
-    const inc = rpIncome(); S.researchPoints = (S.researchPoints || 0) + inc;
-    const up = upkeep(); if (up > 0) { S.cash -= up; if (typeof addEvent === 'function') addEvent('neutral', '🏗 Facility upkeep: ' + fmtM(up) + ' for ' + r.owned.length + ' installed upgrade' + (r.owned.length === 1 ? '' : 's')); }
+  function monthTick(months = 1){
+    const cost = upkeep() * months;
+    for (let month = 0; month < months; month++) {
+      const S = st(); const r = R();
+      Object.keys(r.run).forEach(id => { r.run[id] -= 1; if (r.run[id] <= 0) { delete r.run[id]; if (!r.done.includes(id)) r.done.push(id);
+        const it = byId[id]; if (it && typeof addEvent === 'function') addEvent('good', '🔬 Research complete: ' + it.name + ' — ' + it.fxText.join(', '));
+        if (it && typeof showFlash === 'function') showFlash('🔬 ' + it.name + ' complete'); } });
+      const inc = rpIncome(); S.researchPoints = (S.researchPoints || 0) + inc;
+    }
+    if (cost > 0 && typeof addEvent === 'function') addEvent('neutral', '🏗 Research upgrade upkeep: ' + fmtM(cost));
     applyMods();
+    return cost;
   }
   function wrapNav(){
     const o = window.navGo; if (typeof o !== 'function' || o.__aeRB) return false;
@@ -202,6 +203,6 @@
     if (typeof o === 'function' && !o.__aeRB) { const w = function(){ const r = o.apply(this, arguments); try { applyMods(); } catch (e) {} return r; }; w.__aeRB = true; window.applySave = w; }
     try { if (st()) applyMods(); } catch (e) {}
   }
-  window.AEResearchBoard = { open, select, start, buy, mods, applyMods, rerender, version:'v01' };
+  window.AEResearchBoard = { open, select, start, buy, mods, applyMods, monthTick, rerender, version:'v01' };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
