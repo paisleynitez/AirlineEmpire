@@ -1468,6 +1468,7 @@ function defaultState() {
     profitThisYear: 0,
     firstMoves: { rung: 0, done: false }, gateBonus: {}, _lastMonthProfit: null,
     actionCap: { on: false, max: 4, used: 0 },
+    aircraftOrders: [], nextAircraftOrderId: 0,
     planes: {}, routes: [], hubs: ['Chicago'], businesses: {},
     routeSieges: {},     // ⚔ AIRLINE WAR: { 'FROM|TO': {rival, intensity 0..1, since, priceWar} }
     cityInvestments: {}, // { cityName: { buildingId: { level, purchasedMonth } } }
@@ -8426,6 +8427,7 @@ function endTurn() {
   if (STATE.month > 11) { STATE.month -= 12; STATE.year++; }  // calendar year advances on Dec->Jan
   STATE._absMonth = (STATE._absMonth||0) + _mpt;
   if (STATE._absMonth % 12 === 0) { yearEnd = true; }
+  if (window.AEAircraftOrders) window.AEAircraftOrders.deliver();
   if (STATE.month === 3 && !STATE._paisleyFired) {  // April (0-indexed) — fires once per game
     STATE._paisleyFired = true;
     addEvent('good', '🎵 PAISLEY PARK — Prince concert series, Chanhassen MN (Apr 14–21). Minneapolis routes surge!');
@@ -9359,9 +9361,10 @@ function recalcCompanyValue() {
   const paxValue    = ((STATE.totalPaxYear || STATE.paxThisYear) || 0) * 0.001;
   const hubValue    = (STATE.hubs.length - 1) * 30;
   const cashNet     = STATE.cash - STATE.loan * 0.6;
+  const orderValue = window.AEAircraftOrders ? window.AEAircraftOrders.pending().reduce((sum, order) => sum + order.totalCost, 0) : 0;
   const profitMult  = STATE.profitThisYear > 0 ? 1.15 : 0.88;   // profitable airlines worth more
   STATE.companyValue = Math.max(1, Math.round(
-    (cashNet + routeValue + fleetValue + bizValue + paxValue + hubValue) * profitMult
+    (cashNet + orderValue + routeValue + fleetValue + bizValue + paxValue + hubValue) * profitMult
   ));
   STATE.shares.price = Math.max(0.01, Math.round((STATE.companyValue / (STATE.shares.total / 1000)) * 100) / 100);
   // track price + value history for the ownership modal sparkline (keep last 24 points)
@@ -11972,7 +11975,7 @@ function buildNewRoute(preFrom, preTo){
               <div id="nr-plane-summary" class="nr-plane-summary">${nrPlaneSummary()}</div>
               <button class="nr-buy-link" onclick="openBuyPlanesForRoute(document.getElementById('r-from')?.value||'', document.getElementById('r-to')?.value||'')">＋ Buy or change aircraft type…</button>`
           : `<div class="nr-empty-aircraft">
-              <div style="color:var(--danger);font-size:12.4px;font-weight:600;margin-bottom:8px">⚠ No free aircraft — buy a plane or close a route first.</div>
+              <div style="color:var(--danger);font-size:12.4px;font-weight:600;margin-bottom:8px">⚠ No free aircraft — await delivery, lease an aircraft, or free one from a route.</div>
               ${nrPlaneList() ? `<div style="margin-bottom:9px">${nrPlaneList()}</div>` : ''}
               <button class="action-btn" style="width:100%;border-color:var(--accent);color:#fff"
                 onclick="openBuyPlanesForRoute(document.getElementById('r-from')?.value||'', document.getElementById('r-to')?.value||'')">✈ Buy Aircraft</button>
@@ -12233,7 +12236,7 @@ function buildBuyPlanesForRoute(from, to) {
           const ok = STATE.cash >= total;
           return `<button class="action-btn${ok?'':' danger'}" style="padding:4px 0;font-size:11.3px;text-align:center"
             ${ok?`onclick="buyPlaneForRoute('${n}',${q},'${from}','${to}')"` : 'disabled'}
-            title="${ok?`Buy ${q} for $${total}M`:`Need $${total}M`}">
+            title="${ok?`Order ${q} for $${total}M`:`Need $${total}M`}">
             ×${q}<br><span style="font-size:10.7px;color:${ok?'var(--muted)':'var(--danger)'}">$${total}M</span>
           </button>`;
         }).join('')}
@@ -12256,19 +12259,11 @@ function buildBuyPlanesForRoute(from, to) {
   </div>`;
 }
 function buyPlaneForRoute(name, qty, from, to) {
-  const a = AIRCRAFT[name];
-  const _bulk = bulkPlaneDiscount(name, qty);
-  const total = _bulk.total;
-  if (STATE.cash < total) return showFlash(`⚠ Need $${total}M`);
-  STATE.cash -= total;
-  if (!STATE.planes[name]) STATE.planes[name] = { ...a, owned: 0, assigned: 0 };
-  STATE.planes[name].owned += qty;
-  stampAcquisition(STATE.planes[name], qty);
-  addEvent('neutral', `Bought ${qty}× ${name} for $${total}M${_bulk.pct ? ` (bulk −${_bulk.pct}%)` : ''}`);
-  showFlash(`✓ ${qty}× ${name} acquired${_bulk.pct ? ` — ${_bulk.pct}% bulk discount` : ''} — return to route`);
-  guideStep(2);
+  const order = window.AEAircraftOrders.place(name, qty);
+  if (!order) return false;
   updateUI(); renderFleet();
   document.getElementById('modal-content').innerHTML = buildNewRoute(from, to);
+  return true;
 }
 const BP_CATEGORIES = [
   { id:'fleet',       label:'Your Fleet',    icon:'📋', sub:'Owned aircraft overview',                    types:[] },
@@ -12295,7 +12290,7 @@ function bpRangeBand(range){
 // ═══════════════════════════════════════════════════════════════════
 // FLEET & AIRCRAFT — full-page management view (dashboard mockup).
 // My Fleet + Maintenance run on REAL monthly-sim data. Leases / Orders /
-// Deliveries / Market are stubbed "coming soon" until those systems exist.
+// Orders and deliveries use the aircraft order system; Market remains a catalog link.
 // Daily metrics from the mockup are reinterpreted as MONTHLY (real meaning).
 // ═══════════════════════════════════════════════════════════════════
 let _fleetTab = 'myfleet';
@@ -12326,8 +12321,9 @@ function buildFleetPage(){
   const owned = Object.entries(STATE.planes||{}).filter(([,p])=>p.owned>0);
   const totalOwned = owned.reduce((s,[,p])=>s+(p.owned||0),0);
   const leased = Object.values(STATE.planes||{}).reduce((sm,p)=>sm+(p.leased||0),0);
-  const onOrder = 0; // orders system not built yet
-  const totalAircraft = totalOwned + leased + onOrder;
+  const onOrder = window.AEAircraftOrders.pendingCount();
+  const cargoOwned = window.AECargo ? window.AECargo.freighterCount() : 0;
+  const totalAircraft = totalOwned + leased + cargoOwned + onOrder;
 
   // footer aggregates (real)
   let totalMonthProfit = 0, totalHours = 0, ageSum = 0, ageCount = 0;
@@ -12380,12 +12376,11 @@ function buildFleetPage(){
 }
 
 function fleetTabBody(tab, owned){
+  if(tab==='orders' || tab==='deliveries') return window.AEAircraftOrders.render(tab);
   if(tab==='myfleet') return fleetMyFleetTable(owned);
   if(tab==='maint')   return fleetMaintTable(owned);
   if(tab==='leases')  return fleetLeasesTab();
   const stubs = {
-    orders:['📦','Aircraft Orders','Order aircraft with delivery lead times. This system is coming soon — for now, aircraft are acquired instantly via the Aircraft Market.'],
-    deliveries:['🚚','Deliveries','Track inbound aircraft from your orders. Available once the Orders system ships.'],
     market:['🏷','Aircraft Market','A dynamic market with changing availability and pricing. For now, use Acquire Aircraft for the full catalog.']
   };
   const [ic,t,d] = stubs[tab] || ['','',''];
@@ -12708,7 +12703,7 @@ function bpCardsForPlanes(planes) {
     const qtyBtn = q => {
       const t = a.cost * q;
       const afford = STATE.cash >= t;
-      return `<button class="bp-qbtn${q===1?' bp-qbtn-lead':''}" ${afford?`onclick="tapConfirm(this,()=>{buyPlane('${esc}',${q})},'Buy ${q}? $${t}M')"`:'disabled'}>
+      return `<button class="bp-qbtn${q===1?' bp-qbtn-lead':''}" ${afford?`onclick="tapConfirm(this,()=>{buyPlane('${esc}',${q})},'Order ${q}? $${t}M')"`:'disabled'}>
         <span class="bp-qx">×${q}</span><span class="bp-qt">$${t}M</span></button>`;
     };
     return `<div class="bp-card2${future?' bp-future':''}${owned?' bp-owned':''}" id="bpc-${n.replace(/\s/g,'_')}">
@@ -12794,7 +12789,7 @@ function buildBpFleetView(ownedFleet) {
             <span class="bp-qty-label">Buy more:</span>
             ${[1,2,3,5].map(q=>`<button class="bp-qty-btn ${(_bpQty[n]||1)===q?'bp-qty-active':''}" onclick="bpSetQty('fleet_${n.replace(/\s/g,'_')}','${n}',${q})">${q}</button>`).join('')}
             <button class="bp-buy-btn" onclick="openAcDetail('${n.replace(/'/g,"\\'")}')">
-              BUY ${_bpQty[n]||1} · $${(a.cost*(_bpQty[n]||1)).toFixed(0)}M ›
+              ORDER ${_bpQty[n]||1} · $${(a.cost*(_bpQty[n]||1)).toFixed(0)}M ›
             </button>
             ${free>0?`<button class="bp-sell-btn" onclick="tapConfirm(this,()=>{sellPlane('${n}')},'Confirm sell')">Sell 1 · $${Math.round(a.cost*0.55)}M</button>`:''}
           </div>
@@ -13034,6 +13029,7 @@ function openAcDetail(name){
       <div style="font-size:11.3px;font-weight:700;color:#fff;letter-spacing:1.4px;margin-bottom:6px">PRICING — all-in</div>
       <div style="background:var(--bg);border:1px solid var(--border);border-radius:9px;overflow:hidden;margin-bottom:6px">
         ${priceRow('Unit price', '$'+unit+'M', 'var(--accent2)')}
+        ${priceRow('Delivery lead time', window.AEAircraftOrders.leadTime(name)+' months', 'var(--accent2)')}
         ${priceRow('Resale value (each)', '$'+resale+'M', 'var(--profit)')}
         ${priceRow('Cost per seat', '$'+perSeat+'k', 'var(--muted)')}
         ${priceRow('Monthly upkeep / airframe', '$'+(leaseMo*1000).toFixed(0)+'k', 'var(--warn)')}
@@ -13054,7 +13050,7 @@ function openAcDetail(name){
         ${[1,2,3,5,10].map(q=>`<button onclick="acSetQty('${name.replace(/'/g,"\\'")}',${q})" style="flex:1;padding:5px 0;font-size:11.3px;border-radius:6px;cursor:pointer;font-weight:700;border:1px solid ${qty===q?'var(--accent)':'var(--border)'};background:${qty===q?'rgba(167,137,255,0.16)':'var(--bg2)'};color:${qty===q?'var(--accent)':'var(--muted)'}">${q}</button>`).join('')}
       </div>
       <div style="display:flex;gap:8px">
-        <button class="action-btn gold" style="flex:2;margin:0;padding:9px;font-size:13.6px" ${canBuy?'':'disabled'} onclick="tapConfirm(this,()=>{acBuy('${name.replace(/'/g,"\\'")}')},'Tap to confirm')">${shortfall>0?`Need $${shortfall}M more`:`BUY ${qty} · $${total}M`}</button>
+        <button class="action-btn gold" style="flex:2;margin:0;padding:9px;font-size:13.6px" ${canBuy?'':'disabled'} onclick="tapConfirm(this,()=>{acBuy('${name.replace(/'/g,"\\'")}')},'Tap to confirm')">${shortfall>0?`Need $${shortfall}M more`:`ORDER ${qty} · $${total}M`}</button>
         <button class="action-btn danger" style="flex:1;margin:0;padding:9px;font-size:13.6px" ${free>0?'':'disabled'} onclick="tapConfirm(this,()=>{acSell('${name.replace(/'/g,"\\'")}')},'Tap to confirm')">SELL 1 · $${resale}M</button>
       </div>
       ${free<=0&&owned>0?`<div style="font-size:10.2px;color:var(--muted2);text-align:center;margin-top:5px">All ${owned} copies are assigned to routes — unassign one to sell.</div>`:''}`}
@@ -13125,19 +13121,16 @@ function bulkPlaneDiscount(name, qty) {
   return { pct, total: Math.round(base * (1 - pct / 100)), base };
 }
 function buyPlaneQty(n, q) {
-  const a = AIRCRAFT[n], _bulk = bulkPlaneDiscount(n, q), total = _bulk.total;
-  if (STATE.cash < total) return showFlash(`⚠ Need $${total}M`);
-  if (a.era > STATE.year+3) return showFlash(`⚠ ${n} not available until ${a.era}`);
-  if(!spendAction('Buy aircraft')) return;
-  STATE.cash -= total;
-  if (!STATE.planes[n]) STATE.planes[n] = {...a, owned:0, assigned:0, leased:0};
-  STATE.planes[n].owned += q;
-  stampAcquisition(STATE.planes[n], q);
-  addEvent('neutral', `Bought ${q}× ${n} for $${total}M${_bulk.pct ? ` (bulk −${_bulk.pct}%)` : ''}`);
-  showFlash(`✓ ${q}× ${n} acquired${_bulk.pct ? ` — ${_bulk.pct}% bulk discount` : ''}`);
-  guideStep(2);
+  const order = window.AEAircraftOrders.place(n, q);
+  if (!order) return false;
   updateUI(); renderFleet();
   document.getElementById('modal-content').innerHTML = buildBuyPlanes();
+  return true;
+}
+function cancelAircraftOrder(id) {
+  if (!window.AEAircraftOrders.cancel(id)) return;
+  updateUI(); renderFleet();
+  document.getElementById('modal-content').innerHTML = buildFleetPage();
 }
 function buyPlane(n, q) { buyPlaneQty(n, q); }
 function sellPlane(n){
@@ -15061,7 +15054,7 @@ function openCargoModal() {
         <hr style="border-color:var(--border);margin:12px 0">` : ''}
       <div style="font-size:11.3px;letter-spacing:1px;color:var(--muted);margin-bottom:8px">OPEN NEW CARGO ROUTE</div>
       ${!freighters ? `<div style="background:rgba(255,200,0,0.07);border:1px solid var(--warn);border-radius:6px;padding:10px 12px;text-align:center">
-        <div style="color:var(--warn);font-size:11.9px;margin-bottom:8px">⚠ No free aircraft — buy or free up a plane first.</div>
+        <div style="color:var(--warn);font-size:11.9px;margin-bottom:8px">⚠ No free aircraft — await delivery or free up a plane first.</div>
         <button class="action-btn" style="width:100%;border-color:var(--accent);color:#fff" onclick="closeModal();openModal('buy-planes')">✈ Buy Aircraft</button>
       </div>` : `
         <div class="form-row"><label class="form-label">From (Hub)</label>

@@ -66,7 +66,8 @@
         '<div class="bp4-qrow"><div class="bp4-stepper"><button onclick="AEBuyAircraftV04.qty(-1)">−</button><span>' + q + '</span><button onclick="AEBuyAircraftV04.qty(1)">+</button></div><span class="muted">× ' + money(a.cost) + '</span></div>' +
         (tiers.length ? '<div class="bp4-ladder">' + tiers.map(t => '<span class="' + (q >= t[0] ? 'on' : '') + '">' + t[0] + '+ · −' + t[1] + '%</span>').join('') + '</div>' : '') +
         '<div class="bp4-tot"><span class="muted">Total' + (bulk.pct ? ' after ' + bulk.pct + '% off' : '') + '</span><span class="bp4-price">' + money(bulk.total) + '</span></div>' +
-        '<button class="bp4-buy"' + (can ? '' : ' disabled') + ' onclick="buyPlaneQty(\'' + jsq(n) + '\',' + q + ')">' + (fut ? 'Available in ' + a.era : cash < bulk.total ? 'Not enough cash' : 'Buy ' + q + ' ' + esc(i.name) + (q > 1 ? 's' : '')) + '</button>' +
+        '<button class="bp4-buy"' + (can ? '' : ' disabled') + ' onclick="buyPlaneQty(\'' + jsq(n) + '\',' + q + ')">' + (fut ? 'Available in ' + a.era : cash < bulk.total ? 'Not enough cash' : 'Order ' + q + ' ' + esc(i.name) + (q > 1 ? 's' : '')) + '</button>' +
+        '<span class="bp4-after muted">Delivery: ' + window.AEAircraftOrders.leadTime(n) + ' months · paid in full · refundable until delivery</span>' +
         '<span class="bp4-after muted">Cash after: ' + money(cash - bulk.total) + '</span>' +
         (o.owned ? '<button class="bp4-sell"' + (free > 0 ? '' : ' disabled') + ' onclick="tapConfirm(this,()=>{sellPlane(\'' + jsq(n) + '\')},\'Sell 1 for ' + money(a.cost * 0.55) + '?\')">Sell 1 · ' + money(a.cost * 0.55) + (free > 0 ? '' : ' (all assigned)') + '</button>' : '') +
       '</div></div></div>';

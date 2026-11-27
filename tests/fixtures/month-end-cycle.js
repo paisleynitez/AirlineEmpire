@@ -11,6 +11,7 @@ window.addEventListener('load', () => {
   AEReports.present = function(){ reportCount++; return present.apply(this, arguments); };
   const snapshot = () => JSON.stringify({
     cash: STATE.cash, month: STATE.month, year: STATE.year, abs: STATE._absMonth,
+    cargoRoutes:STATE.cargoRoutes, orders:STATE.aircraftOrders, orderSerial:STATE.nextAircraftOrderId, cargoFleet:STATE.cargo?.fleet,
     research: STATE.research, rp: STATE.researchPoints, planes: STATE.planes,
     routes: STATE.routes, finance: STATE.financeLog, flow: STATE._cashflow,
     trials:STATE.marketIntel?.trials, history: STATE._finHist, ytd: STATE.profitThisYear, thirdSlotNoted:STATE._rbThirdSlotNoted
@@ -62,6 +63,7 @@ window.addEventListener('load', () => {
       near(saved.cash, STATE.cash, 'saved cash');
       check(JSON.stringify(saved.marketIntel?.trials) === JSON.stringify(STATE.marketIntel?.trials), 'developer trial saved before advancing');
       check(JSON.stringify(saved._cashflow) === JSON.stringify(flow), 'saved breakdown differs');
+      check(JSON.stringify(saved.aircraftOrders) === JSON.stringify(STATE.aircraftOrders), 'saved order/delivery state differs');
       check(JSON.stringify(saved.routes) === JSON.stringify(STATE.routes), 'saved routes differ');
     }
     return expected;
@@ -77,7 +79,9 @@ window.addEventListener('load', () => {
           const plane = Object.keys(STATE.planes)[0];
           const owned = STATE.planes[plane].owned;
           buyPlaneQty(plane, 1);
-          check(STATE.planes[plane].owned === owned + 1, 'aircraft purchase failed');
+          check(STATE.planes[plane].owned === owned, 'pending aircraft entered owned fleet');
+          check(AEAircraftOrders.pendingCount() === 1, 'aircraft order failed');
+          check(buildFleetPage().includes('On Order'), 'fleet missing order count');
           openModal('new-route');
           document.getElementById('modal-content').innerHTML = buildNewRoute(STATE.homeBase, 'New York');
           document.getElementById('r-to').value = 'New York';
@@ -97,6 +101,31 @@ window.addEventListener('load', () => {
           AEResearchBoard.start('r_composite');
           turn(1, 0.9);
           check(STATE.research.run.r_composite === 3, 'second research countdown');
+          const beforeOrder = STATE.planes[plane].owned;
+          openBuyPlanesForRoute(STATE.homeBase, 'New York');
+          AEBA.pick(plane, 2); AEBA.buy(true);
+          check(STATE.planes[plane].owned === beforeOrder, 'route purchase bypassed delivery');
+          check((_nrPlanes[plane] || 0) <= 1, 'pending order assigned to route');
+          const cargoModel = Object.entries(AE_CARGO_CATALOG.freighters).filter(([,a]) => !a.convOnly && !a.vintage && a.era <= STATE.year).sort((a,b) => a[1].cost - b[1].cost)[0][0];
+          const cargoOwned = AECargo.fleetEntry(cargoModel).owned;
+          AECargo.buy(cargoModel, 1);
+          check(AECargo.fleetEntry(cargoModel).owned === cargoOwned, 'pending freighter entered fleet');
+          check(AEAircraftOrders.pending().some(o => o.kind === 'cargo'), 'freighter order missing');
+          const cashBeforeLane = STATE.cash;
+          check(!AECargo.openLane(STATE.homeBase, 'Los Angeles', cargoModel, 3), 'pending freighter assigned to cargo lane');
+          near(STATE.cash, cashBeforeLane, 'pending freighter charged for lane');
+          const cancellation = AEAircraftOrders.place(plane, 1);
+          const charged = STATE.cash;
+          cancelAircraftOrder(cancellation.id);
+          near(STATE.cash, charged + cancellation.totalCost, 'cancel refund');
+          check(!AEAircraftOrders.cancel(cancellation.id), 'order refunded twice');
+          fleetSetTab('orders');
+          check(document.querySelectorAll('.ao-row').length === AEAircraftOrders.pending().length, 'Orders tab not rendering pending orders');
+          fleetSetTab('deliveries');
+          check(document.querySelector('.ao-panel'), 'Deliveries tab missing');
+          closeModal();
+          // Save pending orders and the cancellation after the completed month.
+          autoSave(); pushRevertPoint();
           saveToSlot(1);
           localStorage.setItem('cycle-expected', snapshot());
           localStorage.setItem('cycle-economy', economy());
@@ -116,11 +145,16 @@ window.addEventListener('load', () => {
       check(economy() === localStorage.getItem('cycle-economy'), 'repeated reload compounded research effects');
       turn(1, 0.9);
       check(STATE.research.run.r_composite === 2, 'reload repeated or skipped research month');
+      check(AEAircraftOrders.pending().some(o => o.kind === 'passenger'), 'order delivered too early after reload');
       // Eras advances a quarter: charge and progress all three months once.
       STATE.gameType = 'eras'; STATE.objective = {kind:'eras', years:60};
       turn(3, 2.7);
       check(STATE.research.done.includes('r_composite'), 'quarter research completion');
       check(STATE._rbThirdSlotNoted && AE_RESEARCH_CATALOG.cfg.slots === 3, 'third research slot not settled before saving');
+      check(!AEAircraftOrders.pending().some(o => o.kind === 'passenger'), 'quarter skipped passenger delivery');
+      const deliveredSnapshot = JSON.stringify(STATE.planes);
+      AEAircraftOrders.deliver();
+      check(JSON.stringify(STATE.planes) === deliveredSnapshot, 'delivery duplicated without advancing time');
       const expected = snapshot();
       revertTo('ae_revert_1');
       check(snapshot() === expected, 'checkpoint reload differs');
@@ -139,14 +173,24 @@ window.addEventListener('load', () => {
       turn(1, 0.9);
       check(STATE.month === 0 && STATE.year === endedYear + 1, 'calendar rollover');
       check(STATE.financeLog.at(-1).label === `DEC ${endedYear}`, 'December report year');
+      check(!AEAircraftOrders.pending().some(o => o.dueMonth <= STATE.year * 12 + STATE.month), 'due order missed year rollover');
+      const freighter = STATE.aircraftOrders.find(o => o.kind === 'cargo' && o.status === 'delivered');
+      check(freighter, 'freighter delivery missing');
+      check(AECargo.openLane(STATE.homeBase, 'Los Angeles', freighter.model, 3), 'delivered freighter could not fly cargo');
+      check(AECargo.fleetEntry(freighter.model).assigned === 1, 'cargo assignment not recorded');
+      saveToSlot(2); const cargoSnapshot = snapshot();
+      loadFromSlot(2); check(snapshot() === cargoSnapshot, 'delivered freighter and lane failed save/reload');
       // A pre-research save still loads over defaults and can complete another month.
       const legacy = JSON.parse(localStorage.getItem(SAVE_KEY(0)));
       delete legacy.state.research; delete legacy.state.researchPoints; delete legacy.state.cargo;
+      legacy.state.cargoRoutes = [];
       delete legacy.state._rbThirdSlotNoted;
+      delete legacy.state.aircraftOrders; delete legacy.state.nextAircraftOrderId;
       applySave(JSON.stringify(legacy));
       check(!STATE._operationsReportOpen && !AEReports.isOpen(), 'legacy reload report lock');
       turn(1, 0);
       check(STATE.research.done.length === 0, 'legacy save inherited research');
+      check(AEAircraftOrders.orders().length === 0, 'legacy save inherited orders');
       stableCore();
       STATE.gameOver = true;
       const stopped = snapshot(), reportsBefore = reportCount; endTurn();

@@ -2,9 +2,9 @@
    header stat chips (cash / fleet / airports), filter + sort + affordable-only
    bar, rich aircraft cards (procedural art, identity, spec chips, route fit,
    "fits N of your routes", ownership), quantity presets + custom, selection
-   summary bar (total cost, cash-after, BUY & ASSIGN / BUY), and 2–3-way
+   summary bar (total cost, cash-after, ORDER AIRCRAFT / VIEW ORDERS), and 2–3-way
    compare. Also preserves the fare slider value across the buy round-trip.
-   Native gameplay functions (buyPlaneForRoute etc.) are reused untouched;
+   Order placement goes through the core buyPlaneForRoute command;
    this wraps buildBuyPlanesForRoute / openBuyPlanesForRoute only. */
 (function () {
   'use strict';
@@ -99,7 +99,7 @@
           '<span class="bav2-qn">' + q + '</span>' +
           '<button class="bav2-st" onclick="AEBA.inc(\'' + esc(n) + '\')">+</button>' +
         '</span>' +
-        '<button class="bav2-cardbuy" ' + (ok ? 'onclick="AEBA.buyNow(\'' + esc(n) + '\')"' : 'disabled title="Need ' + money(tot) + '"') + '>BUY ' + q + ' <i>\u00b7</i> <em>' + money(tot) + '</em>' +
+        '<button class="bav2-cardbuy" ' + (ok ? 'onclick="AEBA.buyNow(\'' + esc(n) + '\')"' : 'disabled title="Need ' + money(tot) + '"') + '>ORDER ' + q + ' <i>\u00b7</i> <em>' + money(tot) + '</em>' +
           (d.pct ? '<b class="bav2-off">\u2212' + d.pct + '%</b>' : '') + '</button>' +
         (next ? '<span class="bav2-tier">' + next[0] + '+ \u2192 \u2212' + next[1] + '%</span>' : '') +
         '</div>';
@@ -151,17 +151,17 @@
     var d = (typeof bulkPlaneDiscount === 'function') ? bulkPlaneDiscount(S.sel, q) : { pct: 0, total: a.cost * q, base: a.cost * q };
     var total = d.total;
     var after = STATE.cash - total;
-    var ok = after >= 0;
+    var ok = after >= 0 && !window.AEAircraftOrders.quote(S.sel, q).error;
     return '<div class="bav2-sum">' +
-      '<div class="bav2-sumleft"><b>' + q + ' \u00d7 ' + S.sel + '</b>' +
+      '<div class="bav2-sumleft"><b>' + q + ' \u00d7 ' + S.sel + '</b><small>Delivery in ' + window.AEAircraftOrders.leadTime(S.sel) + ' months · paid now</small>' +
         '<button class="bav2-rm" onclick="AEBA.clearSel()">Remove</button></div>' +
       '<div class="bav2-sumstat"><small>Total Cost</small><b style="color:var(--warn)">' + money(total) +
         (d.pct ? ' <s>' + money(d.base) + '</s>' : '') + '</b>' +
         (d.pct ? '<small style="color:var(--accent2)">bulk \u2212' + d.pct + '% \u00b7 saves ' + money(d.base - d.total) + '</small>' : '') + '</div>' +
       '<div class="bav2-sumstat"><small>Cash After</small><b style="color:' + (ok ? 'var(--profit)' : 'var(--loss)') + '">' + money(after) + '</b></div>' +
       '<div class="bav2-sumbtns">' +
-        '<button class="bav2-assign" ' + (ok ? 'onclick="AEBA.buy(true)"' : 'disabled') + ' title="Purchase and add ' + q + ' flight/wk on this route">\u2708 BUY &amp; ASSIGN</button>' +
-        '<button class="bav2-buy" ' + (ok ? 'onclick="AEBA.buy(false)"' : 'disabled') + ' title="Purchase only">\uD83D\uDED2 BUY</button>' +
+        '<button class="bav2-assign" ' + (ok ? 'onclick="AEBA.buy(false)"' : 'disabled') + ' title="Order now; assign after delivery">ORDER AIRCRAFT</button>' +
+        '<button class="bav2-buy" onclick="openFleetPage();fleetSetTab(\'orders\')">VIEW ORDERS</button>' +
       '</div></div>';
   }
 
@@ -244,12 +244,9 @@
       var q = qtyOf(S.sel);
       var d = (typeof bulkPlaneDiscount === 'function') ? bulkPlaneDiscount(S.sel, q) : { total: a.cost * q };
       if (STATE.cash < d.total) { try { showFlash('\u26a0 Need ' + money(d.total)); } catch (e) {} return; }
-      if (assign) {
-        try { _nrPlanes[S.sel] = (_nrPlanes[S.sel] || 0) + q; } catch (e) {}
-      }
       var n = S.sel;
+      if (!buyPlaneForRoute(n, q, S.from, S.to)) return;
       S.sel = null; S.qtyMap[n] = 1;
-      buyPlaneForRoute(n, q, S.from, S.to);   /* native: cash, owned, events, returns to builder */
       restoreFare();
     },
     back: function () {

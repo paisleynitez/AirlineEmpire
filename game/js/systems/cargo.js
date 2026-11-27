@@ -160,11 +160,7 @@
     addEvent('neutral', '🔧 ' + from + ' sent for freighter conversion → ' + p.to + ' ($' + fee + 'M, ' + convMonths(p) + ' mo)'); showFlash('✓ ' + from + ' sent for conversion'); }
 
   /* ── freighter buy / sell ───────────────────────────────────── */
-  function buy(model, q){ q = Math.max(1, q | 0); const f = FR[model]; if (!f || f.convOnly) return; const S = st();
-    if (f.era > S.year + 3) return showFlash('⚠ ' + model + ' not available until ' + f.era);
-    const total = Math.round(f.cost * q * (q >= 3 ? 0.93 : 1)); if (S.cash < total) return showFlash('⚠ Need $' + total + 'M');
-    if (typeof spendAction === 'function' && !spendAction('Buy freighter')) return;
-    S.cash -= total; fleetEntry(model).owned += q; addEvent('neutral', '📦 Bought ' + q + '× ' + model + ' freighter for $' + total + 'M'); showFlash('✓ ' + q + '× ' + model + ' acquired'); }
+  function buy(model, q){ return window.AEAircraftOrders.place(model, q, 'cargo'); }
   function sell(model){ const e = fleetEntry(model); if (e.owned - e.assigned <= 0) return showFlash('⚠ All copies are on lanes'); const S = st(); const price = Math.round(FR[model].cost * 0.55);
     S.cash += price; e.owned -= 1; addEvent('neutral', 'Sold ' + model + ' freighter for $' + price + 'M'); showFlash('✓ Sold 1× ' + model + ' for $' + price + 'M'); }
 
