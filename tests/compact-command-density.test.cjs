@@ -45,7 +45,7 @@ test('live dashboard keeps an explicit Research destination', () => {
   const js = read('game/js/core/game.js');
 
   assert.match(js, /row\('research','Research'\)/);
-  assert.match(js, /case 'research': openModal\('research-hub'\)/);
+  assert.match(js, /case 'research': if \(window\.AEResearchBoard\) window\.AEResearchBoard\.open\(\)/);
   assert.match(js, /function buildResearchHub\(\)/);
   assert.match(js, /Fuel Efficiency/);
   assert.match(js, /Sustainable Aviation/);

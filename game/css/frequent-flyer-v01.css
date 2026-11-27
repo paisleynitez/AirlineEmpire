@@ -1,5 +1,5 @@
 /* FREQUENT_FLYER_v01 — per-route FF tier badge shown on Route Manager cards.
-   Injected into each .route-card > .cities by js/patches/frequent_flyer_v01.js */
+   Injected into each .route-card > .cities by js/systems/loyalty.js */
 .ff-tier-badge {
   display: inline-block;
   margin-left: 6px;

@@ -599,6 +599,11 @@
 <script src="./js/data/cargoCatalog.js?v=3"></script>
 <script src="./js/core/game.js?v=all2"></script>
 <script src="./js/core/aiAirlineLifecycle.js"></script>
+<!-- Gameplay systems expose APIs; core/game.js owns the turn and save/load sequence. -->
+<script defer src="./js/systems/research.js"></script>
+<script defer src="./js/systems/cargo.js"></script>
+<script defer src="./js/systems/loyalty.js"></script>
+<script defer src="./js/core/reports.js"></script>
 
 <!-- ═══════════════════════════════════════════════════════════
      DEV TUNER  —  compact live tuning panel
@@ -664,32 +669,10 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 
 
 
-<!-- FOUNDATION_POLISH_v01: restraint pass; preserves working FLEETART_ECON baseline -->
+<!-- Shared appearance and a single, statically loaded month-end report owner. -->
+<link id="operations-report-css" rel="stylesheet" href="./css/operations_report.css">
+<script defer src="./js/patches/foundation.js"></script>
 
-<script defer src="./js/patches/foundation_polish_v01.js"></script>
-
-<!-- ═══════════════════════════════════════════════════════════════════════
-  FOUNDATION_POLISH_v02: continues the v01 restraint pass. Additive only;
-  no DOM removed, no layout relocated. Scope of this pass:
-    1. #event-flash telemetry strip — the month-end summary (profit / pax /
-       cash / runway) rendered as a completely unstyled div; it is now a
-       proper flight-deck readout over the map. Signature element of v02.
-    2. Keyboard focus quality floor — the build had zero :focus-visible
-       rules; teal focus ring added, mouse focus stays quiet.
-    3. Missing-font repairs — 'Barlow Condensed' (.qsg-title) and
-       'JetBrains Mono' (#zoom-pct) are referenced but never embedded, so
-       they silently fell back to system fonts. Remapped to the embedded
-       Bebas Neue / DM Mono.
-    4. Warm-palette residue — rgba(14,11,8,…) browns left over from an
-       older skin (#zoom-ctrl, #cine-skip, #intro-toast) retinted to the
-       night-navy glass established by v01.
-    5. Modal + toast glass aligned with the v01 panel language.
-    6. Scrollbars + ::selection tinted into the accent system.
-    7. Dev tuner edges retinted (was neutral #333 gray — read as foreign).
-    8. New motion respects prefers-reduced-motion.
-═══════════════════════════════════════════════════════════════════════ -->
-
-<script defer src="./js/patches/foundation_polish_v02.js"></script>
 <!-- Compact Route Overview; detailed legacy report remains available from the overview. -->
 <script defer src="./js/patches/route_overview_v111.js"></script>
 <!-- SCENARIO_SELECT_v01: scenario card stat strip, selection badge, rail summary (setup page 2). Injects its own stylesheet. -->
@@ -715,7 +698,6 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <!-- FLEET_PAGE_v118: Fleet & Aircraft page condensed onto the sitewide skin (fixed compact frame, line icons, labeled actions; selling stays on the page) -->
 <script defer src="./js/patches/fleet_page_v118.js?v=2"></script>
 <!-- CARGO_v01: freight economy (demand model, freighter fleet, conversions, belly cargo, contract board, market events, Cargo & Freight tech track) + Cargo Network window -->
-<script defer src="./js/patches/cargo_engine_v01.js?v=5"></script>
 <script defer src="./js/patches/cargo_window_v01.js?v=5"></script>
 
 <!-- POPUP_RESIZE_v01 — every popup window: lower-right resize grip only,
@@ -733,11 +715,7 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <!-- FLEET_ROW_CLEANUP_v01 — Fleet rows: profit unit matches footer ($M), utilization
      bar empty at 0.0. Layout fixes in css/fleet-compact-v01.css. UI-only wrapper. -->
 <script defer src="./js/patches/fleet_row_cleanup_v01.js"></script>
-<!-- RESEARCH_REDIRECT_v01: TEMPORARY — sidebar Research opens RESEARCH & UPGRADES directly (skips the Research Hub page). Delete this line to restore. -->
-<!-- RESEARCH_BOARD_v01: real research system + Tech Board window; sidebar Research opens it (wraps the redirect above). -->
-<script defer src="./js/patches/research_board_v01.js?v=2"></script>
-<!-- RESEARCH_TWEAKS_v01: third research slot at track level 3; freighters earn research points -->
-<script defer src="./js/patches/research_tweaks_v01.js?v=1"></script>
+<!-- Research and pacing are loaded with the gameplay systems above. -->
 
 <!-- MARKETING_CENTER_v01: Advertising window re-rendered as the Marketing Center concept; gameplay functions untouched -->
 <script defer src="./js/patches/marketing_center_v01.js?v=9"></script>
@@ -753,8 +731,6 @@ QA: continue window, home screen polish, setup identity defaults, side-menu/read
 <script defer src="./js/patches/hangar_v04.js?v=7"></script>
 <!-- ALLIANCES_v01: Alliances window; engine lives in core/game.js (signAlliance/cancelAlliance/tickAlliances) -->
 <script defer src="./js/patches/alliances_v01.js"></script>
-<!-- FREQUENT_FLYER_v01: per-route FF tier system (Bronze→Platinum) + VIP passengers; hooks processRoute/endTurn/renderRoutesList; demand bonus hook lives in core/game.js at loyaltyFactor line -->
-<script defer src="./js/patches/frequent_flyer_v01.js"></script>
 <!-- HOTKEYS_v01: keyboard shortcuts (R Routes, F Fleet dashboard-only; C closes any modal; ? shows help). Extend DASH_SHORTCUTS in the patch to add more. -->
 <script defer src="./js/patches/hotkeys_v01.js"></script>
 <!-- WEATHER_PATHS_v01: great-circle cross-track math for path-crossing weather. Overflying storms cut demand 15%; endpoint closures stay at 100% (mod=0). Consumed by game.js timedDemandMod & routeDisruptions. -->

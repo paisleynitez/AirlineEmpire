@@ -33,7 +33,7 @@
       if (/detail/.test(t)) { b.innerHTML = ic('search') + '<span>Details</span>'; b.classList.add('flp118-btn'); }
       else if (/sell/.test(t)) { b.innerHTML = ic('dots') + '<span>Sell 1</span>'; b.classList.add('flp118-btn', 'is-sell'); } });
   }
-  /* Freighters and conversions (cargo_engine_v01) shown on the Fleet page: a fifth summary card and,
+  /* Freighters and conversions (systems/cargo.js) shown on the Fleet page: a fifth summary card and,
      on My Fleet, a read-only band under the passenger table linking to the Cargo Network window. */
   function cargoBits(flp){ const A = window.AECargo; if (!A) return; const esc = v => String(v == null ? '' : v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const c = A.C(); const list = A.fleetList().filter(a => a.owned > 0); const n = list.reduce((s, a) => s + a.owned, 0); const conv = c.conversions || [];

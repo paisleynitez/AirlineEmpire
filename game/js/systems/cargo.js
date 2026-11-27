@@ -5,8 +5,8 @@
    belly freight on every passenger route; a rotating contract board (forwarder / integrator / charter /
    mail) with fixed rates, deliveries and penalties; hub throughput tied to the Cargo Hub building level;
    and certifications unlocked on the Tech Board's Cargo & Freight track.
-   Integration: wraps processCargoRoutes (endTurn adds its return value to income), replaces
-   openCargoRoute / closeCargoRoute so lanes can fly freighters, and keeps STATE.cargoRoutes as the lane
+   Integration: core processCargoRoutes calls tick (endTurn adds its return value to income);
+   route commands forward to openLane / closeLane so lanes can fly freighters. STATE.cargoRoutes stays the lane
    list so the dashboard count, ledger and finance log keep working. Existing saves migrate in place.
    Data: js/data/cargoCatalog.js. Window: js/patches/cargo_window_v01.js. */
 (function cargoEngineV01(){
@@ -186,7 +186,7 @@
   function swapPlane(idx, model){ const l = lanes()[idx]; if (!l || l.plane === model) return; if (freeCount(model) <= 0) return showFlash('⚠ No free ' + model);
     const dist = getDistance(l.from, l.to); if (dist > spec(model).range) return showFlash('⚠ Range too short'); assign(l.plane, -1); assign(model, +1); l.plane = model; showFlash('✓ ' + l.from + ' → ' + l.to + ' now flies ' + model); }
 
-  /* ── month tick (wrapped into processCargoRoutes) ───────────── */
+  /* ── month tick (called by processCargoRoutes) ───────────── */
   function costs(l, tons){ const E = ECON, dist = getDistance(l.from, l.to), fl = (l.flights || 0), sp = spec(l.plane) || { fuel:70 };
     const sm = seatEq(l.plane) * fl * W * dist * 2; const effic = 1 - ((sp.fuel || 70) / 220); let fuelMult = (st().fuelMod || 1); try { fuelMult *= timedFuelMod(); } catch (e) {}
     const fuel = sm * E.fuelPerSeatMile * effic * fuelMult; let crewM = 1; try { crewM = crewMoraleCostMult(); } catch (e) {}
@@ -248,24 +248,30 @@
 
   function cargoLines(){ const l = C().last || {}; const out = []; if (l.lanes) out.push(['Cargo lanes', l.lanes]); if (l.belly) out.push(['Belly cargo', l.belly]); if (l.contracts) out.push(['Cargo contracts', l.contracts]); if (l.charters) out.push(['Cargo charters', l.charters]); return out; }
 
+  function decorateBudget(r){
+    const i = r.inc.findIndex(x => /^Cargo routes/.test(x[0]));
+    const parts = cargoLines(); const l = C().last || {};
+    if (parts.length) {
+      if (i >= 0) r.inc.splice(i, 1, ...parts); else r.inc.push(...parts);
+      if (l.penalties) r.exp.push(['Cargo contract penalties', l.penalties]);
+      r.incTot = r.inc.reduce((s, x) => s + x[1], 0);
+      r.expTot = r.exp.reduce((s, x) => s + x[1], 0);
+      r.net = r.incTot - r.expTot;
+    }
+    return r;
+  }
+
   /* ── install ────────────────────────────────────────────────── */
   function install(){
     if (typeof processCargoRoutes !== 'function' || typeof STATE === 'undefined') { setTimeout(install, 200); return; }
-    const w = function(){ try { return tick(); } catch (e) { console.error('[cargo-engine] tick failed', e); return 0; } }; w.__aeCargo = true; window.processCargoRoutes = w;
-    window.closeCargoRoute = function(idx){ closeLane(idx); try { if (window.AECargoWindow) window.AECargoWindow.rerender(); else closeModal(); } catch (e) {} };
-    window.openCargoRoute = function(){ const v = id => (document.getElementById(id) || {}).value; if (openLane(v('cg-from'), v('cg-to'), v('cg-plane'), +v('cg-flights'))) { try { if (window.AECargoWindow) window.AECargoWindow.rerender(); else closeModal(); } catch (e) {} } };
     // Cargo Hub building: it now sets hub freight throughput and belly cargo already pays per route,
     // so its old flat "belly-cargo revenue" is trimmed rather than paid on top of the new model.
     try { if (typeof CITY_BUILDINGS !== 'undefined') { const b = CITY_BUILDINGS.find(x => x.id === 'cargo_hub'); if (b && !b.__aeCargo) { b.__aeCargo = true; b.passiveIncome = 1.5;
       b.desc = 'Freight terminal capacity: raises how many tonnes a month this hub can move (' + CAT.hubTonnes.join(' / ') + ' t) and adds a small handling income. Belly cargo on routes through here pays on its own.'; } } } catch (e) {}
-    const ob = window.budgetBreakdown; if (typeof ob === 'function' && !ob.__aeCargo) { const w = function(){ const r = ob.apply(this, arguments);
-      try { const i = r.inc.findIndex(x => /^Cargo routes/.test(x[0])); const parts = cargoLines(); const l = C().last || {};
-        if (parts.length) { if (i >= 0) r.inc.splice(i, 1, ...parts); else r.inc.push(...parts); if (l.penalties) r.exp.push(['Cargo contract penalties', l.penalties]); r.incTot = r.inc.reduce((s, x) => s + x[1], 0); r.expTot = r.exp.reduce((s, x) => s + x[1], 0); r.net = r.incTot - r.expTot; } } catch (e) {}
-      return r; }; w.__aeCargo = true; window.budgetBreakdown = w; }
     C();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install); else install();
 
-  window.AECargo = { cashflowLines:cargoLines, C, lanes, FR, COM, COMK, CAT, techFx, certified, certName, isFreighter, spec, payload, ident, hero, listedFreighter, fleetEntry, freeCount, fleetList, freighterCount, laneAircraftChoices,
+  window.AECargo = { cashflowLines:cargoLines, decorateBudget, C, lanes, FR, COM, COMK, CAT, techFx, certified, certName, isFreighter, spec, payload, ident, hero, listedFreighter, fleetEntry, freeCount, fleetList, freighterCount, laneAircraftChoices,
     demand, estimate, mixFor, hubLevel, diff, rivalShare, allianceMult, trust:who => clamp((C().rep[who] || 0), -4, 6), hubCap, laneCapacity, reservedOn, laneFor, offerCheck, accept, cancel, refreshOffers, convFee, convMonths, convert, buy, sell, openLane, closeLane, setFlights, swapPlane, market, plan, tick, version:'v01' };
 })();

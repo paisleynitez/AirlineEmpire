@@ -146,22 +146,24 @@ test('browser runtime honors explicit dev control opt-out and opt-in', {
 });
 
 
-test('month-end gameplay survives a fresh browser save/reload cycle', {
-  skip: browser ? false : 'No supported Chromium browser found',
-  timeout: 75000,
-}, async () => {
-  const server = createServer();
-  const port = await listen(server);
-  const profile = fs.mkdtempSync(path.join(root, 'output-browser-cycle-'));
-  try {
-    for (const stage of ['save', 'reload']) {
-      const dom = await dumpDom(browser, `http://127.0.0.1:${port}/game/?dev=0&cycle=${stage}`, profile);
-      const result = dom.match(/<pre id="cycle-result">([^<]*)<\/pre>/);
-      assert.ok(result, `No cycle result for ${stage}: ${dom.slice(-1500)}`);
-      assert.equal(result[1], `PASS ${stage}`, result[1]);
+for (const dev of [0, 1]) {
+  test(`month-end gameplay survives a fresh browser save/reload cycle (dev=${dev})`, {
+    skip: browser ? false : 'No supported Chromium browser found',
+    timeout: 75000,
+  }, async () => {
+    const server = createServer();
+    const port = await listen(server);
+    const profile = fs.mkdtempSync(path.join(root, 'output-browser-cycle-'));
+    try {
+      for (const stage of ['save', 'reload']) {
+        const dom = await dumpDom(browser, `http://127.0.0.1:${port}/game/?dev=${dev}&cycle=${stage}`, profile);
+        const result = dom.match(/<pre id="cycle-result">([^<]*)<\/pre>/);
+        assert.ok(result, `No cycle result for ${stage}: ${dom.slice(-1500)}`);
+        assert.equal(result[1], `PASS ${stage}`, result[1]);
+      }
+    } finally {
+      await close(server);
+      fs.rmSync(profile, { recursive: true, force: true });
     }
-  } finally {
-    await close(server);
-    fs.rmSync(profile, { recursive: true, force: true });
-  }
-});
+  });
+}

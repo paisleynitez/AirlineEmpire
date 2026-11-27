@@ -2,7 +2,7 @@
    Freighter roster, passenger-to-freighter conversion programmes, belly capacity by aircraft class,
    commodity types, city industry profiles, shipper names for the contract board, market events,
    hub throughput per Cargo Hub level, and the Cargo & Freight track for the Tech Board.
-   Read by js/patches/cargo_engine_v01.js and cargo_window_v01.js. Freighters are a separate fleet
+   Read by js/systems/cargo.js and cargo_window_v01.js. Freighters are a separate fleet
    (STATE.cargo.fleet) and never enter the AIRCRAFT roster, so passenger routes cannot pick them.
    Loads after researchCatalog.js so the Cargo & Freight track can be appended to the Tech Board. */
 window.AE_CARGO_CATALOG = {

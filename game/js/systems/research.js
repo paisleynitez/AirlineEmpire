@@ -5,11 +5,11 @@
    Engine (this file, data in js/data/researchCatalog.js):
      • STATE.research = { done:[], run:{id:monthsLeft}, owned:[] }  (lazy, save-compatible)
      • STATE.researchPoints is the balance; income each month = rpBase + rpPerAircraft × fleet + upgrade bonus
-     • endTurn wrapper: applies modifiers, the core turn calls monthTick before accounting and saving
+     • Core lifecycle calls applyMods before operations and monthTick before accounting and saving
        to advance programs, pay research income and return upgrade upkeep
      • Modifiers are applied by scaling the live tunables (ECON fuel/crew, check costs, incident odds)
        relative to the last applied multiplier, so Dev Tuner edits still stick; demand, health wear,
-       grounding length and storm overflight go through small wrappers.
+       grounding length and storm overflight use explicit lifecycle calls.
    Window: sidebar Research → AEResearchBoard.open(); the old regional-projects window stays
    reachable from the REGIONAL PROJECTS button in the sub-header. Fixed-size frame (dataset.aeFixed)
    so popup_stability hard-pins it; the board scrolls inside. */
@@ -69,30 +69,27 @@
     APPLIED.fuel = m.fuel; APPLIED.crew = m.crew; APPLIED.maint = m.maint; APPLIED.maintEngine = m.maintEngine; APPLIED.incident = m.incident; APPLIED.weather = m.weather;
   }
 
-  /* ── wrappers ──────────────────────────────────────────────── */
-  function wrapDemand(){
-    const o = window.crewMoraleDemandMult; if (typeof o !== 'function' || o.__aeRB) return;
-    const w = function(){ return o.apply(this, arguments) * mods().demand; }; w.__aeRB = true; window.crewMoraleDemandMult = w;
+  // Maintenance effects preserve the old before/after behavior without replacing maintTick.
+  function beforeMaintenance(){
+    const S = st(); const before = {};
+    if (S && S.fleetHealth) Object.keys(S.fleetHealth).forEach(k => {
+      const h = S.fleetHealth[k]; before[k] = { health:h.health, g:h.groundedUntil };
+    });
+    return before;
   }
-  function wrapMaint(){
-    const o = window.maintTick; if (typeof o !== 'function' || o.__aeRB) return;
-    const w = function(){
-      const S = st(); const m = mods(); const before = {};
-      if (S && S.fleetHealth) Object.keys(S.fleetHealth).forEach(k => { const h = S.fleetHealth[k]; before[k] = { health:h.health, g:h.groundedUntil }; });
-      const r = o.apply(this, arguments);
-      if (S && S.fleetHealth && (m.wear > 0 || m.ground < 1)) { const abs = S._absMonth || 0;
-        Object.keys(S.fleetHealth).forEach(k => { const h = S.fleetHealth[k], b = before[k]; if (!b) return;
-          const loss = b.health - h.health; if (loss > 0 && m.wear > 0) h.health = Math.min(b.health, h.health + loss * m.wear);
-          if (m.ground < 1 && h.groundedUntil > (b.g || 0) && h.groundedUntil > abs) { const len = h.groundedUntil - abs; h.groundedUntil = abs + Math.max(1, Math.round(len * m.ground)); } }); }
-      return r;
-    }; w.__aeRB = true; window.maintTick = w;
-  }
-  function wrapEndTurn(){
-    const o = window.endTurn; if (typeof o !== 'function' || o.__aeRB) return;
-    const w = function(){
-      applyMods();
-      return o.apply(this, arguments);
-    }; w.__aeRB = true; window.endTurn = w;
+  function afterMaintenance(before){
+    const S = st(); const m = mods();
+    if (!S || !S.fleetHealth || !(m.wear > 0 || m.ground < 1)) return;
+    const abs = S._absMonth || 0;
+    Object.keys(S.fleetHealth).forEach(k => {
+      const h = S.fleetHealth[k], b = before[k]; if (!b) return;
+      const loss = b.health - h.health;
+      if (loss > 0 && m.wear > 0) h.health = Math.min(b.health, h.health + loss * m.wear);
+      if (m.ground < 1 && h.groundedUntil > (b.g || 0) && h.groundedUntil > abs) {
+        const len = h.groundedUntil - abs;
+        h.groundedUntil = abs + Math.max(1, Math.round(len * m.ground));
+      }
+    });
   }
   function monthTick(months = 1){
     const cost = upkeep() * months;
@@ -105,23 +102,9 @@
     }
     if (cost > 0 && typeof addEvent === 'function') addEvent('neutral', '🏗 Research upgrade upkeep: ' + fmtM(cost));
     applyMods();
+    noteUnlock();
     return cost;
   }
-  function wrapNav(){
-    const o = window.navGo; if (typeof o !== 'function' || o.__aeRB) return false;
-    const w = function(el, key){
-      if (key === 'research') { if (el && el.parentElement) { el.parentElement.querySelectorAll('.ae-nav-item').forEach(n => n.classList.remove('active')); el.classList.add('active'); } open(); return; }
-      return o.apply(this, arguments);
-    }; w.__aeRB = true; window.navGo = w; return true;
-  }
-  function wrapClose(){
-    const o = window.closeModal; if (typeof o !== 'function' || o.__aeRB) return;
-    const w = function(){ const r = o.apply(this, arguments); unsize(); return r; }; w.__aeRB = true; window.closeModal = w;
-    /* another window taking #modal-content (e.g. REGIONAL PROJECTS) must not inherit our frame */
-    const oo = window.openModal; if (typeof oo !== 'function' || oo.__aeRB) return;
-    const wo = function(){ unsize(); return oo.apply(this, arguments); }; wo.__aeRB = true; window.openModal = wo;
-  }
-
   /* ── actions ───────────────────────────────────────────────── */
   const UI = { sel:null };
   function start(id){ const it = byId[id]; const S = st(); if (!it || !S) return;
@@ -195,14 +178,27 @@
       '<div class="rb-panel rb-drawer">' + drawer + '</div></div>';
   }
 
-  /* ── install ───────────────────────────────────────────────── */
-  function init(){
-    if (typeof window.navGo !== 'function' || typeof window.endTurn !== 'function') { setTimeout(init, 250); return; }
-    wrapNav(); wrapEndTurn(); wrapMaint(); wrapDemand(); wrapClose();
-    const o = window.applySave;
-    if (typeof o === 'function' && !o.__aeRB) { const w = function(){ const r = o.apply(this, arguments); try { applyMods(); } catch (e) {} return r; }; w.__aeRB = true; window.applySave = w; }
-    try { if (st()) applyMods(); } catch (e) {}
+  // Pacing used to live in a second patch and wrap endTurn after autosaving.
+  const baseSlots = CFG.slots, baseRp = CFG.rpBase, perAc = CFG.rpPerAircraft;
+  function thirdSlot(){
+    const done = R().done;
+    return CAT.research.some(r => r.lvl >= 2 && done.includes(r.id));
   }
-  window.AEResearchBoard = { open, select, start, buy, mods, applyMods, monthTick, rerender, version:'v01' };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  function freighters(){
+    const S = st(); const c = S && S.cargo;
+    return c ? Object.values(c.fleet || {}).reduce((n, e) => n + (e.owned || 0), 0) + (c.conversions || []).length : 0;
+  }
+  Object.defineProperty(CFG, 'slots', { get:() => baseSlots + (thirdSlot() ? 1 : 0), configurable:true });
+  Object.defineProperty(CFG, 'rpBase', { get:() => baseRp + perAc * freighters(), configurable:true });
+  function noteUnlock(){
+    const S = st();
+    if (S && thirdSlot() && !S._rbThirdSlotNoted) {
+      S._rbThirdSlotNoted = true;
+      addEvent('good', '🔬 Third research slot unlocked — a track reached level 3');
+    }
+  }
+  window.AEResearchBoard = {
+    open, select, start, buy, mods, applyMods, monthTick, rerender, unsize,
+    beforeMaintenance, afterMaintenance, thirdSlot, freighters, version:'v01'
+  };
 })();

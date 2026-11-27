@@ -11,9 +11,8 @@
      r._ffMomentum  : consecutive months meeting NEXT tier's threshold
      r._ffRegress   : consecutive months below (current tier minLoad − 10)
 
-   Attaches by wrapping processRoute (adds VIP revenue), endTurn (advances
-   tier momentum after routes are processed), and renderRoutesList (injects
-   the tier badge on each route card). The demand bonus itself is applied by
+   Core calls applyVip for route results, updateTier after operations, and
+   injectBadges after rendering. No core functions are replaced. The demand bonus itself is applied by
    a one-line hook in game.js at line 7482 that calls AEFF.tierDemandBonus.
 
    Public API:
@@ -91,44 +90,27 @@
     }
   }
 
-  // ── VIP revenue kicker: wrap processRoute post-result ──
-  // (Demand bonus is applied inline at game.js:7482 via tierDemandBonus hook.)
-  var _origProcessRoute = window.processRoute;
-  if (typeof _origProcessRoute === 'function') {
-    window.processRoute = function (r) {
-      var res = _origProcessRoute.apply(this, arguments);
-      if (!res || !r) return res;
-      var t = tierOf(r);
-      if (t.vipShare > 0 && res.pax > 0 && r.fare > 0) {
-        var vipShare = effectiveVipShare(r);
-        var vipPax = Math.round(res.pax * vipShare);
-        // Fare is stored in dollars per pax; revenue is in $M. Convert with 1e6.
-        var vipBonus = vipPax * r.fare * (t.vipFareMult - 1) / 1e6;
-        if (vipBonus > 0) {
-          res.revenue = (res.revenue || 0) + vipBonus;
-          res.profit  = (res.profit  || 0) + vipBonus;
-          res._vipPax = vipPax;
-          res._vipBonus = vipBonus;
-        }
+  function applyVip(r, res){
+    if (!res || !r) return res;
+    var t = tierOf(r);
+    if (t.vipShare > 0 && res.pax > 0 && r.fare > 0) {
+      var vipShare = effectiveVipShare(r);
+      var vipPax = Math.round(res.pax * vipShare);
+      // Fare is stored in dollars per pax; revenue is in $M. Convert with 1e6.
+      var vipBonus = vipPax * r.fare * (t.vipFareMult - 1) / 1e6;
+      if (vipBonus > 0) {
+        res.revenue = (res.revenue || 0) + vipBonus;
+        res.profit  = (res.profit  || 0) + vipBonus;
+        res._vipPax = vipPax;
+        res._vipBonus = vipBonus;
       }
-      return res;
-    };
-  }
-
-  // Tier progression runs in the core turn before reports, checkpoints and saving.
-
-  // ── Badge injection: wrap renderRoutesList to add tier badge after each render ──
-  var _origRenderRoutesList = window.renderRoutesList;
-  if (typeof _origRenderRoutesList === 'function') {
-    window.renderRoutesList = function () {
-      _origRenderRoutesList.apply(this, arguments);
-      try { injectBadges(); } catch (e) { /* keep the list render safe */ }
-    };
+    }
+    return res;
   }
 
   function injectBadges() {
     var host = document.getElementById('routes-list');
-    if (!host || !window.STATE || !Array.isArray(STATE.routes)) return;
+    if (!host || typeof STATE === 'undefined' || !Array.isArray(STATE.routes)) return;
     var cards = host.querySelectorAll('.route-card');
     // Route cards render in a sorted order; recover the original route index
     // from the onclick="showRouteDetail(N)" attribute set by renderRoutesList.
@@ -160,6 +142,7 @@
     tierOf: tierOf,
     tierDemandBonus: tierDemandBonus,
     effectiveVipShare: effectiveVipShare,
+    applyVip, injectBadges,
     updateTier: updateTier
   };
 })();

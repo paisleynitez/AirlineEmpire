@@ -1,7 +1,7 @@
 /* CARGO_WINDOW_v01 — Cargo Network window on the sitewide skin (approved "Freight Desk" concept).
    Tabs: Lanes (landing) · Contracts · Freighters · Market · Conversions. Fixed-size frame
    (dataset.aeFixed → pinned by popup_stability, never dragged). All gameplay goes through
-   AECargo (js/patches/cargo_engine_v01.js); this file only renders and forwards clicks.
+   AECargo (js/systems/cargo.js); this file only renders and forwards clicks.
    Replaces openCargoModal (sidebar Cargo, dashboard Cargo Route button) and openModal('cargo-route').
    Styling: css/cargo-window-v01.css. */
 (function cargoWindowV01(){

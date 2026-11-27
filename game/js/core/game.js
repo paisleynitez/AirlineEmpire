@@ -3393,6 +3393,7 @@ function startGame(from) {
     });
   }
   applyTwist(STATE.twist);
+  if (window.AEResearchBoard) window.AEResearchBoard.applyMods();
   if (STATE.gameType === 'eras') setTimeout(() => { try { fireEraEvents(); } catch(e) {} }, 400);
   const typeLabel = (GAME_TYPES.find(g=>g.id===STATE.gameType)||{}).name || 'Scenario';
   const fromId = (from==='intro' || document.getElementById('setup').classList.contains('hidden')) ? 'intro' : 'setup';
@@ -5862,6 +5863,7 @@ function setRouteDrinks(from, to, tier, evt) {
 
 const TIMER_MODES = { off:0, relaxed:210, normal:120, fast:60, turbo:25 };
 function startTimer() {
+  if (STATE._operationsReportOpen) return;
   clearInterval(STATE.timerInterval);
   const btn = document.getElementById('end-turn-btn');
   if (btn) btn.classList.remove('urgent');
@@ -6247,10 +6249,11 @@ function crewMoraleDemandMult() {
   const mo = crewAverageMorale();
   STATE._crewMoraleCache = mo;
   // 35 morale = 0.88x demand; 75 = 1.0x; 95 = 1.10x
-  if (mo >= 90) return 1.10;
-  if (mo >= 75) return 1.00 + (mo-75)*0.004;
-  if (mo >= 55) return 0.95 + (mo-55)*0.0025;
-  return Math.max(0.78, 0.78 + (mo-35)*0.0085);
+  const research = window.AEResearchBoard ? window.AEResearchBoard.mods().demand : 1;
+  if (mo >= 90) return 1.10 * research;
+  if (mo >= 75) return (1.00 + (mo-75)*0.004) * research;
+  if (mo >= 55) return (0.95 + (mo-55)*0.0025) * research;
+  return Math.max(0.78, 0.78 + (mo-35)*0.0085) * research;
 }
 function crewMoraleCostMult() {
   const mo = crewAverageMorale();
@@ -7605,7 +7608,7 @@ function processRoute(r) {
     * (1 - invSaving) * hubCongestion * destCongestion * timedCongestionMod(r) * aeAllianceCostMult();  // ALLIANCES_v01: operational partnership cost cut
   const mhcSuite = mhcRoutePax(r);
   const profit    = (revenue + foodRevenue + drinkRevenue + mhcSuite.revenue*1e6 - cost - mhcSuite.cost*1e6) / 1e6;
-  return {
+  const result = {
     profit: Math.round(profit*100)/100,
     pax, load, demand: Math.round(demand), capacity,
     revenue: revenue/1e6, cost: cost/1e6,
@@ -7617,6 +7620,7 @@ function processRoute(r) {
     transferPax, connMult: _connMult,
     connRevenue: pax > 0 ? (revenue/1e6) * (transferPax/pax) : 0,
   };
+  return window.AEFF ? window.AEFF.applyVip(r, result) : result;
 }
 // ═══════════════════════════════════════════════════════════════════════════
 // MAINTENANCE & INCIDENTS SYSTEM
@@ -7716,6 +7720,7 @@ function maintInsuranceCostPerMonth() {
 
 // ── Monthly tick ─────────────────────────────────────────────────────────────
 function maintTick() {
+  const before = window.AEResearchBoard ? window.AEResearchBoard.beforeMaintenance() : null;
   STATE.fleetHealth = STATE.fleetHealth || {};
   STATE.maintenanceIncidents = STATE.maintenanceIncidents || [];
   const absMonth = STATE._absMonth || 0;
@@ -7839,6 +7844,7 @@ function maintTick() {
       showFlash(`🚨 Mandatory inspection: ${planeName} grounded 2 months!`);
     }
   });
+  if (before) window.AEResearchBoard.afterMaintenance(before);
 }
 
 // ── Player actions ───────────────────────────────────────────────────────────
@@ -8290,6 +8296,7 @@ function runEndTurnStep(label, fn) {
 
 function endTurn() {
   if (STATE.gameOver) return;
+  if (window.AEResearchBoard) window.AEResearchBoard.applyMods();
   if (STATE.paused) { STATE.paused = false; updatePauseUI(); }   // ending a month resumes the clock
   guideStep(5); // dismiss guide — they've done it
   clearInterval(STATE.timerInterval);
@@ -8469,6 +8476,7 @@ function endTurn() {
   try { evalFirstMoves(monthProfit); } catch(e){}
   try { labTick(); } catch(e){}
   try { resetActions(); } catch(e){}
+  if (window.AEDevTunerMonthEnd) runEndTurnStep('Developer market trials', window.AEDevTunerMonthEnd);
   pushRevertPoint();   // monthly checkpoint ring for recovery from a bad turn
   autoSave();          // persist every completed month, not only game start/year-end
   updateUI(); renderMap(); renderRankings(); renderRoutesList(); renderFleet(); renderRivals(); renderGoalProgress();
@@ -9849,6 +9857,7 @@ function _getAdvisorVoice() {
     body: `Net is $${netMo>=0?'+':''}${netMo.toFixed(1)}M/mo. Keep each route above its breakeven load factor — check the P&L panel if any route is in the red.` };
 }
 function showQuarterBanner(profit, pax, income, expenses, biz, monthLabel) {
+  if (window.AEReports) return window.AEReports.present(profit, pax);
   const prev = STATE._bannerHistory || {};
   STATE._bannerHistory = { profit, pax };
   const netMo = (STATE.routes||[]).reduce((s,r)=>s+(r.profit||0),0);
@@ -10091,7 +10100,7 @@ function navGo(el, key){
       case 'airports': openModal('negotiations'); break;
       case 'cargo': openCargoModal(); break;
       case 'finance': openModal('budget'); break;
-      case 'research': openModal('research-hub'); break;
+      case 'research': if (window.AEResearchBoard) window.AEResearchBoard.open(); else openModal('research-hub'); break;
       case 'marketing': openModal('campaign'); break;
       case 'hr': openModal('hr'); break;
       case 'maintenance': openHangarModal(); break;
@@ -10369,6 +10378,7 @@ function renderRoutesList() {
       </div>` : ''}
     </div>`;
   }).join('');
+  if (window.AEFF) window.AEFF.injectBadges();
 }
 function setRouteSort(key) { _routeSort = key; renderRoutesList(); }
 function renderFleet() {
@@ -11422,6 +11432,8 @@ function switchTab(t){
   if(t==='rankings')renderRankings(); if(t==='rivals')renderRivals(); if(t==='events')renderEventsList();
 }
 function openModal(type, arg){
+  if (window.AEReports && window.AEReports.isOpen()) window.AEReports.close();
+  if (window.AEResearchBoard) window.AEResearchBoard.unsize();
   const ov=document.getElementById('modal-overlay'), c=document.getElementById('modal-content');
   ov.classList.add('open');
   ov.classList.toggle('research-hub-mode', type==='research-hub');
@@ -11448,6 +11460,8 @@ function openRouteCreation(from,to){
   c.classList.add('modal-wide','modal-new-route');
 }
 function closeModal(){
+  if (window.AEReports && window.AEReports.isOpen()) return window.AEReports.close();
+  if (window.AEResearchBoard) window.AEResearchBoard.unsize();
   const overlay = document.getElementById('modal-overlay');
   const wasOpen = overlay.classList.contains('open');
   overlay.classList.remove('open');
@@ -13678,7 +13692,8 @@ function budgetBreakdown(){
   const fac = facilityMonthlyCost();   // SKYLINE_ECON_v01
   if(fac>0.001) exp.push(['Facilities', fac]);
   const incTot=inc.reduce((s,x)=>s+x[1],0), expTot=exp.reduce((s,x)=>s+x[1],0);
-  return {inc, exp, incTot, expTot, net:incTot-expTot};
+  const result = {inc, exp, incTot, expTot, net:incTot-expTot};
+  return window.AECargo ? window.AECargo.decorateBudget(result) : result;
 }
 function buildBudgetLegacy(){
   const lvls=['LEAN','BASIC','SOLID','STRONG','MAXIMUM'];
@@ -15062,55 +15077,17 @@ function openCargoModal() {
     </div>`;
 }
 function openCargoRoute() {
-  const from = val('cg-from'), to = val('cg-to'), plane = val('cg-plane');
-  const flights = +val('cg-flights') || 3;
-  if (!from||!to||!plane||from===to) return showFlash('Invalid cargo route');
-  const isDupe = (STATE.cargoRoutes||[]).some(r=>(r.from===from&&r.to===to)||(r.from===to&&r.to===from));
-  if (isDupe) return showFlash('⚠ Cargo route already exists between these cities');
-  const dist = getDistance(from, to);
-  const ac = STATE.planes[plane];
-  if (!ac || dist > ac.range) return showFlash('⚠ Aircraft range too short');
-  const cost = Math.round(dist * 0.02 + 3);
-  if (STATE.cash < cost) return showFlash(`⚠ Need $${cost}M to open`);
-  if (!STATE.planes[plane] || STATE.planes[plane].assigned >= STATE.planes[plane].owned)
-    return showFlash('⚠ No free aircraft');
-  STATE.cash -= cost;
-  STATE.planes[plane].assigned++;
-  STATE.cargoRoutes = STATE.cargoRoutes || [];
-  STATE.cargoRoutes.push({ from, to, plane, flights, _age: 0 });
-  addEvent('good', `📦 Cargo route ${from}→${to} opened.`);
-  showFlash(`✓ Cargo route ${from}→${to} launched`);
-  closeModal(); updateUI();
+  if (window.AECargo.openLane(val('cg-from'), val('cg-to'), val('cg-plane'), +val('cg-flights'))) {
+    if (window.AECargoWindow) window.AECargoWindow.rerender(); else closeModal();
+  }
 }
 function closeCargoRoute(idx) {
-  const cr = (STATE.cargoRoutes||[])[idx]; if (!cr) return;
-  if (STATE.planes[cr.plane]) STATE.planes[cr.plane].assigned = Math.max(0, STATE.planes[cr.plane].assigned - 1);
-  STATE.cargoRoutes.splice(idx, 1);
-  addEvent('neutral', `📦 Cargo route closed.`);
-  closeModal(); updateUI();
+  window.AECargo.closeLane(idx);
+  if (window.AECargoWindow) window.AECargoWindow.rerender(); else closeModal();
 }
 function processCargoRoutes() {
-  let totalIncome = 0;
-  (STATE.cargoRoutes || []).forEach(cr => {
-    const cf = CITIES[cr.from], ct = CITIES[cr.to]; if (!cf||!ct) return;
-    const dist = getDistance(cr.from, cr.to);
-    let demand = (cf.econ + ct.econ) * 380 * cr.flights * ECON.weeksPerMonth;
-    demand *= 1 / (1 + dist / 12000); // cargo less distance-sensitive than pax
-    (STATE.timedEffects||[]).forEach(e => {
-      if (e.fx==='recession') demand *= 0.85;
-      if (e.fx==='pandemic') demand *= 0.6;
-      if (e.fx==='macro_boom') demand *= 1.1;
-    });
-    demand *= 0.9 + Math.random() * 0.2;
-    const revenue = demand / 1e6; // $M
-    const fuelCost = (AIRCRAFT[cr.plane]?.fuel||60)/100 * dist * cr.flights * ECON.weeksPerMonth * 0.04 / 1e6;
-    const crewCost = cr.flights * ECON.weeksPerMonth * ECON.crewPerFlight / 1e6 * 0.7;
-    const profit = revenue - fuelCost - crewCost;
-    cr.profit = Math.round(profit * 100) / 100;
-    cr._age = (cr._age||0) + 1;
-    totalIncome += profit;
-  });
-  return totalIncome;
+  try { return window.AECargo.tick(); }
+  catch (error) { console.error('[cargo-engine] tick failed', error); return 0; }
 }
 function refreshRouteDetail(i) {
   clearTimeout(refreshRouteDetail._t);
@@ -15383,6 +15360,7 @@ function applySave(str){
   STATE.timerInterval = null;
   STATE._panInit = true;            // listeners already bound to the live <svg>
   STATE.paused = false;
+  if (window.AEReports) window.AEReports.reset();
   // Ensure crew pool exists and counter is synced
   if (!STATE.crew) { STATE.crew = []; STATE.crewIncidents = []; STATE._crewMoraleCache = 1; }
   _syncCrewIdCounter();
@@ -15395,6 +15373,7 @@ function applySave(str){
   STATE.hubs   = (STATE.hubs||[]).filter(h => CITIES[h]);
   if (!CITIES[STATE.homeBase]) STATE.homeBase = STATE.hubs[0] || 'Chicago';
   if (!STATE.hubs.length) STATE.hubs = [STATE.homeBase];
+  if (window.AEResearchBoard) window.AEResearchBoard.applyMods();
   const doRender=()=>{
     document.getElementById('intro').classList.add('hidden');
     document.getElementById('setup').classList.add('hidden');

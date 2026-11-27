@@ -1,7 +1,7 @@
 /* RESEARCH_BOARD_v01 — Tech Board window, styled on the live sitewide skin tokens (neon-metallic
    --ae-nm-*: navy glass panels, cyan primary, purple for in-progress, teal for done, orange for upgrades).
    The window frame itself is left to the sitewide modal skin; this file lays out the inside.
-   Fixed-size (research_board_v01.js sets width/height + aeFixed); .rb-body scrolls inside. */
+   Fixed-size (systems/research.js sets width/height + aeFixed); .rb-body scrolls inside. */
 #modal-content.modal-research-board{
   display:flex!important;flex-direction:column!important;padding:0!important;overflow:hidden!important;
   color:var(--ae-nm-text,#f5f8ff);font-family:Inter,'Segoe UI',Arial,sans-serif;

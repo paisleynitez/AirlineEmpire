@@ -41,12 +41,38 @@
     if(hidden()){if(typeof window.dismissBanner==='function')window.dismissBanner();return false;}
     const overlay=document.getElementById('modal-overlay'),content=document.getElementById('modal-content');
     if(!overlay||!content){if(typeof window.dismissBanner==='function')window.dismissBanner();return false;}
-    if(typeof STATE!=='undefined'&&STATE.timerInterval)clearInterval(STATE.timerInterval);
+    if(typeof STATE!=='undefined'){ clearInterval(STATE.timerInterval); STATE.timerInterval=null; }
     content.innerHTML=build(data||{});
     content.classList.add('modal-wide','ops-report-modal');
     overlay.classList.add('open');
     open=true;
+    STATE._operationsReportOpen=true;
     return true;
+  }
+  // One report per completed period, called directly by the core turn.
+  function makeReportData(){
+    var flow=STATE._cashflow||{},hist=STATE._bannerHistory||{},routes=(STATE.routes||[]).slice();
+    var best=routes.length?routes.slice().sort(function(a,b){return (b.profit||0)-(a.profit||0);})[0]:null;
+    var watch=routes.length?routes.slice().sort(function(a,b){return (a.profit||0)-(b.profit||0);})[0]:null;
+    var flights=routes.reduce(function(s,r){return s+(Number(r.flights)||0);},0);
+    var seats=routes.reduce(function(s,r){var ac=AIRCRAFT[r.plane]||{};return s+(Number(r.flights)||0)*(Number(ac.seats)||0);},0);
+    var owned=Object.values(STATE.planes||{}).reduce(function(s,p){return s+(Number(p.owned)||0);},0);
+    var net=routes.reduce(function(s,r){return s+(Number(r.profit)||0);},0);
+    var revenue=(flow.inc||[]).reduce(function(s,x){return s+(Number(x[1])||0);},0);
+    var expenses=(flow.exp||[]).reduce(function(s,x){return s+(Number(x[1])||0);},0);
+    return {monthLabel:flow.label||'Period complete',revenue:revenue,expenses:expenses,profit:Number.isFinite(hist.profit)?hist.profit:(Number(flow.net)||0),cash:STATE.cash,passengers:Number(hist.pax)||0,routes:routes.length,flightsPerWeek:flights,seatsPerWeek:seats,aircraftOwned:owned,bestRoute:best,watchRoute:watch,runway:(net<0&&STATE.cash>=0)?Math.floor(STATE.cash/-net):Infinity,disruption:Number(STATE._monthDisruption)||0,groundedTypes:[]};
+  }
+  function present(profit, pax){
+    STATE._bannerHistory = {profit, pax};
+    if (STATE.gameOver) return false;
+    const opened = openOperationsReport(makeReportData());
+    STATE._operationsReportOpen = opened;
+    if (opened) STATE.paused = true;
+    return opened;
+  }
+  function reset(){
+    open = false;
+    if (typeof STATE !== 'undefined') STATE._operationsReportOpen = false;
   }
   function close(){
     const cb=document.getElementById('ops-report-hide');
@@ -54,9 +80,10 @@
     const overlay=document.getElementById('modal-overlay'),content=document.getElementById('modal-content');
     if(overlay)overlay.classList.remove('open');
     if(content){content.classList.remove('modal-wide','ops-report-modal');content.innerHTML='';}
-    open=false;
+    reset();
     if(typeof STATE!=='undefined')STATE.paused=false;
+    if(window.AEEndTurn) window.AEEndTurn.resumeClock();
     if(typeof window.dismissBanner==='function')window.dismissBanner();
   }
-  window.AEReports={openOperationsReport,close,isOpen:()=>open,resetPreference:()=>setHidden(false)};
+  window.AEReports={present,reset,openOperationsReport,close,isOpen:()=>open,resetPreference:()=>setHidden(false)};
 })();

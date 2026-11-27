@@ -2,7 +2,7 @@
    Research programs: paid in research points, take N months, one per level per track;
    level N unlocks only when levels 1..N-1 of the same track are complete.
    Upgrades: one-time cash purchases with monthly upkeep, each unlocked by one research program.
-   Effects are structured so research_board_v01.js can apply them to the live economy:
+   Effects are structured so systems/research.js can apply them to the live economy:
      fuel        fractional change to fuel burn            (ECON.fuelPerSeatMile)
      crew        fractional change to crew cost            (ECON.crewPerFlight / crewPerMile)
      maint       fractional change to all check costs      (MAINTENANCE_CHECKS.*.cost)
